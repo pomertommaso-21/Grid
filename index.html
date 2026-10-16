@@ -475,15 +475,25 @@ td.n{font-variant-numeric:tabular-nums}
  .nav .nv:hover{background:var(--soft)}
  .nav .nv.on{background:var(--yellow);color:var(--yellow-ink)}
  .dock{bottom:18px}
- .pane:has(>.pick){display:grid;grid-template-columns:minmax(0,1fr) minmax(380px,.92fr);column-gap:22px;row-gap:12px;align-items:start}
- .pane:has(>.pick)>*{grid-column:1}
- .pane:has(>.pick)>.ctx{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(120px,1fr) auto;gap:4px 18px;align-items:center}
+ .pane.dsk{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr);column-gap:22px;row-gap:12px;align-items:start}
+ .pane.dsk.nor{grid-template-columns:minmax(0,1fr)}
+ .pane.dsk>.ctx{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(120px,1fr) auto;gap:4px 18px;align-items:center}
+ .pane.dsk>.dL,.pane.dsk>.dR{display:flex;flex-direction:column;gap:12px;min-width:0}
+ .pane.dsk>.dL{grid-column:1}.pane.dsk>.dR{grid-column:2}
  .ctx>.sub{grid-column:1/-1;margin:0}
  .ctx>.strip{min-width:0}
  .ctx>.kick,.ctx>.legend{margin:0;white-space:nowrap}
- .pane:has(>.pick)>.pick{grid-column:2;position:sticky;top:84px;max-height:calc(100vh - 104px);overflow:auto;padding:2px 4px 2px 2px}
- .pane.solo:has(>.pick){display:flex}
- .pane.solo>.pick{max-width:780px;width:100%;margin:0 auto;position:static;max-height:none}
+ .dL .ph{margin-bottom:2px}
+ .dL .pick .opts{gap:10px}
+ .dR .nts{padding:10px 12px}
+ .dR .ntb{display:block;width:100%;background:none;border:0;padding:0;text-align:left;cursor:default;pointer-events:none;font-family:var(--body);color:var(--fg)}
+ .dR .ntb .ntc,.dR .ntb i{display:none}
+ .dR .ntt{display:block;font:700 10.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:4px}
+ .dR .nts .ntl{display:block}
+ .dR .nts .nti{background:none;border:0;border-top:1px solid var(--line);border-radius:0;margin:0;padding:6px 0;font-size:12.5px}
+ .dR .nts .nti:first-child{border-top:0}
+ .dR .chips.wl{margin:0}
+ .dR .rmc{margin:0}
  .kbh{display:block;text-align:center;font-size:11.5px;color:var(--mut);margin-top:2px}
  .kbh kbd{font:700 11px var(--body);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--panel);color:var(--fg)}
  .ph h1{font-size:28px}
@@ -500,6 +510,152 @@ td.n{font-variant-numeric:tabular-nums}
 }
 @media(max-width:999px){
  .pane:not(.r0) .ctx>.legend{display:none}
+}
+.bkt{width:100%;box-sizing:border-box;font:12px/1.35 ui-monospace,Menlo,monospace;background:var(--soft);color:var(--fg);border:1.5px solid var(--line);border-radius:10px;padding:8px;resize:vertical;word-break:break-all}
+.bkr{display:flex;flex-direction:column;gap:1px;margin-bottom:4px}
+.bkr small{color:var(--mut)}
+.bkm{margin:6px 0 0;font:600 13px var(--body)}
+.bkf{cursor:pointer;display:inline-flex}
+.slotr .btns{margin-top:2px}
+.hm{flex:none;display:block}
+.hud .hh{margin-left:-2px}
+.pdc .pdh{display:block;margin:0 auto 2px}
+.idrow .hp{margin-left:-4px}
+.helrow{display:flex;gap:14px;align-items:center}
+.help{flex:none;background:var(--soft);border-radius:14px;padding:8px}
+.helctl{display:flex;flex-direction:column;gap:4px;min-width:0}
+.helctl small{font:600 11px var(--body);color:var(--mut);letter-spacing:.04em;text-transform:uppercase}
+.sws{display:flex;flex-wrap:wrap;gap:6px}
+.sw{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw.on{border-color:var(--fg);box-shadow:0 0 0 2px var(--yellow)}
+/* grafici di carriera */
+.chgrid{display:grid;grid-template-columns:1fr;gap:14px}
+.chb{background:var(--soft);border-radius:14px;padding:10px 10px 4px}
+.chh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2px}
+.chh b{font-size:13px}
+.chk{font-size:11px;color:var(--mut);display:inline-flex;align-items:center;gap:4px;flex-wrap:wrap}
+.chk .k{display:inline-block;width:10px;height:3px;border-radius:2px;margin-left:6px}
+.chk .k.me{background:var(--btn-bg,#ffd23a);border:1px solid rgba(0,0,0,.25)}.chk .k.riv{background:var(--warn)}.chk .k.lead{background:var(--mut)}
+.chs{width:100%;height:auto;display:block}
+.chg{stroke:var(--line);stroke-width:1}
+.cht{fill:var(--mut);font-size:9px;font-family:inherit}.cht.b{fill:var(--fg);font-weight:700}
+.chl{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.chl.me{stroke:var(--fg)}.chl.riv{stroke:var(--warn);stroke-width:1.8}.chl.lead{stroke:var(--mut);stroke-width:1.5;stroke-dasharray:4 3}
+.chd.me{fill:var(--fg)}.chd{stroke:var(--panel);stroke-width:1.5}.chd.cur{stroke:var(--fg);stroke-width:2}
+@media (min-width:1000px){.chgrid{grid-template-columns:1fr 1fr}}
+/* mappa gara */
+.rmc{padding:8px 12px 6px;position:relative;overflow:hidden}
+.rmh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.rmh em{font-style:normal;font-weight:800}.rmh em.up{color:var(--green)}.rmh em.down{color:var(--warn)}
+.rmap{width:100%;height:auto;max-height:200px;display:block}
+.rmt0{fill:none;stroke:var(--mut);opacity:.5;stroke-width:3.8;stroke-linejoin:round}
+.rmt{fill:none;stroke:var(--panel);stroke-width:2.2;stroke-linejoin:round;stroke-dasharray:none}
+.rd{fill:var(--neutral);stroke:var(--panel);stroke-width:.5}
+.rd.ld{fill:var(--amber)}.rd.ah{fill:var(--warn)}.rd.bh{fill:#4d8dff}
+.rd.me{stroke:#fff;stroke-width:1.2;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.6))}
+.slt{position:absolute;right:12px;top:8px;display:flex;gap:4px;background:#0b1224;padding:4px 6px;border-radius:8px}
+.slt i{width:9px;height:9px;border-radius:50%;background:#3a1216;animation:slon 2.2s steps(1,end) both}
+.slt i:nth-child(1){animation-delay:.1s}.slt i:nth-child(2){animation-delay:.4s}.slt i:nth-child(3){animation-delay:.7s}.slt i:nth-child(4){animation-delay:1s}.slt i:nth-child(5){animation-delay:1.3s}
+@keyframes slon{0%{background:#3a1216}1%,70%{background:#ff2b2b;box-shadow:0 0 6px #ff2b2b}100%{background:#3a1216;box-shadow:none}}
+/* podio che sale + bandiera a scacchi */
+.pdb{transform-origin:50% 100%;animation:rise .7s cubic-bezier(.2,.9,.3,1.1) both}
+.pdc:nth-child(1) .pdb{animation-delay:.05s}.pdc:nth-child(2) .pdb{animation-delay:.2s}.pdc:nth-child(3) .pdb{animation-delay:.35s}
+@keyframes rise{from{transform:scaleY(.05);opacity:.4}to{transform:none;opacity:1}}
+.hero.h-win::before,.hero.h-pod::before{content:"";position:absolute;right:-6px;top:0;bottom:0;width:54px;opacity:.28;background:conic-gradient(#fff 25%,transparent 0 50%,#fff 0 75%,transparent 0) 0 0/14px 14px;animation:flag .9s ease-out both;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 50%);mask-image:linear-gradient(90deg,transparent,#000 50%)}
+@keyframes flag{from{transform:translateX(60px)}to{transform:none}}
+/* tema + pulsante */
+.thm{display:none}
+@media (min-width:1000px){.thm{display:flex;position:fixed;left:16px;bottom:16px;width:180px;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--mut);font:600 13px var(--body);cursor:pointer;z-index:5}.thm:hover{color:var(--fg)}.thm .ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}}
+:root[data-theme="notte"]{--bg:#000;--panel:#07090f;--soft:#10162a;--line:#1b2340;--fg:#eef1f9;--mut:#8f9ab8;--plate:#1d2a52;--btn-bg:#ffd23a;--btn-fg:#0d1b3d;--me:#3a3210;--purple:#a78bfa;--green:#34d399;--amber:#fbbf24;--warn:#f87171;--neutral:#3a4468;--good-bg:#0e2b1f;--shadow:none;color-scheme:dark}
+@media (prefers-reduced-motion:reduce){.slt i,.pdb,.hero::before{animation:none!important}.slt i{background:#ff2b2b}}
+@media (max-width:999px){.rmap{max-height:116px}.rmc{padding:6px 12px 4px}}
+/* regolamenti */
+.rgc .rgb{padding:8px 0;border-top:1px solid var(--line)}.rgc .rgb:first-of-type{border-top:0}
+.rgt{font-size:14px}
+.rgg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rgg div{background:var(--soft);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.rgg small{color:var(--mut);font-size:11px}.rgg b{font-size:13px}
+.rgs{animation:in .3s ease-out}
+.rgh{display:flex;flex-direction:column;gap:1px;padding:7px 0;border-top:1px solid var(--line);font-size:13px}.rgh:first-of-type{border-top:0}
+@media (max-width:560px){.rgg{grid-template-columns:1fr}}
+.ghost.sm.on{background:var(--btn-bg);color:var(--btn-fg);border-color:transparent}
+@media (max-width:560px){.rgg div{flex-direction:row;justify-content:space-between;align-items:baseline;padding:6px 10px}}
+/* desktop: scheda pilota e pannello live */
+.sbp,#live{display:none}
+@media (min-width:1000px){
+ .hud{display:none}
+ .nav>*{max-width:none}
+ .sbp{display:block;width:100%;box-sizing:border-box;margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+ .sbh{display:flex;align-items:center;gap:8px}
+ .sbh .hh{flex:none}.sbh .plate{flex:none}
+ .sbn{display:flex;flex-direction:column;min-width:0;line-height:1.3;margin-top:8px}.sbn b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sbn small{font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .sbs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;margin-top:10px}
+ .sbs span{background:var(--soft);border-radius:8px;padding:5px 6px;display:flex;flex-direction:column;align-items:center}.sbs small{font-size:10px;color:var(--mut)}.sbs b{font:800 16px var(--display)}
+ .pick .ch{transition:transform .12s,border-color .12s,box-shadow .12s}
+ .pick .ch:hover{transform:translateY(-1px);border-color:var(--btn-bg);box-shadow:0 4px 14px rgba(0,0,0,.08)}
+ button:focus-visible,.ch:focus-visible{outline:2px solid var(--btn-bg);outline-offset:2px}
+}
+@media (min-width:1500px){
+ body{padding-right:calc(300px + 40px)}
+ #live{display:block;position:fixed;right:20px;top:14px;width:290px;max-height:calc(100vh - 28px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13px}
+ #live:empty{display:none}
+ .lvt{font:800 13px var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+ .lvr{display:flex;align-items:center;gap:7px;padding:5px 6px;border-radius:8px}.lvr.me{background:var(--me)}.lvr.gap{color:var(--mut);justify-content:center;padding:0}
+ .lvp{width:16px;text-align:right;color:var(--mut);font-weight:700}.lvn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .lvg{margin:6px 0 10px;color:var(--mut)}
+ .lvl{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}.lvl small,.lvm small{color:var(--mut);font-size:11px}.lvl b{font:800 18px var(--display)}
+ .lvm{display:flex;flex-direction:column;gap:2px;padding-top:8px;border-top:1px solid var(--line)}.lvm svg{width:100%;height:auto;max-height:100px}
+}
+
+/* weekend · telefono: scelte per prime */
+.nts{padding:0}
+.ntb{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;padding:8px 10px;text-align:left;font-family:var(--body);color:var(--fg);cursor:pointer}
+.ntt{display:none}
+.ntc{display:flex;flex-wrap:wrap;gap:4px;flex:1;min-width:0}
+.ntc span{font:600 11.5px var(--body);padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--fg);white-space:nowrap}
+.ntb i{font:600 11.5px var(--body);font-style:normal;color:var(--mut);text-decoration:underline;flex:none}
+.ntb i::after{content:"Dettagli"}.nts.open .ntb i::after{content:"Chiudi"}
+.ntl{display:none;padding:0 10px 8px}
+.nts.open .ntl{display:block}
+.nts .nti{margin:4px 0 0}
+@media(max-width:999px){
+ .pane.dec>*{order:9}
+ .pane.dec>.ctx{order:0}.pane.dec>.ph{order:1}.pane.dec>.sit{order:2}.pane.dec>.nts{order:3}.pane.dec>.brf{order:4}.pane.dec>.wnc{order:5}.pane.dec>.urg{order:5}.pane.dec>.pick{order:6}
+ .ctx>.sub{display:none}
+ .pane.dec .nts.card,.pane.dec .brf.fold{padding:0}
+ .pane.dec .brf.fold:not(.open){padding:6px}
+ .pick .ch .od{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ .wnc .sech small{display:none}
+ .pane.dec{gap:8px}
+}
+@media(max-width:999px){
+ .wnc{padding:8px 10px}.wnc>.sech{display:none}
+ .win{padding:6px 8px}
+}
+@media(max-width:999px){.chip.mhide{display:none}}
+.twh{display:none!important}.twb{margin-top:6px}
+@media(min-width:1000px){
+ .pane.dec:not(.dsk){max-width:900px}
+ .pane.dec:not(.dsk)>.ctx{display:grid;grid-template-columns:auto minmax(120px,1fr) auto;gap:4px 18px;align-items:center}
+}
+@media(min-width:1000px){
+ .wrap>.pane,.wrap>.cl,.wrap>section,.wrap>.card{margin-left:auto;margin-right:auto}
+ .pane.dec:not(.dsk),.pane.t-grid,.pane.t-standings,.cl{margin-left:auto;margin-right:auto;width:100%}
+}
+@media(min-width:1000px){
+ .pane.t-panel>.subt{column-span:all}
+ .pane.t-panel>.card:has(>.achg){column-span:all}
+ .pane.t-panel .achg{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .pane.t-panel .ach{padding:9px 12px;font-size:13px}
+}
+@media(min-width:1300px){.pane.t-panel .achg{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:1000px){
+ .pane.t-panel>.card:has(>.v3pl){column-span:all}
+ .pane.t-panel .v3pl{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(min-width:1300px){.pane.t-panel .v3pl{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1000px){
+ .wrap>.pane,.wrap>.cl,.wrap>section,.wrap>.card{width:100%;box-sizing:border-box}
 }
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
@@ -889,7 +1045,7 @@ function newCareer0(){
   const st=STYLES[ID.style];
   S={phase:'offers',tab:'decide',first:true,name:ID.name.trim(),num:ID.num,nat:ID.nat,style:ID.style,age:16,year:2027,tier:0,teamRank:0,teamName:'',st:{...st.st},fama:8,team:50,carBonus:0,dev:0,teams:null,rivals:[],
      career:{races:0,wins:0,pod:0,pts:0,dnf:0,titles:0,champs:[],cat:[0,1,2,3].map(()=>({r:0,w:0,p:0,pt:0,d:0,t:0}))},rsch:ruleSched(2027),rl:{},goal:'camp',diff:1,ach:{},af:{},hist:[],evSeen:[],usedR:[],step:0,steps:[],raceNo:0,strip:[],cal:[],me:{pts:0,wins:0,pod:0,dnf:0},cur:null,last:null,ev:null,sum:null,lastPos:20,pri:50,pool:null,mkt:[],reg:'',med:50,fol:2,hall:[[],[],[],[]],cals:null,best:{sw:0,yc:99,cs:0},tr:newTr(),recs:initRecs(),hofCat:3,rs:[],soc:30,jr:{fer:50,oko:50,bra:50},feed:[],tag:'',streak:0,dp:0,devMsg:'',crowns:[],gp:pickGP(),code:ID.code||'',gen:1,ck:{},oh:{}};
-  applyHeir();initPool();S.offers=makeOffers();
+  S.helm=ID.helm?{...ID.helm}:autoHelm(ID.name);applyHeir();initPool();S.offers=makeOffers();
   save();render();
 }
 
@@ -920,7 +1076,7 @@ function newSeason(){
   S.sk=null;
   const T=TIERS[S.tier];
   const rg=regOf(S.year,S.tier);
-  S.teams=T.teams.map((n,i)=>({name:n,rank:i,car:carNext(S.tier,i,rg)}));S.reg=rg?rg[0]:'';if(rg)S.teams.forEach(x=>x.car+=gauss()*rg[1]);applyRules();
+  S.teams=T.teams.map((n,i)=>({name:n,rank:i,car:carNext(S.tier,i,rg)}));S.reg=rg?rg[0]:'';if(rg)regApply(rg);applyRules();
   S.rivals=[];
   for(let t=0;t<T.teams.length;t++){
     S.pool[S.tier].filter(d=>d.t===t).sort((a,b)=>b.o-a.o).slice(0,t===S.teamRank?1:2).forEach(d=>S.rivals.push({n:d.n,t,skill:d.o,age:d.a,pts:0,w:0}));
@@ -2090,7 +2246,7 @@ function qualiView(){
   <div class="btns"><button class="ghost" data-act="qauto">Lascia decidere al muretto</button></div>`;
 }
 /* ---------- Crescita gara dopo gara ---------- */
-let LAM=.8;let GK=1.3;
+let LAM=.8;let GK=1.15;
 function seasonBase(){
   const young=S.age<=24,prime=S.age<=32,sd={};
   Object.keys(S.st).forEach(k=>{
@@ -2593,7 +2749,7 @@ function hofAdd(){
   if(c.titles>mx('t')&&c.titles>0)rec.push('Più titoli: '+c.titles);
   if(c.wins>mx('w')&&c.wins>0)rec.push('Più vittorie: '+c.wins);
   if(c.pod>mx('p')&&c.pod>0)rec.push('Più podi: '+c.pod);
-  const e={n:S.name,num:S.num,nat:S.nat,t:c.titles,w:c.wins,p:c.pod,pt:c.pts,r:c.races,s:S.hist.length,top:Math.max(0,...S.hist.map(h=>h.tier)),ep:epithet(),y0:S.hist.length?S.hist[0].y:S.year,y1:S.hist.length?S.hist[S.hist.length-1].y:S.year,gen:S.gen||1,mt:S.mentor?S.mentor.n:'',bs:best?TIERS[best.tier].k+' '+best.y+' · '+best.pos+'°':''};
+  const e={n:S.name,h:S.helm||null,num:S.num,nat:S.nat,t:c.titles,w:c.wins,p:c.pod,pt:c.pts,r:c.races,s:S.hist.length,top:Math.max(0,...S.hist.map(h=>h.tier)),ep:epithet(),y0:S.hist.length?S.hist[0].y:S.year,y1:S.hist.length?S.hist[S.hist.length-1].y:S.year,gen:S.gen||1,mt:S.mentor?S.mentor.n:'',bs:best?TIERS[best.tier].k+' '+best.y+' · '+best.pos+'°':''};
   a.push(e);a.sort((x,y)=>hofScore(y)-hofScore(x));
   S.hofRank=a.indexOf(e)+1;S.hofN=a.length;S.hofNew=rec;
   hofSave(a);
@@ -2606,7 +2762,7 @@ function hofView(){
   const a=hofLoad();
   const rec=(lab,k)=>{const b=a.slice().sort((x,y)=>(y[k]||0)-(x[k]||0))[0];return b&&b[k]?`<div><b>${b[k]}</b><span>${lab} · ${esc(b.n)}</span></div>`:''};
   const recs=a.length?`<section class="card"><div class="sech">Record</div><div class="dl" style="grid-template-columns:repeat(2,minmax(0,1fr))">${rec('Titoli F1','t')}${rec('Vittorie','w')}${rec('Podi','p')}${rec('Gare','r')}</div></section>`:'';
-  const list=a.length?a.map((x,i)=>`<section class="card"><div class="idrow"><div class="plate sm">${esc(x.num)}</div><div class="idtxt"><h2>${flag(x.nat)} ${esc(x.n)}</h2><div class="sub">${esc(x.ep)} · ${x.y0}–${x.y1}${x.gen>1?' · generazione '+x.gen:''}</div></div></div>
+  const list=a.length?a.map((x,i)=>`<section class="card"><div class="idrow"><div class="plate sm">${esc(x.num)}</div>${helmetSvg(x.h||autoHelm(x.n),46,'hp')}<div class="idtxt"><h2>${flag(x.nat)} ${esc(x.n)}</h2><div class="sub">${esc(x.ep)} · ${x.y0}–${x.y1}${x.gen>1?' · generazione '+x.gen:''}</div></div></div>
    <div class="dl" style="grid-template-columns:repeat(4,minmax(0,1fr))"><div><b>${x.t}</b><span>Titoli</span></div><div><b>${x.w}</b><span>Vitt.</span></div><div><b>${x.p}</b><span>Podi</span></div><div><b>${x.s}</b><span>Stagioni</span></div></div>
    ${x.bs?`<p class="sub" style="margin-top:6px">Stagione migliore: ${esc(x.bs)}${x.mt?' · pupillo di '+esc(x.mt):''}</p>`:''}</section>`).join(''):'<p class="empty">Nessun pilota ancora. Quando una carriera finisce, il pilota entra qui, anche se hai ricominciato da capo.</p>';
   return `<div class="ph" style="padding-top:6px"><div class="kick">Archivio</div><h1>Hall of Fame</h1><p>I piloti di tutte le tue carriere, ordinati per risultati.</p></div>${recs}${list}
@@ -3315,8 +3471,8 @@ function careerCanvas(){
   g.fillStyle=Y;g.font='800 32px '+IMGF;g.fillText('GRIGLIA DI PARTENZA',60,100);
   g.fillStyle=Y;rr(60,140,190,130,22);g.fill();
   g.strokeStyle='#0d1b3d';g.lineWidth=5;rr(70,150,170,110,14);g.stroke();
-  g.fillStyle='#0d1b3d';g.textAlign='center';g.font='800 92px '+IMGF;g.fillText(String(S.num),155,232);
-  g.textAlign='left';g.fillStyle='#ffffff';fit(S.name,740,84,800);g.fillText(S.name,290,205);
+  g.fillStyle='#0d1b3d';g.textAlign='center';g.font='800 92px '+IMGF;g.fillText(String(S.num),155,232);try{helmetCanvas(g,860,52,150,helmOf())}catch(e){}
+  g.textAlign='left';g.fillStyle='#ffffff';fit(S.name,560,84,800);g.fillText(S.name,290,205);
   g.fillStyle='#9ba6c2';g.font='600 34px '+IMGF;
   const yrs=S.hist.length?S.hist[0].y+' – '+S.hist[S.hist.length-1].y:String(S.year);
   g.fillText((natName(S.nat)||'')+' · '+yrs,292,255);
@@ -3363,7 +3519,7 @@ async function shareImg(dl){
 function podiumCard(L){
   const R=(L.rows||[]).filter(r=>!r.dnf).slice(0,3);
   const me=(L.rows||[]).find(r=>r.me);
-  const col=(r,k,h)=>`<div class="pdc${r.me?' me':''}"><div class="pdn">${esc(r.n)}</div><div class="pdt" style="--c:${hue(S.tier,r.t)}">${esc(TIERS[S.tier].teams[r.t])}</div><div class="pdb" style="height:${h}px"><b>${k}</b></div></div>`;
+  const col=(r,k,h)=>`<div class="pdc${r.me?' me':''}">${helmetFor(r,26)}<div class="pdn">${esc(r.n)}</div><div class="pdt" style="--c:${hue(S.tier,r.t)}">${esc(TIERS[S.tier].teams[r.t])}</div><div class="pdb" style="height:${h}px"><b>${k}</b></div></div>`;
   const hero={win:['VITTORIA','h-win'],pod:['PODIO','h-pod'],dnf:['RITIRO','h-dnf'],pts:['A PUNTI','h-neu'],none:['SENZA PUNTI','h-neu']}[L.kind]||['WEEKEND','h-neu'];
   const pole=me&&me.g===1&&!me.dnf?' · Pole':'';
   const strip=`<div class="hero ${hero[1]}"><span>${hero[0]}</span><small>${L.sim?'Simulato · ':''}${S.round}/${S.total} · ${esc(L.circuit)} · ${L.dnf?'fuori gara':'P'+L.pos}${pole}</small>${L.kind==='win'?'<i></i><i></i><i></i><i></i><i></i><i></i>':''}</div>`;
@@ -3450,6 +3606,13 @@ function act(a,i,v){
 }
 function act0(a,i,v){
   const raw=i;i=+i;
+  if(a.slice(0,2)==='bk'){bkAct(a,raw,v);return}
+  if(a==='thm'){thCycle();return}
+  if(a==='nto'){NTO=!NTO;KP=true;render();return}
+  if(a==='two'){TWO=!TWO;KP=true;render();return}
+  if(a==='rgf'){regAct(v);return}
+  if(a==='rgx'){if(S&&S.regInfo){S.regInfo.seen=1;save()}KP=true;render();return}
+  if(a==='ccard'){cardNow();return}
   if(a==='hofv'){VIEW='hof';render();return}
   if(a==='tf'){S.tf=(S.tf===v)?null:v;save();render();return}
   if(a==='gencode'){ID.code=genCode();const e=document.getElementById('cd');if(e)e.value=ID.code;return}
@@ -3457,8 +3620,8 @@ function act0(a,i,v){
   if(a==='cpres'){copyTxt('Griglia di Partenza · '+(S.code?'codice '+S.code+' · ':'')+abbr(S.name)+': '+S.career.titles+' titoli, '+S.career.wins+' vittorie, '+S.career.pod+' podi\n'+resTok(),'Risultato copiato');return}
   if(a==='cmp'){let t=null;try{t=typeof prompt==='function'?prompt('Incolla il risultato del tuo amico:'):null}catch(e){}if(t){const fr=readTok(t);if(fr){S.cmp=fr;if(S.phase!=='ending')save();render()}else flash('Risultato non valido')}return}
   if(a==='vibt'){VIBON=!VIBON;try{localStorage.setItem('gdp_vib',VIBON?'1':'0')}catch(e){}if(VIBON)vib('pod');render();return}
-  if(a==='heir'){const H=heirCalc();ID.sn=pick(SURN.filter(x=>x!==S.name));ID.fn='';ID.name=ID.sn;ID.num=H.num;ID.nat=H.nat;ID.style=-1;ID.heir=H;ID.code=H.code;S=null;VIEW='identity';render();return}
-  if(a==='new'){ID.heir=null;ID.code='';const fr=slotsAll().find(x=>!x.d||x.d.phase==='ending');if(!fr){if(typeof alert==='function')alert('Hai già 3 carriere salvate: elimina una con la X per iniziarne un\'altra.');return}SLOT=fr.n;VIEW='identity';render();return}
+  if(a==='heir'){const H=heirCalc();ID.sn=pick(SURN.filter(x=>x!==S.name));ID.fn='';ID.name=ID.sn;ID.num=H.num;ID.nat=H.nat;ID.style=-1;ID.heir=H;ID.code=H.code;ID.helm=S.helm?{...S.helm}:null;S=null;VIEW='identity';render();return}
+  if(a==='new'){ID.heir=null;ID.code='';ID.helm=null;const fr=slotsAll().find(x=>!x.d||x.d.phase==='ending');if(!fr){if(typeof alert==='function')alert('Hai già 3 carriere salvate: elimina una con la X per iniziarne un\'altra.');return}SLOT=fr.n;VIEW='identity';render();return}
   if(a==='delslot'){if(typeof confirm==='function'&&!confirm('Eliminare questa carriera?'))return;wipe(i);render();return}
   if(a==='home'){if(S&&S.phase!=='ending')save();S=null;ID.heir=null;VIEW='home';render();return}
   if(a==='restart'){if(typeof confirm==='function'&&!confirm('Vuoi ricominciare da capo? La carriera attuale verrà cancellata.'))return;wipe();S=null;VIEW='identity';render();return}
@@ -3470,6 +3633,7 @@ function act0(a,i,v){
   if(a==='lore'){S.lore=(v&&S.lore!==v)?v:'';sheetUpdate();return}
   if(a==='save'){shareImg(true);return}
   if(a==='back'){ID.heir=null;VIEW='home';render();return}
+  if(a==='hl'){helmAct(v);return}
   if(a==='nat'){ID.nat=v;refreshId();return}
   if(a==='style'){ID.style=i;refreshId();return}
   if(a==='confirm'){if(idReady())newCareer();return}
@@ -3634,8 +3798,8 @@ function homeView(){
   <div class="links">
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
-  ${hofLink()}</div>
-  <p class="foot">Versione 16/10 · 18:00</p></div>`;
+  ${hofLink()}${bkLink()}${thLink()}</div>
+  <p class="foot">Versione 16/10 · 19:24</p></div>`;
 }
 
 function identityView(){
@@ -3655,7 +3819,7 @@ function identityView(){
   <section class="card"><div class="sech"><span class="stepn">3</span>Stile di guida</div>
    <div class="opts">${STYLES.map((s,i)=>`<button class="ch${ID.style===i?' sel':''}" data-act="style" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${s.k}</span><span class="od">${s.d}</span></span></button>`).join('')}</div>
   </section>
-  ${codeCard()}
+  ${helmCard()}${codeCard()}
   <div class="dock"><button class="back" data-act="back">Indietro</button><button class="go yel" id="cf" data-act="confirm" ${idReady()?'':'disabled'}>Conferma pilota</button></div>`;
 }
 
@@ -3665,7 +3829,7 @@ function hudView(){
   if(S.teams&&!S.first){
     T=`<span class="pos">${S.me.pts} pt</span> · ${dot(S.tier,S.teamRank)}${esc(S.teamName)}`;
   }
-  return `<header class="hud"><span class="plate xs">${esc(S.num)}</span><span class="hn"><span class="h1"><b>${esc(abbr(S.name))}</b><small>${S.age} anni</small></span><small>${T}</small></span>${S.teams&&!S.first?`<span class="ovr age"><small>VET</small><b>${Math.round(S.teams[S.teamRank].car+S.carBonus)}</b></span>`:''}<span class="ovr"><small>PILOTA</small><b>${o}</b></span></header>`;
+  return `<header class="hud"><span class="plate xs">${esc(S.num)}</span>${helmetSvg(helmOf(),30,'hh')}<span class="hn"><span class="h1"><b>${esc(abbr(S.name))}</b><small>${S.age} anni</small></span><small>${T}</small></span>${S.teams&&!S.first?`<span class="ovr age"><small>VET</small><b>${Math.round(S.teams[S.teamRank].car+S.carBonus)}</b></span>`:''}<span class="ovr"><small>PILOTA</small><b>${o}</b></span></header>`;
 }
 function tabsView(){
   const T=[['panel','Pilota',ico('user')],['decide','Weekend',ico('wk')],['grid','Griglia',ico('grid')],['media','Media',ico('news')],['recap','Stagioni',ico('cal')],['standings','Classifica',ico('cup')]];
@@ -3683,14 +3847,14 @@ function panelView(){
   const SUB=[['pro','Profilo'],['car','Carriera'],['pis','Piste'],['per','Persone'],['tra','Traguardi'],['par','Partita']];
   const menu=`<div class="subt">${SUB.map(x=>`<button class="ghost${x[0]===pt?' on':''}" data-act="pt" data-v="${x[0]}">${x[1]}</button>`).join('')}</div>`;
   let body='';
-  if(pt==='pro')body=`<section class="card"><div class="idrow"><div class="plate sm">${esc(S.num)}</div><div class="idtxt"><h2>${esc(S.name)}</h2><div class="sub">${flag(S.nat)} ${esc(natName(S.nat))} · ${S.age} anni · ${STYLES[S.style].k}</div></div></div>
+  if(pt==='pro')body=`<section class="card"><div class="idrow"><div class="plate sm">${esc(S.num)}</div>${helmetSvg(helmOf(),46,'hp')}<div class="idtxt"><h2>${esc(S.name)}</h2><div class="sub">${flag(S.nat)} ${esc(natName(S.nat))} · ${S.age} anni · ${STYLES[S.style].k}</div></div></div>
   <div class="sub">${hasT?esc(S.teamName)+' · '+TIERS[S.tier].n+' · obiettivo: primi '+goal:'In cerca di un sedile'}</div>${heirRow()}${ctRow()}
   <div class="srs">${ageRow()}${srow('Talento',S.st.talento,'','giri ispirati e qualifiche'+dTxt('talento'))}${srow('Ritmo',S.st.ritmo,'','passo gara e sorpassi'+dTxt('ritmo'))}${srow('Costanza',S.st.costanza,'','meno errori e ritiri'+dTxt('costanza'))}${srow('Tecnica',S.st.tecnica,'','sviluppo vettura, scelte tecniche'+dTxt('tecnica'))}${srow('Forma',((S.mo||0)+1)*50,'',moLbl())}${tfRow()}${srow('Fama',S.fama,'','fiducia e offerte migliori')}${hasT?srow('Squadra',S.team,'','priorità nello sviluppo'):''}${hasT?srow('Muretto',mf(),'','guida le gare che non decidi tu'):''}${hasT?srow('Status',S.pri,'',['alla pari col compagno','Pilota 1: +1.2 al passo, pareri pesanti','Pilota 2: −1.0 al passo, pareri leggeri'][stS()]):''}${hasT?srow('Vettura OVR',S.teams[S.teamRank].car+S.carBonus,'car','il mezzo che guidi'):''}</div>${smLine()}</section>${traitCard()}`;
-  else if(pt==='car')body=`<section class="card"><div class="sech">Carriera</div>${careerBlocks()}</section>${mentorCard()}`;
+  else if(pt==='car')body=`<section class="card"><div class="sech">Carriera</div>${careerBlocks()}</section>${chartsCard()}${regHist()}${mentorCard()}`;
   else if(pt==='pis')body=pisteCard();
   else if(pt==='per')body=mateCard()+engCard()+rivCard();
   else if(pt==='tra')body=achCard();
-  else body=`<section class="card"><div class="sech">Partita</div><div class="btns"><button class="back" data-act="home">${ico('home')} Torna alla home</button><button class="ghost" data-act="restart">Ricomincia da capo</button></div><p class="sub">Difficoltà: <b>${DIFF[S.diff==null?1:S.diff][0]}</b> · la carriera si salva da sola: dalla home puoi riprenderla.</p></section>${shareCard()}${vibCard()}`;
+  else body=`<section class="card"><div class="sech">Partita</div><div class="btns"><button class="back" data-act="home">${ico('home')} Torna alla home</button><button class="ghost" data-act="restart">Ricomincia da capo</button>${bkBtns()}${thBtn()}</div><p class="sub">Difficoltà: <b>${DIFF[S.diff==null?1:S.diff][0]}</b> · la carriera si salva da sola: dalla home puoi riprenderla.</p></section>${shareCard()}${vibCard()}`;
   return menu+body;
 }
 
@@ -3799,7 +3963,7 @@ function decideView(){
   }else if(p==='seasonEnd'){
     const m=S.sum;
     h+=`<div class="ph"><h1>${m.champ?(S.tier===3?'Campione del mondo':'Campione di '+T.n):'Chiudi al '+m.pos+'° posto'}</h1><p>Stagione ${S.year} · ${T.n} · ${S.me.pts} punti, ${S.me.wins} vittorie, ${S.me.pod} podi.</p></div>
-    ${storyCard()}${recNewCard(S.rs)}<section class="card"><div class="sech">Crescita della stagione</div>${m.gm?`<p class="sub" style="margin:0 0 6px">${esc(m.gm)}</p>`:''}${chips(m.gain)}${tower(m.rows,'season')}</section>
+    ${storyCard()}${recNewCard(S.rs)}${regPreview()}<section class="card"><div class="sech">Crescita della stagione</div>${m.gm?`<p class="sub" style="margin:0 0 6px">${esc(m.gm)}</p>`:''}${chips(m.gain)}${tower(m.rows,'season')}</section>
     <div class="dock"><button class="go" data-act="toOffers">${S.age>=39?'Chiudi la carriera →':'Vedi i contratti →'}</button></div>`;
   }
   return h;
@@ -3820,7 +3984,7 @@ function endingView(){
 
 function render(){
   const kp=KP,y0=kp?(window.pageYOffset||0):0;KP=false;let h='';
-  if(!S)h=VIEW==='hof'?hofView():VIEW==='identity'?identityView():homeView();
+  if(!S)h=VIEW==='hof'?hofView():VIEW==='bk'?bkView():VIEW==='identity'?identityView():homeView();
   else if(S.phase==='ending')h=endingView();
   else h=hudView()+'<div class="pane t-'+S.tab+' p-'+S.phase+(S.round<2?' r0':'')+'">'+(S.tab==='panel'?panelView():S.tab==='grid'?gridView():S.tab==='media'?mediaView():S.tab==='recap'?recapView():S.tab==='standings'?standView():decideView())+'</div>'+tabsView();
   const app=document.getElementById('app');
@@ -4299,7 +4463,7 @@ function actView(){
   const O=actOpts(e,n);
   const past=rc.lg.length?`<div class="chips">${rc.lg.map(l=>`<span class="chip ${l.g>0?'up':l.g<0?'down':''}">${ACTN[l.a]}: ${esc(l.t)}</span>`).join('')}</div>`:'';
   return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)} · ${ACTN[n]}</div><h1>${e.t}</h1><p>${x}</p></div>
-  ${mainBanner()}${actSit()}${wkLine()}${past}
+  ${mainBanner()}${actSit()}${raceMap()}${wkLine()}${past}
   <div class="opts">${O.map((o,i)=>{const rk=o.risk>=.04?2:o.risk>=.02?1:0;return `<button class="ch" data-act="ac" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.tr?o.tr.e+' ':''}${o.t}</span><span class="od">${o.d}</span><span class="tags"><span class="tg r${rk}">Rischio ${['basso','medio','alto'][rk]}</span>${o.tr?`<span class="tg hint">${o.tr.n}</span>`:''}${rc.h===i&&!o.tr?`<span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span>`:''}</span></span></button>`}).join('')}</div>
   ${w.tk>0&&rc.h==null&&e.ctx?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'}</button></div>`:''}
   <div class="btns"><button class="ghost" data-act="auto">Simula il resto della stagione</button></div>`;
@@ -4579,6 +4743,12 @@ function csTrack(cn,me,pts){
   upd(S.cs[cn]||(S.cs[cn]={r:0,w:0,p:0,pl:0,b:99,d:0,pt:0}));
   const c=S.cx[k]||(S.cx[k]={t:S.tier,c:cn,r:0,w:0,p:0,pl:0,b:99,d:0,pt:0});
   upd(c);
+  /* grafici: punti cumulati della stagione e istogramma dei piazzamenti */
+  if(S.spY!==S.year){S.sp=[];S.spY=S.year}
+  {const rv=S.riv&&(S.rivals||[]).find(r=>r.n===S.riv.n);
+   const ld=Math.max(S.me.pts||0,...(S.rivals||[]).map(r=>r.pts||0));
+   S.sp.push({a:S.me.pts||0,b:rv?rv.pts||0:null,l:ld});S.spR=rv?rv.n:(S.spR||null);
+   S.pl=S.pl||{};const pt=S.pl[S.tier]||(S.pl[S.tier]={});const kk=me.dnf?'R':me.pos;pt[kk]=(pt[kk]||0)+1}
   c.rl=(c.rl||[]);
   if(was&&was.hl>0&&devR>=.05){
     /* maledizione spezzata */
@@ -5150,7 +5320,7 @@ function actSit(){
   const win=S.sw&&S.sw.win?`<span class="chip">Sosta ${({early:'presto',std:'standard',late:'tardi'})[S.sw.win]}</span>`:'';
   const dl=rc.n>0&&d?`<span class="chip ${d>0?'up':'down'}">${d>0?'▲ +'+d:'▼ −'+(-d)} rispetto a prima</span>`:'';
   const lg=(S.round<4&&(gp1||gp2))?`<p class="sub" style="margin:2px 0 0"><b>Davanti</b> e <b>Dietro</b> sono i distacchi dalle auto vicine: in verde sotto 1 s puoi attaccare, in rosso sotto 1 s sei sotto attacco.</p>`:'';
-  return `<div class="chips wl"><span class="chip pt">Atto ${rc.n+1} di 3</span><span class="chip">Partenza P${gp}</span><span class="chip ${d>0?'up':d<0?'down':''}">Ora P${est}</span>${dl}${gp1}${gp2}<span class="chip">${ico('tyre','fl')} Gomme ${ty}</span><span class="chip">${tl}</span>${win}</div>${lg}${rc.n===2?'<p class="sub" style="margin:2px 0 0">Ultimo atto: la gara è quasi decisa, qui si guadagna o si perde al massimo una o due posizioni.</p>':''}`;
+  return `<div class="chips wl"><span class="chip pt">Atto ${rc.n+1} di 3</span><span class="chip${rc.n>0?' mhide':''}">Partenza P${gp}</span><span class="chip ${d>0?'up':d<0?'down':''}">Ora P${est}</span>${dl}${gp1}${gp2}<span class="chip">${ico('tyre','fl')} Gomme ${ty}</span><span class="chip">${tl}</span>${win}</div>${lg}${rc.n===2?'<p class="sub" style="margin:2px 0 0">Ultimo atto: la gara è quasi decisa, qui si guadagna o si perde al massimo una o due posizioni.</p>':''}`;
 }
 
 /* =====================================================================
@@ -5457,16 +5627,20 @@ function uiPost(){
     if(b.classList.contains('fold'))return;
     const tiles=[...b.querySelectorAll('.bt')];
     if(!tiles.length)return;
-    const sm=tiles.map(t=>{const l=t.querySelector('.bl'),v=t.querySelector('b');return l&&v?'<span><small>'+l.textContent.trim()+'</small> '+v.textContent.trim()+'</span>':''}).join('');
+    const sm=tiles.slice(0,4).map(t=>{const l=t.querySelector('.bl'),v=t.querySelector('b');return l&&v?'<span><small>'+l.textContent.trim()+'</small> '+v.textContent.trim()+'</span>':''}).join('');
     const tk=b.querySelector('.tk i.on');
     const n=b.querySelectorAll('.tk i.on').length;
     const btn=document.createElement('button');
     btn.className='brs';btn.dataset.act='bo';
-    btn.innerHTML='<span class="brc">'+sm+(b.querySelector('.tk')?'<span><small>Consulti</small> '+n+'</span>':'')+'</span><i></i>';
+    btn.innerHTML='<span class="brc">'+sm+'</span><i></i>';
     b.insertBefore(btn,b.firstChild);
     b.classList.add('fold');
     if(S.bo)b.classList.add('open');
   });
+  try{if(typeof rmAnim==='function')rmAnim()}catch(e){}
+  try{if(typeof regStart==='function')regStart()}catch(e){}
+  try{if(typeof wkLayout==='function')wkLayout()}catch(e){}
+  try{if(typeof deskPost==='function')deskPost()}catch(e){}
 }
 document.addEventListener('keydown',e=>{
   if(typeof S==='undefined'||!S||e.ctrlKey||e.metaKey||e.altKey||e.repeat)return;
@@ -5487,6 +5661,717 @@ document.addEventListener('keydown',e=>{
   const b=document.querySelectorAll('.pick .opts>.ch,.pane>.opts>.ch')[i];
   if(b&&!b.disabled){e.preventDefault();b.click()}
 });
+
+/* =====================================================================
+   v5 · H · Backup del salvataggio: codice copiabile / file, importazione
+   ===================================================================== */
+function lzwE(s){
+  const d=new Map();for(let i=0;i<256;i++)d.set(String.fromCharCode(i),i);
+  let n=256,w='';const o=[];
+  for(let i=0;i<s.length;i++){
+    const c=s[i],wc=w+c;
+    if(d.has(wc))w=wc;
+    else{o.push(d.get(w));if(n<65535){d.set(wc,n++)}w=c}
+  }
+  if(w!=='')o.push(d.get(w));
+  return o;
+}
+function lzwD(o){
+  const d=new Map();for(let i=0;i<256;i++)d.set(i,String.fromCharCode(i));
+  let n=256,w=d.get(o[0]);if(w==null)throw new Error('bad');
+  let r=w;
+  for(let i=1;i<o.length;i++){
+    const k=o[i];let e;
+    if(d.has(k))e=d.get(k);else if(k===n)e=w+w[0];else throw new Error('bad');
+    r+=e;
+    if(n<65535){d.set(n++,w+e[0])}
+    w=e;
+  }
+  return r;
+}
+const u8bin=s=>{const b=new TextEncoder().encode(s);let r='';for(let i=0;i<b.length;i++)r+=String.fromCharCode(b[i]);return r};
+const binu8=s=>{const b=new Uint8Array(s.length);for(let i=0;i<s.length;i++)b[i]=s.charCodeAt(i);return new TextDecoder().decode(b)};
+function bkEnc(obj){
+  const codes=lzwE(u8bin(JSON.stringify(obj)));
+  let bin='';for(const c of codes)bin+=String.fromCharCode(c>>8,c&255);
+  const b64=btoa(bin);
+  return 'GDP1.'+b64+'.'+hsh(b64).toString(16);
+}
+function bkDec(txt){
+  const t=String(txt||'').replace(/\s+/g,'');
+  const m=/^GDP1\.([A-Za-z0-9+/=]+)\.([0-9a-f]+)$/.exec(t);
+  if(!m)throw new Error('Formato non riconosciuto');
+  if(hsh(m[1]).toString(16)!==m[2])throw new Error('Codice incompleto o modificato');
+  const bin=atob(m[1]);const o=[];
+  for(let i=0;i+1<bin.length;i+=2)o.push(bin.charCodeAt(i)<<8|bin.charCodeAt(i+1));
+  const j=JSON.parse(binu8(lzwD(o)));
+  if(!j||typeof j!=='object'||!j.name||j.tier==null||j.year==null)throw new Error('Non è un salvataggio valido');
+  return j;
+}
+
+const b64u8=u=>{let r='';for(let i=0;i<u.length;i++)r+=String.fromCharCode(u[i]);return btoa(r)};
+const u8b64=b=>{const r=atob(b),u=new Uint8Array(r.length);for(let i=0;i<r.length;i++)u[i]=r.charCodeAt(i);return u};
+async function pipeAll(u8,Cls,fmt){
+  const st=new Blob([u8]).stream().pipeThrough(new Cls(fmt));
+  return new Uint8Array(await new Response(st).arrayBuffer());
+}
+async function bkEncA(obj){
+  if(typeof CompressionStream==='undefined')return bkEnc(obj);
+  try{
+    const z=await pipeAll(new TextEncoder().encode(JSON.stringify(obj)),CompressionStream,'deflate-raw');
+    const b=b64u8(z);
+    return 'GDP2.'+b+'.'+hsh(b).toString(16);
+  }catch(e){return bkEnc(obj)}
+}
+async function bkDecA(txt){
+  const t=String(txt||'').replace(/\s+/g,'');
+  const m=/^GDP2\.([A-Za-z0-9+/=]+)\.([0-9a-f]+)$/.exec(t);
+  if(!m)return bkDec(t);
+  if(hsh(m[1]).toString(16)!==m[2])throw new Error('Codice incompleto o modificato');
+  if(typeof DecompressionStream==='undefined')throw new Error('Questo browser non sa leggere il codice: aggiornalo');
+  const u=await pipeAll(u8b64(m[1]),DecompressionStream,'deflate-raw');
+  const j=JSON.parse(new TextDecoder().decode(u));
+  if(!j||typeof j!=='object'||!j.name||j.tier==null||j.year==null)throw new Error('Non è un salvataggio valido');
+  return j;
+}
+let BKM='',BKT='';
+const bkOne=n=>n==='cur'?S:load(+n);
+function bkFile(n){
+  const d=bkOne(n);if(!d){flash('Nessuna carriera');return}
+  const nm='griglia-'+String(d.name||'pilota').replace(/[^A-Za-z0-9]+/g,'-')+'-'+d.year+'.txt';
+  try{
+    bkEncA(d).then(c=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/plain'}));a.download=nm;document.body.appendChild(a);a.click();a.remove();flash('Backup scaricato')}).catch(()=>flash('Download non disponibile'));
+  }catch(e){flash('Download non disponibile')}
+}
+function bkLink(){
+  return `<button class="link" data-act="bkv"><span class="pos">⇅</span><span><b>Backup carriere</b><small>Esporta o importa con un codice</small></span><i>›</i></button>`;
+}
+function bkBtns(){
+  return `<button class="ghost" data-act="bkc" data-i="cur">Copia backup</button><button class="ghost" data-act="bkd" data-i="cur">Scarica backup</button>`;
+}
+function bkView(){
+  const sl=slotsAll();
+  const rows=sl.map(x=>x.d?`<div class="slotr"><div class="bkr"><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k}${x.d.phase==='ending'?' · conclusa':''}</small></div><div class="btns"><button class="ghost sm" data-act="bkc" data-i="${x.n}">Copia codice</button><button class="ghost sm" data-act="bkd" data-i="${x.n}">Scarica file</button></div></div>`:'').join('')||'<p class="empty">Nessuna carriera da esportare.</p>';
+  const slots=sl.map(x=>`<button class="ghost sm" data-act="bki" data-i="${x.n}">${x.d?'Sovrascrivi slot '+(x.n+1)+' ('+esc(x.d.name)+')':'Slot '+(x.n+1)+' (libero)'}</button>`).join('');
+  return `<div class="ph" style="padding-top:6px"><div class="kick">Backup</div><h1>Le tue carriere al sicuro</h1><p>Il codice contiene tutta la carriera: copialo o scaricalo, e importalo su un altro telefono o dopo una pulizia del browser.</p></div>
+  <section class="card"><div class="sech">Esporta</div>${rows}${BKT?`<textarea class="bkt" readonly rows="4" onclick="this.select()">${esc(BKT)}</textarea>`:''}</section>
+  <section class="card"><div class="sech">Importa</div>
+   <textarea class="bkt" id="bkin" rows="4" placeholder="Incolla qui il codice GDP1.…" autocomplete="off" spellcheck="false">${esc(BKI)}</textarea>
+   <div class="btns"><label class="ghost sm bkf">Carica da file<input type="file" id="bkfile" accept=".txt,text/plain" hidden></label></div>
+   <p class="sub">Scegli dove importare:</p><div class="btns">${slots}</div>
+   ${BKM?`<p class="bkm">${esc(BKM)}</p>`:''}</section>
+  <div class="dock"><button class="back" data-act="back">Indietro</button></div>`;
+}
+function bkAct(a,raw,v){
+  if(a==='bkv'){VIEW='bk';BKM='';BKT='';render();return}
+  if(a==='bkc'){
+    const d=bkOne(raw);if(!d){flash('Nessuna carriera');return}
+    bkEncA(d).then(c=>{BKT=c;copyTxt(c,'Codice copiato');if(VIEW==='bk')render()}).catch(()=>flash('Errore nel backup'));
+    return;
+  }
+  if(a==='bkd'){bkFile(raw);return}
+  if(a==='bki'){
+    const ta=document.getElementById('bkin');
+    const t=ta&&ta.value||BKI||'',n=+raw;
+    bkDecA(t).then(j=>{
+      const cur=load(n);
+      if(cur&&typeof confirm==='function'&&!confirm('Sovrascrivere la carriera di '+cur.name+' nello slot '+(n+1)+'?'))return;
+      localStorage.setItem(skey(n),JSON.stringify(j));
+      BKM='Importata: '+j.name+' ('+j.year+', '+TIERS[j.tier].k+') nello slot '+(n+1)+'.';BKI='';
+      render();
+    }).catch(e=>{BKM='Importazione non riuscita: '+(e&&e.message?e.message:'codice non valido')+'.';render()});
+    return;
+  }
+}
+let BKI='';
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='bkin')BKI=e.target.value});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t&&t.id==='bkfile'&&t.files&&t.files[0]){
+    const r=new FileReader();
+    r.onload=()=>{BKI=String(r.result||'');const ta=document.getElementById('bkin');if(ta)ta.value=BKI;BKM='File caricato: scegli lo slot.';render();const ta2=document.getElementById('bkin');if(ta2)ta2.value=BKI};
+    r.readAsText(t.files[0]);
+  }
+});
+
+/* =====================================================================
+   v5 · I · Casco e livrea personalizzabili
+   ===================================================================== */
+const HCOL=['#ffd23a','#e10600','#ff7a00','#0d1b3d','#1f6feb','#22c1a6','#1fa34a','#8b5cf6','#ff4fa3','#ffffff','#111111','#9aa3b2'];
+const HPN=['Tinta unita','Fascia','Diagonale','Doppia fascia','Freccia','Scacchi','Pois'];
+const HSHELL='M6 40C6 19 21 6 38 6C53 6 62 17 62 32L62 45C62 51 58 56 52 56L20 56C12 56 6 50 6 40Z';
+const HVISOR='M37 27L62 27L62 42L42 42C37 42 34 37 37 27Z';
+/* forme del motivo nello spazio 64x64: r=rect, p=path, c=cerchio */
+function hPat(p){
+  switch(p){
+    case 1:return [['r',0,20,64,9]];
+    case 2:return [['p','M0 0H64V22L0 38Z']];
+    case 3:return [['r',0,15,64,5],['r',0,25,64,5]];
+    case 4:return [['p','M8 56L30 12L40 12L62 56L52 56L35 24L18 56Z']];
+    case 5:{const a=[];for(let i=0;i<8;i++)for(let j=0;j<3;j++)if((i+j)%2===0)a.push(['r',i*8,12+j*8,8,8]);return a}
+    case 6:{const a=[];for(let i=0;i<5;i++)for(let j=0;j<3;j++)a.push(['c',9+i*11+(j%2?5:0),16+j*10,3]);return a}
+  }
+  return [];
+}
+let HID=0;
+function helmetSvg(h,sz,cls){
+  h=h||{a:'#ffd23a',b:'#0d1b3d',p:0};
+  const id='hm'+(HID++),pat=hPat(h.p).map(s=>s[0]==='r'?`<rect x="${s[1]}" y="${s[2]}" width="${s[3]}" height="${s[4]}"/>`:s[0]==='p'?`<path d="${s[1]}"/>`:`<circle cx="${s[1]}" cy="${s[2]}" r="${s[3]}"/>`).join('');
+  return `<svg class="hm${cls?' '+cls:''}" viewBox="0 0 64 64" width="${sz}" height="${sz}" aria-hidden="true"><defs><clipPath id="${id}"><path d="${HSHELL}"/></clipPath></defs><path d="${HSHELL}" fill="${h.a}"/><g clip-path="url(#${id})" fill="${h.b}">${pat}</g><path d="${HSHELL}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="2"/><path d="${HVISOR}" fill="#0b1224"/><path d="M40 30L58 30L58 33L39 33Z" fill="rgba(255,255,255,.35)"/></svg>`;
+}
+/* canvas: stessa geometria */
+function helmetCanvas(g,x,y,s,h){
+  h=h||{a:'#ffd23a',b:'#0d1b3d',p:0};
+  g.save();g.translate(x,y);g.scale(s/64,s/64);
+  const sh=new Path2D(HSHELL);
+  g.fillStyle=h.a;g.fill(sh);
+  g.save();g.clip(sh);g.fillStyle=h.b;
+  hPat(h.p).forEach(q=>{
+    if(q[0]==='r')g.fillRect(q[1],q[2],q[3],q[4]);
+    else if(q[0]==='p')g.fill(new Path2D(q[1]));
+    else{g.beginPath();g.arc(q[1],q[2],q[3],0,7);g.fill()}
+  });
+  g.restore();
+  g.lineWidth=2;g.strokeStyle='rgba(0,0,0,.35)';g.stroke(sh);
+  g.fillStyle='#0b1224';g.fill(new Path2D(HVISOR));
+  g.fillStyle='rgba(255,255,255,.35)';g.fill(new Path2D('M40 30L58 30L58 33L39 33Z'));
+  g.restore();
+}
+const randHelm=()=>{const a=Math.floor(Math.random()*HCOL.length);let b=Math.floor(Math.random()*HCOL.length);if(b===a)b=(b+4)%HCOL.length;return{a:HCOL[a],b:HCOL[b],p:1+Math.floor(Math.random()*(HPN.length-1))}};
+/* casco stabile ricavato dal nome: per piloti senza personalizzazione */
+function autoHelm(name,col){
+  const h=hsh(String(name||'x')+'h');
+  const a=col||HCOL[h%HCOL.length];
+  let b=HCOL[(h>>>5)%HCOL.length];if(b===a)b=HCOL[((h>>>5)+5)%HCOL.length];
+  return{a,b,p:(h>>>11)%HPN.length};
+}
+const helmOf=()=>S&&S.helm?S.helm:autoHelm(S?S.name:'');
+function helmetFor(r,sz){
+  if(r.me)return helmetSvg(helmOf(),sz,'pdh');
+  const c=(typeof hue==='function'&&r.t!=null&&S&&S.tier!=null)?hue(S.tier,r.t):null;
+  return helmetSvg(autoHelm(r.n,c&&c[0]==='#'?c:null),sz,'pdh');
+}
+/* editor nella creazione del pilota */
+function helmCard(){
+  if(!ID.helm)ID.helm=randHelm();
+  const h=ID.helm;
+  const sw=(k,c)=>`<button class="sw${h[k]===c?' on':''}" data-act="hl" data-v="${k}:${c}" style="background:${c}" aria-label="${c}"></button>`;
+  const pt=HPN.map((n,i)=>`<button class="ghost sm${h.p===i?' on':''}" data-act="hl" data-v="p:${i}">${n}</button>`).join('');
+  return `<section class="card helc"><div class="sech"><span class="stepn">4</span>Casco</div>
+  <div class="helrow"><div class="help">${helmetSvg(h,92)}</div><div class="helctl"><small>Colore base</small><div class="sws">${HCOL.map(c=>sw('a',c)).join('')}</div><small>Colore del motivo</small><div class="sws">${HCOL.map(c=>sw('b',c)).join('')}</div></div></div>
+  <div class="btns">${pt}</div><div class="btns"><button class="ghost sm" data-act="hl" data-v="r:1">Casuale</button></div></section>`;
+}
+function helmAct(v){
+  const [k,x]=String(v).split(':');
+  ID.helm=ID.helm||randHelm();
+  if(k==='r')ID.helm=randHelm();
+  else if(k==='p')ID.helm={...ID.helm,p:+x};
+  else if(k==='a'||k==='b')ID.helm={...ID.helm,[k]:x};
+  KP=true;render();
+}
+
+/* =====================================================================
+   v5 · J · Grafici di carriera (SVG) e scheda condivisibile
+   ===================================================================== */
+const TCOL=['#22c1a6','#1f6feb','#ff7a00','#e10600'];
+const CHW=320,CHH=150,CHP={l:30,r:10,t:10,b:22};
+function chFrame(inner,xl,yt){
+  return `<svg class="chs" viewBox="0 0 ${CHW} ${CHH}" role="img" aria-label="grafico">${inner}</svg>`;
+}
+/* griglia orizzontale con etichette sull'asse Y */
+function chGrid(y0,y1,n,fmtv){
+  const h=CHH-CHP.t-CHP.b;let g='';
+  for(let i=0;i<=n;i++){
+    const v=y0+(y1-y0)*i/n,y=CHP.t+h-(h*i/n);
+    g+=`<line x1="${CHP.l}" x2="${CHW-CHP.r}" y1="${y}" y2="${y}" class="chg"/><text x="${CHP.l-4}" y="${y+3}" text-anchor="end" class="cht">${fmtv?fmtv(v):Math.round(v)}</text>`;
+  }
+  return g;
+}
+const chX=(i,n)=>CHP.l+(n<=1?0:(CHW-CHP.l-CHP.r)*i/(n-1));
+const chY=(v,y0,y1)=>CHP.t+(CHH-CHP.t-CHP.b)*(1-(v-y0)/Math.max(1e-6,(y1-y0)));
+const chPath=(a,y0,y1,n,off)=>a.map((v,i)=>(i?'L':'M')+chX(i+(off||0),n).toFixed(1)+' '+chY(v,y0,y1).toFixed(1)).join('');
+/* 1 · punti nella stagione contro il rivale */
+function chSeason(){
+  const sp=S.sp;
+  if(!sp||sp.length<2||S.spY!==S.year)return '';
+  const n=S.total||sp.length,max=Math.max(10,...sp.map(x=>Math.max(x.a,x.b||0,x.l||0)));
+  const y1=Math.ceil(max/20)*20;
+  const A=sp.map(x=>x.a),B=sp.map(x=>x.b),Lc=sp.map(x=>x.l);
+  const nm=S.spR||'Rivale';
+  let g=chGrid(0,y1,4);
+  for(let i=0;i<n;i+=Math.max(1,Math.round(n/6)))g+=`<text x="${chX(i,n)}" y="${CHH-6}" text-anchor="middle" class="cht">${i+1}</text>`;
+  if(Lc.some(v=>v>0))g+=`<path d="${chPath(Lc,0,y1,n)}" class="chl lead"/>`;
+  if(B.some(v=>v!=null))g+=`<path d="${chPath(B.map(v=>v||0),0,y1,n)}" class="chl riv"/>`;
+  g+=`<path d="${chPath(A,0,y1,n)}" class="chl me"/>`;
+  const lx=chX(A.length-1,n),ly=chY(A[A.length-1],0,y1);
+  g+=`<circle cx="${lx}" cy="${ly}" r="3.5" class="chd me"/>`;
+  return `<div class="chb"><div class="chh"><b>Punti nella stagione</b><span class="chk"><i class="k me"></i>Tu<i class="k riv"></i>${esc(nm)}<i class="k lead"></i>Leader</span></div>${chFrame(g)}</div>`;
+}
+/* 2 · valutazione negli anni */
+function chRating(){
+  const H=S.hist||[];
+  const pts=H.map(h=>({y:h.y,v:h.ovr,t:h.tier}));
+  pts.push({y:S.year,v:Math.round(rating(S)),t:S.tier,cur:1});
+  if(pts.length<2)return '';
+  const vs=pts.map(p=>p.v),lo=Math.floor((Math.min(...vs)-4)/10)*10,hi=Math.ceil((Math.max(...vs)+4)/10)*10;
+  const n=pts.length;
+  let g=chGrid(lo,hi,4);
+  const step=Math.max(1,Math.round(n/6));
+  pts.forEach((p,i)=>{if(i%step===0||i===n-1)g+=`<text x="${chX(i,n)}" y="${CHH-6}" text-anchor="middle" class="cht">${String(p.y).slice(2)}</text>`});
+  g+=`<path d="${chPath(vs,lo,hi,n)}" class="chl me"/>`;
+  pts.forEach((p,i)=>{g+=`<circle cx="${chX(i,n)}" cy="${chY(p.v,lo,hi)}" r="${p.cur?4:3}" fill="${TCOL[p.t]}" class="chd${p.cur?' cur':''}"><title>${p.y} · ${TIERS[p.t].k} · ${p.v}</title></circle>`});
+  return `<div class="chb"><div class="chh"><b>Valutazione negli anni</b><span class="chk">${[0,1,2,3].filter(t=>pts.some(p=>p.t===t)).map(t=>`<i class="k" style="background:${TCOL[t]}"></i>${TIERS[t].k}`).join('')}</span></div>${chFrame(g)}</div>`;
+}
+/* 3 · classifica finale per stagione */
+function chFinish(){
+  const H=S.hist||[];
+  if(H.length<2)return '';
+  const n=H.length,bw=Math.min(26,(CHW-CHP.l-CHP.r)/n-6),h=CHH-CHP.t-CHP.b;
+  let g=`<line x1="${CHP.l}" x2="${CHW-CHP.r}" y1="${CHP.t+h}" y2="${CHP.t+h}" class="chg"/>`;
+  H.forEach((x,i)=>{
+    const N=2*TIERS[x.tier].teams.length,f=Math.max(.08,(N-x.pos+1)/N),bh=h*f,cx=CHP.l+(CHW-CHP.l-CHP.r)*(i+.5)/n;
+    g+=`<rect x="${cx-bw/2}" y="${CHP.t+h-bh}" width="${bw}" height="${bh}" rx="3" fill="${TCOL[x.tier]}" opacity="${x.pos===1?1:.7}"><title>${x.y} · ${TIERS[x.tier].k} · ${x.pos}°</title></rect>`;
+    g+=`<text x="${cx}" y="${CHP.t+h-bh-3}" text-anchor="middle" class="cht b">${x.pos===1?'★':x.pos}</text>`;
+    if(n<=12||i%2===0)g+=`<text x="${cx}" y="${CHH-6}" text-anchor="middle" class="cht">${String(x.y).slice(2)}</text>`;
+  });
+  return `<div class="chb"><div class="chh"><b>Posizione finale</b><span class="chk">più alta = meglio</span></div>${chFrame(g)}</div>`;
+}
+/* 4 · come chiudi le gare */
+function chPlace(){
+  const pl=S.pl;if(!pl)return '';
+  const A={};let tot=0;
+  for(const t in pl)for(const k in pl[t]){A[k]=(A[k]||0)+pl[t][k];tot+=pl[t][k]}
+  if(tot<8)return '';
+  const cols=[];for(let p=1;p<=10;p++)cols.push([String(p),A[p]||0,p===1?'purple':p<=3?'green':'amber']);
+  let o=0;for(const k in A)if(k!=='R'&&+k>10)o+=A[k];
+  cols.push(['11+',o,'neutral']);cols.push(['Rit.',A.R||0,'warn']);
+  const mx=Math.max(1,...cols.map(c=>c[1])),n=cols.length,h=CHH-CHP.t-CHP.b,bw=(CHW-CHP.l-CHP.r)/n-4;
+  let g=`<line x1="${CHP.l}" x2="${CHW-CHP.r}" y1="${CHP.t+h}" y2="${CHP.t+h}" class="chg"/>`;
+  cols.forEach((c,i)=>{
+    const bh=h*c[1]/mx,cx=CHP.l+(CHW-CHP.l-CHP.r)*(i+.5)/n;
+    g+=`<rect x="${cx-bw/2}" y="${CHP.t+h-bh}" width="${bw}" height="${Math.max(0,bh)}" rx="2" style="fill:var(--${c[2]})"/>`;
+    if(c[1])g+=`<text x="${cx}" y="${CHP.t+h-bh-3}" text-anchor="middle" class="cht b">${c[1]}</text>`;
+    g+=`<text x="${cx}" y="${CHH-6}" text-anchor="middle" class="cht">${c[0]}</text>`;
+  });
+  return `<div class="chb"><div class="chh"><b>Come chiudi le gare</b><span class="chk">${tot} gare registrate</span></div>${chFrame(g)}</div>`;
+}
+function chartsCard(){
+  const a=[chSeason(),chRating(),chFinish(),chPlace()].filter(Boolean);
+  const body=a.length?a.join(''):'<p class="empty">I grafici si riempiono con le gare e le stagioni.</p>';
+  return `<section class="card chc"><div class="sech">Grafici di carriera</div><div class="chgrid">${body}</div><div class="btns"><button class="ghost" data-act="ccard">${ico('medal','fl')} Condividi la scheda carriera</button></div></section>`;
+}
+async function cardNow(){
+  try{
+    if(document.fonts&&document.fonts.load){try{await Promise.all([document.fonts.load("800 40px 'Bricolage Grotesque'"),document.fonts.load("600 20px 'Bricolage Grotesque'")])}catch(e){}}
+    CI=careerCanvas().toDataURL('image/png');
+    await shareImg(false);
+  }catch(e){flash('Scheda non disponibile')}
+}
+
+/* =====================================================================
+   v5 · K · Mappa della gara negli atti, animazioni, tema
+   ===================================================================== */
+/* ---------- circuiti stilizzati (spazio 100x60) ---------- */
+const TRKP={
+ 'Monza':[[8,46],[12,22],[24,12],[58,9],[88,13],[93,24],[82,31],[60,34],[44,36],[34,45],[20,50]],
+ 'Monte Carlo':[[12,42],[18,24],[38,14],[56,19],[68,11],[86,19],[82,34],[64,37],[52,47],[30,51]],
+ 'Spa-Francorchamps':[[8,42],[18,20],[40,9],[72,15],[92,30],[80,45],[56,40],[38,50],[22,52]],
+ 'Silverstone':[[14,40],[22,19],[44,11],[60,23],[84,15],[91,32],[70,47],[48,40],[30,51]],
+ 'Suzuka':[[12,22],[38,10],[58,24],[84,16],[92,38],[62,50],[42,35],[22,50],[8,36]],
+ 'Jeddah':[[6,44],[10,30],[30,24],[50,14],[72,9],[90,12],[94,22],[74,26],[52,36],[32,46],[18,52]],
+ 'Montréal':[[8,34],[14,18],[40,12],[76,10],[92,16],[90,26],[62,30],[48,44],[24,52],[10,46]],
+ 'Spielberg':[[16,44],[10,24],[30,12],[62,10],[86,20],[88,38],[66,50],[40,44],[28,52]],
+ 'Imola':[[14,38],[22,18],[44,12],[62,22],[82,18],[90,34],[72,44],[56,38],[40,50],[24,50]],
+ 'Zandvoort':[[14,40],[20,20],[44,10],[70,14],[88,28],[80,44],[56,50],[34,46]],
+ 'Melbourne':[[10,30],[22,14],[50,10],[80,14],[92,30],[78,46],[48,52],[22,46]],
+ 'Sakhir':[[10,40],[16,18],[40,10],[58,24],[82,14],[92,32],[70,48],[46,40],[26,52]]
+};
+function trkPts(cn){
+  if(TRKP[cn])return TRKP[cn];
+  const h=hsh(String(cn)+'m'),n=9,a=[];
+  for(let i=0;i<n;i++){
+    const t=i/n*Math.PI*2,r=.68+(((h>>>(i*3))&7)/7)*.32;
+    a.push([50+Math.cos(t)*44*r,30+Math.sin(t)*25*r]);
+  }
+  return a;
+}
+/* spline chiusa Catmull-Rom → path cubico */
+function trkPath(pts){
+  const n=pts.length;let d='M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);
+  for(let i=0;i<n;i++){
+    const p0=pts[(i-1+n)%n],p1=pts[i],p2=pts[(i+1)%n],p3=pts[(i+2)%n];
+    const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+    d+='C'+c1[0].toFixed(1)+' '+c1[1].toFixed(1)+' '+c2[0].toFixed(1)+' '+c2[1].toFixed(1)+' '+p2[0].toFixed(1)+' '+p2[1].toFixed(1);
+  }
+  return d+'Z';
+}
+const rmPos=(w,rc,n)=>n<=0?(w.gp||10):((rc.pe&&rc.pe[n])||(w.gp||10));
+const rmLead=n=>.08+.26*n;
+let RMK='',RMRAF=0;
+function raceMap(){
+  const w=S.wk,rc=S.rc;
+  if(!w||!rc)return '';
+  const N=Math.min(24,(S.rivals?S.rivals.length:19)+1);
+  const est=clamp(rmPos(w,rc,rc.n),1,N),prev=clamp(rc.n<=0?est:rmPos(w,rc,rc.n-1),1,N);
+  const key=S.year+'|'+S.round+'|'+rc.n;
+  const dots=[];
+  const slot=(pos,j)=>j<pos?j+1:j+2;      /* j = indice tra gli altri (0-based) */
+  for(let j=0;j<N-1;j++){
+    const sN=slot(est,j),sP=slot(prev,j);
+    const cls=sN===1?'ld':sN===est-1?'ah':sN===est+1?'bh':'';
+    dots.push(`<circle class="rd ${cls}" r="${sN===1?1.9:1.5}" data-a="${(rmLead(Math.max(0,rc.n-1))-(sP-1)*.019).toFixed(4)}" data-b="${(rmLead(rc.n)-(sN-1)*.019).toFixed(4)}"/>`);
+  }
+  const h=helmOf?helmOf():{a:'#ffd23a'};
+  dots.push(`<circle class="rd me" r="2.8" style="fill:${h.a}" data-a="${(rmLead(Math.max(0,rc.n-1))-(prev-1)*.019).toFixed(4)}" data-b="${(rmLead(rc.n)-(est-1)*.019).toFixed(4)}"/>`);
+  const lights=rc.n===0?`<div class="slt" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>`:'';
+  return `<div class="rmc card" data-k="${key}"><div class="rmh"><b>${esc(w.c)}</b><span>Ora sei <b>P${est}</b>${rc.n>0&&est!==prev?` <em class="${est<prev?'up':'down'}">${est<prev?'▲':'▼'} ${Math.abs(prev-est)}</em>`:''}</span></div>${lights}<svg class="rmap" viewBox="0 0 100 60" aria-hidden="true"><path class="rmt0" d="${trkPath(trkPts(w.c))}"/><path class="rmt" d="${trkPath(trkPts(w.c))}"/>${dots.join('')}</svg></div>`;
+}
+function rmAnim(){
+  const el=document.querySelector&&document.querySelector('.rmc');
+  if(!el)return;
+  const path=el.querySelector('.rmt');if(!path||!path.getTotalLength)return;
+  const L=path.getTotalLength(),dots=[...el.querySelectorAll('.rd')];
+  const put=(d,p)=>{const q=((p%1)+1)%1,pt=path.getPointAtLength(q*L);d.setAttribute('cx',pt.x.toFixed(2));d.setAttribute('cy',pt.y.toFixed(2))};
+  const k=el.dataset.k;
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  cancelAnimationFrame(RMRAF);
+  const first=RMK!==k;RMK=k;
+  if(!first||reduce||!S.rc||S.rc.n===0){dots.forEach(d=>put(d,+d.dataset.b));return}
+  const T=1100,t0=performance.now();
+  dots.forEach(d=>put(d,+d.dataset.a));
+  const step=t=>{
+    let x=Math.min(1,(t-t0)/T);x=x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+    dots.forEach(d=>put(d,+d.dataset.a+(+d.dataset.b-+d.dataset.a)*x));
+    if(x<1)RMRAF=requestAnimationFrame(step);
+  };
+  RMRAF=requestAnimationFrame(step);
+}
+/* ---------- tema ---------- */
+const THM=['auto','light','dark','notte'],THL={auto:'Automatico',light:'Chiaro',dark:'Scuro',notte:'Notte'};
+function thGet(){try{const t=localStorage.getItem('gdp-theme');return THM.includes(t)?t:'auto'}catch(e){return 'auto'}}
+function thApply(t){
+  try{const r=document.documentElement;if(t==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',t);
+    const b=document.getElementById('thm');if(b)b.innerHTML=thIcon()+'<span>'+THL[t]+'</span>'}catch(e){}
+}
+function thCycle(){
+  const t=THM[(THM.indexOf(thGet())+1)%THM.length];
+  try{localStorage.setItem('gdp-theme',t)}catch(e){}
+  thApply(t);
+  try{flash('Tema: '+THL[t])}catch(e){}
+  if(typeof render==='function'){KP=true;render()}
+}
+const thIcon=()=>'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10Z"/></svg>';
+const thLink=()=>`<button class="link" data-act="thm"><span class="pos">◐</span><span><b>Tema: ${THL[thGet()]}</b><small>Tocca per cambiare: automatico, chiaro, scuro, notte</small></span><i>›</i></button>`;
+const thBtn=()=>`<button class="ghost" data-act="thm">Tema: ${THL[thGet()]}</button>`;
+(function(){
+  try{
+    if(document.body&&!document.getElementById('thm')){
+      const b=document.createElement('button');b.id='thm';b.className='thm';b.dataset.act='thm';b.setAttribute('aria-label','Cambia tema');
+      document.body.appendChild(b);
+    }
+    thApply(thGet());
+  }catch(e){}
+})();
+
+/* =====================================================================
+   v5 · L · Cambi di regolamento come grande evento
+   ===================================================================== */
+const PHN=['aero','power','mech'],PHL={aero:'aerodinamica',power:'motore',mech:'telaio e meccanica'},PHB={aero:'Aerodinamica',power:'Motore',mech:'Telaio'};
+const regPhil=(y,t)=>PHN[hsh('reg|'+t+'|'+y)%3];
+function regRum(y,t){
+  const ph=regPhil(y,t),h=hsh('rum|'+t+'|'+y);
+  if(h%10<7)return ph;
+  return PHN[(PHN.indexOf(ph)+1+((h>>>5)%2))%3];
+}
+const regU=s=>{const h=hsh(s);return(((h&1023)+((h>>>10)&1023)+((h>>>20)&1023))/1023-1.5)/.5};
+const regAff=(n,ph,y,t)=>.95*regU(n+'|'+ph)+.32*regU(n+'|'+ph+'|'+y+'|'+t);
+const regMajor=(y,t)=>{const r=regOf(y,t);return r&&r[1]>=4?r:null};
+const fx1=v=>(v>0?'+':v<0?'−':'')+Math.abs(v).toFixed(1);
+/* applicazione a inizio stagione (sostituisce il rumore casuale) */
+function regApply(rg){
+  const mag=rg[1];
+  if(mag<4){S.teams.forEach(x=>x.car+=gauss()*mag);return}
+  const ph=regPhil(S.year,S.tier);
+  const F=S.regF&&S.regF.y===S.year&&S.regF.k?S.regF.k[S.tier]:null;
+  const info={y:S.year,t:S.tier,ph,mag,txt:rg[0],f:F&&F!=='none'?F:null,d:[]};
+  S.teams.forEach(x=>{
+    const aff=regAff(x.name,ph,S.year,S.tier);
+    let d=mag*(.75*aff+.66*gauss());
+    const me=x.rank===S.teamRank;
+    if(me&&info.f){info.hit=info.f===ph;d+=info.hit?mag*.22:-mag*.07;info.fx=info.hit?mag*.22:-mag*.07}
+    x.car+=d;
+    info.d.push({n:x.name,d:Math.round(d*10)/10,me,a:Math.round(aff*10)/10});
+  });
+  const s=info.d.slice().sort((a,b)=>b.d-a.d);
+  info.up=s.slice(0,2).map(x=>x.n);info.dn=s.slice(-2).map(x=>x.n).reverse();
+  const m=info.d.find(x=>x.me);info.my=m?m.d:0;info.ma=m?m.a:0;
+  info.rk=m?s.indexOf(s.find(x=>x.me))+1:0;info.N=s.length;
+  info.d=m?[m]:[];
+  S.regInfo=info;
+  (S.regH=S.regH||[]).push({y:info.y,t:info.t,ph,up:info.up[0],dn:info.dn[0],my:info.my,rk:info.rk,N:info.N,f:info.f,hit:info.hit});
+  if(S.regH.length>12)S.regH.shift();
+  try{if(S.mkt)S.mkt.unshift(TIERS[S.tier].k+' '+S.year+': nuovo regolamento, vince la filosofia «'+PHL[ph]+'». '+info.up[0]+' parte forte, '+info.dn[0]+' in difficoltà.')}catch(e){}
+}
+/* anteprima a fine stagione: voci dal paddock + scelta dello sviluppo */
+function regPreview(){
+  const ty=[S.tier];if(S.tier<3)ty.push(S.tier+1);
+  const y=S.year+1;
+  const L=ty.map(t=>[t,regMajor(y,t)]).filter(x=>x[1]);
+  if(!L.length)return '';
+  const cur=S.regF&&S.regF.y===y?S.regF.k:{};
+  const blk=L.map(([t,r])=>{
+    const rum=regRum(y,t);
+    const b=['aero','power','mech','none'].map(k=>`<button class="ghost sm${cur[t]===k?' on':''}" data-act="rgf" data-v="${t}:${k}">${k==='none'?'Resta flessibile':PHB[k]}</button>`).join('');
+    return `<div class="rgb"><div class="rgt"><b>${TIERS[t].k} ${y}</b> · ${esc(r[0])}</div>
+    <p class="sub" style="margin:2px 0 6px">Voci dal paddock: la filosofia vincente dovrebbe essere <b>${PHL[rum]}</b>. Fonte attendibile, ma non certa: ci prende circa 7 volte su 10.</p>
+    <p class="sub" style="margin:0 0 4px">Dove concentri lo sviluppo? Se indovini guadagni molto, se sbagli perdi poco; se resti flessibile non cambia nulla.</p>
+    <div class="btns">${b}</div></div>`;
+  }).join('');
+  return `<section class="card rgc"><div class="sech">${ico('bolt','fl')} Nuovo regolamento in arrivo</div>${blk}</section>`;
+}
+function regAct(v){
+  const [t,k]=String(v).split(':');
+  const y=S.year+1;
+  if(!S.regF||S.regF.y!==y)S.regF={y,k:{}};
+  S.regF.k[+t]=k;
+  try{save()}catch(e){}
+  KP=true;render();
+}
+/* scheda a inizio stagione (iniettata sopra il primo weekend) */
+function regStartHtml(){
+  const I=S.regInfo;
+  const hit=I.f?(I.hit?`Avevi puntato sullo sviluppo <b>${PHL[I.f]}</b>: avevi indovinato: lo sviluppo mirato vale ${fx1(I.fx)} per la tua squadra.`:`Avevi puntato sullo sviluppo <b>${PHL[I.f]}</b>, ma la filosofia vincente è un'altra: lo sviluppo sprecato costa ${fx1(I.fx)}.`):'Non avevi puntato su una filosofia in particolare.';
+  const aff=I.ma>=.5?'La tua squadra è tradizionalmente forte in questo campo.':I.ma<=-.5?'La tua squadra è tradizionalmente debole in questo campo.':'La tua squadra non ha una tradizione particolare in questo campo.';
+  return `<div class="card rgc rgs"><div class="sech">${ico('bolt','fl')} ${TIERS[I.t].k} ${I.y}: nuovo regolamento</div>
+  <p class="sub" style="margin:0 0 6px">${esc(I.txt)} Questa stagione paga la filosofia <b>${PHL[I.ph]}</b>.</p>
+  <div class="rgg"><div><small>Partono forte</small><b>${I.up.map(esc).join(' · ')}</b></div><div><small>In difficoltà</small><b>${I.dn.map(esc).join(' · ')}</b></div><div><small>La tua squadra</small><b>${fx1(I.my)} · ${I.rk}ª su ${I.N}</b></div></div>
+  <p class="sub" style="margin:6px 0 0">${aff} ${hit}</p>
+  <div class="btns"><button class="ghost sm" data-act="rgx">Ho capito</button></div></div>`;
+}
+function regStart(){
+  const I=S.regInfo;
+  if(!I||I.y!==S.year||I.t!==S.tier||I.seen||S.round!==0||S.tab!=='decide')return;
+  const app=document.getElementById('app');if(!app||!app.querySelector)return;
+  const pane=app.querySelector('.pane');if(!pane||app.querySelector('.rgs'))return;
+  const d=document.createElement('div');d.innerHTML=regStartHtml();
+  pane.parentNode.insertBefore(d.firstChild,pane);
+}
+/* storico dei regolamenti nella scheda Carriera */
+function regHist(){
+  const H=S.regH;if(!H||!H.length)return '';
+  const rows=H.slice().reverse().map(x=>`<div class="rgh"><span><b>${TIERS[x.t].k} ${x.y}</b> · ${PHL[x.ph]}</span><span class="sub">${esc(x.up||'')} forte · ${esc(x.dn||'')} in crisi · tu ${x.rk}°/${x.N}${x.f?(x.hit?' · sviluppo giusto':' · sviluppo sbagliato'):''}</span></div>`).join('');
+  return `<section class="card"><div class="sech">Cambi di regolamento</div>${rows}</section>`;
+}
+
+/* =====================================================================
+   v5 · M · Desktop: scheda pilota nella barra laterale + pannello live
+   ===================================================================== */
+const wideDesk=()=>{try{return window.matchMedia&&window.matchMedia('(min-width:1000px)').matches}catch(e){return false}};
+const wideLive=()=>{try{return window.matchMedia&&window.matchMedia('(min-width:1500px)').matches}catch(e){return false}};
+function sbpHtml(){
+  const seat=S.teams&&!S.first;
+  const st=seat?standings():null,pos=st?st.findIndex(x=>x.me)+1:0;
+  const car=seat?Math.round(S.teams[S.teamRank].car+S.carBonus):null;
+  return `<div class="sbp"><div class="sbh">${helmetSvg(helmOf(),40,'hh')}<span class="plate xs">${esc(S.num)}</span></div>
+  <div class="sbn"><b>${esc(S.name)}</b><small>${S.age} anni${seat?' · '+pos+'ª in classifica':' · senza sedile'}</small>${seat?`<small>${dot(S.tier,S.teamRank)}${esc(S.teamName)}</small>`:''}</div>
+  <div class="sbs"><span><small>Pilota</small><b>${Math.round(rating(S))}</b></span>${seat?`<span><small>Vettura</small><b>${car}</b></span><span><small>Punti</small><b>${S.me.pts}</b></span>`:''}</div></div>`;
+}
+function liveHtml(){
+  if(!S.rivals||!S.rivals.length||S.first||!S.teams)return '';
+  const st=standings(),mi=st.findIndex(x=>x.me);
+  const top=st.slice(0,6);
+  const rows=top.map((x,i)=>`<div class="lvr${x.me?' me':''}"><span class="lvp">${i+1}</span>${dot(S.tier,x.t)}<span class="lvn">${esc(x.n)}</span><b>${x.pts}</b></div>`);
+  if(mi>=6){rows.push('<div class="lvr gap">···</div>');rows.push(`<div class="lvr me"><span class="lvp">${mi+1}</span>${dot(S.tier,S.teamRank)}<span class="lvn">${esc(st[mi].n)}</span><b>${st[mi].pts}</b></div>`)}
+  const lead=st[0],gap=mi>0?lead.pts-st[mi].pts:0;
+  const nx=S.round<S.total?S.cal[S.round]:null;
+  const map=nx?`<div class="lvm"><small>Prossima gara · ${S.round+1}/${S.total}</small><b>${esc(nx)}</b><svg viewBox="0 0 100 60" aria-hidden="true"><path class="rmt0" d="${trkPath(trkPts(nx))}"/><path class="rmt" d="${trkPath(trkPts(nx))}"/></svg></div>`:'';
+  const L=S.last,res=L&&L.pos!=null?`<div class="lvl"><small>Ultima gara</small><b>${L.dnf?'Ritiro':'P'+L.pos}</b>${L.pts?`<span class="chip pt">+${L.pts}</span>`:''}</div>`:'';
+  return `<div class="lvt">Classifica ${S.year}</div>${rows.join('')}${mi>0?`<p class="lvg">Dal leader: <b>−${gap}</b></p>`:'<p class="lvg">Sei in testa.</p>'}${res}${map}`;
+}
+function deskPost(){
+  const app=document.getElementById('app');
+  let lv=document.getElementById('live');
+  if(!S||!app||!app.querySelector||S.phase==='ending'||!wideDesk()){if(lv)lv.innerHTML='';return}
+  const nav=app.querySelector('.nav');
+  if(nav&&!nav.querySelector('.sbp')){const d=document.createElement('div');d.innerHTML=sbpHtml();nav.appendChild(d.firstChild)}
+  if(!lv&&document.body){lv=document.createElement('aside');lv.id='live';lv.setAttribute('aria-label','Classifica');document.body.appendChild(lv)}
+  if(lv)lv.innerHTML=wideLive()&&S.tab!=='standings'?liveHtml():'';
+}
+/* tracciati reali: dati geografici di Tomislav Bacinger, licenza MIT (github.com/bacinger/f1-circuits) */
+const TRKD={"Melbourne":"36.4,19.3 49.9,13.0 50.6,13.1 51.6,14.2 53.2,15.1 53.8,15.4 55.2,15.6 55.9,15.6 57.5,15.2 62.6,12.7 66.8,10.9 70.4,9.7 74.4,8.6 79.1,7.9 81.2,7.7 81.7,7.9 81.9,8.2 82.0,8.7 81.2,13.5 81.3,14.1 81.5,14.4 82.0,14.8 82.7,15.1 90.5,17.6 91.2,18.6 93.0,24.8 93.2,26.0 93.4,33.0 94.0,36.3 93.9,36.9 93.8,37.3 93.4,37.6 92.6,37.9 91.0,38.9 90.2,39.8 88.4,43.4 86.7,45.3 84.5,46.6 83.2,47.0 81.7,47.3 80.3,47.2 72.2,45.9 70.7,45.2 69.3,44.0 67.6,41.5 66.6,40.5 60.0,36.5 58.4,35.7 56.0,35.0 53.3,34.5 51.8,34.5 49.3,34.7 46.4,35.4 44.7,36.1 39.1,39.3 38.2,40.1 37.6,40.8 36.0,45.1 35.1,46.2 34.7,46.5 26.5,51.2 24.3,52.0 23.1,52.2 21.3,52.3 12.6,51.8 8.4,51.5 6.7,51.2 6.4,51.1 6.3,50.8 6.0,40.8 6.2,39.9 6.4,39.3 6.9,38.8 8.1,38.1 14.0,37.1 17.5,36.3 17.8,35.8 17.7,35.5 15.8,31.9 15.4,30.9 15.5,29.9 15.9,29.1 16.4,28.5 17.1,28.0","Sakhir":"51.8,7.9 72.6,6.6 86.3,6.0 86.9,6.2 87.1,6.7 87.0,7.3 84.1,10.9 83.8,11.6 84.0,12.5 86.0,17.2 86.2,18.4 86.3,19.4 82.9,52.0 82.6,53.2 82.1,53.8 81.3,54.0 80.5,54.0 79.7,53.7 78.8,53.0 78.0,52.3 73.9,47.7 69.6,44.2 68.5,43.6 65.2,42.5 64.5,42.1 63.5,40.7 63.2,39.6 63.5,36.0 63.1,34.1 62.6,33.3 61.6,32.4 52.0,26.1 51.3,25.5 51.1,24.5 51.5,23.8 52.5,23.5 54.0,23.4 64.3,24.3 72.1,24.7 74.1,24.1 74.9,23.5 77.2,20.4 77.3,20.0 77.2,19.5 76.7,19.3 68.7,19.0 53.9,19.5 34.9,20.4 33.5,20.6 32.6,21.3 32.2,22.3 32.1,23.6 32.3,24.9 32.8,26.5 33.7,28.1 34.8,29.4 36.4,30.7 37.9,31.4 42.1,32.6 43.8,33.3 44.9,34.1 45.9,35.1 46.8,36.3 47.5,38.1 47.7,40.1 47.5,41.6 44.7,48.8 44.0,49.8 43.2,50.8 41.6,51.9 40.8,52.0 39.9,51.6 39.0,50.8 38.0,49.7 13.5,13.7 13.1,13.1 12.9,12.0 13.4,11.5 16.8,9.5 18.2,9.2 35.6,8.2","Shanghai":"37.1,49.0 33.0,50.0 31.4,50.1 30.0,49.6 29.3,49.1 28.4,48.1 27.8,46.9 27.8,45.4 28.1,44.3 28.9,43.3 29.9,42.9 30.8,42.9 31.5,43.2 31.8,43.5 32.0,43.9 32.0,44.3 31.5,46.6 31.7,47.0 32.1,47.5 32.9,47.7 33.7,47.6 34.1,47.3 34.6,46.4 35.0,45.0 35.1,44.2 34.9,43.6 34.3,42.3 33.4,41.3 31.2,39.0 29.5,36.7 26.3,33.2 25.5,31.6 23.2,24.7 22.6,22.7 22.9,22.4 23.3,22.2 24.1,22.4 25.6,23.4 27.2,25.2 28.0,26.4 32.1,33.3 33.4,34.8 35.1,35.5 36.0,35.7 37.1,35.7 38.9,35.2 39.8,34.6 40.7,33.9 41.3,33.2 43.2,29.2 43.7,28.5 44.2,28.0 45.7,27.2 47.4,27.2 48.7,27.9 49.5,28.6 51.3,32.2 51.8,32.7 52.3,32.9 53.3,32.6 55.2,30.1 55.4,29.7 55.3,28.8 50.7,21.0 44.8,11.3 44.4,11.2 43.9,11.3 42.6,12.7 41.6,13.2 41.1,13.1 40.5,12.6 39.9,11.9 39.4,10.7 39.3,9.9 39.4,8.5 39.7,7.8 40.3,7.1 40.8,6.6 41.6,6.3 43.2,6.0 44.0,6.0 45.1,6.3 46.5,7.0 47.5,7.9 48.4,9.2 69.7,41.7 77.1,52.7 77.4,53.2 77.3,53.7 77.0,54.0 76.5,54.0 75.4,53.4 74.1,52.5 66.7,42.4 66.4,42.2 65.8,42.2","Barcellona":"59.8,46.6 15.6,33.0 14.4,32.2 14.1,31.9 13.6,30.5 13.6,30.0 14.5,26.8 14.4,25.8 14.2,25.1 13.7,24.0 13.1,23.5 8.4,19.8 6.9,17.8 6.6,17.0 6.1,14.5 6.1,13.6 6.4,12.4 7.2,10.6 8.5,9.0 9.5,8.0 10.7,7.3 12.8,6.5 14.0,6.2 15.3,6.0 17.4,6.0 19.2,6.1 20.6,6.4 36.8,11.4 37.4,11.7 38.0,12.3 38.6,13.5 38.7,15.0 38.5,15.9 38.1,16.9 37.6,17.6 36.5,18.6 35.5,19.1 34.0,19.6 33.1,19.8 32.0,19.8 29.1,19.3 18.4,15.8 17.2,16.0 16.5,16.3 15.9,17.1 15.7,17.6 15.7,18.7 16.0,19.5 22.6,27.5 23.7,28.5 24.9,29.5 26.4,30.4 27.7,31.0 34.2,33.0 35.1,33.2 35.7,33.2 36.6,32.8 37.3,32.1 37.7,31.3 38.2,29.4 38.7,28.4 40.1,26.7 50.0,19.0 51.0,18.5 52.9,18.1 53.7,18.1 55.4,18.5 56.5,19.1 57.4,19.7 79.3,44.0 80.1,44.8 80.8,45.2 81.4,45.3 82.0,45.2 82.7,44.8 83.2,44.3 83.8,42.9 84.0,41.6 83.9,39.9 83.4,38.2 83.0,37.4 81.3,35.6 78.7,33.7 78.2,33.0 77.7,31.7 77.7,30.9 77.9,29.9 78.3,29.0 79.6,27.8 80.9,27.3 82.1,27.2 83.0,27.5 83.9,28.0 91.9,33.7 92.6,34.4 93.1,35.1 93.9,37.1 93.9,38.1 93.8,39.0 90.4,49.8 90.0,50.7 89.6,51.4 88.5,52.5 86.8,53.5 85.5,53.9 84.3,54.0 82.2,53.6","Monte Carlo":"68.3,14.6 68.7,13.9 69.3,13.4 71.0,12.5 85.4,7.7 86.1,8.0 86.7,8.7 86.9,9.5 86.8,10.4 85.6,12.3 85.5,13.2 85.6,15.2 85.3,17.0 85.3,17.4 85.6,17.8 86.1,17.9 86.6,17.8 87.0,17.4 87.1,16.9 86.8,16.2 86.6,13.2 86.8,12.6 87.1,12.1 87.8,11.7 88.8,11.8 90.1,12.3 92.7,13.0 93.7,13.5 94.0,14.1 93.6,15.0 90.3,19.4 86.4,23.5 83.7,25.9 81.4,27.4 78.4,28.9 75.4,29.8 71.4,30.7 66.7,30.4 59.2,29.1 56.1,28.2 51.7,26.5 47.6,24.5 47.2,24.8 46.6,25.4 46.2,25.7 45.5,25.5 44.7,25.1 44.2,24.0 43.7,23.6 36.4,19.8 27.8,15.6 27.1,15.7 25.6,16.5 22.9,18.3 22.1,19.0 20.8,20.4 18.6,23.6 18.5,24.2 18.5,24.9 19.2,27.0 19.0,27.7 15.6,34.8 15.1,36.3 14.8,36.7 14.3,36.9 12.8,36.7 12.4,37.0 11.9,37.9 10.9,41.8 10.7,43.3 10.7,45.4 11.1,47.5 12.6,50.4 12.7,50.8 12.4,51.9 11.9,52.3 11.3,52.2 8.9,51.4 7.6,50.8 6.3,49.7 6.0,48.6 6.4,48.0 6.9,46.7 6.7,44.5 6.9,41.1 7.5,38.7 10.5,30.4 13.0,25.4 15.1,21.7 16.7,19.5 19.5,16.1 21.8,14.3 23.0,13.2 24.0,11.6 24.4,11.4 25.1,11.5 26.4,12.0 29.0,13.5 33.1,15.6 41.3,18.4 43.8,19.6 45.5,20.6 47.0,21.0 53.6,22.2 56.2,23.3 60.2,25.3 61.5,25.6 63.2,25.7 65.1,25.3 66.3,24.8 67.3,24.0 67.9,23.0 68.4,21.9 68.8,20.6 69.0,19.2 68.1,15.7","Montréal":"31.0,41.6 22.3,46.1 19.5,47.4 17.2,48.1 10.6,49.0 9.8,49.4 9.5,50.0 9.2,52.1 9.0,52.6 8.5,52.9 7.9,53.0 7.3,52.9 6.7,52.5 6.3,51.9 6.0,51.1 6.0,47.7 6.1,46.0 7.1,42.7 10.2,36.4 10.7,35.9 11.1,35.7 13.4,35.6 13.9,35.4 14.2,35.1 17.7,30.2 19.0,27.1 19.9,26.0 20.9,25.2 22.9,24.2 30.4,22.2 30.8,21.9 31.0,21.3 31.0,20.5 30.2,18.9 30.2,18.1 30.5,17.4 31.2,16.3 32.5,15.3 35.0,14.0 41.4,11.8 46.7,10.5 49.2,10.0 53.0,9.6 61.0,9.4 61.8,9.6 62.2,9.9 62.7,11.0 63.4,12.0 64.2,12.4 65.0,12.6 66.0,12.7 74.0,12.6 78.3,12.2 84.3,11.0 86.2,10.4 92.5,7.2 93.3,7.0 93.7,7.2 94.0,7.8 94.0,8.2 93.7,8.5 89.1,10.4 88.3,10.9 85.0,13.8 73.5,22.1 42.8,37.6 42.3,37.7 41.9,37.5 41.6,37.0 41.2,36.8 40.8,36.8 40.3,36.9","Le Castellet":"51.9,33.4 65.4,43.7 65.7,43.8 65.9,43.8 66.3,43.5 66.4,40.9 66.6,40.1 67.5,39.1 68.5,38.6 69.7,38.6 70.3,38.8 70.7,39.1 72.5,40.9 73.3,41.5 75.0,42.3 76.7,42.8 78.8,42.9 79.6,42.8 82.1,42.0 84.0,41.0 84.8,41.0 85.1,41.3 85.7,41.8 85.9,42.5 86.0,43.6 85.9,44.0 85.5,44.9 82.4,49.1 81.6,50.8 81.5,51.5 81.8,52.4 82.5,53.1 83.6,53.8 84.7,54.0 85.1,54.0 86.1,53.7 87.3,53.0 88.1,51.9 88.4,50.7 88.4,41.6 88.3,40.8 87.9,39.7 87.4,38.8 86.6,37.9 85.6,37.2 81.6,35.6 65.4,29.5 61.2,26.6 59.9,24.8 59.3,24.4 58.7,24.3 58.4,24.5 56.7,26.0 56.1,26.0 20.1,12.5 19.6,12.2 19.2,11.7 18.2,9.5 17.3,7.9 15.9,6.7 14.9,6.2 14.0,6.0 13.3,6.2 12.6,6.8 11.6,9.5 11.6,9.9 11.6,10.2 12.0,10.5 14.2,10.2 15.2,10.2 15.6,10.4 16.1,10.9 16.4,11.5 16.5,12.0 16.3,13.5 16.4,14.0 17.0,14.4 20.4,16.5 23.1,17.6 24.4,18.3 28.5,21.3 30.0,22.8 32.8,24.5 33.4,24.7 34.3,24.7 35.1,24.3 36.2,23.1 36.9,22.9 37.9,22.9 38.3,23.1","Spielberg":"62.7,49.0 44.4,53.9 43.6,54.0 43.0,53.5 41.9,51.5 35.3,42.3 32.6,38.0 30.1,33.7 25.0,22.5 23.3,19.8 20.6,16.5 12.2,8.1 12.0,7.6 12.0,7.0 12.5,6.7 13.5,6.5 16.8,6.1 20.1,6.0 23.6,6.0 26.8,6.4 30.6,7.0 42.1,9.2 47.4,9.9 58.8,10.4 59.7,10.7 60.3,11.3 60.5,12.0 60.4,12.8 60.1,13.5 58.1,16.2 56.4,17.6 54.6,18.6 52.4,19.3 50.0,19.7 47.5,19.6 37.8,18.0 36.5,18.2 35.5,18.5 34.6,19.2 33.7,20.0 33.2,21.1 33.0,22.2 32.9,23.2 33.1,24.3 33.4,25.1 38.1,33.4 38.9,34.2 40.1,35.0 41.5,35.3 42.9,35.2 44.4,34.6 45.3,33.9 47.1,31.6 48.0,30.7 49.1,29.9 50.4,29.1 52.2,28.5 54.1,28.0 80.8,27.4 82.0,27.5 83.2,27.9 84.2,28.6 84.9,29.6 85.5,30.9 87.9,38.9 88.0,39.6 87.9,40.1 87.6,40.6 86.7,41.3 85.5,42.0 82.1,43.6 80.0,44.3","Silverstone":"91.4,25.5 93.8,34.6 94.0,36.2 93.8,37.6 93.4,38.5 92.4,39.7 91.3,40.5 84.5,43.7 81.5,44.6 69.7,47.4 68.4,48.3 66.6,49.7 65.6,50.4 64.7,50.5 63.7,50.5 59.3,49.6 57.6,49.8 56.4,50.3 55.5,51.0 53.6,52.9 52.7,53.5 51.6,53.7 50.5,53.6 49.1,52.9 48.1,51.9 45.8,49.2 44.8,48.5 42.9,47.8 16.1,38.8 9.7,36.2 8.1,35.4 7.2,34.7 6.5,33.8 6.1,32.8 6.0,31.8 6.1,30.8 6.3,29.8 6.8,28.9 7.6,28.1 10.0,26.4 11.7,25.0 14.0,22.5 16.2,19.5 19.9,15.1 20.0,14.7 20.0,14.2 19.7,13.7 18.0,12.5 17.8,12.0 17.8,11.0 18.3,10.2 19.8,8.4 20.9,7.6 22.0,7.0 23.8,6.3 24.4,6.3 26.2,7.0 46.2,17.4 46.9,17.8 47.6,18.6 48.1,19.7 48.3,20.5 48.5,26.4 48.7,27.6 49.6,30.0 50.4,31.0 57.2,37.0 58.0,38.0 58.2,38.5 58.1,39.0 57.4,39.8 53.4,41.7 52.9,42.2 52.6,42.7 52.7,43.3 53.1,43.9 53.7,44.2 55.8,44.7 58.2,44.9 60.5,44.8 61.7,44.5 62.2,44.2 62.8,43.4 79.6,16.9 80.2,15.3 80.2,14.2 79.8,13.1 79.1,12.1 78.5,11.8 77.7,11.7 73.9,11.9 73.1,11.7 72.3,11.3 71.8,10.5 71.5,9.6 71.6,8.6 71.9,7.8 73.0,6.8 73.8,6.6 74.6,6.6 82.3,8.8 84.6,10.3 87.0,12.4 88.4,14.8","Hockenheim":"18.0,41.4 14.9,35.0 11.9,29.4 11.8,28.9 11.9,28.5 14.0,23.9 14.7,22.6 16.1,20.5 17.5,18.9 29.7,6.3 30.1,6.1 30.6,6.0 31.0,6.2 31.5,6.6 31.9,7.4 32.3,8.4 32.4,10.4 32.6,11.6 33.4,12.9 34.1,13.5 38.6,16.1 45.0,19.1 49.3,20.4 53.6,21.3 57.3,21.7 58.9,21.7 63.2,21.4 65.4,21.0 67.8,20.3 72.3,18.8 87.0,13.2 87.5,13.2 87.9,13.3 88.1,13.6 88.2,14.0 88.1,14.3 87.8,14.6 70.3,26.1 69.5,26.4 68.6,26.5 55.0,24.9 54.6,25.2 54.4,25.9 54.4,27.1 54.5,28.5 54.8,29.7 55.4,30.8 56.2,31.8 56.5,32.4 56.6,33.0 56.4,34.1 55.6,35.6 53.9,37.1 39.5,46.5 38.7,46.7 37.3,46.7 36.0,46.3 35.4,45.9 34.7,45.3 27.2,36.4 26.1,35.7 24.9,35.7 24.4,35.9 23.6,36.8 23.4,38.0 23.5,38.7 24.9,42.6 25.3,43.2 25.9,43.7 27.9,44.5 28.5,44.9 29.0,45.4 31.3,48.4 31.7,49.5 31.5,50.6 31.1,51.1 27.9,53.4 27.0,53.9 25.8,54.0 25.0,53.8 24.3,53.4 23.7,52.8 22.6,51.1","Budapest":"24.6,25.0 24.2,7.4 24.6,6.4 25.1,6.1 25.9,6.1 26.8,6.6 28.9,9.2 29.7,10.7 30.3,12.1 30.9,13.7 31.2,16.1 31.5,27.2 31.7,27.9 32.4,28.9 33.3,29.5 33.9,29.6 34.8,29.6 35.3,29.4 36.2,28.8 36.8,27.8 38.4,23.2 38.9,22.5 39.3,22.0 39.8,21.8 41.1,21.3 57.7,17.3 59.5,16.9 63.2,16.9 64.1,16.7 64.5,16.4 69.8,8.8 70.3,8.4 71.4,7.8 72.0,7.6 72.7,7.7 74.0,8.1 74.9,9.0 75.5,10.6 75.8,14.6 74.8,22.8 74.6,23.3 74.0,23.8 72.7,23.8 72.4,23.9 72.0,24.2 67.9,29.9 67.4,31.2 67.4,32.0 67.5,32.4 69.8,36.1 70.0,36.8 70.1,37.9 69.9,38.5 69.2,39.3 68.8,39.7 63.0,43.3 61.7,44.4 61.0,45.7 59.0,51.7 58.6,52.5 58.2,52.9 56.8,53.8 55.7,54.0 39.1,53.6 36.5,53.6 36.0,53.4 35.5,52.8 35.4,52.4 36.2,46.7 36.3,42.5 36.0,41.4 35.7,41.0 35.3,40.6 34.7,40.3 34.1,40.3 33.1,40.5 32.2,41.2 32.0,41.8 31.9,42.3 31.9,50.4 31.4,51.5 30.8,52.1 30.2,52.5 29.0,52.9 28.3,52.8 26.7,52.2 26.1,51.6 25.6,50.9 25.4,50.1 25.3,49.2","Spa-Francorchamps":"80.2,15.4 87.4,10.4 87.7,10.4 88.0,10.5 88.2,10.9 86.2,16.5 85.3,18.2 83.0,21.7 74.5,30.3 74.1,30.8 72.9,33.2 72.3,33.9 70.8,34.9 67.8,35.6 67.3,35.9 58.6,42.4 56.5,43.5 32.8,52.7 29.5,53.9 29.0,54.0 28.4,54.0 27.9,53.7 26.7,52.4 25.7,52.0 25.1,52.1 21.6,53.2 20.4,53.2 19.7,52.8 12.2,43.8 11.9,43.2 11.8,42.6 11.9,42.0 12.3,41.5 12.7,41.1 13.2,40.9 13.8,40.8 14.3,41.0 14.9,41.2 15.3,41.7 18.1,45.4 19.1,46.0 20.2,46.0 24.9,43.9 26.9,43.2 36.9,40.5 37.5,40.1 38.5,39.1 39.1,37.7 39.1,34.5 38.9,33.6 38.1,32.0 37.6,31.3 36.8,30.6 34.9,29.7 23.9,26.4 23.1,26.0 22.5,25.5 22.0,24.9 21.8,24.2 21.7,23.5 21.8,22.9 22.7,20.7 22.8,19.9 22.4,18.5 21.9,18.0 20.8,17.3 14.6,14.1 14.3,13.8 13.8,12.8 13.8,12.2 14.0,11.6 16.6,7.4 17.5,6.6 18.1,6.3 19.4,6.0 20.2,6.0 23.3,6.9 24.9,7.6 26.3,8.4 28.1,9.7 30.6,11.9 31.8,13.2 36.4,20.2 37.0,21.1 38.6,22.6 40.3,23.7 41.9,24.4 47.8,26.4 49.6,26.5 50.5,26.2 58.3,22.4 60.9,21.6 63.3,21.1 68.5,20.3 68.8,20.3 69.1,20.5 69.2,20.8 69.2,21.9 69.3,22.3 69.6,22.5 69.9,22.6","Monza":"36.5,8.3 60.4,8.3 60.7,8.3 60.8,8.5 60.9,9.6 61.5,9.9 65.4,8.6 66.5,8.3 67.4,8.2 73.5,8.1 75.1,8.3 76.8,8.8 77.7,9.1 79.6,10.2 80.5,11.0 82.2,12.8 83.7,15.0 84.7,17.5 85.1,19.0 86.5,26.7 87.7,34.7 88.0,35.1 88.9,35.2 89.4,35.5 90.1,37.9 93.8,46.2 93.9,46.8 93.9,48.0 93.4,49.2 92.6,49.9 91.6,50.3 82.6,52.0 82.1,52.0 81.5,51.8 80.9,51.2 74.1,41.0 72.3,38.8 66.9,33.4 54.5,21.6 53.6,21.0 50.9,21.4 50.1,21.2 48.9,20.8 47.1,19.2 46.0,18.9 39.6,18.7 8.8,18.2 7.7,17.9 7.3,17.6 6.5,16.7 6.0,15.5 6.1,14.3 6.5,13.0 7.2,11.9 8.4,10.7 9.7,9.9 11.4,9.2 13.3,8.8 21.6,8.0","Singapore":"85.4,24.3 87.0,37.0 86.9,37.7 86.5,38.3 84.3,41.6 84.0,41.7 77.9,41.5 70.8,40.7 69.9,40.5 69.3,40.1 68.9,39.7 68.5,38.7 68.5,37.1 68.3,36.8 46.2,35.7 44.4,35.4 43.2,35.1 41.9,34.5 34.0,27.6 33.5,27.5 32.8,27.7 32.0,28.3 31.0,31.2 26.7,53.1 26.3,53.6 26.0,53.9 25.0,54.0 24.8,53.9 24.2,53.1 23.6,52.3 23.1,51.3 20.4,49.0 18.5,47.3 18.1,46.6 17.6,45.1 17.8,43.9 18.1,43.3 18.0,42.9 16.3,42.3 15.4,41.7 13.5,40.2 13.1,39.6 13.0,37.9 22.7,20.4 23.8,19.5 24.8,19.3 26.9,20.6 31.7,25.6 32.1,25.8 32.4,25.8 34.6,21.5 37.2,17.2 37.6,16.5 38.1,16.4 38.9,16.7 52.7,24.7 54.9,25.6 56.4,25.8 75.2,27.0 75.9,26.8 76.9,26.4 77.7,25.8 78.2,24.9 78.3,24.0 78.2,22.0 77.6,19.2 75.2,12.8 75.1,11.9 75.1,10.6 75.4,7.8 75.8,6.7 76.5,6.1 77.0,6.0 77.5,6.1 78.7,7.6 79.2,8.0 80.4,8.6 81.4,8.9 82.7,8.7 83.3,9.0 83.6,9.5 83.8,10.2 84.3,16.4","Suzuka":"81.1,31.6 93.5,46.7 94.0,48.4 94.0,49.1 93.2,52.0 92.8,52.6 91.9,53.3 91.1,53.5 90.4,53.5 89.6,53.2 88.9,52.6 84.4,45.8 83.7,45.2 82.2,44.8 80.2,44.8 79.3,44.5 78.6,44.0 78.0,43.4 77.8,42.8 76.9,39.5 76.6,38.6 76.0,37.9 75.3,37.4 74.5,37.0 73.6,36.8 71.3,36.8 70.3,36.6 69.6,36.3 68.8,35.7 68.3,34.9 68.0,34.1 67.8,32.6 69.1,29.0 69.2,28.4 69.3,27.5 68.9,26.2 68.4,25.6 66.6,24.4 64.3,23.4 62.4,23.0 60.2,23.0 59.4,23.3 57.7,24.0 56.6,24.6 55.3,25.6 54.3,26.7 50.0,32.0 49.3,32.1 42.9,32.6 42.5,32.3 42.3,31.9 41.3,27.7 39.9,19.3 39.8,18.6 40.0,17.3 41.7,13.2 41.4,12.6 41.1,12.4 40.4,12.3 40.0,12.6 36.3,18.5 35.7,19.2 34.3,20.4 33.3,20.9 32.3,21.2 30.5,21.5 28.8,21.5 27.6,21.4 24.4,20.6 21.4,19.4 19.5,18.1 18.5,17.2 17.4,16.1 16.1,14.0 14.6,10.0 13.8,8.2 13.4,7.5 12.9,7.0 12.1,6.7 11.3,6.5 10.2,6.5 8.3,6.9 7.4,7.3 6.6,7.8 6.2,8.6 6.0,9.3 6.1,10.2 6.6,11.5 7.1,12.1 10.6,15.2 12.1,16.4 15.8,18.7 19.7,20.6 21.5,21.4 28.0,23.7 43.3,29.0 44.1,29.0 45.9,28.6 47.4,28.0 50.0,26.6 51.2,25.6 56.6,20.6 59.1,18.8 59.6,18.9 60.8,20.0 61.2,20.1 61.6,20.0 62.0,19.7 63.6,18.4 64.6,18.0 66.8,18.0 67.9,18.2 70.0,19.1 71.3,20.0 72.4,21.0","Austin":"24.9,45.2 32.5,51.2 36.2,53.6 37.0,54.0 37.3,54.0 37.7,53.6 37.7,53.1 35.4,46.2 35.2,45.5 35.2,44.3 35.6,42.8 36.3,41.6 36.9,40.9 44.5,36.1 45.5,34.9 46.4,32.6 47.1,31.7 48.1,31.1 49.9,30.3 50.4,29.9 50.9,29.1 51.3,26.9 51.6,25.7 52.2,24.8 53.1,23.8 53.8,23.4 55.2,22.7 55.8,22.5 56.7,22.5 57.4,22.7 62.2,24.9 62.6,24.9 63.8,24.2 64.8,23.4 66.8,21.0 67.3,20.6 68.3,20.3 68.9,20.3 70.1,20.8 70.7,21.5 71.2,22.3 71.5,22.6 71.9,22.7 80.5,20.8 81.1,20.5 91.2,8.1 91.8,6.9 91.8,6.4 91.4,6.1 90.8,6.0 82.1,8.8 76.3,10.4 69.9,12.0 62.2,13.5 53.0,15.0 39.9,16.4 38.4,16.7 38.3,16.8 38.2,17.2 39.2,18.4 42.2,22.5 43.5,24.6 43.5,25.4 43.3,25.7 42.7,26.0 42.2,26.1 39.7,25.9 39.1,25.4 38.2,23.1 37.9,22.7 36.0,20.8 35.5,20.7 33.9,20.5 33.4,20.7 33.1,21.2 33.2,21.5 37.5,29.0 37.6,30.3 37.0,32.2 36.5,33.3 36.2,33.7 35.7,34.0 32.6,35.5 31.6,35.6 29.9,35.4 28.1,34.8 26.8,33.9 23.5,29.3 21.3,26.5 21.0,26.2 20.3,26.0 19.3,26.1 18.1,26.6 9.0,30.6 8.4,30.9 8.1,31.6 8.7,32.4","Città del Messico":"28.9,6.9 50.7,9.9 56.4,10.4 66.1,11.8 78.3,13.6 80.8,14.1 81.5,14.5 81.6,15.1 81.2,18.1 81.2,18.3 81.4,18.6 83.0,19.5 83.2,19.8 83.0,22.0 82.6,23.7 81.2,26.8 75.6,36.3 68.5,47.6 68.5,48.4 68.7,48.6 70.9,50.1 70.9,50.4 70.8,50.6 66.7,53.8 66.0,54.0 65.1,53.5 64.9,52.6 66.6,38.8 66.2,38.1 63.8,36.6 62.6,35.5 61.8,33.5 61.3,32.7 60.8,32.2 59.4,31.5 53.3,30.6 52.6,30.4 51.9,29.8 51.0,26.9 50.3,26.0 44.7,22.9 43.4,22.4 41.5,21.9 25.9,19.6 25.5,19.1 25.3,14.7 24.9,12.0 24.6,11.5 24.3,11.3 23.9,11.4 23.5,11.8 22.9,12.6 22.2,13.0 21.8,12.9 20.2,12.3 17.6,12.0 17.0,11.7 16.8,11.0 16.9,10.3 17.3,9.3 17.8,8.5 18.5,7.5 19.3,6.8 20.4,6.3 21.4,6.0 22.3,6.0","Interlagos":"29.5,18.0 12.2,27.7 11.3,28.4 10.1,29.9 9.8,30.5 9.7,31.4 9.9,32.2 10.3,32.9 10.6,33.3 12.2,34.3 14.0,35.3 14.6,35.7 15.0,36.3 15.2,37.0 15.1,38.0 14.4,40.5 14.2,42.3 14.2,43.7 14.6,45.9 15.7,48.5 16.6,49.8 17.8,50.9 19.2,52.0 20.6,52.7 23.3,53.6 24.7,53.8 32.1,54.0 49.8,53.7 72.3,53.6 73.3,53.5 74.1,53.2 74.6,52.9 75.2,52.2 75.5,51.2 75.7,50.2 75.3,44.3 75.0,42.6 74.2,40.5 73.5,39.4 71.8,37.7 70.7,36.9 67.5,35.4 60.6,32.7 52.9,29.9 45.7,27.0 44.8,26.6 44.1,26.0 43.5,25.0 43.0,23.9 42.6,22.2 42.5,21.0 42.7,19.1 43.1,17.5 43.5,16.7 44.7,15.4 45.8,14.7 49.0,13.0 51.8,11.8 54.3,11.0 55.3,11.1 56.2,11.7 56.6,12.6 56.6,13.3 56.6,14.0 55.5,16.8 55.4,17.4 55.6,18.5 56.3,19.7 57.3,20.5 58.2,20.8 59.1,20.8 60.7,20.3 62.1,18.8 64.2,15.1 65.3,13.5 66.3,12.4 67.7,11.4 69.6,10.4 71.9,9.4 72.8,9.3 74.0,9.6 74.4,10.4 74.4,11.6 69.9,18.4 69.3,20.0 69.1,21.7 69.3,23.4 69.6,24.3 70.2,25.7 70.8,26.7 71.8,27.7 73.1,28.6 74.1,29.0 78.7,30.5 87.1,33.0 88.1,32.9 89.1,32.2 89.5,31.6 89.8,30.2 90.3,24.2 90.2,22.5 88.8,19.3 87.2,16.0 84.1,11.9 81.9,9.6 80.9,8.7 78.7,7.3 77.6,6.8 76.4,6.4 73.3,6.0 66.3,6.1 62.7,6.5 53.7,6.6 52.3,6.8 50.4,7.3 48.1,8.0 46.5,8.7","Yas Marina":"43.0,25.5 46.9,37.9 47.3,38.5 47.9,38.9 48.7,39.2 49.4,39.1 58.4,35.2 59.3,34.7 59.9,34.1 60.4,33.2 60.6,32.5 61.1,28.7 62.0,26.4 62.6,25.5 63.7,24.2 64.9,23.4 65.9,23.0 66.9,22.8 68.3,22.8 73.3,23.3 75.9,23.1 77.7,22.8 92.6,18.2 93.1,18.0 93.5,17.5 93.9,16.8 94.0,15.9 93.6,15.1 93.1,14.8 92.2,14.5 89.7,14.1 86.2,13.9 50.7,8.6 46.6,8.2 39.0,7.3 31.4,6.1 30.6,6.2 30.4,6.5 30.5,7.1 31.1,9.5 30.8,9.9 25.8,12.2 24.2,13.3 23.0,14.2 21.2,15.9 19.6,17.9 18.2,20.2 11.6,32.3 10.8,34.1 9.1,38.3 6.4,48.5 6.0,50.3 6.2,51.2 6.5,52.2 7.2,53.0 8.3,53.6 9.0,53.8 10.3,53.9 11.3,53.6 12.7,52.9 13.3,52.3 14.1,50.8 14.3,50.0 14.3,48.8 13.4,39.6 13.4,37.9 13.5,37.4 15.7,32.0 16.3,31.0 17.1,30.5 22.3,28.4 22.7,28.4 23.0,28.6 23.2,29.0 24.5,32.9 25.0,33.7 25.4,33.9 26.1,34.1 26.8,34.1 30.5,33.4 31.1,33.0 31.4,32.6 31.6,31.2 31.4,29.7 28.2,19.9 28.1,18.9 28.2,17.3 28.9,16.4 34.9,11.4 35.6,11.1 37.1,10.8 37.6,10.8 38.0,11.0 38.3,11.4 38.6,12.3","Imola":"61.8,12.6 60.3,12.6 50.5,10.5 47.1,10.1 45.0,10.1 34.9,11.0 29.9,12.2 29.3,12.6 29.0,12.9 28.5,14.9 28.2,15.4 27.6,15.8 23.0,18.1 22.3,18.9 14.9,37.3 14.9,38.4 15.7,41.2 15.7,41.7 15.4,42.2 15.1,42.6 6.3,50.1 6.1,50.5 6.0,51.0 6.1,51.6 6.4,52.2 6.9,52.6 7.3,52.7 8.1,52.7 22.2,50.9 23.8,50.8 26.2,50.9 27.9,51.2 33.9,52.3 34.7,52.1 35.3,51.8 36.1,51.1 36.8,49.7 38.0,46.7 38.3,45.4 38.4,43.9 38.2,42.4 36.4,34.3 36.5,33.7 36.7,33.2 39.0,29.5 39.4,29.3 39.9,29.3 42.2,30.2 42.8,30.3 63.2,30.2 63.5,30.3 63.9,31.4 64.1,31.6 64.6,31.6 72.7,28.2 73.7,27.6 77.1,25.3 79.1,23.5 85.5,17.1 86.5,16.5 87.5,16.0 93.5,13.3 93.9,12.9 94.0,12.2 93.9,11.6 92.1,7.8 91.6,7.4 90.5,7.3 90.0,7.4 77.5,12.1 75.2,12.6","Nürburgring":"80.4,45.7 59.9,31.6 57.3,29.1 54.7,26.4 54.5,25.8 54.6,25.3 55.1,25.0 55.8,25.0 57.5,25.2 61.8,26.5 62.4,26.5 63.1,26.4 63.9,26.0 64.5,25.3 64.9,24.6 65.2,23.9 65.2,23.1 64.0,19.4 62.7,16.7 61.9,15.8 61.3,15.4 60.8,15.2 60.0,15.4 59.3,15.7 58.8,16.4 58.7,17.3 59.2,19.8 59.0,20.3 58.6,20.9 58.0,21.1 54.0,21.4 46.3,21.3 35.9,20.0 34.7,20.1 33.5,20.7 32.9,21.2 32.5,21.9 31.2,26.4 30.8,27.1 29.9,27.8 29.4,27.9 28.4,27.8 27.6,27.3 23.3,21.9 20.5,19.0 16.2,15.8 14.5,14.9 10.9,13.2 7.2,11.8 6.5,11.3 6.1,10.6 6.0,10.0 6.1,9.3 6.4,8.6 6.9,8.1 8.2,7.8 8.9,7.9 21.2,16.5 22.7,17.0 23.7,17.1 25.0,16.9 26.0,16.5 27.7,15.6 28.5,15.3 30.0,15.1 31.2,15.1 50.8,17.7 51.5,17.5 52.4,16.6 54.3,9.3 54.8,8.5 55.3,8.0 56.0,7.6 57.0,7.4 57.7,7.4 58.6,7.7 74.8,16.8 76.0,17.9 76.7,18.9 78.4,22.5 85.9,38.7 86.1,38.9 86.5,38.9 87.6,38.4 88.1,38.4 90.5,41.7 93.8,49.3 94.0,50.2 93.7,51.1 93.2,51.8 92.6,52.2 92.1,52.5 91.2,52.6 90.3,52.5","Portimão":"64.2,21.3 92.8,31.1 93.4,31.5 93.7,32.1 93.9,33.1 94.0,43.3 93.7,44.3 93.2,44.9 85.6,51.5 84.9,51.7 83.9,51.3 83.5,50.8 83.3,50.0 83.8,43.6 83.8,42.5 83.3,41.3 82.3,40.0 80.9,39.1 44.3,26.5 42.6,26.0 41.7,26.3 41.3,26.9 41.2,27.7 41.5,28.5 52.6,38.0 54.8,39.2 56.6,39.8 58.3,40.1 69.8,41.6 70.9,42.0 71.8,42.8 72.5,43.7 73.0,45.2 74.6,51.5 74.2,52.7 73.4,53.5 72.5,53.8 71.6,53.8 51.3,43.5 50.4,43.1 48.0,42.7 46.3,42.9 44.4,43.6 33.4,49.4 32.2,49.6 30.3,49.6 27.6,48.9 26.7,48.5 26.1,47.8 25.8,47.2 25.7,46.3 29.5,34.6 29.6,33.7 29.5,32.3 29.1,30.6 28.3,29.0 27.1,27.6 20.2,21.1 19.4,20.7 18.6,20.7 17.5,20.9 16.7,21.7 16.4,22.6 16.4,23.1 19.4,34.2 19.3,35.3 18.8,36.4 17.7,37.4 16.2,37.7 14.8,37.8 13.9,37.6 12.3,36.9 11.5,36.3 10.7,35.4 10.1,34.3 9.2,32.0 6.2,20.8 6.0,18.7 6.0,17.0 6.2,15.8 6.7,14.0 7.4,12.4 8.6,10.7 9.8,9.5 11.1,8.4 14.4,6.7 16.2,6.3 17.9,6.2 20.1,6.2","Mugello":"51.2,27.3 59.8,22.3 73.1,16.1 79.1,12.5 88.0,6.6 89.1,6.1 90.7,6.0 92.0,6.6 92.8,7.4 93.2,8.4 93.3,9.4 93.1,10.5 92.1,12.1 86.6,17.6 86.2,18.1 85.9,18.7 85.8,19.5 86.0,20.4 87.8,24.9 87.9,25.9 87.5,26.9 86.6,28.3 85.8,29.0 84.7,29.5 65.5,37.1 64.5,38.0 64.0,39.0 63.3,42.7 63.0,43.5 62.0,44.6 60.8,45.3 43.1,50.4 42.4,50.5 41.7,50.5 40.5,50.1 35.3,46.5 34.6,46.2 33.3,45.8 31.2,45.9 29.1,46.7 19.9,53.2 17.7,53.9 16.4,54.0 15.4,53.9 14.1,53.5 13.1,53.0 12.1,52.3 10.4,50.4 9.9,49.7 6.9,43.7 6.7,42.4 7.0,40.2 7.5,39.0 8.1,38.2 9.3,36.8 21.6,25.0 22.4,24.6 24.0,24.7 25.0,25.2 28.2,27.3 28.9,27.6 29.6,27.8 30.4,27.7 31.6,27.4 32.7,26.7 47.9,14.3 48.7,13.7 49.8,13.3 50.9,13.1 51.8,13.2 52.7,13.5 53.4,14.1 54.2,14.9 54.7,16.1 54.8,17.3 54.6,18.2 54.0,19.4 53.2,20.2 52.0,21.0 49.4,22.1 44.2,23.5 43.6,23.9 43.1,24.3 42.5,25.0 40.2,28.3 39.7,28.8 38.4,29.3 14.9,37.2 13.3,38.1 12.8,38.7 11.9,40.0 11.6,40.8 11.5,42.1 11.8,43.3 12.5,44.6 13.2,45.3 14.5,46.0 15.9,46.4 17.3,46.4 19.1,46.1 21.2,45.2","Sepang":"37.9,32.0 22.7,33.2 22.0,33.1 21.4,32.8 21.0,32.4 20.7,31.8 20.7,31.1 21.0,30.3 21.5,29.8 22.3,29.5 23.3,29.7 25.0,30.3 25.6,30.2 26.1,29.8 26.2,29.2 26.1,28.4 24.4,26.2 23.9,25.3 23.5,24.2 23.4,23.2 23.4,22.0 23.7,19.1 24.1,17.7 24.9,16.3 25.6,15.4 26.7,14.4 27.9,13.6 36.1,10.9 41.2,8.8 47.7,6.0 48.3,6.0 48.8,6.3 49.9,12.3 51.4,18.5 52.0,19.8 52.6,20.7 53.8,21.6 55.0,22.3 56.1,22.5 57.2,22.6 58.5,22.4 59.8,21.9 60.8,21.2 62.6,19.3 63.5,18.7 64.9,18.2 66.1,18.2 67.3,18.4 68.2,18.8 69.1,19.4 79.2,31.0 79.3,31.6 77.3,36.2 76.8,36.5 76.2,36.7 66.9,37.2 58.2,38.2 53.4,39.0 52.9,39.4 52.8,40.0 53.2,40.7 56.6,42.6 57.3,43.3 57.9,44.4 58.1,45.6 58.1,47.2 57.6,50.0 56.7,51.7 55.5,53.5 54.9,53.9 54.2,54.0 53.5,53.9 52.9,53.5 42.3,44.7 41.5,44.4 40.6,44.4 39.5,44.6 35.6,46.6 34.6,47.0 33.4,47.1 32.3,47.1 30.3,46.7 28.9,46.2 28.0,45.5 26.8,43.9 26.4,42.7 26.3,42.0 26.8,41.2 27.9,40.8 70.2,33.0 70.8,32.4 71.2,31.4 71.0,30.6 70.2,29.8 68.9,29.6","Istanbul":"29.7,52.1 41.4,53.7 42.4,53.6 43.1,53.0 43.7,47.4 44.2,46.3 45.0,44.8 46.7,43.4 48.9,42.4 52.8,41.7 55.0,41.6 57.7,41.6 62.3,42.4 66.7,43.8 68.8,44.9 69.8,45.1 71.0,45.0 72.3,44.4 73.2,43.4 73.9,42.4 74.7,38.6 75.1,38.0 75.8,37.7 78.8,39.1 80.8,39.8 82.0,40.0 82.7,39.6 83.1,38.9 83.7,35.6 83.6,34.7 83.0,33.9 68.6,18.4 67.8,17.2 67.7,16.2 68.0,15.4 68.4,14.8 69.1,14.5 71.0,14.1 72.3,14.3 73.5,14.6 78.5,17.6 85.7,22.4 86.4,22.4 90.7,21.8 91.3,21.3 93.7,18.3 94.0,17.5 94.0,16.6 93.4,13.8 92.7,11.9 91.6,9.5 90.8,8.8 89.6,8.2 87.8,7.8 62.9,6.3 61.3,6.5 60.6,7.0 60.4,7.8 60.9,10.7 60.4,12.0 45.2,31.6 43.9,32.4 42.0,33.2 7.3,38.4 6.5,38.7 6.1,39.5 6.0,40.2 6.3,41.2 6.9,41.7 8.9,42.2 9.3,42.7 9.4,43.2 7.3,47.2 7.1,47.9 7.4,48.5 8.1,48.7","Zandvoort":"28.7,27.9 37.4,7.1 38.0,6.5 38.7,6.1 39.5,6.0 40.3,6.2 41.0,6.6 41.4,7.2 41.7,8.0 41.7,8.8 39.0,15.3 38.4,17.6 38.1,19.9 38.3,22.2 38.0,23.1 37.6,23.7 36.6,24.5 32.6,26.0 31.8,26.6 31.6,27.4 31.6,28.2 31.9,28.9 32.5,29.5 33.2,29.8 34.3,29.8 39.6,28.0 42.1,27.6 44.3,27.5 46.2,27.7 47.9,28.0 51.3,28.8 53.2,29.0 56.3,28.2 58.2,27.2 60.6,25.7 62.2,25.0 63.6,24.6 65.4,24.4 66.9,24.4 73.0,24.8 74.4,25.1 75.7,25.7 76.6,26.5 77.8,28.4 78.1,29.5 78.2,30.6 78.1,31.8 77.7,33.0 77.0,34.2 74.2,38.1 73.2,39.8 70.8,44.8 69.7,45.2 68.3,45.4 67.0,45.3 65.4,45.0 63.8,44.5 62.1,43.6 60.4,42.4 59.3,41.2 59.1,40.5 59.3,39.8 59.9,38.8 60.9,38.2 62.3,37.7 64.6,37.3 66.9,36.7 69.0,35.9 70.2,35.1 70.6,34.2 70.6,33.1 70.3,32.0 69.3,31.1 68.4,30.8 63.9,30.2 59.4,30.2 54.6,30.8 50.5,31.8 45.3,33.7 42.6,34.8 40.4,36.1 39.6,36.4 39.1,36.3 38.0,34.5 37.2,34.0 36.2,34.0 35.2,34.4 34.7,35.1 34.5,35.9 36.9,50.2 36.9,51.0 36.7,51.9 35.9,53.1 35.0,53.7 34.0,53.9 29.0,54.0 27.7,53.8 26.4,53.3 25.4,52.9 24.0,51.8 22.4,49.5 22.0,48.1 21.8,46.8 22.0,44.8 22.4,43.3","Jeddah":"26.5,41.8 38.3,32.2 38.5,31.9 38.4,31.6 37.7,30.7 37.7,30.4 37.9,29.8 38.2,29.6 39.3,29.4 42.0,29.3 43.1,29.0 50.6,24.7 51.8,24.2 52.2,23.8 52.2,22.6 52.5,21.4 53.2,20.6 53.9,20.0 55.0,19.6 55.8,19.4 58.5,19.8 59.2,19.7 60.1,19.3 61.6,18.3 62.2,17.6 62.9,15.5 63.6,15.0 66.8,13.9 67.5,13.8 68.6,14.1 69.2,14.6 70.5,16.0 71.3,16.1 74.0,15.7 76.9,15.6 78.6,15.3 79.8,15.0 85.8,12.5 92.1,9.8 92.8,9.0 93.0,8.4 92.9,7.6 92.6,6.9 91.6,6.1 90.7,6.0 89.6,6.2 88.7,6.6 88.0,7.0 85.8,9.7 84.7,10.7 82.8,11.7 80.8,12.3 79.6,12.3 76.0,12.0 74.7,12.2 73.3,12.7 72.8,12.7 72.3,12.5 71.8,12.1 71.0,11.1 70.1,10.5 69.3,10.4 67.7,10.6 65.7,11.3 63.9,12.2 62.9,13.0 59.6,16.1 58.4,17.0 57.1,17.6 53.5,18.8 52.4,19.4 50.5,21.0 47.9,24.2 47.0,25.1 45.5,26.1 42.9,27.3 41.7,27.7 38.8,28.3 37.7,28.3 37.2,28.5 36.8,28.8 36.5,29.3 35.9,30.9 34.9,32.2 32.5,33.8 31.8,34.0 30.9,34.0 25.4,33.3 24.2,33.3 21.8,33.6 21.0,33.8 19.1,34.7 14.2,38.2 11.7,40.9 10.2,43.1 9.3,44.7 8.5,46.7 7.1,52.1 7.0,53.0 7.4,53.5 7.9,53.9 8.5,54.0 9.0,53.8 18.7,47.7 21.1,46.0","Miami":"49.4,22.3 61.5,29.8 61.7,30.3 61.6,30.8 61.2,31.5 58.7,33.4 57.9,34.3 57.6,35.8 57.9,37.5 57.6,39.5 57.0,40.8 54.7,42.7 52.0,43.6 50.3,44.0 47.8,44.0 45.8,43.7 43.5,42.6 30.0,34.5 28.1,34.3 27.1,34.4 25.8,34.8 24.8,35.4 22.6,37.1 21.1,37.3 19.7,37.2 18.3,36.5 15.7,34.1 14.3,33.4 12.9,33.1 11.2,33.4 9.6,33.9 8.3,34.5 7.3,35.4 6.4,36.9 6.0,38.4 6.0,39.7 6.3,40.6 6.8,41.2 7.8,41.7 8.9,41.7 10.4,41.4 12.0,41.4 21.4,43.3 37.3,42.8 49.4,46.8 53.1,47.4 56.8,47.5 60.7,46.9 77.1,40.8 79.4,39.8 85.2,36.7 88.3,34.7 88.9,33.9 88.7,33.2 88.2,32.6 85.7,31.0 85.2,29.9 85.1,28.8 85.4,27.4 86.2,26.6 87.1,26.3 89.8,26.4 91.1,26.2 91.7,25.9 92.6,25.0 94.0,22.5 93.9,21.9 93.2,21.7 92.6,21.2 92.6,20.3 93.7,16.7 93.6,16.1 93.1,15.7 90.3,15.4 49.9,14.0 17.6,12.5 16.7,12.8 16.5,13.5 16.8,14.4 19.7,16.7 21.5,17.7 23.0,18.1 24.4,18.0 26.0,17.4 29.9,15.6 32.0,15.0 34.6,14.8 37.2,15.2 39.7,16.2","Lusail":"52.6,6.7 75.5,7.2 76.5,7.5 77.4,8.2 77.9,8.9 78.1,9.8 78.1,10.9 77.7,11.9 77.1,12.7 69.0,17.1 68.4,17.7 67.9,18.5 67.6,19.7 67.9,20.9 68.5,21.8 69.2,22.4 75.3,25.7 76.0,26.3 77.0,27.6 82.5,44.3 82.6,45.1 82.4,46.1 82.0,46.9 81.3,47.6 80.5,48.0 76.1,49.3 75.4,49.3 74.5,49.0 73.8,48.6 73.2,48.0 72.8,47.2 69.6,36.9 69.2,36.3 68.7,36.0 68.1,35.8 67.6,35.9 67.0,36.2 66.6,36.8 66.4,37.3 64.4,51.6 64.1,52.4 63.4,53.2 62.7,53.8 61.7,54.0 60.8,53.9 60.0,53.6 59.3,53.3 58.8,52.7 58.4,51.8 58.0,50.0 57.5,48.4 56.9,47.0 56.1,45.6 54.2,43.4 52.8,42.1 52.2,41.5 51.9,40.7 51.8,39.9 51.9,39.1 54.0,31.9 53.8,30.6 52.8,29.5 51.9,29.1 50.6,29.3 48.7,29.8 46.3,30.8 44.1,32.0 42.4,33.5 40.8,35.2 39.6,37.0 34.3,49.1 33.6,49.9 32.5,50.6 31.5,51.0 30.1,51.2 24.8,51.0 24.0,50.8 23.4,50.4 22.8,49.9 22.2,49.0 18.7,42.5 18.6,41.8 18.6,41.0 18.8,40.3 19.3,39.4 27.7,29.9 28.2,29.1 28.4,28.2 28.3,27.3 28.0,26.6 17.8,10.6 17.4,9.6 17.4,8.7 17.8,7.6 18.3,6.9 19.0,6.4 20.1,6.0","Madrid":"8.5,33.1 8.5,24.1 8.3,23.5 6.3,23.1 6.0,22.8 6.0,19.6 6.4,18.2 7.4,16.5 8.9,15.5 27.2,8.0 31.3,6.9 35.2,6.5 38.4,6.7 40.7,7.2 43.1,8.0 45.3,9.2 47.0,10.8 47.4,10.9 48.3,10.1 48.7,10.2 49.2,10.7 49.7,11.0 50.9,11.1 53.1,10.8 54.6,10.6 56.9,9.5 61.8,9.1 63.3,8.9 64.0,8.4 64.5,8.4 65.4,10.1 66.1,10.7 66.9,10.8 67.9,10.7 70.9,9.7 71.6,9.7 76.6,10.6 78.6,11.1 79.3,11.8 81.0,14.8 82.0,15.6 83.3,15.8 84.1,15.8 88.6,14.8 90.1,14.8 91.5,15.2 92.6,16.0 93.6,17.2 94.0,18.7 94.0,20.2 93.6,21.8 92.5,23.3 90.9,24.6 89.2,25.2 87.3,25.1 85.7,24.7 84.0,23.8 81.8,21.9 76.7,16.1 73.5,13.1 72.9,12.8 72.0,12.8 70.8,13.6 67.8,16.6 66.4,17.8 65.3,18.2 64.2,18.3 59.0,17.4 58.0,17.4 56.7,17.8 55.3,18.3 54.2,19.0 53.3,20.1 52.6,21.4 51.4,27.8 52.2,30.2 52.2,30.8 51.7,31.2 48.8,32.5 43.6,34.3 42.7,34.7 41.8,35.6 41.5,36.5 41.3,40.4 41.0,42.1 40.0,43.9 38.6,44.9 37.4,45.2 23.9,45.2 23.2,45.4 23.0,46.1 23.6,47.3 23.7,48.0 23.4,52.6 22.9,52.9 19.8,53.3 15.8,53.5 10.6,53.5 9.3,53.3 8.5,52.5","Baku":"77.6,18.3 82.4,16.2 82.6,16.0 82.8,15.4 81.8,12.5 80.1,9.3 78.8,6.2 78.3,6.0 68.0,10.0 53.7,16.5 53.3,17.0 53.3,17.6 55.5,23.2 55.5,23.6 55.2,24.0 51.4,25.8 49.3,27.0 46.4,28.8 46.2,29.0 46.8,30.4 46.7,30.7 45.4,31.9 37.3,38.3 36.8,38.3 36.5,37.9 34.7,32.8 34.5,32.5 33.8,32.5 33.2,32.1 32.8,32.0 32.0,32.0 31.6,31.9 31.4,31.6 31.0,30.4 30.6,30.0 30.2,29.9 27.4,30.9 23.0,33.1 20.1,34.8 19.5,35.3 18.7,36.7 17.3,41.6 17.2,42.2 17.6,48.9 17.8,49.3 18.1,49.7 24.1,52.8 26.6,53.9 27.2,54.0 27.8,53.9 28.4,53.3 30.7,49.2 31.1,48.6 36.2,44.0 36.7,43.4 36.9,42.8 37.3,39.7 37.5,39.1 37.9,38.6 45.7,32.4 46.7,31.8 48.9,30.7 65.2,23.5","Las Vegas":"19.0,50.0 22.0,52.7 22.6,53.0 23.3,53.2 23.9,52.9 24.3,52.4 24.6,51.5 24.8,50.7 24.7,50.0 24.5,49.2 23.5,47.6 22.1,46.1 21.7,45.6 21.4,44.3 21.4,43.7 21.8,42.4 22.7,41.1 24.1,40.1 25.3,39.7 60.5,39.4 61.0,39.6 61.3,40.0 61.1,49.5 61.4,50.6 63.0,52.3 63.9,52.9 65.5,53.7 67.7,54.0 68.4,54.0 68.6,53.6 68.8,52.5 69.0,52.1 69.5,51.8 70.2,51.7 70.8,51.8 73.8,53.4 74.7,53.2 75.2,52.4 75.4,50.9 75.7,39.4 76.3,35.1 77.0,33.7 78.6,32.2 81.2,30.9 86.0,28.8 87.4,27.5 88.3,26.2 88.8,24.8 89.5,22.6 90.0,20.2 89.9,19.8 89.7,19.5 88.3,19.0 80.4,14.9 74.9,11.8 71.5,10.3 63.9,8.0 61.7,7.6 56.5,6.9 52.5,6.7 40.7,6.8 27.3,6.3 12.9,6.0 12.6,6.2 12.5,6.5 12.5,7.3 12.3,7.9 11.0,9.1 10.4,10.2 10.1,11.7 10.0,18.0 10.1,36.6 11.0,42.2 11.7,43.5","Buenos Aires":"54.6,11.5 77.9,11.0 83.8,11.3 85.1,11.9 85.9,13.5 85.8,15.5 85.0,17.5 83.9,18.6 77.2,23.3 75.6,23.9 73.1,24.0 57.1,21.6 55.8,22.0 54.9,22.4 54.3,23.3 53.8,24.3 53.9,25.9 54.4,26.9 55.2,27.8 69.8,35.3 71.4,35.4 72.5,35.2 74.3,34.4 75.9,32.9 77.3,30.5 78.4,29.2 79.4,28.3 85.5,24.9 87.6,24.3 90.1,24.7 92.1,26.0 93.4,28.0 93.9,30.2 93.6,32.4 92.1,34.7 90.9,35.4 58.5,53.1 56.0,53.8 53.1,54.0 50.8,53.7 48.1,52.9 45.0,51.2 33.6,39.1 32.9,37.5 33.0,36.4 33.7,35.2 35.2,34.5 36.5,34.6 37.7,35.3 41.7,39.7 42.8,40.3 44.7,40.6 46.0,41.1 49.7,45.3 51.1,46.1 52.8,46.2 54.3,45.8 60.1,42.2 61.1,41.1 61.5,39.8 61.5,38.6 60.9,37.4 60.2,36.3 36.1,24.0 34.8,24.0 33.8,24.5 33.4,25.5 33.2,26.8 33.2,28.6 32.7,29.6 31.1,29.9 26.7,29.5 24.9,29.1 23.2,27.8 6.7,10.0 6.1,8.9 6.6,7.6 7.7,6.4 9.2,6.0 10.5,6.3 12.8,7.3 13.4,8.2 13.4,9.6 13.8,10.5 14.8,11.3 16.2,11.8 18.4,12.1 24.9,12.3","Kyalami":"63.4,42.3 73.2,31.4 74.5,30.4 90.9,19.7 92.8,18.1 93.1,17.4 92.9,16.4 91.8,15.5 86.1,14.4 85.2,13.9 84.4,13.3 82.3,9.3 81.0,8.1 77.7,6.1 77.0,6.0 76.2,6.1 75.6,6.6 59.8,28.5 58.7,29.6 57.2,30.5 55.5,31.1 54.0,31.2 52.4,31.0 50.8,30.4 49.6,29.6 48.6,28.7 42.2,19.6 41.4,19.2 40.6,18.9 39.6,18.9 38.6,19.3 38.0,20.0 30.3,30.5 30.0,31.3 29.8,32.1 29.9,33.9 30.2,34.7 31.1,36.2 31.4,37.2 31.4,38.1 31.0,40.1 30.5,41.0 29.4,42.5 27.6,43.6 19.9,46.7 14.5,47.3 7.9,49.2 7.2,49.8 6.9,50.6 6.9,51.5 7.4,52.3 9.8,53.6 11.3,54.0 12.5,53.9 29.3,46.3 30.6,45.5 32.0,44.3 33.2,42.8 34.1,40.9 34.5,39.4 35.2,33.5 35.9,31.0 37.7,26.8 38.7,26.2 39.9,26.3 40.9,27.2 42.3,30.1 43.5,32.0 44.8,33.4 47.3,35.6 49.7,37.3 50.0,38.1 51.3,52.0 51.8,52.8 52.5,53.1 53.4,53.0 54.5,52.1"};
+/* i tracciati ufficiali sostituiscono le forme stilizzate */
+function trkPts(cn){
+  if(TRKD[cn])return TRKD[cn].split(' ').map(s=>s.split(',').map(Number));
+  if(TRKP[cn])return TRKP[cn];
+  const h=hsh(String(cn)+'m'),n=9,a=[];
+  for(let i=0;i<n;i++){const t=i/n*Math.PI*2,r=.68+(((h>>>(i*3))&7)/7)*.32;a.push([50+Math.cos(t)*44*r,30+Math.sin(t)*25*r])}
+  return a;
+}
+function trkPath(pts){
+  const n=pts.length;
+  if(n>24)return 'M'+pts.map(p=>p[0]+' '+p[1]).join('L')+'Z';
+  let d='M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);
+  for(let i=0;i<n;i++){
+    const p0=pts[(i-1+n)%n],p1=pts[i],p2=pts[(i+1)%n],p3=pts[(i+2)%n];
+    const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+    d+='C'+c1[0].toFixed(1)+' '+c1[1].toFixed(1)+' '+c2[0].toFixed(1)+' '+c2[1].toFixed(1)+' '+p2[0].toFixed(1)+' '+p2[1].toFixed(1);
+  }
+  return d+'Z';
+}
+
+/* =====================================================================
+   v5 · O · Weekend: scelte per prime, note raccolte, layout desktop a due colonne
+   ===================================================================== */
+let NTO=false,TWO=false;
+function wkLayout(){
+  const app=document.getElementById('app');
+  if(!app||!app.querySelector||!S)return;
+  const pane=app.querySelector('.pane');if(!pane)return;
+  const pick=pane.querySelector(':scope>.pick');
+  if(S.tab!=='decide'&&!pick)return;
+  pane.classList.add('dec');
+  /* note del weekend: una sola scheda, a righe su desktop e a chip su telefono */
+  const notes=[...pane.querySelectorAll(':scope>.rvl.ckl')];
+  const inAct=[...pane.querySelectorAll(':scope>.chips.wl')].some(c=>/Atto \d/.test(c.textContent));
+  if(inAct&&notes.length===1)notes[0].remove();
+  else if(notes.length){
+    const nts=document.createElement('div');nts.className='nts card'+(NTO?' open':'');
+    const labs=notes.map(n=>{
+      const bs=[...n.querySelectorAll('b')].map(b=>b.textContent.trim().replace(/[.:]$/,''));
+      let t=bs.join(' · ');if(/Gara principale/.test(t))t='Gara principale';
+      return t||n.textContent.trim().slice(0,24);
+    });
+    nts.innerHTML='<button class="ntb" data-act="nto"><span class="ntt">Note del weekend</span><span class="ntc">'+labs.map(l=>'<span>'+esc(l)+'</span>').join('')+'</span><i></i></button><div class="ntl"></div>';
+    const L=nts.querySelector('.ntl');
+    pane.insertBefore(nts,notes[0]);
+    notes.forEach(n=>{n.classList.add('nti');L.appendChild(n)});
+  }
+  /* situazione di gara: sempre vicino alle scelte */
+  const wl=[...pane.querySelectorAll(':scope>.chips.wl')].find(c=>/Atto \d/.test(c.textContent));
+  if(wl)wl.classList.add('sit');
+  /* scheda motore con azioni: urgente */
+  pane.querySelectorAll(':scope>.card').forEach(c=>{
+    const h=c.querySelector('.sech');
+    if(h&&/Motore/.test(h.textContent)&&c.querySelector('button[data-act]'))c.classList.add('urg');
+  });
+  /* telefono: classifica lunga ridotta a primi 3 e dintorni */
+  if(!wideDesk()){
+    pane.querySelectorAll('.tw').forEach(tw=>{
+      const rows=[...tw.querySelectorAll(':scope>.row')];
+      if(rows.length<=12)return;
+      const me=rows.findIndex(r=>r.classList.contains('me'));
+      const cut=rows.findIndex(r=>r.classList.contains('v3el'));
+      rows.forEach((r,i)=>{
+        const keep=i<3||(me>=0&&Math.abs(i-me)<=2)||(cut>0&&i>=cut-2&&i<=cut+1);
+        if(!keep&&!TWO)r.classList.add('twh');
+      });
+      const b=document.createElement('button');b.className='ghost sm twb';b.dataset.act='two';
+      b.textContent=TWO?'Mostra meno':'Mostra tutti ('+rows.length+')';
+      tw.appendChild(b);
+    });
+  }
+  /* desktop: scelte a sinistra, contesto a destra */
+  if(pick&&wideDesk()){
+    pane.classList.add('dsk');
+    const L=document.createElement('div'),R=document.createElement('div');L.className='dL';R.className='dR';
+    const ctx=pane.querySelector(':scope>.ctx');
+    [...pane.children].forEach(c=>{
+      if(c===ctx)return;
+      const left=c.classList.contains('ph')||c.classList.contains('wnc')||c.classList.contains('sit')||c.classList.contains('urg')||c===pick;
+      (left?L:R).appendChild(c);
+    });
+    pane.appendChild(L);
+    if(R.children.length)pane.appendChild(R);else pane.classList.add('nor');
+  }
+}
+try{
+  if(window.matchMedia){
+    const mq=window.matchMedia('(min-width:1000px)');
+    const f=()=>{try{if(S&&typeof render==='function'){KP=true;render()}}catch(e){}};
+    if(mq.addEventListener)mq.addEventListener('change',f);else if(mq.addListener)mq.addListener(f);
+  }
+}catch(e){}
+
+/* =====================================================================
+   v5 · P · Scelte di gara coerenti con posizione e distacchi
+   Un evento che parla di «avversario davanti» compare solo se hai
+   davvero qualcuno davanti; lo stesso per chi ti segue, per il compagno
+   e per il rivale.
+   ===================================================================== */
+/* come peekPos, ma ricorda anche i nomi delle auto vicine */
+function peekPos(n){
+  const rc=S.rc,svR=RNG,svN=NZX;
+  RNG=mul32(777);PKK=true;
+  NZX={m:rc.nz.m*NFR[n],r:{}};
+  for(const k in rc.nz.r)NZX.r[k]=rc.nz.r[k]*NFR[n];
+  let E;
+  try{E=simulateRace({mod:rc.mod+AB,risk:rc.risk,sk:'ritmo',fx:{},out:''},PTS)}
+  finally{PKK=false;NZX=svN;RNG=svR}
+  const srt=E.slice().sort((a,b)=>b.perf-a.perf),i=srt.findIndex(e=>e.me);
+  rc.pg=rc.pg||{};
+  const a=i>0?srt[i-1].perf-srt[i].perf:null,b=i>=0&&i<srt.length-1?srt[i].perf-srt[i+1].perf:null;
+  rc.pg[n]={a:a==null?null:Math.round(a*2*10)/10,b:b==null?null:Math.round(b*2*10)/10,an:i>0?srt[i-1].n:null,bn:i>=0&&i<srt.length-1?srt[i+1].n:null};
+  return i+1;
+}
+/* dove sono, adesso */
+function posNow(){
+  const rc=S.rc,w=S.wk;
+  if(!rc||!w)return{p:10,N:20,a:null,b:null,an:null,bn:null,n:0};
+  const n=rc.n,gp=w.gp||10,p=n===0?gp:((rc.pe&&rc.pe[n])||gp);
+  const N=(S.rivals?S.rivals.length:19)+1,g=rcGap(n)||{};
+  return{p,N,a:g.a==null?null:g.a,b:g.b==null?null:g.b,an:g.an||null,bn:g.bn||null,n};
+}
+const hasAhead=()=>posNow().p>1;
+const hasBehind=()=>{const P=posNow();return P.p<P.N};
+(function(){
+  const ev=id=>ACTL.find(e=>e.id===id);
+  const cnd=(id,f)=>{const e=ev(id);if(!e)return;const o=e.cond;e.cond=o?(w=>o(w)&&f(w)):f};
+  /* ---- eventi vecchi ---- */
+  {const e=ev('fatt');if(e)e.cond=()=>{const P=posNow();return P.p>1&&(P.a==null||P.a<=7)}}
+  {const e=ev('fatt');if(e)e.x=()=>{const P=posNow();return 'Hai un avversario davanti'+(P.a!=null?', a '+sec(P.a):'')+', e pochi giri per riprenderlo. Le gomme parlano per te.'}}
+  cnd('fdef',()=>{const P=posNow();return P.p<P.N&&(P.b==null||P.b<=5)});
+  {const e=ev('fdef');if(e)e.x=()=>{const P=posNow();return 'Hai ritmo e un avversario nello specchietto'+(P.b!=null?', a '+sec(P.b):'')+': gli ultimi giri dureranno un\'eternità.'}}
+  cnd('fgap',()=>{const P=posNow();return(P.a==null||P.a>=1.5)&&(P.b==null||P.b>=1.5)});
+  cnd('duel',()=>{const P=posNow();return P.p<P.N&&(P.b==null||P.b<=3.5)});
+  cnd('team',()=>{const P=posNow(),m=mateOf();return !!(m&&P.an===m.n)});
+  {const e=ev('team');if(e){const m0=MOMS.find(x=>x.id==='team');e.x=()=>{const P=posNow();return 'Il tuo compagno è lento e ti sta frenando'+(P.a!=null?' (a '+sec(P.a)+' davanti)':'')+'. Il muretto non interviene.'}}}
+  {const e=ev('deg');if(e)e.x=()=>{const P=posNow();
+    const t=P.p>1?(P.a!=null?'Chi ti precede è a '+sec(P.a)+'.':'Hai qualcuno davanti.'):(P.b!=null?'Sei in testa: chi ti insegue è a '+sec(P.b)+'.':'Sei in testa.');
+    return 'I tempi sul giro salgono: le gomme stanno cedendo prima del previsto. '+t}}
+  /* rivale: davanti o dietro, a seconda di dove si trova davvero */
+  cnd('friv',()=>{const P=posNow();return !!(S.riv&&P.an===S.riv.n)});
+  {const e=ev('friv');if(e){e.x=()=>{const P=posNow();return (S.riv?S.riv.n:'Il tuo rivale')+' è davanti a te'+(P.a!=null?', a '+sec(P.a):'')+'. Ogni duello tra voi pesa più degli altri.'}}}
+  const fv=ev('friv');
+  if(fv&&!ev('frivb')){
+    const e={id:'frivb',a:[2],t:'Il rivale ti è alle spalle',
+      x:()=>{const P=posNow();return (S.riv?S.riv.n:'Il tuo rivale')+' è dietro di te'+(P.b!=null?', a '+sec(P.b):'')+'. Ogni duello tra voi pesa più degli altri.'},
+      cond:()=>{const P=posNow();return !!(S.riv&&rivHere()&&P.bn===S.riv.n)},wt:1.6,
+      o:[{t:'Lo tieni dietro a ogni costo',d:'Chi vince oggi, vince il prossimo duello.',mod:2.4,risk:.055,ag:1,rv:8,out:'Hai chiuso ogni varco al rivale senza sconti.'},
+         {t:'Lo controlli con la testa',d:'Traiettorie intelligenti e niente rischi inutili.',mod:1.5,risk:.02,rv:3,out:'Hai difeso dal rivale con calma.'},
+         {t:'Lo lasci passare',d:'Oggi non vale il rischio.',mod:.4,risk:0,rv:-4,out:'Hai lasciato passare il rivale: oggi non ne valeva la pena.'}],
+      ctx:w=>w.ovt===0?[0,2]:w.ovt===2?[1,0]:[1,2]};
+    ACTL.push(e);ACTS[e.id]=e;TWX.frivb=[1,1,1,1.2];
+  }
+  /* chi è in testa ha le sue scelte negli ultimi giri */
+  if(!ev('flead')){
+    const e={id:'flead',a:[2],t:'Ultimi giri in testa',
+      x:()=>{const P=posNow();return 'Sei davanti a tutti'+(P.b!=null?', con '+sec(P.b)+' su chi ti segue':'')+': mancano pochi giri e la vittoria dipende da come li gestisci.'},
+      cond:()=>posNow().p===1,wt:2.6,
+      o:[{t:'Controlla il ritmo',d:'Gestisci il vantaggio senza rischi.',mod:1.1,risk:.01,out:'Hai controllato il ritmo e gestito il vantaggio.'},
+         {t:'Spingi e allunga',d:'Più margine, ma più rischio.',mod:1.8,risk:.035,ag:1,out:'Hai spinto per allungare sugli inseguitori.'},
+         {t:'Risparmia gomme e motore',d:'Porti a casa la vittoria.',mod:.4,risk:0,ty:1,out:'Hai risparmiato gomme e motore fino alla bandiera.'}],
+      ctx:w=>w.u>=3?[2,1]:w.u<=1?[1,2]:[0,2]};
+    ACTL.push(e);ACTS[e.id]=e;TWX.flead=[1,1,1,1];
+  }
+  {const e=ev('f4_ventaglio');if(e)e.x=()=>{const P=posNow();return P.p===1?'Il gruppo si apre all\'ingresso della prima curva: dietro di te qualcuno frena troppo tardi e volano ruote e carrozzeria. In F4 la prima curva è sempre una lotteria.':'Il gruppo si apre all\'ingresso della prima curva: qualcuno ha frenato troppo tardi e davanti volano ruote e carrozzeria. In F4 la prima curva è sempre una lotteria.'}}
+  /* ---- situazioni per categoria ---- */
+  cnd('f4_sporca',()=>hasAhead());
+  cnd('f3_gomme',()=>hasBehind());
+  cnd('f1_undercut',()=>hasAhead());
+  cnd('f1_freni',()=>{const P=posNow();return(P.a!=null&&P.a<2)||(P.b!=null&&P.b<2)});
+  {const e=ev('f1_freni');if(e)e.x=()=>{const P=posNow();const near=(P.a!=null&&P.a<2&&(P.b==null||P.a<=P.b))?'quello davanti':'quello dietro';return 'In radio: la temperatura dei freni è oltre il limite. Se spingi ancora rischi di perderli, ma '+near+' è lì.'}}
+  {const e=ev('f1_doppiaggi');if(e&&e.o[2]){e.o[2].t='Usa i doppiati a tuo favore';e.o[2].d='Li sfrutti per guadagnare tempo.';e.o[2].out='Hai usato i doppiati per guadagnare tempo.'}}
+})();
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
