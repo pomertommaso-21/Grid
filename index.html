@@ -406,6 +406,101 @@ td.n{font-variant-numeric:tabular-nums}
 .v3dr span:nth-child(3){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .v3dr.hd{font:700 10px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
 .v3dr.now{background:var(--me);border-radius:6px}
+/* ---- v5 ---- */
+.obg3{grid-template-columns:1fr;gap:6px}
+.ob3{display:grid;grid-template-columns:1fr;gap:2px;padding:8px 10px}
+.ob3 .obh{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ob3 .obh b{font:700 10.5px var(--body)}
+.ob3 .obh em{font:600 10.5px var(--body);margin:0;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+.ob3 .obh em.dl3{color:var(--green);border-color:var(--green)}
+.ob3 .obh em.dl2{color:var(--amber);border-color:var(--amber)}
+.ob3 .obh em.dl1,.ob3 .obh em.dl0{color:var(--warn);border-color:var(--warn)}
+.ob3 .obt{font:700 13.5px var(--body);line-height:1.25}
+.ob3 small{font-size:11.5px}
+.ob3 .obw{font:500 10.5px var(--body);color:var(--mut)}
+.ob3.on{border-color:var(--yellow);background:var(--soft)}
+.obc .sech .tg{margin-left:6px;text-transform:none;letter-spacing:0;font-weight:600}
+.wnc .sech small{font:500 10.5px var(--body);letter-spacing:0;text-transform:none;color:var(--mut)}
+.wing{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.win{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--panel);border:1.5px solid var(--line);border-radius:10px;padding:8px 8px;cursor:pointer;font-family:var(--body);color:var(--fg);position:relative}
+.win b{font:700 13px var(--body)}
+.win small{font-size:10.5px;color:var(--mut);line-height:1.3}
+.win.on{border-color:var(--yellow);background:var(--soft)}
+.win .tg{align-self:flex-start;margin-top:2px}
+.trk{border-left:3px solid var(--line);padding-left:9px}
+.trk.fr{border-left-color:var(--yellow)}
+.trk.ho{border-left-color:var(--warn)}
+.trk .btns{margin-top:6px}
+.trb{display:inline-block;margin-left:6px;font:700 9.5px var(--body);letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:999px;vertical-align:1px}
+.trb.fr{background:var(--yellow);color:var(--yellow-ink)}
+.trb.ho{background:transparent;border:1px solid var(--warn);color:var(--warn)}
+.trkc p{margin:6px 0 0;line-height:1.4}
+.obs{padding:6px 8px}
+.obq{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;width:100%;background:none;border:0;text-align:left;font-family:var(--body);color:var(--fg);cursor:pointer;padding:2px 2px}
+.obq small{display:block;font:700 10px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.obq b{display:block;font:700 13.5px var(--body);line-height:1.25}
+.obq em{font:600 10.5px var(--body);font-style:normal;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+.obq em.dl3{color:var(--green);border-color:var(--green)}
+.obq em.dl2{color:var(--amber);border-color:var(--amber)}
+.obq em.dl1,.obq em.dl0{color:var(--warn);border-color:var(--warn)}
+.obq i{font:600 11.5px var(--body);font-style:normal;color:var(--mut);text-decoration:underline}
+.ch.pl .cb{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:2px;align-items:center}
+.ch.pl .od,.ch.pl .tags{grid-column:1/-1}
+.lg1{flex-wrap:nowrap;gap:9px;white-space:nowrap}.lg1 i{margin-right:4px}
+/* ---- v5 · layout ---- */
+.kbh{display:none}
+.ctx{display:flex;flex-direction:column;gap:10px}
+.pick{display:flex;flex-direction:column;gap:10px;min-width:0}
+.brs{display:none}
+@media(max-width:999px){
+ .brs{display:flex;align-items:center;gap:8px;width:100%;background:var(--soft);border:0;border-radius:10px;padding:8px 10px;text-align:left;font-family:var(--body);color:var(--fg);cursor:pointer}
+ .brs .brc{display:flex;flex-wrap:wrap;gap:3px 10px;flex:1;font:700 12.5px var(--body)}
+ .brs .brc small{font:600 10px var(--body);color:var(--mut);letter-spacing:.04em;text-transform:uppercase}
+ .brs i{font:600 11.5px var(--body);font-style:normal;color:var(--mut);text-decoration:underline;flex:none}
+ .brs i::after{content:"Dettagli"}
+ .brf.open .brs i::after{content:"Chiudi"}
+ .brf.fold:not(.open)>.sech,.brf.fold:not(.open)>.gauges,.brf.fold:not(.open)>.rvl,.brf.fold:not(.open)>.cns{display:none}
+ .brf.fold:not(.open){padding:8px}
+ .win:not(.on) small{display:none}
+ .pane:not(.r0).p-strat>.ph>p,.pane:not(.r0).p-quali>.ph>p{display:none}
+}
+@media(min-width:1000px){
+ body{padding-left:calc(212px + 32px);padding-right:32px;padding-block:14px 28px;font-size:15px}
+ body:has(.cl){padding-bottom:28px}
+ .wrap{max-width:1180px;gap:14px}
+ .hud{padding:10px 0}
+ .nav{top:0;bottom:0;left:0;right:auto;width:212px;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:4px;padding:78px 12px 16px;border-top:0;border-right:1px solid var(--line)}
+ .nav::before{content:"Griglia di Partenza";position:absolute;top:18px;left:18px;right:14px;font:800 17px var(--display);letter-spacing:-.02em;color:var(--fg);padding-bottom:10px;border-bottom:4px solid;border-image:repeating-linear-gradient(90deg,var(--fg) 0 8px,transparent 8px 16px) 1}
+ .nav .nv{flex:none;flex-direction:row;justify-content:flex-start;gap:12px;padding:11px 14px;font-size:14px;width:100%;text-align:left}
+ .nav .nv:hover{background:var(--soft)}
+ .nav .nv.on{background:var(--yellow);color:var(--yellow-ink)}
+ .dock{bottom:18px}
+ .pane:has(>.pick){display:grid;grid-template-columns:minmax(0,1fr) minmax(380px,.92fr);column-gap:22px;row-gap:12px;align-items:start}
+ .pane:has(>.pick)>*{grid-column:1}
+ .pane:has(>.pick)>.ctx{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(120px,1fr) auto;gap:4px 18px;align-items:center}
+ .ctx>.sub{grid-column:1/-1;margin:0}
+ .ctx>.strip{min-width:0}
+ .ctx>.kick,.ctx>.legend{margin:0;white-space:nowrap}
+ .pane:has(>.pick)>.pick{grid-column:2;position:sticky;top:84px;max-height:calc(100vh - 104px);overflow:auto;padding:2px 4px 2px 2px}
+ .pane.solo:has(>.pick){display:flex}
+ .pane.solo>.pick{max-width:780px;width:100%;margin:0 auto;position:static;max-height:none}
+ .kbh{display:block;text-align:center;font-size:11.5px;color:var(--mut);margin-top:2px}
+ .kbh kbd{font:700 11px var(--body);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--panel);color:var(--fg)}
+ .ph h1{font-size:28px}
+ .ph>p{max-width:760px}
+}
+@media(min-width:1000px){
+ .pane.t-panel,.pane.t-media,.pane.t-recap{display:block;column-count:2;column-gap:20px}
+ .pane.t-panel>*,.pane.t-media>*,.pane.t-recap>*{break-inside:avoid;margin-bottom:14px}
+ .pane.t-panel>.btns,.pane.t-media>.btns,.pane.t-recap>.btns{column-span:all}
+ .pane.t-grid,.pane.t-standings{max-width:900px}
+ .cl{max-width:900px}
+ .v3pl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .pane.t-panel .v3pl{grid-template-columns:1fr}
+}
+@media(max-width:999px){
+ .pane:not(.r0) .ctx>.legend{display:none}
+}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -904,7 +999,7 @@ function simulateRace(opt,table){
   const flash=!PKK&&rnd()<clamp((S.st.talento-30)/400,0,.2);
   S._flash=flash;
   const sd=clamp(6.5-S.st.costanza*.02,4,6.5)*homeP(cn)*spv('sd')*wxSd();
-  const E=[{me:true,n:abbr(S.name),t:S.teamRank,perf:.55*rating(S)+.45*(car+(S.team-50)/40)+stB()+eff+(S.fama-30)/80+(flash?3:0)+ageInfo(S.age).mod+(S.sm&&S.sm.left>0?S.sm.mod:0)+(rivHere()?rivLv()/100*.8:0)+DFT()+(S.sw?S.sw.v*RFX:0)+qcOf()+(S.mo||0)*.2+(S.ordMod?S.ordMod.me:0)+ckB(cn)+(isHome(cn)?.35:0)+engPerf()+dmP()+fpB()+(NZX?NZX.m:gauss())*sd,dnf:rnd()<dnfP}];
+  const E=[{me:true,n:abbr(S.name),t:S.teamRank,perf:.55*rating(S)+.45*(car+(S.team-50)/40)+stB()+eff+(S.fama-30)/80+(flash?3:0)+ageInfo(S.age).mod+(S.sm&&S.sm.left>0?S.sm.mod:0)+(rivHere()?rivLv()/100*.8:0)+DFT()+(S.sw?S.sw.v*RFX:0)+qcOf()+(S.mo||0)*.2+(S.ordMod?S.ordMod.me:0)+ckB(cn)+trkB(cn)+(isHome(cn)?.35:0)+engPerf()+dmP()+fpB()+(NZX?NZX.m:gauss())*sd,dnf:rnd()<dnfP}];
   S.rivals.forEach(r=>E.push({r,n:r.n,t:r.t,perf:.55*(r.skill+(r.t===S.teamRank?0:1.5))+.45*S.teams[r.t].car+(r.t===S.teamRank?-stB()*.7:0)+(S.riv&&S.riv.n===r.n?rivLv()/100*1.2:0)+(S.ordMod&&S.ordMod.mate===r.n?S.ordMod.m:0)+(NZX&&NZX.r[r.n]!=null?NZX.r[r.n]:gauss())*4.6,dnf:rnd()<.07+spv('dnf')+wxDnf()}));
   if(PKK)return E;
   const fin=E.filter(e=>!e.dnf).sort((a,b)=>b.perf-a.perf);
@@ -1752,8 +1847,8 @@ function fitEV(k,w){
   }
   return t;
 }
-const bestPlan=w=>PL.map(p=>[p.k,fitEV(p.k,w)]).sort((a,b)=>b[1]-a[1])[0];
-const bestReal=w=>PL.map(p=>[p.k,fitReal(p.k,w)]).sort((a,b)=>b[1]-a[1])[0];
+const bestPlan=w=>bpX(w,false);
+const bestReal=w=>bpX(w,true);
 function mkWk(){
   const d=S.diff==null?1:S.diff,name=S.cal[S.round],c=circ(name);
   const r0=rnd(),rp=Math.round((r0<.55?rnd()*25:r0<.85?25+rnd()*30:55+rnd()*35)/5)*5;
@@ -1764,10 +1859,10 @@ function mkWk(){
   const vg=v=>v===0?[0,1]:v===2?[1,2]:(rnd()<.5?[0,1]:[1,2]);
   const w={c:name,wear:c.w,ovt:c.o,spd:c.s,rp,rain,mixed,temp,ta,u,scp,sck:c.k,sc,gp,N,vw:vg(c.w),vo:vg(c.o),vs:vg(c.k),kn:{wear:d===0,ovt:d===0,rain:false,sc:d===0,rv:false},tk:[3,2,2][d]+(mf()>=65&&d>0?1:0)-(mf()<=30?1:0)};
   w.tk=Math.max(1,w.tk);w.tk0=w.tk;{const lv=ckLv(name);if(lv>=2)w.kn.wear=true;if(lv>=3)w.kn.ovt=true}w.sp=pickSp(name);applySp(w);engWk(w);w.fmt=pickFmt();
-  const rk=PL.filter(p=>p.k!=='safe').map(p=>[p.k,planFit(p.k,xOf(w,scp,null))]).sort((a,b)=>b[1]-a[1]);
+  const rk=PL.filter(p=>p.k!=='safe'&&planOk(p.k)).map(p=>[p.k,planFit(p.k,xOf(w,scp,null))]).sort((a,b)=>b[1]-a[1]);
   {const r=rnd();w.rv=r<.45?rk[0][0]:r<.8?rk[1][0]:rk[2][0]}
-  w.ord=shuffle(PL.map((p,i)=>i));w.rd=S.round;w.q=mkQ(w,c);if(mf()>=65){const bq=QL.map(p=>p.k).sort((a,b)=>qEV(b,w)-qEV(a,w))[0];w.qhint=rnd()<.72?bq:pick(QL.map(p=>p.k).filter(x=>x!==bq))}
-  if(mf()>=65){const bk=bestPlan(w)[0];w.hint=rnd()<.72?bk:pick(PL.map(p=>p.k).filter(x=>x!==bk))}
+  w.ord=shuffle(PL.map((p,i)=>i).filter(i=>planOk(PL[i].k)));w.rd=S.round;w.q=mkQ(w,c);if(mf()>=65){const bq=QL.map(p=>p.k).sort((a,b)=>qEV(b,w)-qEV(a,w))[0];w.qhint=rnd()<.72?bq:pick(QL.map(p=>p.k).filter(x=>x!==bq))}
+  if(mf()>=65){const bb=bestPlan(w),bk=bb[0];w.hint=rnd()<.72?bk:pick(planKeys().filter(x=>x!==bk));if(winAvail())w.hw=w.hint===bk?bb[2]:pick(WINS)}
   return w;
 }
 const verdictOf=l=>l<.05?0:l<.16?1:l<.32?2:3;
@@ -1780,7 +1875,7 @@ function choosePlan(i){
   S.mm=null;
 }
 const DEGL=['molto basso','basso','medio','alto','molto alto'],WL=['Bassa','Media','Alta'],OL=['Difficili','Medi','Facili'],SL=['Basso','Medio','Alto'];
-function why(k,w){
+function whyBase(k,w){
   const u=w.u,ov=w.ovt,g=w.gp;let t;
   if(w.rain){
     if(k==='inter')t=w.mixed?'La pioggia a tratti ha premiato le intermedie.':'Pioggia piena: le intermedie sono state la mossa vincente.';
@@ -1903,7 +1998,7 @@ function stratCard(L){
   const luck=lt?`<div class="news" style="color:var(--${s.luck>0?'green':'warn'})">${s.luck>0?'▲ Fortuna':'▼ Sfortuna'}: ${lt}</div>`:'';
   return `<section class="card dbf"><div class="vd" style="--c:${vd[1]}"><small class="pl2">${pl.c.map(cpb).join('')}<span>${pl.n}</span></small><b>${vd[0]}</b><span>${est?es+' pos. circa':'effetto neutro'}</span></div>
   <div class="gauges">${tile('cloud','Pioggia',w.rain?(w.mixed?'A tratti':'Sì'):'No')}${tile('temp','Pista',w.temp+'°C')}${tile('tyre','Degrado',DEGL[w.u])}${tile('ovt','Sorpassi',OL[w.ovt])}${tile('sc','Safety car',w.sc?'Sì':'No')}${tile('grid','Partenza','P'+w.gp)}</div>
-  <p class="why">${why(s.k,w)}</p>
+  <p class="why">${why(s.k,w,s)}</p>
   ${luck}${s.vd>0?`<div class="bst">${kn.rain&&kn.sc&&kn.rv?'La migliore era':'Coi tuoi dati, la migliore'}: ${bp.c.map(cpb).join('')}<b>${bp.n.split(' · ')[0]}</b></div>`:''}${s.hind&&s.hind!==s.best&&s.hindFit-s.fit>=.08?`<div class="bst">A giochi fatti, la migliore era: ${hp.c.map(cpb).join('')}<b>${hp.n.split(' · ')[0]}</b></div>`:''}
   <div class="bst">I rivali: ${rp.c.map(cpb).join('')}<b>${rp.n.split(' · ')[0]}</b></div>
   ${mm}${rcLines(s)}<div class="sr"><span class="lb">Fiducia del muretto<small>${s.dt>0?'sale':s.dt<0?'scende':'stabile'} (${s.dt>0?'+':''}${s.dt})</small></span><em>${Math.round(mf())}</em><div class="bar"><i style="width:${mf()}%"></i></div></div></section>`;
@@ -1934,7 +2029,7 @@ function qEV(k,w){
   for(const t of q.vt)for(const [rn,pa] of [[true,pr],[false,1-pr]])for(const [rd,pb] of [[true,.18],[false,.82]])tot+=pa*pb*qFit(k,{e:q.e,t,s:q.s,rain:rn,red:rd})/q.vt.length;
   return tot;
 }
-const qReal=(k,w)=>qFit(k,{e:w.q.e,t:w.q.t,s:w.q.s,rain:w.q.rain,red:w.q.red});
+const qReal=(k,w)=>qFit(k,{e:w.q.e,t:w.q.t,s:w.q.s,rain:w.q.rain,red:w.q.red,u:w.u,o:w.ovt});
 const qBest=w=>QL.map(p=>[p.k,qEV(p.k,w)]).sort((a,b)=>b[1]-a[1])[0];
 function qBase(){
   const car=S.teams[S.teamRank].car+S.carBonus,me=.55*rating(S)+.45*(car+(S.team-50)/40)+stB()+(S.fama-30)/80+ageInfo(S.age).mod+(S.sm&&S.sm.left>0?S.sm.mod:0)+(rivHere()?rivLv()/100*.8:0)+DFT();
@@ -3288,7 +3383,7 @@ function raceCard(L){
   ${L.ord?`<p class="sub">${ico('radio','fl')} ${esc(L.ord.txt)}${L.ord.tr?' Fiducia del muretto '+(L.ord.tr>0?'+':'')+L.ord.tr+'.':''}</p>`:''}
   ${multi}
   ${L.mate?`<p class="sub">Compagno di squadra: ${L.mate.pos} (${esc(L.mate.n)}).</p>`:''}
-  ${chips(fx,ex)}${tower(L.rows,'race',true)}</section>${recNewCard(L.rec)}${recOthCard(L)}${mediaCard(L)}`;
+  ${chips(fx,ex)}${tower(L.rows,'race',true)}</section>${recNewCard(L.rec)}${recOthCard(L)}${trkResult(L)}${mediaCard(L)}`;
 }
 const qualiFull=L=>`<section class="card"><div class="sech">Qualifica · ${esc(L.circuit)}</div>${L.qs?qsLine(L.qs):''}<div class="tw">${(L.q||[]).map(r=>`<div class="row${r.me?' me':''}"><span class="n">${r.g}</span><span class="sq" style="--c:${hue(GT!=null?GT:S.tier,r.t)}"></span><span class="nm">${esc(r.n)}<small>${esc(TIERS[S.tier].teams[r.t])}</small></span><span class="pt">${r.tm}</span></div>`).join('')}</div></section>`;
 function champCard(L){
@@ -3401,7 +3496,9 @@ function act0(a,i,v){
   else if(a==='fp'){fpPick(i);save();render();return}
   else if(a==='ob'){KP=true;const w=S.wk;if(w&&w.ob){w.ob.sel=(w.ob.sel===i)?-1:i;save();render()}return}
   else if(a==='q2a'){qSecond();save();render();return}
-  else if(a==='qok'){S.wk.ql=null;S.phase='strat';save();render();return}
+  else if(a==='qok'){qOk();save();render();return}
+  else if(a==='qt'){KP=true;S.wk.qt=v==='med'?'med':'soft';save();render();return}
+  else if(a==='trs'){KP=true;const w=S.wk;if(w&&w.tk>0&&!w.ts){w.ts=1;w.tk--}save();render();return}
   else if(a==='ex'){exStage(i);save();render();return}
   else if(a==='exn'){exNext();save();render();return}
   else if(a==='exauto'){exAutoAll();save();render();return}
@@ -3411,6 +3508,9 @@ function act0(a,i,v){
   else if(a==='qp'){chooseQuali(S.wk.q.ord[i]);if(S.wk.gp===1)vib('pole');save();render();return}
   else if(a==='qauto'){if(S.wk.fmt==='elim'&&!S.wk.grid&&!S.wk.eq)exAutoAll();else chooseQuali(autoQ(),1);if(S.wk.gp===1)vib('pole');save();render();return}
   else if(a==='next'&&S.phase==='quali'){if(S.wk.fmt==='elim'&&!S.wk.grid&&!S.wk.eq)exAutoAll();else chooseQuali(autoQ(),1);save();render();return}
+  else if(a==='obo'){KP=true;const w=S.wk;if(w&&w.ob){w.ob.open=!w.ob.open;if(!w.ob.open)w.ob.seen=1}save();render();return}
+  else if(a==='win'){KP=true;const w=S.wk;if(w&&WINS.includes(v))w.win=v;save();render();return}
+  else if(a==='bo'){KP=true;S.bo=!S.bo;save();render();return}
   else if(a==='plan'){
     const w=S.wk;choosePlan(w.ord[i]);
     if(ordTrigger()){S.ord=mkOrd();S.phase='orders';vib('ord');save();render();return}
@@ -3535,7 +3635,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}</div>
-  <p class="foot">Versione 16/10 · 14:55</p></div>`;
+  <p class="foot">Versione 16/10 · 18:00</p></div>`;
 }
 
 function identityView(){
@@ -3722,11 +3822,11 @@ function render(){
   const kp=KP,y0=kp?(window.pageYOffset||0):0;KP=false;let h='';
   if(!S)h=VIEW==='hof'?hofView():VIEW==='identity'?identityView():homeView();
   else if(S.phase==='ending')h=endingView();
-  else h=hudView()+'<div class="pane">'+(S.tab==='panel'?panelView():S.tab==='grid'?gridView():S.tab==='media'?mediaView():S.tab==='recap'?recapView():S.tab==='standings'?standView():decideView())+'</div>'+tabsView();
+  else h=hudView()+'<div class="pane t-'+S.tab+' p-'+S.phase+(S.round<2?' r0':'')+'">'+(S.tab==='panel'?panelView():S.tab==='grid'?gridView():S.tab==='media'?mediaView():S.tab==='recap'?recapView():S.tab==='standings'?standView():decideView())+'</div>'+tabsView();
   const app=document.getElementById('app');
   if(S)S.lore='';
   if(app)app.innerHTML=h;
-  sheetUpdate();
+  sheetUpdate();uiPost();
   if(S&&S.phase==='ending')fillImg();
   try{window.scrollTo(0,kp?y0:0)}catch(e){}
 }
@@ -4417,6 +4517,976 @@ function wkInit(w){
   wxInit(w);
   if(w.kn&&w.kn.rain)wxHint(w);
 }
+
+/* =====================================================================
+   v5 · A · Piste: ordine F1-F4, Pista amica e Pista ostica (battibile)
+   ===================================================================== */
+const TRB=[0,.15,.3,.45];           /* bonus per livello di "pista amica" */
+const TRH=[0,-.2,-.4];              /* malus per livello di "pista ostica" */
+function trkDev(me){
+  const n=Math.max(2,S.teams.length*2),tc=S.teams.map((t,i)=>({i,c:t.car+(i===S.teamRank?S.carBonus:0)})).sort((a,b)=>b.c-a.c),k=tc.findIndex(x=>x.i===S.teamRank),ex=2*k+1.5;
+  return me.dnf?-.15:(ex-me.pos)/n;
+}
+/* livello di "pista amica" da un record (vittorie, podi, pole) */
+function trkFr(c){
+  if(!c||!c.r||c.r<2)return 0;
+  /* eccesso di risultati rispetto alla tua media di carriera */
+  const cs=S.cs||{};let R=0,W=0,Pd=0,Pl=0;
+  for(const k in cs){const x=cs[k];R+=x.r;W+=x.w;Pd+=x.p;Pl+=x.pl}
+  const gw=R?W/R:0,gp=R?Pd/R:0,gl=R?Pl/R:0;
+  const ex=(c.w-c.r*gw)+.5*((c.p-c.w)-c.r*(gp-gw))+.3*(c.pl-c.r*gl);
+  return ex>=3.2?3:ex>=2.2?2:ex>=1.2?1:0;
+}
+/* livello di "pista ostica" dagli ultimi risultati rispetto alle attese */
+function trkHo(c){
+  if(!c||!c.rl||c.rl.length<2)return 0;
+  if(c.y!=null&&S.year-c.y>3)return 0;
+  const a=c.rl.slice(-2),m=(a[0]+a[1])/2,w=Math.min(a[0],a[1]);
+  return (m<=-.2&&w<=-.28)?2:(m<=-.12&&w<=-.15)?1:0;
+}
+function trkState(cn,tier){
+  const T=tier==null?S.tier:tier,cx=S.cx||{};
+  const cur=cx[T+'|'+cn]||null;
+  let F=0;
+  for(let t=0;t<4;t++){const c=cx[t+'|'+cn];if(!c)continue;const lv=trkFr(c);F+=(t===T?1:.5)*lv}
+  let fl=Math.min(3,Math.round(F));
+  if(S.teams&&carQ()<.15&&fl>0)fl=Math.max(0,fl-(fl>=3?1:0));
+  let hl=trkHo(cur);
+  if(fl>=2&&hl>0)hl--;
+  const w=S.wk,studied=!!(w&&w.rd===S.round&&w.ts);
+  const hb=TRH[hl]*(studied?.4:1);
+  return{fl,hl,b:(fl>0?TRB[fl]:0)+(hl>0?hb:0),studied,cur,kind:hl>0?'hostile':fl>0?'friend':null};
+}
+function trkB(cn){
+  if(!S||!S.cx||!cn)return 0;
+  return trkState(cn).b;
+}
+/* aggiornamento a fine gara (sostituisce la versione precedente) */
+function csTrack(cn,me,pts){
+  S.cs=S.cs||{};
+  S.cx=S.cx||{};
+  const k=S.tier+'|'+cn,dev=trkDev(me);
+  const dvPrev=S.dvA||0,devR=dev-dvPrev;
+  if(!me.dnf)S.dvA=S.dvA==null?dev:Math.round((.75*S.dvA+.25*dev)*1000)/1000;
+  const cx0=S.cx[k];
+  const was=cx0?trkState(cn):null;
+  const upd=c=>{
+    c.r++;c.pt=(c.pt||0)+(pts||0);
+    if(me.dnf)c.d++;else{c.b=Math.min(c.b,me.pos);if(me.pos===1)c.w++;if(me.pos<=3)c.p++}
+    if(me.g===1)c.pl++;
+    (c.res=c.res||[]).push(me.dnf?'R':me.pos);if(c.res.length>12)c.res.shift();
+  };
+  upd(S.cs[cn]||(S.cs[cn]={r:0,w:0,p:0,pl:0,b:99,d:0,pt:0}));
+  const c=S.cx[k]||(S.cx[k]={t:S.tier,c:cn,r:0,w:0,p:0,pl:0,b:99,d:0,pt:0});
+  upd(c);
+  c.rl=(c.rl||[]);
+  if(was&&was.hl>0&&devR>=.05){
+    /* maledizione spezzata */
+    c.rl=[];c.bk=(c.bk||0)+1;c.y=S.year;
+    S.last=S.last||{};S.last.trk={t:'brk',c:cn};
+    S.mf=clamp(mf()+2,0,100);
+  }else{
+    c.rl.push(Math.round(devR*100)/100);if(c.rl.length>4)c.rl.shift();c.y=S.year;
+    const now=trkState(cn);
+    if(!(was&&was.kind==='hostile')&&now.hl>0&&S.last)S.last.trk={t:'new',c:cn,hl:now.hl};
+    if(S.last&&!S.last.trk&&was&&now.fl>was.fl&&now.hl===0)S.last.trk={t:'fr',c:cn,fl:now.fl};
+  }
+}
+const TRN=['','Pista amica','Specialista della pista','Pista di casa tua'];
+function trkWhy(st,cn){
+  const c=st.cur,bits=[];
+  if(c){
+    if(c.w)bits.push(c.w+(c.w===1?' vittoria':' vittorie'));
+    if(c.p-c.w>0)bits.push((c.p-c.w)+((c.p-c.w)===1?' altro podio':' altri podi'));
+    if(c.pl)bits.push(c.pl+(c.pl===1?' pole':' pole'));
+  }
+  return bits.join(', ');
+}
+function trkBox(cn){
+  if(!S.cx)return '';
+  const st=trkState(cn),w=S.wk;
+  if(!st.kind)return '';
+  if(st.kind==='hostile'){
+    const c=st.cur,rs=(c.res||[]).slice(-2).map(x=>x==='R'?'rit.':'P'+x).join(' e ');
+    const can=w&&w.rd===S.round&&w.tk>0&&!w.ts&&(S.phase==='quali'||S.phase==='strat'||S.phase==='qlive');
+    return `<div class="rvl ckl trk ho">⚠️ <b>Pista ostica</b> · ${(TRH[st.hl]*(st.studied?.4:1)).toFixed(1).replace('-','−')} al passo · ultimi risultati qui: ${rs}, sotto le attese.<br><small>${st.studied?'Hai studiato i dati: il malus è ridotto per questo weekend.':'Si spezza con un risultato sopra le attese qui.'}</small>${can?`<div class="btns"><button class="ghost sm" data-act="trs">${ico('chart','fl')} Studia la pista · 1 gettone</button></div>`:''}</div>`;
+  }
+  const why=trkWhy(st,cn);
+  return `<div class="rvl ckl trk fr">⭐ <b>${TRN[st.fl]}</b> · +${TRB[st.fl].toFixed(2).replace(/0$/,'')} al passo${why?' · '+why+' qui':''}.</div>`;
+}
+function ckLine(name){
+  const lv=ckLv(name),n=ckN(name);
+  const t=n===0?'il passo ne risente un po\'.':`${n} ${n===1?'gara':'gare'} qui${lv>=2?' · usura nota'+(lv>=3?' e sorpassi':''):''}.`;
+  const hm=isHome(name)?`<br>🏠 <b>Gran premio di casa</b> ${flag(S.nat)} · tifosi e pressione: la fama in gioco raddoppia.`:'';
+  return `<div class="rvl ckl">📍 <b>${CKL[lv][0]}</b> · ${t}${csNote(name)}${hm}</div>${trkBox(name)}`;
+}
+function trkResult(L){
+  const t=L&&L.trk;if(!t)return '';
+  if(t.t==='brk')return `<section class="card trkc"><div class="sech">Pista ostica battuta</div><p>Hai spezzato la maledizione di <b>${esc(t.c)}</b>: il risultato sopra le attese cancella il malus. +2 fiducia del muretto.</p></section>`;
+  if(t.t==='new')return `<section class="card trkc"><div class="sech">Pista ostica</div><p><b>${esc(t.c)}</b> non ti porta bene: due risultati sotto le attese di fila. Un buon risultato qui cancella il malus, oppure puoi studiare la pista al prossimo passaggio.</p></section>`;
+  if(t.t==='fr')return `<section class="card trkc"><div class="sech">Pista amica</div><p>Ora <b>${esc(t.c)}</b> è una pista che senti tua: un piccolo bonus al passo ogni volta che torni.</p></section>`;
+  return '';
+}
+
+/* ---------- Sezione Piste: ordine F1, F2, F3, F4 ---------- */
+function pisteCard(){
+  const f=S.pf==null?'all':S.pf,so=S.po||'best';
+  let rows;
+  if(f==='all')rows=Object.keys(S.cs||{}).map(k=>({c:k,...S.cs[k]}));
+  else rows=Object.values(S.cx||{}).filter(x=>x.t===+f).map(x=>({...x}));
+  rows=rows.filter(r=>r.r>0);
+  const key=r=>r.w*100+r.p*10+r.pl*2+(r.b<99?(20-r.b)/20:0);
+  if(so==='best')rows.sort((a,b)=>key(b)-key(a)||b.r-a.r||a.c.localeCompare(b.c));
+  else if(so==='worst')rows.sort((a,b)=>key(a)-key(b)||b.r-a.r||a.c.localeCompare(b.c));
+  else rows.sort((a,b)=>b.r-a.r||key(b)-key(a));
+  const cat=['all',3,2,1,0].map(x=>`<button class="ghost${String(x)===String(f)?' on':''}" data-act="pf" data-v="${x}">${x==='all'?'Tutte':TIERS[x].k}</button>`).join('');
+  const srt=[['best','Migliori'],['worst','Peggiori'],['races','Più gare']].map(x=>`<button class="ghost${so===x[0]?' on':''}" data-act="po" data-v="${x[0]}">${x[1]}</button>`).join('');
+  const tot=rows.reduce((a,r)=>a+r.r,0),wn=rows.reduce((a,r)=>a+r.w,0),pd=rows.reduce((a,r)=>a+r.p,0);
+  const best=[...rows].sort((a,b)=>key(b)-key(a))[0];
+  const nFr=rows.filter(r=>trkFr(r)>0).length,nHo=rows.filter(r=>f!=='all'&&trkHo(r)>0).length;
+  const hero=rows.length?`<div class="v3rh"><div><b>${rows.length}</b><span>Piste</span></div><div><b>${wn}</b><span>Vittorie</span></div><div><b>${pd}</b><span>Podi</span></div></div>${best&&(best.w||best.p)?`<p class="sub" style="margin:0">Pista dove rendi di più: <b>${esc(best.c)}</b> (${best.w} ${best.w===1?'vittoria':'vittorie'}, ${best.p} ${best.p===1?'podio':'podi'}).</p>`:''}${(nFr||nHo)?`<p class="sub" style="margin:0">${nFr?`⭐ ${nFr} ${nFr===1?'pista amica':'piste amiche'}`:''}${nFr&&nHo?' · ':''}${nHo?`⚠️ ${nHo} ${nHo===1?'pista ostica':'piste ostiche'}`:''}</p>`:''}`:'';
+  const lim=S.pall?99:10;
+  const card=r=>{
+    const fl=CNAT[r.c]?flag(CNAT[r.c]):'🏁';
+    const fr=trkFr(r),ho=f==='all'?(trkState(r.c).hl>0?1:0):(trkHo(r)>0?1:0);
+    const bd=ho?'<span class="trb ho">Ostica</span>':fr?`<span class="trb fr">${fr>=3?'Specialista':'Amica'}</span>`:'';
+    return `<div class="v3pc"><span class="pcf">${fl}</span><div class="pcm"><b>${isHome(r.c)?'🏠 ':''}${esc(r.c)}${bd}</b><small>${r.r} ${r.r===1?'gara':'gare'}${r.b<99?' · miglior P'+r.b:''}${r.d?' · '+r.d+' rit.':''}</small>${v3spark(r.res)}</div><div class="pck"><span><b>${r.w}</b>vitt.</span><span><b>${r.p}</b>podi</span><span><b>${r.pl}</b>pole</span></div></div>`;
+  };
+  return `<section class="card"><div class="sech">Piste</div><div class="btns">${cat}</div><div class="btns">${srt}</div>${hero}
+  ${rows.length?`<div class="v3pl">${rows.slice(0,lim).map(card).join('')}</div>${rows.length>10?`<div class="btns"><button class="ghost" data-act="pall">${S.pall?'Mostra meno':'Mostra tutte le '+rows.length+' piste'}</button></div>`:''}`:`<p class="empty">${f==='all'?'Si riempie gara dopo gara: vittorie, podi e pole su ogni circuito.':'Nessuna gara in '+TIERS[f].k+' con il tracciamento per categoria: si riempie da qui in avanti.'}</p>`}</section>`;
+}
+
+/* =====================================================================
+   v5 · B · Qualifica a piani: evoluzione della pista, giri dei rivali,
+   secondo tentativo vero, "Tutto sul finale" come scommessa
+   ===================================================================== */
+QL[0].n='Subito, pista libera';
+QL[0].d='Esci per primo: poca gente in pista, ma l\'asfalto è ancora sporco. Dopo puoi riprovare.';
+QL[1].n='Tutto sul finale';
+QL[1].d='Un solo giro all\'ultimo minuto, con la pista al massimo. Niente secondo tentativo: traffico e bandiere rosse possono rovinarlo.';
+QL[2].n='Scia col compagno';
+QL[2].d='Un giro in scia: rende sulle piste veloci. Dopo puoi riprovare.';
+const Q5E=[1.8,3.8,6.2],Q5T=[0,1.1,3.0],Q5W=[0,.9,2.1],Q5SOFT=.8;
+const Q5RD=[.1,.18,.3];
+const q5pdf=z=>Math.exp(-z*z/2)/2.5066;
+const q5cdf=z=>{const t=1/(1+.2316419*Math.abs(z)),d=.3989423*Math.exp(-z*z/2),p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return z>0?1-p:p};
+const q5mx=(d,s)=>{const z=d/s;return d*q5cdf(z)+s*q5pdf(z)};
+/* evoluzione e traffico lungo la sessione (tau: 0 inizio, 1 fine) */
+const q5ev=(x,tau)=>{const E=Q5E[x.e+1];return x.rain?E*(tau<.5?tau:.5-(tau-.5)*1.6):E*tau};
+const q5tr=(x,tau)=>Q5T[x.t+1]*(.25+.75*tau);
+function q5lap(k,x,r){
+  switch(k){
+    case 'early':return q5ev(x,.12)-q5tr(x,.12)+r*.6;
+    case 'tow':return q5ev(x,.3)-1.5*q5tr(x,.3)+Q5W[x.s+1]-.4-(mateOf()?0:1.0)+r*.7;
+    case 'lim':return q5ev(x,.12)-q5tr(x,.12)+.7+r*1.3;
+    case 'late':return q5ev(x,.97)-q5tr(x,.97)+r*.9;
+    default:return q5ev(x,.78)-.7*q5tr(x,.78)+.5+r*.8;   /* secondo tentativo */
+  }
+}
+const q5K=x=>[.18,.12,.07][x.o==null?1:x.o];
+const q5Tc=x=>(.04+.025*(x.u==null?2:x.u))/q5K(x);
+const q5err=x=>clamp(.07+.045*(x.t+1)+(x.rain?.07:0)-(mf()>=70?.03:0),.05,.28);
+function q5field(x){
+  const f1=q5ev(x,.28)-.6*q5tr(x,.28),f2=q5ev(x,.8)-.6*q5tr(x,.8),p=.78*(x.red?.4:1);
+  return f1+p*q5mx(f2-f1,1.1);
+}
+function q5net(k,x){
+  const F=q5field(x);
+  if(k==='late'){
+    const m=x.red?q5lap('early',x,0)-1.0:q5lap('late',x,0);
+    return m-F;
+  }
+  const l1=q5lap(k,x,0),l2=q5lap('r2',x,0),pe=q5err(x),pOk=(1-pe)*(x.red?.45:1);
+  return l1+pOk*q5mx(l2-l1-q5Tc(x),1.1)-F;
+}
+function qFit(k,x){return clamp(.55+q5net(k,x)/3,0,1)}
+function qEV(k,w){
+  const q=w.q,pr=w.rp/100*.7+(1-w.rp/100)*.12,pRd=Q5RD[w.sck==null?1:w.sck];let tot=0;
+  for(const t of q.vt)for(const [rn,pa] of [[true,pr],[false,1-pr]])for(const [rd,pb] of [[true,pRd],[false,1-pRd]])tot+=pa*pb*qFit(k,{e:q.e,t,s:q.s,rain:rn,red:rd,u:w.u,o:w.ovt})/q.vt.length;
+  return tot;
+}
+function mkQ(w,c){
+  const h=hsh(String(w.c)+'q'),d=S.diff==null?1:S.diff;
+  const e=(h%3)-1,t=((h>>>3)%3)-1,s=c.s-1;
+  const rain=rnd()<(w.rain?.7:.12),red=rnd()<Q5RD[c.k];
+  return{e,t,s,rain,red,ord:shuffle([0,1,2]),vt:d===2?(t===-1?[-1,0]:t===1?[0,1]:(rnd()<.5?[-1,0]:[0,1])):[t,t]};
+}
+function q2Info(w){
+  const q=w.q;
+  return{evo:Q5E[q.e+1],tp:Q5T[q.t+1],err:q5err({t:q.t,rain:q.rain}),red:!!q.red};
+}
+const q5X=w=>({e:w.q.e,t:w.q.t,s:w.q.s,rain:w.q.rain,red:w.q.red,u:w.u,o:w.ovt});
+/* giri dei rivali: prima uscita (provvisoria) e tempo finale, nascosti al giocatore */
+function q5Draw(w,R,G){
+  const q=w.q,x=q5X(w),o={},rn=R||rnd,g=G||gauss;
+  (w.qE||[]).forEach(r=>{
+    if(r.me)return;
+    const t1=.1+.35*rn(),l1=q5ev(x,t1)-.6*q5tr(x,t1)+g()*.6;
+    let l2=null;
+    if(rn()<.78*(x.red?.4:1)){const t2=.6+.37*rn();l2=q5ev(x,t2)-q5tr(x,t2)*(rn()*1.2)+g()*.8}
+    o[r.n]={a:l1,b:l2==null?l1:Math.max(l1,l2)};
+  });
+  return o;
+}
+function q5Grid(E,ref,g0){
+  const a=E.map(x=>({...x})).sort((x,y)=>y.q-x.q),b=70+(S.cal[S.round].length*7%25);
+  const pn=gridPen(a);
+  const r0=ref!=null?ref:a[0].q;
+  a.forEach((x,i)=>{x.g=i+1;x.tm=b+(r0-x.q)*.07});
+  return{rows:a,g:a.find(x=>x.me).g,g0:Math.min(a.length,g0+pn),pn,ref:r0};
+}
+const q5Me=w=>w.qE.find(r=>r.me).q+w.qx;
+function q5Rows(w,myq,kind){
+  return w.qE.map(r=>r.me?{...r,q:myq}:{...r,q:r.q+(kind==='prov'?w.qR[r.n].a:w.qR[r.n].b)});
+}
+/* ---- primo tentativo ---- */
+function chooseQuali(i,auto){
+  const w=S.wk,q=w.q,lim=(i===3),k=lim?'lim':QL[i].k,fr=lim?.6:qReal(k,w),fe=lim?.58:qEV(k,w),bk=qBest(w),loss=bk[1]-fe;let vd=verdictOf(loss);
+  const x=q5X(w),elim=w.fmt==='elim';
+  if(lim)w.limSel=1;
+  if(elim&&!w.eq){w.eq={k:'soft'};w.tyb=-.2}
+  const ty=elim?null:(w.qt||'soft');
+  if(ty){w.tyb=(w.tyb||0)+(ty==='soft'?-(.08+.04*(w.u||0)):.05)}
+  const tb=mf()>=70?.3:mf()<=30?-.3:0;
+  w.qx=tb+ckB(w.c)*.5+trkB(w.c)*.5+(w.fpq||0)+(ty==='soft'?Q5SOFT:0);
+  w.pen0=S.pen||0;
+  const base=qBase().map(e=>({n:e.n,t:e.t,me:!!e.me,q:e.p*.9+gauss()*3.8}));
+  w.qE=base;
+  const g0=base.slice().sort((a,b)=>b.q-a.q).findIndex(r=>r.me)+1;
+  w.qR=q5Draw(w);
+  const late=(k==='late');
+  w.l1=late?(q.red?q5lap('early',x,gauss())-1.0:q5lap('late',x,gauss())):q5lap(k,x,gauss());
+  w.g00=g0;w.gpx=1;w.rd=S.round;w.a2=0;w.qk=k;
+  w.qs={k,vd,qv:0,g:0,g0:0,best:bk[0],auto:auto?1:0,el:(w.eq&&w.eq.out)?1:0,rain:q.rain,red:q.red,t:q.t,e:q.e,s:q.s,ty};
+  wxUpdate(w);qTail(w);
+  if(late){
+    q5Final(w,'late');
+    if(lim)vd=0;
+    if(!auto)S.mf=clamp(mf()+[1,0,0,-1][vd],0,100);
+    w.qs.vd=vd;
+    w.ql=auto?null:{t:'std',fin:1,how:'late'};
+    S.phase=auto?'strat':'qlive';return;
+  }
+  const G=q5Grid(q5Rows(w,q5Me(w)+w.l1,'prov'),null,g0);
+  S.pen=0;
+  w.qRef=G.ref;w.grid=G.rows;w.gp=G.g;w.pn=G.pn||0;w.g1=G.g;
+  const net=w.l1+w.qx;
+  w.qs.g=G.g;w.qs.g0=G.g0;w.qs.qv=Math.round(net*10)/10;
+  w.qc=clamp((g0-(G.g-(G.pn||0)))*q5K({o:w.ovt}),-.9,.9);
+  if(lim)vd=net>=1.2?0:net>=.4?1:net>=-.4?2:3;
+  w.qs.vd=vd;
+  if(!auto)S.mf=clamp(mf()+[1,0,0,-1][vd],0,100);
+  if(auto){
+    const E=qEst(w),p=.02+.46*mf()/100,good=E.gain*q5K({o:w.ovt})>(.04+.025*(w.u||0))&&E.pGain>.4;
+    q5Final(w,(rnd()<p?good:rnd()<.5)?'retry':'keep');
+    w.ql=null;S.phase='strat';return;
+  }
+  w.ql={t:'std',st:0};
+  S.phase='qlive';
+}
+/* ---- tentativo finale (tenere / riprovare / giro unico) ---- */
+function q5Final(w,how){
+  const q=w.q,x=q5X(w),I=q2Info(w);
+  const prev={};if(w.grid)w.grid.forEach(r=>{prev[r.n]=r.g});
+  const g1=w.g1||0;
+  let my=q5Me(w)+w.l1,a2=null,gKeep=null;
+  S.pen=w.pen0||0;
+  if(how==='retry'){
+    const err=rnd()<I.err,redHit=!err&&q.red&&rnd()<.55;
+    const l2=q5lap('r2',x,gauss());
+    const my2=q5Me(w)+l2;
+    /* cosa sarebbe successo tenendo il tempo (per il confronto) */
+    const GK=q5Grid(q5Rows(w,my,'fin'),w.qRef,w.g00);S.pen=w.pen0||0;gKeep=GK.g;
+    let lost=err||redHit,dmg=false;
+    if(!lost&&my2>my)my=my2;
+    if(err&&rnd()<.3){dmg=true;w.fpr=(w.fpr||0)-.2;w.qdmg=1}
+    w.tyb=(w.tyb||0)-(.04+.025*(w.u||0));w.a2=1;
+    a2={err:err?1:0,red:redHit?1:0,dmg:dmg?1:0,l2:Math.round((my2-q5Me(w)-w.l1)*10)/10};
+  }else if(how==='keep'){
+    w.a2=0;
+  }
+  const G=q5Grid(q5Rows(w,my,'fin'),w.qRef,w.g00);
+  w.grid=G.rows;w.gp=G.g;w.pn=G.pn||0;
+  const F=w.qE.filter(r=>!r.me).reduce((a,r)=>a+w.qR[r.n].b,0)/Math.max(1,w.qE.length-1);
+  const net=my-w.qE.find(r=>r.me).q-F;
+  w.qc=clamp((w.g00-(G.g-(G.pn||0)))*q5K({o:w.ovt}),-.9,.9);
+  w.qs.g=G.g;w.qs.g0=G.g0;w.qs.qv=Math.round(net*10)/10;
+  if(how==='late'){w.qs.a2=null;w.qs.kp=null;w.qs.sg=1}
+  else if(how==='keep'){
+    const by=w.grid.filter(r=>!r.me&&prev[r.n]!=null&&prev[r.n]>g1&&r.g<G.g).map(r=>r.n);
+    w.qs.kp={d:G.g-g1,by:by.slice(0,3),n:by.length};
+  }else{
+    w.qs.a2={...a2,g1,d:g1-G.g,dk:gKeep!=null?gKeep-G.g:0,gk:gKeep};
+  }
+  w.ql={t:'std',fin:1,how,prev};
+}
+function qSecond(){
+  const w=S.wk;
+  if(w.a2||!w.qE)return;
+  if(!w.qR){qSecondOld();return}
+  q5Final(w,'retry');
+}
+function qOk(){
+  const w=S.wk;
+  if(w.ql&&w.ql.fin||!w.qR){w.ql=null;S.phase='strat';return}
+  q5Final(w,'keep');
+}
+/* stima per il giocatore: media di molte uscite possibili, con numeri casuali separati */
+function qEst(w){
+  const I=q2Info(w),R0=mul32(hsh(w.c+'|qe|'+S.year+'|'+S.round+'|'+(w.gp||0))),R=()=>R0();
+  const G=()=>{let u=0,v=0;while(!u)u=R();while(!v)v=R();return Math.sqrt(-2*Math.log(u))*Math.cos(6.2832*v)};
+  const rows=w.qE.filter(r=>!r.me),me=w.qE.find(r=>r.me),m1=me.q+w.qx+w.l1;
+  const pr=w.rp/100*.7+(1-w.rp/100)*.12,pRd=Q5RD[w.sck==null?1:w.sck];
+  const M=140;let kl=0,k1=0,gn=0,pg=0,pw=0;
+  for(let m=0;m<M;m++){
+    const x={e:w.q.e,t:w.q.t,s:w.q.s,rain:R()<pr,red:R()<pRd,u:w.u,o:w.ovt};
+    const imps=rows.map(r=>{const t1=.1+.35*R(),l1=q5ev(x,t1)-.6*q5tr(x,t1)+G()*.6;let l2=null;if(R()<.78*(x.red?.4:1)){const t2=.6+.37*R();l2=q5ev(x,t2)-q5tr(x,t2)*(R()*1.2)+G()*.8}return{a:l1,b:l2==null?l1:Math.max(l1,l2)}});
+    const posOf=my=>1+rows.reduce((a,r,i)=>a+((r.q+imps[i].b)>my?1:0),0);
+    const p0=1+rows.reduce((a,r,i)=>a+((r.q+imps[i].a)>m1?1:0),0);
+    const pk=posOf(m1);
+    const err=R()<q5err(x),red=x.red&&R()<.55,l2=q5lap('r2',x,G()),m2=me.q+w.qx+l2;
+    const pr2=(err||red)?pk:posOf(Math.max(m1,m2));
+    kl+=pk-p0;if(pk>p0)k1++;gn+=pk-pr2;if(pr2<pk)pg++;if(err)pw++;
+  }
+  return{keepLoss:kl/M,pLose:k1/M,gain:gn/M,pGain:pg/M,pErr:pw/M};
+}
+/* ---- vecchio secondo tentativo (salvataggi in corso) ---- */
+function qSecondOld(){
+  const w=S.wk,q=w.q,I=q2Info(w);
+  if(w.a2||!w.qE)return;
+  const prev={};w.grid.forEach(r=>{prev[r.n]=r.g});const g1=w.gp;
+  const err=rnd()<I.err;
+  const imp=err?0:Math.max(0,I.evo*.4+gauss()*.7-I.tp);
+  const qv2=w.qv1+imp;
+  const E=w.qE.map(x=>x.me?x:{...x,q:x.q+(rnd()<.6?Math.max(0,I.evo*.3+gauss()*.7):0)});
+  S.pen=w.pen0||0;
+  const G=makeGrid(qv2,E,w.qRef);
+  w.grid=G.rows;w.gp=G.g;w.pn=G.pn||0;w.qc=qv2*QCARRY;w.tyb=(w.tyb||0)-.2;w.a2=1;
+  w.qs.g=G.g;w.qs.a2={err:err?1:0,g1,d:g1-G.g};
+  qTail(w);
+  w.ql={t:'std',a2:1,prev};
+}
+function qWhy(s){
+  if(s.k==='lim')return s.vd<=1?'Il giro al limite è riuscito: griglia migliore del previsto.':'Il giro al limite non è riuscito: qualche decimo è rimasto in pista.';
+  if(s.rain)return s.k==='early'?'Pioggia in arrivo: scendere subito ha pagato.':s.k==='late'?'Pioggia: aspettare è costato il giro migliore.':'Pioggia sul finale: la scia non è bastata.';
+  if(s.red&&s.k==='late')return 'Bandiera rossa nel finale: il giro è saltato.';
+  if(s.red)return 'Bandiera rossa nel finale: chi aveva già un tempo ne ha approfittato.';
+  if(s.k==='early')return s.t===1?'Traffico alto: partire subito ti ha dato pista libera.':s.e===1?'Pista in forte evoluzione: il primo giro era su asfalto ancora sporco.':'Giro pulito, ma con la pista ancora sporca.';
+  if(s.k==='late')return s.e===1?'Pista in forte evoluzione: aspettare ha pagato.':s.t===1?'Troppo traffico nel finale: giro rovinato.':'Hai aspettato il momento giusto.';
+  return s.s===1?'Rettilinei lunghi: la scia ha dato decimi preziosi.':s.s===-1?'Rettilinei corti: la scia è servita a poco.':'La scia ha aiutato, senza fare la differenza.';
+}
+function qsLine(s){
+  if(s.el)return elimLine(s);
+  const vd=QVD[s.vd],p=QL.find(x=>x.k===s.k)||QLIM,dg=s.g0-s.g;
+  const ex=s.a2?(s.a2.err?' · secondo tentativo sbagliato':s.a2.red?' · bandiera rossa al secondo tentativo':s.a2.d>0?' · secondo tentativo riuscito':' · secondo tentativo senza guadagni'):s.kp?' · tempo tenuto':'';
+  const ty=s.ty?` <small>(${s.ty==='soft'?'morbide':'medie'})</small>`:'';
+  return `<div class="qsl"><div><b style="color:${vd[1]}">${vd[0]}</b> · ${p.n}${ty}${ex}${s.auto?' <small>(scelta del muretto)</small>':''}</div><div>${qWhy(s)}${dg?` <b>${dg>0?'+':''}${dg} posizioni</b> rispetto alla pura velocità della vettura.`:''}</div></div>`;
+}
+function autoQ(){
+  const w=S.wk,bk=qBest(w)[0],p=.02+.46*mf()/100;
+  return rnd()<p?QL.findIndex(x=>x.k===bk):Math.floor(rnd()*3);
+}
+/* ---- viste ---- */
+const q5Lbl=(p,lo,hi)=>p>=hi?'alto':p>=lo?'medio':'basso';
+function q5Tiles(w,q){
+  const tile=(ic,lab,big,sub)=>`<div class="bt"><small class="bl">${ico(ic)} ${lab}</small><b>${big}</b><small class="bs">${sub}</small></div>`;
+  const vg=q.vt[0]!==q.vt[1],tb=vg?L3[q.vt[0]+1]+' – '+L3[q.vt[1]+1]:L3[q.t+1];
+  const rd=Q5RD[w.sck==null?1:w.sck];
+  return `<div class="gauges qg">${tile('cloud','Pioggia',w.rp+'%','prob. di pioggia')}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}${tile('sc','Bandiera rossa',rd>=.3?'Alta':rd>=.18?'Media':'Bassa','rischio interruzioni')}</div>`;
+}
+function qTyreRow(w){
+  const t=w.qt||'soft',c=(.08+.04*(w.u||0)).toFixed(2).replace(/0$/,'');
+  return `<div class="qty"><div class="qtl">Gomme per il giro</div><div class="btns"><button class="ghost${t==='soft'?' on':''}" data-act="qt" data-v="soft">Morbide nuove</button><button class="ghost${t==='med'?' on':''}" data-act="qt" data-v="med">Medie</button></div><p class="sub">${t==='soft'?'Più veloci in qualifica (circa mezza posizione in più), ma in gara le sentirai: −'+c+' al passo.':'Un po\' più lente in qualifica, ma ti tengono un set fresco: +0.05 al passo in gara.'}</p></div>`;
+}
+function qOptsX(w,q){
+  if(w.fmt==='elim'&&!w.eq)return q2Opts(w);
+  const t=S.trt&&S.trt.qual;
+  const tag=p=>p.k==='late'?'<span class="tg r1">1 solo tentativo</span><span class="tg">Max evoluzione</span>':`<span class="tg">2 tentativi</span>${p.k==='tow'?'<span class="tg">Scia</span>':'<span class="tg">Pista libera</span>'}`;
+  return `${qTyreRow(w)}<div class="opts">${q.ord.map((qi,i)=>{const p=QL[qi];return `<button class="ch" data-act="qp" data-i="${i}"><span class="lt">${'ABC'[i]}</span><span class="cb"><span class="ot">${p.n}</span><span class="od">${p.d}</span><span class="tags">${tag(p)}${w.qhint===p.k?`<span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span>`:''}</span></span></button>`}).join('')}${t?`<button class="ch" data-act="qlim"><span class="lt">★</span><span class="cb"><span class="ot">Giro al limite</span><span class="od">Il tuo istinto sul giro secco: spinge oltre il limite, ma il giro può non riuscire.</span><span class="tags"><span class="tg r2">Rischio alto</span><span class="tg">2 tentativi</span></span></span></button>`:''}</div>`;
+}
+function qualiView(){
+  if(S.wk.fmt==='elim'&&!S.wk.grid&&!S.wk.eq)return exView();
+  const w=S.wk,q=w.q;
+  return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>La qualifica</h1><p>Scegli quando scendere in pista. Dopo il primo giro vedrai la classifica e potrai tenere il tempo o riprovare.</p></div>
+  ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf">${q5Tiles(w,q)}</section>
+  ${obCard(w)}${puCard(w)}${qOptsX(w,q)}
+  <div class="btns"><button class="ghost" data-act="qauto">Lascia decidere al muretto</button></div>`;
+}
+function q5Passed(w){
+  const p=w.qs&&w.qs.kp;if(!p||!p.n)return '';
+  return ` Ti hanno passato: <b>${p.by.map(esc).join(', ')}</b>${p.n>p.by.length?' e altri':''}.`;
+}
+function qlView(){
+  const w=S.wk,ql=w.ql||{t:'std'};
+  if(ql.t==='st')return exStageView();
+  if(!w.qR)return qlViewOld();
+  const q=w.q,s=w.qs||{},fin=!!ql.fin,how=ql.how;
+  const head=`<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>${fin?'Griglia di partenza':'Classifica live'}</h1><p>${fin?(how==='late'?'Giro unico chiuso: ecco come è andata.':'Sessione finita: ecco la griglia definitiva.'):'Primo giro chiuso: sei P'+w.gp+' per ora. Gli altri hanno ancora uscite da fare.'}</p></div>`;
+  let msg='';
+  if(fin){
+    if(how==='late'){
+      msg=s.red?`<div class="qsl"><div><b style="color:var(--warn)">Bandiera rossa nel finale</b></div><div>Il giro decisivo è saltato: partirai da P${w.gp}${w.pn?` (con ${w.pn} posizioni di penalità)`:''}.</div></div>`
+        :`<div class="qsl"><div><b style="color:var(--${w.gp<=Math.max(3,w.qs.g0)?'green':'amber'})">Giro unico a pista matura</b></div><div>Partirai da <b>P${w.gp}</b>${w.pn?` (con ${w.pn} posizioni di penalità)`:''}. ${qWhy(s)}</div></div>`;
+    }else if(how==='keep'){
+      const d=s.kp?s.kp.d:0;
+      msg=d>0?`<div class="qsl"><div><b style="color:var(--warn)">Gli altri hanno migliorato</b> · −${d} ${d===1?'posizione':'posizioni'}</div><div>Hai tenuto il tempo, ma la pista è migliorata e i rivali ne hanno approfittato: ora parti da P${w.gp}.${q5Passed(w)}</div></div>`
+        :`<div class="qsl"><div><b style="color:var(--green)">Il tempo ha retto</b></div><div>Nessuno ti ha superato: parti da P${w.gp}${w.pn?` (con ${w.pn} posizioni di penalità)`:''}, con gomme nuove per la gara.</div></div>`;
+    }else if(s.a2){
+      const a=s.a2;
+      if(a.err)msg=`<div class="qsl"><div><b style="color:var(--warn)">Errore nel secondo tentativo</b></div><div>Giro cancellato: resta il primo tempo.${a.dmg?' Hai toccato il muro: la macchina va riparata, −0.2 al passo in gara.':''} Gomme usate per la gara. Parti da P${w.gp}.</div></div>`;
+      else if(a.red)msg=`<div class="qsl"><div><b style="color:var(--warn)">Bandiera rossa</b></div><div>La sessione si è fermata prima del tuo giro: resta il primo tempo. Parti da P${w.gp}, con gomme usate.</div></div>`;
+      else if(a.dk>0)msg=`<div class="qsl"><div><b style="color:var(--green)">Il secondo tentativo ha pagato</b> · +${a.dk} ${a.dk===1?'posizione':'posizioni'} rispetto a tenere il tempo</div><div>${a.d>0?'Hai guadagnato anche sul primo giro: ora parti da P'+w.gp+'.':a.d<0?'I rivali sono migliorati più di te, ma senza riprovare avresti perso di più: parti da P'+w.gp+'.':'Resti P'+w.gp+': senza riprovare saresti scivolato.'} In gara avrai gomme più usate.</div></div>`;
+      else msg=`<div class="qsl"><div><b>Nessun guadagno</b></div><div>Il secondo giro non ti ha cambiato la classifica: parti da P${w.gp}. Le gomme sono ormai usate.</div></div>`;
+    }
+  }
+  const I=q2Info(w),E=fin?null:qEst(w);
+  const dSign=v=>(v>=0?'+':'−')+Math.abs(v).toFixed(1).replace('.',',');
+  const opt=fin?`<div class="dock"><button class="go" data-act="qok">Vai alla strategia →</button></div>`
+    :`<div class="opts"><button class="ch" data-act="q2a"><span class="lt">A</span><span class="cb"><span class="ot">⏱️ Riprova un secondo giro</span><span class="od">Pista in evoluzione ${QEVO[q.e+1]}, traffico ${['basso','medio','alto'][q.t+1]}. Puoi migliorare, ma esci con gomme usate e rischi un errore.</span><span class="tags"><span class="tg r${E.pErr>=.2?2:1}">Errore ~${Math.round(E.pErr*100)}%</span><span class="tg">Gara: gomme −</span><span class="tg ${E.gain>.4?'hint':''}">Stima ${dSign(E.gain)} pos. rispetto a tenere</span></span></span></button>
+  <button class="ch" data-act="qok"><span class="lt">B</span><span class="cb"><span class="ot">Tieni questo tempo</span><span class="od">Gomme nuove per la gara e nessun rischio di errore, ma gli altri hanno ancora giri da fare.</span><span class="tags"><span class="tg r${E.pLose>=.7?2:E.pLose>=.4?1:0}">Rischio di essere superato: ${q5Lbl(E.pLose,.4,.7)}</span><span class="tg">${E.keepLoss>=.15?'Di solito −'+E.keepLoss.toFixed(1).replace('.',',')+' pos.':'Perdi poco'}</span><span class="tg">Gara +</span></span></span></button></div>`;
+  return `${head}${fmLine(w)}${msg}<section class="card"><div class="sech">${fin?'Griglia':'Tempi'} · ${esc(w.c)}</div>${qlBoard(w.grid,fin&&ql.prev?ql.prev:null,0)}</section>${opt}`;
+}
+function qlViewOld(){
+  const w=S.wk,ql=w.ql||{t:'std'};
+  const q=w.q,I=q2Info(w),a2=!!w.a2,s=w.qs||{};
+  const head=`<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>Classifica live</h1><p>${a2?'Il secondo tentativo è chiuso: ecco la griglia.':'Primo tentativo chiuso. Il tuo tempo vale P'+w.gp+': puoi tenerlo o tornare in pista.'}</p></div>`;
+  let msg='';
+  if(a2&&s.a2){
+    msg=s.a2.err?`<div class="qsl"><div><b style="color:var(--warn)">Errore nel secondo tentativo</b></div><div>Giro cancellato: resta il primo tempo (P${w.gp}), con gomme usate per la gara.</div></div>`
+      :s.a2.d>0?`<div class="qsl"><div><b style="color:var(--green)">Miglioramento</b> · +${s.a2.d} ${s.a2.d===1?'posizione':'posizioni'}</div><div>Hai migliorato il tempo: ora parti da P${w.gp}. In gara avrai gomme più usate.</div></div>`
+      :`<div class="qsl"><div><b>Tempo non migliorato</b></div><div>Il secondo giro non è bastato: resti P${w.gp}${s.a2.d<0?' (qualcuno ti è passato davanti)':''}, con gomme usate per la gara.</div></div>`;
+  }
+  const opt=a2?`<div class="dock"><button class="go" data-act="qok">Vai alla strategia →</button></div>`:`<div class="opts"><button class="ch" data-act="q2a"><span class="lt">A</span><span class="cb"><span class="ot">⏱️ Secondo tentativo</span><span class="od">Puoi migliorare il tempo, ma esci con gomme usate.</span></span></button>
+  <button class="ch" data-act="qok"><span class="lt">B</span><span class="cb"><span class="ot">Resta con questo tempo</span><span class="od">Gomme nuove per la gara e nessun rischio.</span></span></button></div>`;
+  return `${head}${fmLine(w)}${a2?msg:(w.qs?qsLine(w.qs):'')}<section class="card"><div class="sech">Tempi · ${esc(w.c)}</div>${qlBoard(w.grid,a2?w.ql.prev:null,0)}</section>${opt}`;
+}
+
+/* =====================================================================
+   v5 · C · Situazioni di gara per categoria (F4 · F3 · F2 · F1),
+   distacchi vivi e interazione con la finestra di sosta
+   ===================================================================== */
+/* moltiplicatori di frequenza degli eventi esistenti, per categoria [F4,F3,F2,F1] */
+const TWX={
+  st:[1,1,1,1],cont:[1.8,1.4,1,.7],deg:[0,0,1.2,1.4],sc:[1.3,1.1,1,1.3],vsc:[.2,.7,1,1.5],
+  tyre:[.5,1,1.2,1.3],fuel:[0,.4,1,1.3],red:[.5,.8,1,1.2],oil:[1.6,1.2,.8,.6],gust:[1,1,1,1],
+  team:[.3,.6,1,1.6],pen5:[.4,.8,1,1.3],duel:[1,1,1,1],fdef:[1,1,1,1.1],fatt:[1,1,1,1.1],friv:[1,1,1,1.2],fgap:[1,1,1,1],wx:[1,1,1,1]
+};
+const rcGap=n=>{const rc=S.rc;return rc&&rc.pg&&rc.pg[n]?rc.pg[n]:null};
+const gapNear=()=>{const g=rcGap(S.rc?S.rc.n:0);return !!(g&&g.a!=null&&g.a<1.3)};
+const gapBack=()=>{const g=rcGap(S.rc?S.rc.n:0);return !!(g&&g.b!=null&&g.b<1.0)};
+const sec=v=>v==null?'–':(Math.round(v*10)/10).toFixed(1).replace('.',',')+' s';
+/* il piano ha già fatto la sosta? (finestra "presto" o undercut) */
+const stopDone=()=>{const s=S.sw;return !!(s&&(s.win==='early'||s.k==='under'))};
+const stopNone=()=>{const s=S.sw;return !!(s&&(s.win==='late'||s.k==='over'||(s.k==='one'&&s.win!=='early')))};
+
+/* le safety car dipendono dalla finestra di sosta */
+function scBest(p){
+  const win=S.sw&&S.sw.win;
+  if(win==='early')return 1;
+  if(win==='late')return 0;
+  return ['one','safe','over'].includes(p)?0:1;
+}
+MCX.sc=(p,w)=>[scBest(p),2];
+MCX.vsc=(p,w)=>[scBest(p),2];
+
+const O3=(a,b,c)=>[a,b,c];
+const SIT=[
+ /* ---------- Partenza ---------- */
+ {id:'f4_ventaglio',a:[0],tw:[3,1,0,0],t:'Prima curva a ventaglio',
+  x:'Il gruppo si apre all\'ingresso della prima curva: qualcuno ha frenato troppo tardi e davanti volano ruote e carrozzeria. In F4 la prima curva è sempre una lotteria.',
+  o:[{t:'Infilati all\'interno',d:'Cerchi il varco nel caos.',mod:2.1,risk:.055,ag:1,out:'Sei sgusciato all\'interno tra due vetture in difficoltà.'},
+     {t:'Resta largo e pulito',d:'Più spazio, meno rischi.',mod:1.2,risk:.01,out:'Hai tenuto la traiettoria larga: nessun contatto.'},
+     {t:'Lascia sfogare il gruppo',d:'Rallenti un attimo e passi dopo.',mod:.4,risk:0,ty:1,out:'Hai lasciato sfogare il gruppo e sei ripartito con calma.'}],
+  ctx:w=>(w.gp||10)<=4?[1,0]:(w.gp||10)>=12?[0,2]:[1,0]},
+ {id:'f4_sporca',a:[0,1],tw:[2.5,1,0,0],t:'Fuori traiettoria è sporco',
+  x:'Fuori dalla linea ideale l\'asfalto è pieno di polvere e gomma: chi esce di traiettoria perde aderenza. Per sorpassare però devi uscirci.',
+  o:[{t:'Attacca anche fuori traiettoria',d:'Accetti di scivolare pur di passare.',mod:2.0,risk:.05,ag:1,out:'Hai attaccato sul lato sporco, scivolando ma passando.'},
+     {t:'Resta sulla linea pulita',d:'Aderenza certa, nessun sorpasso facile.',mod:1.1,risk:.01,out:'Sei rimasto sulla linea pulita.'},
+     {t:'Scalda le gomme con calma',d:'Aspetti che la pista si gommi.',mod:.5,risk:0,ty:1,out:'Hai aspettato che la pista si gommasse.'}],
+  ctx:w=>w.ovt===2?[0,2]:[1,0]},
+ {id:'f1_formazione',a:[0],tw:[0,0,.5,3],t:'Gomme fredde al via',
+  x:'Il giro di formazione è lungo e le gomme faticano a mettere temperatura. Dalla radio: pressione bassa, occhio alla prima curva.',
+  o:[{t:'Scalda a zig-zag e parti all\'attacco',d:'Il grip arriva subito, ma rischi un errore.',mod:2.0,risk:.045,ag:1,out:'Hai scaldato le gomme a zig-zag e sei partito all\'attacco.'},
+     {t:'Parti da manuale',d:'Tutto come da copione.',mod:1.2,risk:.01,out:'Hai fatto la partenza standard, senza sorprese.'},
+     {t:'Lascia scappare il gruppo',d:'Metti temperatura e recuperi dopo.',mod:.5,risk:0,ty:1,out:'Hai lasciato scappare il gruppo per mettere in temperatura le gomme.'}],
+  ctx:w=>(w.gp||10)<=3?[1,0]:(w.gp||10)>=11?[0,2]:[1,2]},
+ {id:'f1_ers',a:[0],tw:[0,0,.3,2.6],t:'Energia elettrica al via',
+  x:'Hai batteria in abbondanza: puoi scaricarla tutta nei primi due rettilinei o dosarla per l\'intero giro. Partire all\'attacco costa energia più avanti.',
+  o:[{t:'Tutta subito',d:'Superi chi hai davanti, poi sei scarico.',mod:2.3,risk:.05,ag:1,out:'Hai scaricato la batteria nei primi due rettilinei.'},
+     {t:'Dosa l\'energia',d:'Un compromesso sensato.',mod:1.2,risk:.01,out:'Hai dosato l\'energia sul giro.'},
+     {t:'Risparmia per il finale',d:'Parti piano, arrivi carico.',mod:.5,risk:0,out:'Hai risparmiato la batteria per i giri finali.'}],
+  ctx:w=>(w.gp||10)>=8?[0,2]:[1,0]},
+ /* ---------- Metà gara ---------- */
+ {id:'f3_scia',a:[0,1],tw:[0,3,1.2,0],t:'Treno di scie',
+  x:'Un trenino di sei vetture a un secondo l\'una dall\'altra: chi guida non riesce a scappare, chi segue sfrutta la scia. In F3 un sorpasso si prepara tre curve prima.',
+  cond:()=>gapNear()||(S.rc&&S.rc.n===0),
+  o:[{t:'Sorpasso in fondo al rettilineo',d:'Esci dalla scia e tuffi il muso.',mod:2.2,risk:.05,ag:1,out:'Sei uscito dalla scia e hai passato in fondo al rettilineo.'},
+     {t:'Resta in scia e aspetta',d:'Prepari il sorpasso con calma.',mod:1.1,risk:.01,out:'Sei rimasto in scia, in attesa del momento giusto.'},
+     {t:'Lascia il gruppo e gestisci',d:'Nessun rischio, nessun guadagno.',mod:.4,risk:0,ty:1,out:'Hai lasciato il gruppo e gestito il passo.'}],
+  ctx:w=>w.ovt===2?[0,2]:w.ovt===0?[1,0]:[1,2]},
+ {id:'f3_gomme',a:[1],tw:[2.5,2.5,.5,0],t:'Le gomme cedono',
+  x:'Le gomme stanno scivolando prima del previsto, e senza sosta devi arrivare in fondo con quelle che hai. Il gruppo dietro si avvicina.',
+  o:[{t:'Alza il ritmo ora',d:'Scappi finché le gomme tengono.',mod:1.9,risk:.04,ag:1,out:'Hai alzato il ritmo finché le gomme tenevano.'},
+     {t:'Gestisci le gomme',d:'Ritmo dolce per arrivare in fondo.',mod:1.3,risk:.01,ty:1,out:'Hai gestito le gomme per arrivare in fondo.'},
+     {t:'Segui il compagno di squadra',d:'Ti affidi al suo passo.',mod:.9,risk:.01,out:'Hai seguito il passo del compagno di squadra.'}],
+  ctx:w=>w.u>=3?[1,0]:w.u<=1?[0,2]:[1,2]},
+ {id:'f3_limiti',a:[1],tw:[.4,2,1.2,1.2],t:'Limiti di pista: richiamo',
+  x:'Il direttore di gara ti ha richiamato: troppi giri con le ruote oltre la riga bianca. Un altro richiamo vale cinque secondi di penalità.',
+  o:[{t:'Rientra nei limiti',d:'Perdi un po\' di tempo, nessun rischio.',mod:.6,risk:0,out:'Sei rientrato nei limiti, perdendo qualche centesimo.'},
+     {t:'Spingi dove è sicuro',d:'Usi tutta la pista solo dove puoi.',mod:1.2,risk:.02,out:'Hai spinto solo nei punti sicuri.'},
+     {t:'Continua come prima',d:'Rischi la penalità.',mod:2.0,risk:.05,ag:1,out:'Hai continuato a spingere oltre la riga bianca.'}],
+  ctx:w=>[1,2]},
+ {id:'f2_sosta',a:[1],tw:[0,0,3,.8],t:'Sosta obbligatoria: finestra aperta',
+  x:'La gara impone un cambio gomme e la finestra si è aperta: i rivali diretti stanno già rientrando. Il muretto aspetta la tua risposta.',
+  cond:()=>!stopDone(),
+  o:[{t:'Rientra subito',d:'Gomme nuove e aria pulita davanti.',mod:2.0,risk:.03,out:'Sei rientrato appena aperta la finestra.'},
+     {t:'Aspetta un giro',d:'Guardi cosa fanno gli altri.',mod:1.2,risk:.01,out:'Hai aspettato un giro per guardare i rivali.'},
+     {t:'Resta fuori il più possibile',d:'Scommetti sul degrado basso.',mod:1.5,risk:.03,out:'Sei rimasto fuori più degli altri.'}],
+  ctx:w=>w.u>=3?[0,2]:w.u<=1?[2,0]:[1,2]},
+ {id:'f2_drs',a:[1,2],tw:[0,.4,2.5,1.5],t:'Treno DRS',
+  x:()=>`Sei incollato alla vettura davanti (${sec((rcGap(S.rc.n)||{}).a)}): il DRS ti fa guadagnare nei rettilinei, ma da solo non basta per passare.`,
+  cond:()=>gapNear(),
+  o:[{t:'Prepara il sorpasso in curva',d:'Entri più forte per uscire meglio.',mod:1.9,risk:.04,ag:1,out:'Hai preparato il sorpasso con una staccata più forte.'},
+     {t:'Usa il DRS nel punto giusto',d:'Ti aspetti il rettilineo migliore.',mod:1.3,risk:.015,out:'Hai usato il DRS al momento giusto.'},
+     {t:'Resta dietro e risparmia',d:'Gomme e batteria per dopo.',mod:.5,risk:0,ty:1,out:'Sei rimasto dietro, risparmiando le gomme.'}],
+  ctx:w=>w.ovt===2?[1,2]:w.ovt===0?[2,0]:[1,2]},
+ {id:'f1_undercut',a:[1],tw:[0,0,.3,2.6],t:'Il rivale rientra: undercut',
+  x:'Chi ti precede è appena rientrato ai box. Al muretto sono nervosi: se lo lasci andare, tra due giri sarà più veloce di te con gomme nuove.',
+  cond:()=>!stopDone(),
+  o:[{t:'Copri subito: rientra',d:'Annulli l\'undercut e cambi le gomme.',mod:1.9,risk:.03,out:'Hai coperto l\'undercut rientrando subito.'},
+     {t:'Resta fuori',d:'Overcut: aria pulita e gomme da allungare.',mod:1.4,risk:.02,out:'Sei rimasto fuori per tentare l\'overcut.'},
+     {t:'Rientra tra due giri',d:'Un compromesso: perdi poco, guadagni poco.',mod:1.0,risk:.01,out:'Sei rientrato due giri dopo il rivale.'}],
+  ctx:w=>w.u>=3?[0,1]:w.ovt===0?[0,2]:[1,0]},
+ {id:'f1_batt',a:[1,2],tw:[0,0,.3,3],t:'Batteria: gestione dell\'energia',
+  x:'La batteria si scarica più in fretta del previsto: l\'ERS non basta per attaccare e difendere nello stesso giro. Il muretto ti propone tre mappature.',
+  o:[{t:'Modalità sorpasso',d:'Tutta l\'energia subito, poi sei scarico.',mod:2.2,risk:.05,ag:1,out:'Hai usato la modalità sorpasso a piena potenza.'},
+     {t:'Mappatura equilibrata',d:'Un po\' di energia a ogni giro.',mod:1.2,risk:.01,out:'Hai tenuto la mappatura equilibrata.'},
+     {t:'Ricarica per i prossimi giri',d:'Rallenti oggi per attaccare domani.',mod:.5,risk:0,out:'Hai ricaricato la batteria per i giri successivi.'}],
+  ctx:w=>gapNear()?[0,2]:[1,0]},
+ {id:'f1_freni',a:[1,2],tw:[0,0,.4,1.5],t:'Freni al limite',
+  x:'In radio: la temperatura dei freni è oltre il limite. Se spingi ancora rischi di perderli, ma il rivale è lì.',
+  o:[{t:'Spingi lo stesso',d:'Tutto per la posizione.',mod:2.1,risk:.055,ag:1,out:'Hai spinto con i freni al limite.'},
+     {t:'Alza il ritmo con cautela',d:'Recuperi senza esagerare.',mod:1.2,risk:.02,out:'Hai alzato il ritmo con cautela.'},
+     {t:'Raffredda i freni',d:'Perdi tempo ma salvi la macchina.',mod:.4,risk:0,ty:1,out:'Hai raffreddato i freni, perdendo un po\' di tempo.'}],
+  ctx:w=>w.u>=3?[2,0]:[1,2]},
+ {id:'f1_pitslow',a:[1],tw:[0,0,.4,1.3],t:'Sosta lenta',
+  x:'Il cambio della posteriore destra si inceppa: sei fermo tre secondi più del previsto. Rientri in pista in mezzo al traffico.',
+  cond:()=>!!(S.sw&&S.sw.k!=='inter'&&S.sw.k!=='safe')&&!stopNone(),
+  o:[{t:'Spingi per recuperare subito',d:'Giri veloci, anche con rischio.',mod:2.1,risk:.05,ag:1,out:'Hai spinto subito per recuperare il tempo perso.'},
+     {t:'Rientra e gestisci il traffico',d:'Una gara di pazienza.',mod:1.2,risk:.01,out:'Hai gestito il traffico dopo la sosta lenta.'},
+     {t:'Allunga lo stint successivo',d:'Cambi strategia per aria pulita.',mod:.8,risk:.01,ty:1,out:'Hai allungato lo stint per trovare aria pulita.'}],
+  ctx:w=>w.ovt===2?[0,1]:w.ovt===0?[2,0]:[1,2]},
+ /* ---------- Finale ---------- */
+ {id:'f4_stanco',a:[2],tw:[2,.8,0,0],t:'Le braccia sono pesanti',
+  x:'A pochi giri dalla fine la concentrazione cala. Per un debuttante è il momento in cui arrivano gli errori.',
+  o:[{t:'Spingi comunque',d:'Non vuoi perdere posizioni.',mod:1.8,risk:.05,ag:1,out:'Hai spinto fino alla fine, stringendo i denti.'},
+     {t:'Mantieni la concentrazione',d:'Giro dopo giro, pulito.',mod:1.0,risk:.01,out:'Hai tenuto la concentrazione fino alla bandiera.'},
+     {t:'Gestisci fino al traguardo',d:'Meglio arrivare.',mod:.4,risk:0,ty:1,out:'Hai gestito il ritmo fino al traguardo.'}],
+  ctx:w=>[1,0]},
+ {id:'f1_doppiaggi',a:[2],tw:[0,0,1,2.2],t:'Doppiaggi',
+  x:'Arrivi sui doppiati: le bandiere blu vengono ignorate e la gara si decide in tre curve.',
+  o:[{t:'Passa subito, rischiando',d:'Non perdi un decimo.',mod:2.0,risk:.04,ag:1,out:'Hai passato i doppiati senza aspettare.'},
+     {t:'Aspetta la bandiera blu',d:'Prudenza, ma perdi tempo.',mod:1.0,risk:.01,out:'Hai aspettato che i doppiati si spostassero.'},
+     {t:'Usa i doppiati per attaccare',d:'Li sfrutti per rifilare un attacco.',mod:1.5,risk:.02,out:'Hai usato i doppiati per guadagnare sul rivale.'}],
+  ctx:w=>w.ovt===2?[0,1]:w.ovt===0?[1,0]:[2,0]},
+ {id:'f1_giroveloce',a:[2],tw:[0,0,.4,1.8],t:'Il giro veloce è a portata',
+  x:'Gomme fresche e pista libera: il giro veloce della gara è a pochi decimi. Prestigio e fiducia del muretto in palio.',
+  cond:()=>!!(S.rc&&S.rc.tr>=0),
+  o:[{t:'Vai a prenderlo',d:'Un giro al limite.',mod:2.2,risk:.05,ag:1,out:'Hai attaccato il giro veloce.'},
+     {t:'Un giro alla volta',d:'Ritmo alto senza esagerare.',mod:1.1,risk:.01,out:'Hai tenuto un ritmo alto senza esagerare.'},
+     {t:'Pensa solo alla posizione',d:'Non ti serve altro.',mod:.4,risk:0,out:'Hai pensato solo alla posizione.'}],
+  ctx:w=>w.u<=2?[0,2]:[2,0]},
+ {id:'f1_pace',a:[1],tw:[0,0,.3,1.5],t:'Il muretto cambia piano',
+  x:'A metà gara il muretto propone un piano diverso: allungare lo stint per cercare una neutralizzazione che potrebbe non arrivare.',
+  o:[{t:'Segui il nuovo piano',d:'Ti fidi dei dati del muretto.',mod:1.6,risk:.025,out:'Hai seguito il nuovo piano del muretto.'},
+     {t:'Mantieni il tuo piano',d:'Non cambi in corsa.',mod:1.2,risk:.01,out:'Hai tenuto il piano originale.'},
+     {t:'Chiedi un compromesso',d:'Metà strada.',mod:.9,risk:.01,out:'Hai chiesto un compromesso al muretto.'}],
+  ctx:w=>w.sc?[0,2]:[1,0]}
+];
+/* aggiunge le nuove situazioni al mazzo */
+(function(){
+  SIT.forEach(e=>{if(!e.wt)e.wt=1;if(!ACTL.find(x=>x.id===e.id))ACTL.push(e)});
+  ACTL.forEach(e=>{ACTS[e.id]=e});
+})();
+function rcPick(n){
+  const w=S.wk,rc=S.rc;
+  const pool=ACTL.filter(e=>e.a.includes(n)&&(!e.cond||e.cond(w)));
+  const H=S.rcH||[];
+  const ws=pool.map(e=>{
+    let v=typeof e.wt==='function'?e.wt(w):(e.wt==null?1:e.wt);
+    const tw=e.tw||TWX[e.id];if(tw)v*=tw[S.tier];
+    if(H.includes(e.id))v*=.35;
+    return Math.max(0,v);
+  });
+  const tot=ws.reduce((a,b)=>a+b,0);let r=rnd()*tot,k=0;
+  for(;k<pool.length;k++){r-=ws[k];if(r<=0)break}
+  const e=pool[Math.min(k,pool.length-1)];
+  rc.ev=e.id;rc.h=null;rc.wsig=null;
+  if(e.id==='wx'){const t=w.wx?w.wx.rt:'keep';rc.wsig=rnd()<.72?t:['keep','stop','worse'].filter(x=>x!==t)[Math.floor(rnd()*2)]}
+  if(n===1&&S.eng&&S.eng.k==='ana'&&engTier()>=1&&e.ctx){const q=e.ctx(w);if(q)rc.h=rnd()<.8?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)]}
+}
+/* posizione stimata e distacchi vivi */
+function peekPos(n){
+  const rc=S.rc,svR=RNG,svN=NZX;
+  RNG=mul32(777);PKK=true;
+  NZX={m:rc.nz.m*NFR[n],r:{}};
+  for(const k in rc.nz.r)NZX.r[k]=rc.nz.r[k]*NFR[n];
+  let E;
+  try{E=simulateRace({mod:rc.mod+AB,risk:rc.risk,sk:'ritmo',fx:{},out:''},PTS)}
+  finally{PKK=false;NZX=svN;RNG=svR}
+  const srt=E.slice().sort((a,b)=>b.perf-a.perf),i=srt.findIndex(e=>e.me);
+  rc.pg=rc.pg||{};
+  const a=i>0?srt[i-1].perf-srt[i].perf:null,b=i>=0&&i<srt.length-1?srt[i].perf-srt[i+1].perf:null;
+  rc.pg[n]={a:a==null?null:Math.round(a*2*10)/10,b:b==null?null:Math.round(b*2*10)/10};
+  return i+1;
+}
+function actSit(){
+  const w=S.wk,rc=S.rc;
+  const gp=w.gp||10,est=rc.n===0?gp:((rc.pe&&rc.pe[rc.n])||gp),prev=rc.n<=1?gp:((rc.pe&&rc.pe[rc.n-1])||gp),d=prev-est;
+  const ty=['fresche','buone','da gestire','al limite','finite'][clamp(Math.round(w.u*.8+rc.n*.7-rc.ty*.9),0,4)];
+  const tl=rc.tr>1?'In crescita':rc.tr<-.2?'In difficoltà':'Ritmo stabile';
+  const g=rcGap(rc.n);
+  const gp1=g&&g.a!=null?`<span class="chip gapc${g.a<1.0?' up':''}" title="Distacco dall'auto che ti precede">▲ Davanti ${sec(g.a)}</span>`:'',gp2=g&&g.b!=null?`<span class="chip gapc${g.b<1.0?' down':''}" title="Distacco dall'auto che ti segue">▼ Dietro ${sec(g.b)}</span>`:'';
+  const win=S.sw&&S.sw.win?`<span class="chip">Sosta ${({early:'presto',std:'standard',late:'tardi'})[S.sw.win]}</span>`:'';
+  const dl=rc.n>0&&d?`<span class="chip ${d>0?'up':'down'}">${d>0?'▲ +'+d:'▼ −'+(-d)} rispetto a prima</span>`:'';
+  const lg=(S.round<4&&(gp1||gp2))?`<p class="sub" style="margin:2px 0 0"><b>Davanti</b> e <b>Dietro</b> sono i distacchi dalle auto vicine: in verde sotto 1 s puoi attaccare, in rosso sotto 1 s sei sotto attacco.</p>`:'';
+  return `<div class="chips wl"><span class="chip pt">Atto ${rc.n+1} di 3</span><span class="chip">Partenza P${gp}</span><span class="chip ${d>0?'up':d<0?'down':''}">Ora P${est}</span>${dl}${gp1}${gp2}<span class="chip">${ico('tyre','fl')} Gomme ${ty}</span><span class="chip">${tl}</span>${win}</div>${lg}${rc.n===2?'<p class="sub" style="margin:2px 0 0">Ultimo atto: la gara è quasi decisa, qui si guadagna o si perde al massimo una o due posizioni.</p>':''}`;
+}
+
+/* =====================================================================
+   v5 · D · Obiettivo del weekend: tre carte, difficoltà stimata,
+   revisione dopo le qualifiche, sfida legata a pista/meteo/rivalità
+   ===================================================================== */
+const OBR=[{mf:2,fama:.7,team:.3,ko:-1,n:'Prudente',tag:'Alla portata'},{mf:5,fama:2,team:.8,ko:-3,n:'Ambizioso',tag:'Da rimonta'},{mf:8,fama:3.2,team:1.3,ko:-4,n:'Sfida',tag:'Da campioni'}];
+const nCdf=z=>{const t=1/(1+.2316419*Math.abs(z)),d=.3989423*Math.exp(-z*z/2),p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return z>0?1-p:p};
+/* piazzamento atteso della macchina (1 = prima), in base alla posizione del team */
+function exF(){
+  const tc=S.teams.map((t,i)=>({i,c:t.car+(i===S.teamRank?S.carBonus:0)})).sort((a,b)=>b.c-a.c),k=tc.findIndex(x=>x.i===S.teamRank);
+  return clamp(2*k+1.5-(S.dvA||0)*S.teams.length*2,1,S.teams.length*2);
+}
+function obEf(w){
+  const N=mkN(),ex=exF();
+  return clamp(w&&w.gpx?(.55*w.gp+.45*ex):ex,1,N);
+}
+const OBS=2.4;
+/* probabilità approssimata di riuscita */
+function obP(o,w){
+  const N=mkN(),ef=obEf(w),dn=.09,g=w&&w.gpx?w.gp:Math.round(ef),ex=exF();
+  const lt=n=>nCdf((n+.5-ef)/OBS)*(1-dn);
+  switch(o.k){
+    case 'top':return lt(o.n);
+    case 'pod':return lt(3);
+    case 'win':return lt(1);
+    case 'pts':return lt(10);
+    case 'clean':return 1-dn-(w&&w.rain?.06:0);
+    case 'rim':{const need=Math.min(o.n,Math.max(0,g-1));return lt(g-need)}
+    case 'mate':case 'riv':return clamp(.5+(w&&w.gpx?clamp((ex-w.gp)/40,-.1,.1):0),.3,.7)*(1-dn*.5);
+    case 'trk':return lt(Math.floor(ex-.05*N));
+  }
+  return .4;
+}
+const obLvl=p=>p>=.6?['Alta',3]:p>=.35?['Media',2]:p>=.15?['Bassa',1]:['Remota',0];
+/* variante deterministica (non consuma il generatore casuale) */
+const pickH=(a,salt)=>a[hsh(String(salt)+S.year+'|'+S.round+'|'+S.name)%a.length];
+function obGen(w){
+  const N=mkN(),ef=obEf(w),ex=exF(),known=!!(w&&w.gpx),g=known?w.gp:Math.round(ef);
+  const cl=(a,b,c)=>Math.max(a,Math.min(b,c)),tz=S.tier;
+  const m=mateOf(),st=S.cx?trkState(w.c):{hl:0,fl:0};
+  const used=[];
+  const add=(arr,o)=>{if(!o)return;const key=o.k+(o.n||'')+(o.nm||'');if(used.includes(key))return;used.push(key);arr.push(o)};
+  /* --- carta 1: prudente --- */
+  let p1;
+  if(known&&g>=Math.round(N*.55))p1={k:'rim',n:2,t:'Recupera 2 posizioni',d:'Parti dalle retrovie: due posizioni sono alla portata.'};
+  else if(known&&g<=3)p1={k:'top',n:Math.max(g,2),t:'Difendi il podio'+(g===1?' (P2 o meglio)':''),d:'Parti davanti: non buttare via la griglia.'};
+  else if(known)p1={k:'top',n:cl(2,N-1,g),t:'Chiudi nei primi '+cl(2,N-1,g),d:'Tieni la posizione conquistata in qualifica.'};
+  else{const T1=cl(3,N-1,Math.round(ex)+2);p1={k:'top',n:T1,t:'Chiudi nei primi '+T1,d:'Un risultato alla portata della tua macchina.'}}
+  if(w&&w.rain&&!known)p1=pickH([p1,{k:'clean',t:'Porta a casa la macchina',d:'Sul bagnato basta arrivare al traguardo senza errori.'}],'p1');
+  else if(!known)p1=pickH([p1,p1,{k:'clean',t:'Gara pulita',d:'Arriva al traguardo senza ritiri.'}],'p1');
+  /* --- carta 2: ambizioso --- */
+  const A=[];
+  if(known){
+    const t2=cl(1,N,Math.min(g-2,Math.round(ef)-1));
+    add(A,{k:'top',n:t2,t:'Chiudi nei primi '+t2,d:g>t2+1?'Almeno due posizioni più su della griglia.':'Più in alto di quanto prometta la vettura.'});
+    add(A,{k:'rim',n:g>=6?4:3,t:'Recupera '+(g>=6?4:3)+' posizioni',d:'Rimonta dalla griglia: servono scelte coraggiose.'});
+  }else{
+    const T2=cl(1,N,Math.round(ex)-1);
+    add(A,{k:'top',n:T2,t:'Chiudi nei primi '+T2,d:'Più in alto di quanto prometta la vettura.'});
+    add(A,{k:'rim',n:4,t:'Recupera 4 posizioni',d:'Rimonta dalla griglia: servono scelte coraggiose.'});
+  }
+  if(m)add(A,{k:'mate',nm:m.n,t:'Batti '+m.n,d:'Davanti al compagno di squadra, all\'arrivo.'});
+  if(rivHere())add(A,{k:'riv',nm:S.riv.n,t:'Batti '+S.riv.n,d:'Il duello diretto della rivalità.'});
+  if(ex<=5)add(A,{k:'pod',t:'Sul podio',d:'Con questa macchina devi salirci.'});
+  let p2=pickH(A,'p2');
+  /* --- carta 3: sfida legata al contesto --- */
+  let p3=null;
+  if(st.hl>0)p3={k:'trk',t:'Spezza la maledizione di '+w.c,d:'Chiudi sopra le attese: cancelli il malus di pista.'};
+  else if(st.fl>=2&&ex<=8)p3={k:'pod',t:'Sfrutta la pista amica',d:'Qui ti senti a casa: il podio è il minimo.'};
+  else if(w&&w.rain)p3={k:'rim',n:cl(3,6,Math.round(N*.2)),t:'Rimonta sul bagnato',d:'La pioggia livella tutto: guadagna '+cl(3,6,Math.round(N*.2))+' posizioni.'};
+  else if(rivHere()&&m&&hsh('s'+S.round)%2)p3={k:'riv',nm:S.riv.n,t:'Batti '+S.riv.n+' e vai a punti',d:'Duello diretto e piazzamento a punti.',plus:'pts'};
+  else if(ex<=3)p3={k:'win',t:'Vinci la gara',d:'Con questa macchina è il solo risultato che conta.'};
+  else if(ex<=8)p3={k:'pod',t:'Sul podio',d:'Oltre le attese della vettura: serve una gara perfetta.'};
+  else p3={k:'pts',t:'Vai a punti',d:'Chiudi nei primi 10: ogni punto qui vale oro.'};
+  if(known&&p3.k==='pts'&&g<=8)p3={k:'top',n:cl(3,N,Math.min(5,g)),t:'Chiudi nei primi '+cl(3,N,Math.min(5,g)),d:'Parti bene: punta in alto.'};
+  /* evita doppioni fra le carte */
+  const key=o=>o.k+(o.n||'')+(o.nm||'');
+  if(key(p3)===key(p2))p2=A.find(x=>key(x)!==key(p3))||p2;
+  if(key(p2)===key(p1)){const alt=A.find(x=>key(x)!==key(p1)&&key(x)!==key(p3));if(alt)p2=alt}
+  /* ordina per difficoltà crescente: la sfida non può essere più facile dell'ambizioso */
+  const L=[p1,p2,p3].map(o=>({o,p:obP(o,w)})).sort((a,b)=>b.p-a.p).map(x=>x.o);
+  return L;
+}
+function obOk(o,me,main){
+  if(me.dnf)return false;
+  let r=true;
+  if(o.k==='top')r=me.pos<=o.n;
+  else if(o.k==='clean')r=true;
+  else if(o.k==='pod')r=me.pos<=3;
+  else if(o.k==='win')r=me.pos===1;
+  else if(o.k==='pts')r=me.pos<=10;
+  else if(o.k==='trk')r=trkDev(me)-(S.dvA||0)>=.05;
+  else if(o.k==='rim'){const need=Math.min(o.n,Math.max(0,(me.g||1)-1));r=(me.g||me.pos)-me.pos>=need}
+  else if(o.k==='mate'||o.k==='riv'){const x=main.order.find(e=>e.n===o.nm);r=!x||x.dnf||me.pos<x.pos}
+  else r=false;
+  if(r&&o.plus==='pts')r=me.pos<=10;
+  return r;
+}
+/* revisione una sola volta, quando la griglia è nota */
+function obRev(w){
+  if(!w||!w.ob||w.ob.rv||!w.gpx)return;
+  w.ob.rv=1;
+  const old=w.ob.o,sel=w.ob.sel;
+  let nw;try{nw=obGen(w)}catch(e){return}
+  if(old.length<3||nw.length<3){w.ob.o=nw;return}
+  w.ob.o=nw;
+  w.ob.chg=nw.some((o,i)=>o.t!==old[i].t);
+}
+function obAfter(w,main,me){
+  if(!w.ob||w.ob.sel<0)return;
+  const i=w.ob.sel,o=w.ob.o[i],b=i>=1,ok=obOk(o,me,main),T=OBR[Math.min(i,2)];
+  const sc=6/S.total,tm=1+S.tier*.25;
+  const sk=S.obS&&S.obS.st>=3&&ok?1:0;
+  const R=ok?{mf:T.mf+sk,fama:T.fama,team:T.team}:{mf:T.ko,fama:i>=1?-1:0,team:0};
+  S.mf=clamp(mf()+R.mf,0,100);
+  S.fama=clamp(S.fama+R.fama*tm*sc,0,100);S.team=clamp(S.team+R.team*sc,0,100);
+  S.mo=clamp((S.mo||0)+(ok?(i===0?.05:i===1?.1:.14):-.05),-1,1);
+  const st=S.obS||(S.obS={ok:0,ko:0,st:0,b:0});
+  if(ok){st.ok++;st.st++;if(b)st.b++}else{st.ko++;st.st=0}
+  st.by=st.by||[[0,0],[0,0],[0,0]];st.by[Math.min(i,2)][ok?0:1]++;
+  if(o.k==='trk'&&ok&&S.last)S.last.obTrk=1;
+  S.last.ob={t:o.t,ok,b,i,rw:(R.mf>0?'+':'')+R.mf+' fiducia'+(sk?' · serie':'')};
+}
+function obCard(w){
+  if(!w||!w.ob)return '';
+  if(w.ob.o.length<3&&!w.ob.rv){/* vecchi salvataggi con 2 carte: rigenera */
+    try{w.ob.o=obGen(w);w.ob.rv=w.gpx?1:0}catch(e){}
+  }
+  obRev(w);
+  const B=w.ob,known=!!w.gpx;
+  if(!B.open){
+    const i=B.sel,o=i>=0?B.o[i]:null,lv=o?obLvl(obP(o,w)):null;
+    return `<section class="card obc obs"><button class="obq" data-act="obo"><span><small>Obiettivo${known?'':' provvisorio'}${B.chg?' · aggiornato':''}</small><b>${o?esc(o.t):'Nessun obiettivo'}</b></span>${lv?`<em class="dl${lv[1]}">${lv[0]}</em>`:''}<i>Cambia</i></button></section>`;
+  }
+  const row=(o,i)=>{
+    const T=OBR[Math.min(i,2)],p=obP(o,w),lv=obLvl(p);
+    return `<button class="ob ob3${B.sel===i?' on':''}" data-act="ob" data-i="${i}"><span class="obh"><b>${T.n}</b><em class="dl${lv[1]}">Riuscita ${lv[0].toLowerCase()}</em></span><span class="obt">${B.sel===i?'✓ ':''}${esc(o.t)}</span><small>${esc(o.d)}</small><span class="obw">+${T.mf} fiducia${i>=1?' e fama':''} · se manchi ${String(T.ko).replace('-','−')}</span></button>`;
+  };
+  return `<section class="card obc"><div class="sech">Obiettivo del weekend${known?'':' <span class="tg">provvisorio</span>'}${B.chg?' <span class="tg hint">aggiornato dopo le qualifiche</span>':''}</div><div class="obg obg3">${B.o.map(row).join('')}</div><p class="sub">${B.sel<0?'Nessun obiettivo: tocca una carta per sceglierlo.':'Tocca di nuovo la carta scelta per correre senza obiettivo.'}${known?'':' Si adatta alla griglia dopo le qualifiche.'}</p><div class="btns"><button class="ghost sm" data-act="obo">Chiudi</button></div></section>`;
+}
+
+/* =====================================================================
+   v5 · E · Strategia: piani per categoria, finestra di sosta (F2/F1),
+   lettura del contesto, obiettivo rivedibile dopo le qualifiche
+   ===================================================================== */
+/* piani disponibili per categoria: F4 4, F3 5, F2 6, F1 7 */
+const PLK=[['one','soft','inter','safe'],['one','two','soft','inter','safe'],['one','two','soft','under','inter','safe'],['one','two','soft','under','over','inter','safe']];
+const planKeys=()=>PLK[Math.max(0,Math.min(3,S.tier|0))];
+const planOk=k=>planKeys().includes(k);
+const winAvail=()=>(S.tier|0)>=2;
+const winPlan=k=>['one','two','soft'].includes(k);
+const WINN={early:['Presto','Sosta anticipata: gomme fresche e aria pulita, ma niente safety car a tuo favore.'],std:['Standard','La sosta dei più: nessuna scommessa.'],late:['Tardi','Resti fuori a lungo: paga con una safety car o con gomme che reggono.']};
+/* nomi dei piani adattati alla categoria */
+function plV(p){
+  if((S.tier|0)===0){
+    if(p.k==='one')return{...p,n:'Gara di gestione',c:['M'],d:'Gomma unica: passo costante e pazienza, aspetta gli errori degli altri.'};
+    if(p.k==='soft')return{...p,n:'Attacco dal via',c:['M'],d:'Parti a tutta e guadagna posizioni subito: l\'usura si paga nel finale.'};
+    if(p.k==='inter')return{...p,n:'Scommessa pioggia',c:['W'],d:'Assetto e gomma da bagnato dal via: tutto sulla pioggia.'};
+    if(p.k==='safe')return{...p,c:['M'],d:'Segui l\'approccio dei team davanti a te.'};
+  }
+  return p;
+}
+/* effetto della finestra di sosta */
+function winRaw(win,u,o,s){
+  const e=win==='early'?1:win==='late'?-1:0;
+  if(!e)return 0;
+  const d=(clamp(u,0,4)-2)/2,ov=1-o;
+  return e*(.05*d+.035*ov-.08*(s-.35))-.012;
+}
+function winReal(win,k,w){
+  if(!win||w.rain)return 0;
+  return winRaw(win,w.u,w.ovt,w.sc?1:0);
+}
+function winEV(win,k,w){
+  if(!win)return 0;
+  const d=S.diff==null?1:S.diff,kn=w.kn;
+  const W=kn.wear?[w.wear]:w.vw,O=kn.ovt?[w.ovt]:d===2?[0,1,2]:w.vo,SS=kn.sc?[w.sck]:d===2?[0,1,2]:w.vs;
+  const s=SS.reduce((a,i)=>a+SCP[i],0)/SS.length,dry=kn.rain?(w.rain?0:1):1-w.rp/100;
+  let t=0;
+  for(const wr of W)for(const ov of O)t+=winRaw(win,clamp(wr+1+w.ta,0,4),ov,s)/(W.length*O.length);
+  return t*dry;
+}
+const WINS=['early','std','late'];
+function bpX(w,real){
+  let best=null;
+  for(const k of planKeys()){
+    const base=real?fitReal(k,w):fitEV(k,w);
+    const ws=(winAvail()&&winPlan(k))?WINS:[null];
+    for(const win of ws){
+      const v=base+(win?(real?winReal:winEV)(win,k,w):0);
+      if(!best||v>best[1])best=[k,v,win||'std'];
+    }
+  }
+  return best;
+}
+/* consiglio testuale sulla finestra, basato sui dati che il giocatore possiede */
+function winNote(w){
+  const kn=w.kn,out=[];
+  if(kn.wear)out.push(w.u>=3?'Usura alta: sostare presto protegge le gomme.':w.u<=1?'Usura bassa: puoi allungare il primo stint.':'Usura media: finestra standard senza rischi.');
+  if(kn.sc)out.push(w.sck===2?'Safety car probabile: restare fuori può pagare.':w.sck===0?'Safety car improbabile: non contarci.':'');
+  if(kn.ovt)out.push(w.ovt===0?'Sorpassi difficili: l\'aria pulita dopo la sosta vale molto.':w.ovt===2?'Sorpassi facili: puoi permetterti di rientrare tardi.':'');
+  return out.filter(Boolean).slice(0,2).join(' ');
+}
+function choosePlan(i){
+  const w=S.wk,p=PL[i],useW=winAvail()&&winPlan(p.k),win=useW?(w.win||'std'):null;
+  const fr=clamp(fitReal(p.k,w)+winReal(win,p.k,w),0,1.1),fe=clamp(fitEV(p.k,w)+winEV(win,p.k,w),0,1.1);
+  const bk=bpX(w,false),br=bpX(w,true),loss=Math.max(0,bk[1]-fe),vd=verdictOf(loss);
+  const tb=mf()>=70?.5:mf()<=30?-.5:0;
+  const v=(fr-PCV)*KD()+tb;
+  const rk=({soft:.02,under:.01,inter:w.rain?0:.03,one:0,two:0,over:0,safe:0})[p.k]+(fr<.3?.02:0)+(win==='late'&&w.u>=3?.01:0);
+  S.sw={i,k:p.k,fit:fr,fe,best:bk[0],bestFit:bk[1],hind:br[0],hindFit:br[1],vd,v:Math.round(v*10)/10,risk:rk,loss,luck:fr-fe,kn:{...w.kn}};
+  if(win)S.sw.win=win;
+  if(bk[2]&&winAvail())S.sw.bw=bk[2];
+  S.mm=null;
+}
+function autoPlan(){
+  const w=mkWk(),b=bpX(w,false),p=.02+.46*mf()/100,keys=planKeys();
+  const k=rnd()<p?b[0]:keys[Math.floor(rnd()*keys.length)],i=PL.findIndex(x=>x.k===k),pl=PL[i];
+  const win=(winAvail()&&winPlan(k))?(rnd()<p?b[2]:'std'):null;
+  const f=clamp(fitReal(k,w)+winReal(win,k,w),0,1.1);
+  const o={auto:1,i,k,fit:f,v:(f-PCV)*KD(),risk:({soft:.02,under:.01,inter:w.rain?0:.03,one:0,two:0,over:0,safe:0})[k]+(f<.3?.02:0)};
+  if(win)o.win=win;
+  return o;
+}
+function why(k,w,s){
+  let t=whyBase(k,w);
+  if(s&&s.win&&s.win!=='std'&&!w.rain){
+    const d=winRaw(s.win,w.u,w.ovt,w.sc?1:0),nm=s.win==='early'?'presto':'tardi';
+    if(d>.03)t+=' La sosta '+nm+' è stata la finestra giusta.';
+    else if(d<-.03)t+=' La sosta '+nm+' non era la finestra giusta per queste condizioni.';
+    else t+=' La finestra '+nm+' non ha cambiato molto.';
+  }
+  return t;
+}
+function stratView(num){
+  const w=S.wk,keys=w.ord.map(pi=>PL[pi]);
+  const useW=winAvail(),ws=WINS.map(x=>{
+    const n=WINN[x];
+    return `<button class="win${(w.win||'std')===x?' on':''}" data-act="win" data-v="${x}"><b>${n[0]}</b><small>${n[1]}</small>${w.hw===x&&w.hint?`<span class="tg hint">${ico('bolt','fl')} Muretto</span>`:''}</button>`;
+  }).join('');
+  const wn=useW?winNote(w):'';
+  const winBox=useW?`<section class="card wnc"><div class="sech">Finestra di sosta <small>vale per una sosta, due soste e attacco</small></div><div class="wing">${ws}</div>${wn?`<p class="sub">${esc(wn)}</p>`:''}</section>`:'';
+  return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>Il piano di gara</h1><p>Incrocia pioggia, temperatura, usura, sorpassi, safety car e partenza. Una scelta giusta vale posizioni, una sbagliata le costa.</p></div>
+  ${spLine(w)}${fmLine(w)}${isHome(w.c)?ckLine(w.c):trkBox(w.c)}${engLine()}${briefCard(w)}${obCard(w)}${winBox}
+  <div class="opts">${keys.map((p0,i)=>{const p=plV(p0);return `<button class="ch pl" data-act="plan" data-i="${i}"><span class="lt">${LT7[i]}</span><span class="cb"><span class="ot">${p.n}</span><span class="cps">${p.c.map(cpb).join('')}</span><span class="od">${p.d}</span>${w.hint===p.k?`<span class="tags"><span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span></span>`:''}</span></button>`}).join('')}</div>
+  <div class="btns"><button class="ghost" data-act="auto">Simula il resto della stagione</button></div>`;
+}
+
+/* =====================================================================
+   v5 · F · Interfaccia più snella: legenda su una riga
+   ===================================================================== */
+function stripView(cp){
+  let segs='';
+  for(let i=0;i<S.total;i++){
+    const k=S.strip[i];
+    const now=!k&&i===S.round&&['race','act','event','evres','batch'].includes(S.phase)?' now':'';
+    segs+=`<div class="seg ${k||''}${now}"></div>`;
+  }
+  const lg=(c,t)=>`<span><i style="background:var(--${c})"></i>${t}</span>`;
+  return `<div class="strip" style="gap:${S.total>14?2:4}px" aria-label="Weekend della stagione">${segs}</div>
+  ${cp?'':`<div class="legend lg1"><span>${S.round}/${S.total}</span>${lg('purple','vitt.')}${lg('green','podio')}${lg('amber','punti')}${lg('neutral','zero')}${lg('warn','rit.')}</div>`}`;
+}
+
+/* =====================================================================
+   v5 · G · Layout desktop/mobile: colonna delle scelte, briefing
+   ripiegabile, tasti rapidi
+   ===================================================================== */
+function uiPost(){
+  const app=document.getElementById('app');
+  if(!app||!app.querySelector||!S)return;
+  const pane=app.querySelector('.pane');
+  if(!pane)return;
+  /* intestazione di stagione raggruppata */
+  let ctx=null;
+  if(pane.firstElementChild&&pane.firstElementChild.classList.contains('kick')&&!pane.querySelector(':scope>.ctx')){
+    ctx=document.createElement('div');ctx.className='ctx';
+    pane.insertBefore(ctx,pane.firstElementChild);
+    const take=[ctx.nextElementSibling];
+    while(take[take.length-1]&&take.length<4){
+      const n=take[take.length-1].nextElementSibling;
+      if(n&&(n.classList.contains('strip')||n.classList.contains('legend')||(n.classList.contains('sub')&&take.length===3)))take.push(n);else break;
+    }
+    take.forEach(x=>ctx.appendChild(x));
+  }else ctx=pane.querySelector(':scope>.ctx');
+  /* scelte raggruppate in una colonna a sé */
+  const o=pane.querySelector(':scope>.opts');
+  if(o){
+    const kids=[...pane.children],i=kids.indexOf(o),w=document.createElement('div');
+    w.className='pick';
+    pane.insertBefore(w,o);const qy=pane.querySelector(':scope>.qty');if(qy)w.appendChild(qy);w.appendChild(o);
+    for(let j=i+1;j<kids.length;j++){if(kids[j].classList.contains('btns'))w.appendChild(kids[j]);else break}
+    if(o.querySelector('.ch')){
+      const k=document.createElement('div');k.className='kbh';
+      k.innerHTML='Tasti rapidi: <kbd>A</kbd>–<kbd>'+String.fromCharCode(64+Math.min(7,o.querySelectorAll('.ch').length))+'</kbd> scegli';
+      w.appendChild(k);
+    }
+    const rest=[...pane.children].filter(c=>c!==w&&c!==ctx),nph=rest.filter(c=>!c.classList.contains('ph')&&c.textContent.trim()).length;
+    if(!nph&&rest.length<=2)pane.classList.add('solo');
+    w.style.gridRow=(ctx?2:1)+' / span '+Math.max(1,rest.length);
+  }
+  /* briefing ripiegabile su mobile */
+  pane.querySelectorAll('.brf').forEach(b=>{
+    if(b.classList.contains('fold'))return;
+    const tiles=[...b.querySelectorAll('.bt')];
+    if(!tiles.length)return;
+    const sm=tiles.map(t=>{const l=t.querySelector('.bl'),v=t.querySelector('b');return l&&v?'<span><small>'+l.textContent.trim()+'</small> '+v.textContent.trim()+'</span>':''}).join('');
+    const tk=b.querySelector('.tk i.on');
+    const n=b.querySelectorAll('.tk i.on').length;
+    const btn=document.createElement('button');
+    btn.className='brs';btn.dataset.act='bo';
+    btn.innerHTML='<span class="brc">'+sm+(b.querySelector('.tk')?'<span><small>Consulti</small> '+n+'</span>':'')+'</span><i></i>';
+    b.insertBefore(btn,b.firstChild);
+    b.classList.add('fold');
+    if(S.bo)b.classList.add('open');
+  });
+}
+document.addEventListener('keydown',e=>{
+  if(typeof S==='undefined'||!S||e.ctrlKey||e.metaKey||e.altKey||e.repeat)return;
+  const t=e.target;
+  if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
+  if(document.querySelector('.sheet-bd'))return;
+  const k=e.key;
+  if(k==='Enter'){
+    if(t&&t.tagName==='BUTTON')return;
+    const g=document.querySelector('.go[data-act]:not(:disabled)');
+    if(g){e.preventDefault();g.click()}
+    return;
+  }
+  let i=-1;
+  if(/^[a-gA-G]$/.test(k))i=k.toUpperCase().charCodeAt(0)-65;
+  else if(/^[1-7]$/.test(k))i=+k-1;
+  if(i<0)return;
+  const b=document.querySelectorAll('.pick .opts>.ch,.pane>.opts>.ch')[i];
+  if(b&&!b.disabled){e.preventDefault();b.click()}
+});
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
