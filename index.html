@@ -754,6 +754,42 @@ td.n{font-variant-numeric:tabular-nums}
 .ch.rls{border-style:dashed}
 @media(max-width:999px){.pane.dec>.rlc{order:5}}
 .dlb .btns button[data-d="1"]:not(.dlw){background:var(--btn-bg);border:1.5px solid var(--btn-bg);color:var(--btn-fg,#fff);border-radius:10px;font-weight:800;padding:8px 16px}
+/* ---- schermate senza barra laterale: centrate nella pagina ---- */
+@media(min-width:1000px){
+ body:not(:has(.nav)){padding-left:32px}
+ body:not(:has(.nav)) .wrap{max-width:820px}
+ body:not(:has(.nav)) .wrap>.home{width:100%;max-width:760px;margin-left:auto;margin-right:auto}
+}
+
+/* paddock vivo */
+.mdlead .mdk{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.mdx{margin:6px 0 4px;color:var(--mut);font-size:.92rem;line-height:1.4}
+.mdr{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line,rgba(128,128,128,.18))}
+.mdr:first-of-type{border-top:0}
+.mdo{flex:0 0 84px;font-size:.7rem;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.03em;padding-top:2px}
+.mdb{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mdb b{font-size:.92rem;line-height:1.3}
+.mdb small{color:var(--mut);line-height:1.35}
+.mdm{margin-top:4px;display:flex;flex-direction:column;gap:2px}
+.mdm small{font-size:.74rem;color:var(--mut);line-height:1.3}
+.mdm small.pos{color:var(--green)}.mdm small.neg{color:var(--warn)}
+.mdm em{opacity:.7;font-style:normal}
+@media(max-width:420px){.mdo{flex-basis:70px;font-size:.64rem}}
+.nv{position:relative}
+.nvd{position:absolute;top:5px;right:calc(50% - 20px);width:9px;height:9px;border-radius:50%;background:var(--warn);border:2px solid var(--panel)}
+.nav .nv .nvd{right:12px;top:14px}
+.mdp{margin:0 0 9px;line-height:1.45;font-size:.93rem}
+.mdpo .ch,.mdcr .ch{margin-top:8px}
+.tg{font-style:normal;font-size:.68rem;font-weight:700;padding:1px 7px;border-radius:99px;background:var(--soft,rgba(128,128,128,.15));color:var(--mut);vertical-align:middle;margin-left:4px}
+.cfm{max-width:420px}
+.cfk{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700}
+.cfj{margin:2px 0 10px;font-size:.85rem;color:var(--mut)}
+.cfo{display:block;width:100%;text-align:left;margin:0 0 8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line,rgba(128,128,128,.3));background:var(--panel);color:var(--fg);font:500 14px/1.35 var(--body);cursor:pointer}
+.cfo .cft{display:block;font-size:.68rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+.cfo:active{transform:scale(.98)}
+.cfm .ghost.sm{width:100%;margin-top:2px}
+.cfm .btns button{min-width:120px}
+.cfm{max-height:92vh;overflow-y:auto}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -1167,7 +1203,7 @@ function carNext(tier,i,rg){
   return base+(pv-base)*k+gauss()*(rg?1.8:1);
 }
 function newSeason(){
-  ktSeas();rvSeasonMark();sgSeason();
+  ktSeas();rvSeasonMark();sgSeason();mdSeason();
   S.sx={best:null,worst:null,dnf:0,w:0,pod:0,mb:0,mn:0};
   S.ovQ=0;S.ovR=0;S.ovN=0;
   S.sk=null;
@@ -1486,7 +1522,7 @@ function doRace0(opt){
   rivalTurn(main.order,me);
   S.frm=S.frm||{};main.order.forEach(e=>{const a=S.frm[e.n]||(S.frm[e.n]=[]);a.push(e.dnf?'R':e.pos);if(a.length>5)a.shift()});
   achCheck();
-  S.last.med=mediaTurn(kind,fx,beat);
+  S.last.med=mediaTurn(kind,fx,beat);try{mdTurn()}catch(e){}
   S.last.rec=S.tier===3?checkRecs():[];
   return S.last;
 }
@@ -1567,7 +1603,7 @@ function makeOffers(){
   };
   if(S.first){add(0,1,'Accademia');add(0,4,'Accademia');add(0,8,'Accademia');return L}
   const t=S.tier,pos=S.lastPos,n=2*nt(t);
-  const v=.45*((n-pos)/(n-1)*100)+.2*S.fama+.2*rating(S)+.15*S.team+(S.age<25?(25-S.age)*.4:0)-(S.age>34?(S.age-34)*2.5:0)+(S.med-50)*.05+(S.soc-50)*.03;
+  const v=.45*((n-pos)/(n-1)*100)+.2*S.fama+.2*rating(S)+.15*S.team+(S.age<25?(25-S.age)*.4:0)-(S.age>34?(S.age-34)*2.5:0)+(S.med-50)*.05+(S.soc-50)*.03+mdImg();
   const best=(vv,tier)=>clamp(Math.round((90-vv)/7*(nt(tier)-1)/9),0,nt(tier)-1);
   if(t<3&&pos<=6){
     const r=best(v-6,t+1);
@@ -2879,7 +2915,7 @@ ACH.push(['sup','Superato il maestro: più titoli o vittorie',s=>!!s.mentor&&(s.
 /* ---------- Trattative ---------- */
 function offerV(){
   const t=S.tier,pos=S.lastPos,n=2*TIERS[t].teams.length;
-  return .45*((n-pos)/(n-1)*100)+.2*S.fama+.2*rating(S)+.15*S.team+(S.age<25?(25-S.age)*.4:0)-(S.age>34?(S.age-34)*2.5:0)+(S.med-50)*.05+(S.soc-50)*.03;
+  return .45*((n-pos)/(n-1)*100)+.2*S.fama+.2*rating(S)+.15*S.team+(S.age<25?(25-S.age)*.4:0)-(S.age>34?(S.age-34)*2.5:0)+(S.med-50)*.05+(S.soc-50)*.03+mdImg();
 }
 function negP(o,N){
   const nt=TIERS[o.tier].teams.length,top=1-o.rank/(nt-1);
@@ -3486,7 +3522,7 @@ function mediaTurn(kind,fx,beat){
   const hd=pick(FANS),tw=pick(SOC[kind]).split('{n}').join(nm).split('{c}').join(ci);
   const l=Math.round(S.fol*(.04+rnd()*.12)*10)/10;
   S.tag='#'+ln+ci.replace(/[^A-Za-zÀ-ÿ]/g,'');
-  feedAdd('n',j.o+' · '+j.n,h,tone);feedAdd('s',hd,tw,0,l);
+  feedAdd('n',mdOut(j)+' · '+j.n,h,tone);feedAdd('s',hd,tw,0,l);
   if(ev)feedAdd('s','Il tuo profilo',ev,ev.includes('virale')?1:-1);
   mediaExtras(kind,nm,ci,ln);
   return{j:j.n+' · '+j.o,h,tone,hd,tw,l,fol:S.fol,df:S.fol-f0,ev};
@@ -3520,7 +3556,7 @@ function mediaView(){
   if(!S.jr||!S.feed.length)return '<p class="empty">Il mondo dei media si accende con la prima gara.</p>';
   ensureJr();
   const col=k=>k>0?'green':k<0?'warn':'mut',mt=S.mt||'ov';
-  const tabs=`<div class="btns">${[['ov','Panoramica'],['nw','Notizie'],['so','Social'],['mk','Mercato']].map(x=>`<button class="ghost${mt===x[0]?' on':''}" data-act="mt" data-i="${x[0]}">${x[1]}</button>`).join('')}</div>`;
+  const tabs=`<div class="btns">${mdTabs().map(x=>`<button class="ghost${mt===x[0]?' on':''}" data-act="mt" data-i="${x[0]}">${x[1]}</button>`).join('')}</div>`;
   const heat=S.riv?rivLv():0,wx=.4+heat/500,wy=.1+Math.min(.2,S.career.wins/150),wi=Math.max(.1,1-wx-wy);
   const pf=[['X',wx],['Instagram',wi],['YouTube',wy]].map(p=>`<div class="pf"><b>${fk(S.fol*p[1])}</b><span>${p[0]}</span></div>`).join('');
   const fh=S.fh||[],tr=fh.length>1?fh[fh.length-1]-fh[fh.length-2]:0;
@@ -3528,9 +3564,9 @@ function mediaView(){
   let body='';
   if(mt==='ov'){
     const top=S.feed.find(x=>x.s==='n'&&!/^Mercato|^Sponsor/.test(x.h));
-    const jc=JR.map(j=>{const v=Math.round(S.jr[j.id]);return `<div class="jr"><div class="sr"><span class="lb">${j.n}<small>${j.o} · ${j.st}</small></span><em>${v}</em><div class="bar"><i style="width:${v}%"></i></div></div><div class="sub" style="margin-top:-3px">${tl(v)} · ${j.d}</div></div>`}).join('');
+    const jc=JR.map(j=>{const v=Math.round(S.jr[j.id]);return `<div class="jr"><div class="sr"><span class="lb">${j.n}<small>${mdOut(j)} · ${j.st}</small></span><em>${v}</em><div class="bar"><i style="width:${v}%"></i></div></div><div class="sub" style="margin-top:-3px">${tl(v)} · ${j.d}</div>${mdMemTxt(j)}</div>`}).join('');
     const nx=SPN.find(s=>!(S.spn||[]).includes(s[1]));
-    body=`<section class="card"><div class="sech">Immagine pubblica</div><div class="srs">${srow('Stampa',S.med,'','come ti raccontano')}${srow('Social',S.soc,'','coinvolgimento dei tifosi')}</div>
+    body=poCard()+crCard()+`<section class="card"><div class="sech">Immagine pubblica</div><div class="srs">${srow('Stampa',S.med,'','come ti raccontano')}${srow('Social',S.soc,'','coinvolgimento dei tifosi')}</div>
     <div class="pfs"><div class="pf tot"><b>${fk(S.fol)}</b><span>follower ${tr?`<em class="${tr>0?'up2':'dn2'}">${tr>0?'▲':'▼'}${fk(Math.abs(tr))}</em>`:''}</span></div>${pf}</div>${sparkSvg(fh)}</section>
     ${top?`<section class="card fp"><div class="sech">Prima pagina</div><div class="hl" style="color:var(--${col(top.k)})">${['▼','●','▲'][top.k+1]}</div><h2 class="stq">${esc(top.t)}</h2><small class="sub">${esc(top.h)} · weekend ${top.w}</small></section>`:''}
     <section class="card"><div class="sech">Sponsor personali</div>${(S.spn||[]).length?`<div class="chips">${S.spn.map(x=>`<span class="chip pt">${esc(x)}</span>`).join('')}</div>`:'<p class="sub">Ancora nessuno sponsor personale.</p>'}${nx?`<p class="sub">Prossimo marchio a ${fk(nx[0])} follower.</p>`:''}</section>
@@ -3542,8 +3578,8 @@ function mediaView(){
   }else if(mt==='so'){
     const av=h=>`<span class="av" style="--c:${['#5a7bd8','#d86a5a','#4eb58a','#c28ad8','#d8a85a'][hsh(h)%5]}">${esc(String(h).replace(/^@/,'').charAt(0).toUpperCase())}</span>`;
     const po=S.feed.filter(x=>x.s==='s').slice(0,16).map(x=>`<div class="post">${av(x.h)}<div><b>${esc(x.h)}</b> <small>· weekend ${x.w}</small><div class="pt2">${esc(x.t)}</div>${x.l?`<small class="eng">❤ ${x.l} K · 💬 ${Math.round(x.l*.9+3)} · ↻ ${Math.round(x.l*.5+1)}</small>`:''}</div></div>`).join('')||'<p class="sub">Ancora nessun post.</p>';
-    body=`<section class="card"><div class="sech">In tendenza</div><div class="chips">${(S.tags||[S.tag]).filter(x=>x).map(x=>`<span class="chip">${esc(x)}</span>`).join('')||'<span class="sub">Nulla per ora.</span>'}</div></section><section class="card"><div class="sech">Feed</div>${po}</section>`;
-  }else body=mercatoCard();
+    body=poCard()+`<section class="card"><div class="sech">In tendenza</div><div class="chips">${(S.tags||[S.tag]).filter(x=>x).map(x=>`<span class="chip">${esc(x)}</span>`).join('')||'<span class="sub">Nulla per ora.</span>'}</div></section><section class="card"><div class="sech">Feed</div>${po}</section>`;
+  }else if(mt==='cr')body=crView();else if(mt==='pu')body=puView();else if(mt==='ar')body=arView();else body=mercatoCard();
   return tabs+body;
 }
 const IMGF="'Bricolage Grotesque','Segoe UI',system-ui,sans-serif";
@@ -3775,6 +3811,7 @@ function act0(a,i,v){
   else if(['bpre','bst','bcp','bcs','bpl','bpu','badv','bcopy','bcust'].includes(a)){if(bAct(a,i,v))return}
   else if(a==='bok'){choosePlanB();if(ordTrigger()){S.ord=mkOrd();S.phase='orders';vib('ord');save();render();return}afterPlan();return}
   else if(a==='rls'){if(rlAct(a))return}
+  else if(a==='mdpo'||a==='mdcr'){mdAct(a,i);return}
   else if(a==='plan'){
     const w=S.wk;choosePlan(w.ord[i]);
     if(ordTrigger()){S.ord=mkOrd();S.phase='orders';vib('ord');save();render();return}
@@ -3797,6 +3834,7 @@ function act0(a,i,v){
     const e=evOf();let o=e.dev?devResolve(e,e.o[i]):e.o[i];if(o.ch!=null&&o.alt&&rnd()>=o.ch)o={...o,...o.alt,imp:1};
     const fx=applyFx(o.fx);if(o.rv&&S.riv&&S.hh)S.hh[S.riv.n]=clamp((S.hh[S.riv.n]||0)+o.rv,0,100);if(o.mv){const mm=mateOf();if(mm){S.hh=S.hh||{};S.hh[mm.n]=clamp((S.hh[mm.n]||0)+o.mv,0,100)}}if(o.sm)addSm(o.sm);S.ev={imp:o.imp,out:o.out+(o.note?' '+o.note:''),fx,sm:o.sm?{...S.sm}:null};S.phase='evres';if(e.id==='eng')engEvent(i);save();render();
   }else if(a==='next'){
+    if(S.phase==='result'&&cfAsk())return;
     S.newA=[];
     if(S.phase==='batch'){if(S.step>=S.steps.length)seasonEnd();else enterStep()}
     else{if(!(S.phase==='result'&&S.last&&S.last.sim))S.step++;advance()}
@@ -3898,7 +3936,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 17/10 · 00:50</p></div>`;
+  <p class="foot">Versione 17/10 · 01:41</p></div>`;
 }
 
 function identityView(){
@@ -3932,7 +3970,7 @@ function hudView(){
 }
 function tabsView(){
   const T=[['panel','Pilota',ico('user')],['decide','Weekend',ico('wk')],['grid','Griglia',ico('grid')],['media','Media',ico('news')],['recap','Stagioni',ico('cal')],['standings','Classifica',ico('cup')]];
-  return `<nav class="nav" aria-label="Sezioni">${T.map(t=>`<button class="nv${S.tab===t[0]?' on':''}" data-act="tab" data-i="${t[0]}"><span>${t[2]}</span>${t[1]}</button>`).join('')}</nav>`;
+  return `<nav class="nav" aria-label="Sezioni">${T.map(t=>`<button class="nv${S.tab===t[0]?' on':''}" data-act="tab" data-i="${t[0]}"><span>${t[2]}</span>${t[1]}${t[0]==='media'&&mdDot()?'<i class="nvd"></i>':''}</button>`).join('')}</nav>`;
 }
 
 function ageRow(){
@@ -4062,7 +4100,7 @@ function decideView(){
   }else if(p==='seasonEnd'){
     const m=S.sum;
     h+=`<div class="ph"><h1>${m.champ?(S.tier===3?'Campione del mondo':'Campione di '+T.n):'Chiudi al '+m.pos+'° posto'}</h1><p>Stagione ${S.year} · ${T.n} · ${S.me.pts} punti, ${S.me.wins} vittorie, ${S.me.pod} podi.</p></div>
-    ${storyCard()}${recNewCard(S.rs)}${regPreview()}<section class="card"><div class="sech">Crescita della stagione</div>${m.gm?`<p class="sub" style="margin:0 0 6px">${esc(m.gm)}</p>`:''}${chips(m.gain)}${tower(m.rows,'season')}</section>
+    ${storyCard()}${mdYearCard()}${recNewCard(S.rs)}${regPreview()}<section class="card"><div class="sech">Crescita della stagione</div>${m.gm?`<p class="sub" style="margin:0 0 6px">${esc(m.gm)}</p>`:''}${chips(m.gain)}${tower(m.rows,'season')}</section>
     <div class="dock"><button class="go" data-act="toOffers">${S.age>=39?'Chiudi la carriera →':'Vedi i contratti →'}</button></div>`;
   }
   return h;
@@ -4076,7 +4114,7 @@ function endingView(){
   <div class="sech" style="margin-top:6px">La tua storia</div>${storyLines().map(x=>`<div class="news">${x.t}</div>`).join('')}
   ${catTable()}${c.champs.length?`<p class="sub">Titoli vinti: ${c.champs.map(esc).join(', ')}.</p>`:''}
   <div class="tblwrap"><table><thead><tr><th>Anno</th><th>Serie</th><th>Squadra</th><th>Pos.</th><th>Punti</th></tr></thead><tbody>${S.hist.map(x=>`<tr><td class="n">${x.y}</td><td>${TIERS[x.tier].k}</td><td>${esc(x.team)}</td><td class="n">${x.pos}</td><td class="n">${x.pts}</td></tr>`).join('')}</tbody></table></div></section>
-  ${hofEndCard()}${heirCard()}${shareCard()}
+  ${mdNarr()}${hofEndCard()}${heirCard()}${shareCard()}
   <section class="card"><div class="sech">La tua carriera in un'immagine</div><img id="ci" alt="Riepilogo della carriera" style="width:100%;aspect-ratio:4/5;border-radius:10px;background:var(--soft)"><div class="btns"><button class="go" data-act="share">Condividi</button><button class="back" data-act="save">Salva</button></div><p class="sub">Se il tasto Salva non funziona sul telefono, tieni premuta l'immagine.</p></section>
   <div class="dock"><button class="back" data-act="home">Home</button><button class="go" data-act="again">Nuova carriera</button></div>`;
 }
@@ -7176,6 +7214,10 @@ function rlResolve(w,rl,i){
   rl.rvd={};
   rl.rv.forEach(x=>{rl.rvd[x.n]=Math.round((x.q-qb)*.55*100)/100});
   rl.done=1;
+  try{
+    const srt=rl.rv.slice().sort((a,b)=>b.q-a.q),wr=srt[srt.length-1];
+    w.rlr={pit:rl.pit,ty:i,rt:rl.rt,sur:rl.sur,Ls:rl.Ls,xd:rl.xd,q:rl.q,qb:rl.qb,verdict:rlVerdict(rl),best:srt.slice(0,2).map(x=>({n:x.n,t:x.t,lap:x.lap,ty:x.ty})),worst:wr?{n:wr.n,t:wr.t,lap:wr.lap}:null};
+  }catch(e){}
   return xd;
 }
 function rlVerdict(rl){
@@ -7293,6 +7335,729 @@ function simAsk(){
     S.auto=false;S.step=S.steps.length;seasonEnd();
   },{});
 }
+
+/* =====================================================================
+   v5 · V · Paddock vivo (1/3): motore delle storie
+   Dai fatti veri della gara (griglia, arrivo, pioggia, strategie, titolo)
+   nascono storie con un peso; ogni testata sceglie e racconta quella che
+   le somiglia di più. I giornalisti sono persone: ricordano, cambiano
+   testata. Tutto deterministico (hash), non consuma il generatore casuale.
+   ===================================================================== */
+const MDO=['Pit Wall Weekly','Il Paddock','Motorsport Notte','Giri Veloci','Data Lab','Corsa Libera','Parco Chiuso','Formula Magazine'];
+function mdEnsure(){
+  if(!S.md)S.md={v:1};
+  const m=S.md;
+  m.mem=m.mem||[];m.ar=m.ar||[];m.jo=m.jo||{};m.hist=m.hist||[];m.wet=m.wet||0;
+  m.ru=m.ru||[];m.aw=m.aw||[];m.ch=m.ch||[];m.nr=m.nr||0;
+  if(!m.au){
+    let rt=50;try{rt=rating(S)}catch(e){}
+    const so=S.soc!=null?S.soc:50,fa=S.fama!=null?S.fama:10,me=S.med!=null?S.med:50;
+    m.au={fan:clamp(35+so*.4,0,100),neu:clamp(me,0,100),det:clamp(22+fa*.2,0,100)};
+    m.co={h:clamp(48+fa*.15,0,100),a:clamp(40+fa*.1,0,100)};
+    m.br={tal:clamp(rt*.6+5,0,100),car:45,spe:42,pro:50,sim:clamp(so*.8,0,100)};
+  }
+  return m;
+}
+const mdOut=j=>{const m=S&&S.md?S.md:null;return m&&m.jo&&m.jo[j.id]!=null?MDO[m.jo[j.id]]:j.o};
+const mdPk=(a,k)=>a[hsh(k+'|'+a.length)%a.length];
+const mdSub=(t,o)=>String(t).replace(/\{(\w+)\}/g,(x,k)=>o[k]!=null?o[k]:'');
+/* peso di ogni tipo di storia per ogni testata */
+const MDW={
+  fer:{me:1.15,win:1,mover:.8,fall:.8,dnf:.7,rain:1,strat:1.5,title:1.1,mate:.9,riv:.6},
+  oko:{me:1,win:.8,mover:1,fall:1.3,dnf:1.3,rain:.9,strat:.7,title:1,mate:1.5,riv:1.6},
+  bra:{me:1.2,win:.9,mover:.7,fall:1.5,dnf:1.3,rain:.8,strat:1,title:1.2,mate:1,riv:.8},
+  pod:{me:1,win:1,mover:1.7,fall:.8,dnf:.8,rain:1.5,strat:.8,title:1,mate:.8,riv:1.2},
+  ana:{me:.9,win:.9,mover:1,fall:1,dnf:.7,rain:1.3,strat:1.7,title:1.1,mate:1.2,riv:.7}
+};
+const MDV={
+  fer:['Il passo gara dice più di tanti commenti.','Le medie sul passo lo confermano.','Da rivedere i tempi nel secondo stint.','La costanza, alla lunga, paga.'],
+  oko:['Nel paddock se ne parla già.','Chi era ai box racconta di un clima teso.','Il pettegolezzo corre più veloce delle macchine.','Qualcuno, a bassa voce, ha già un\'opinione.'],
+  bra:['Resta da capire se sia sostanza o fortuna.','Dietro al risultato, errori da non ignorare.','Il campionato non fa sconti a nessuno.','Si può fare meglio, e lo sanno tutti.'],
+  pod:['Che spettacolo, ragazzi!','Questa sì che è corsa vera.','Il cuore dice una cosa, il cronometro un\'altra.','Domenica così, il motorsport vale il biglietto.'],
+  ana:['I numeri raccontano una storia più sottile del risultato.','Il margine sulla vettura è la vera notizia.','Il passo medio spiega l\'ordine d\'arrivo.','Dati alla mano, niente è casuale.']
+};
+const mdTn=t=>S.teams&&S.teams[t]?S.teams[t].name:(TIERS[S.tier].teams[t]||'');
+/* ---------------- fatti della gara ---------------- */
+function mdFacts(){
+  const L=S.last;if(!L||!L.rows||!L.rows.length)return null;
+  const w=S.wk&&S.wk.c===L.circuit?S.wk:(typeof AUTOW!=='undefined'&&AUTOW&&AUTOW.c===L.circuit?AUTOW:null);
+  const rows=L.rows,fin=rows.filter(r=>!r.dnf),me=rows.find(r=>r.me);if(!me)return null;
+  const by=p=>rows.find(r=>r.pos===p&&!r.dnf);
+  const F={L,w,rows,me,N:rows.length,c:L.circuit,win:by(1)||rows[0],p2:by(2),p3:by(3),kind:L.kind,fin};
+  F.mover=fin.filter(r=>!r.me&&r.g&&r.g-r.pos>=6).sort((a,b)=>(b.g-b.pos)-(a.g-a.pos))[0]||null;
+  F.fall=fin.filter(r=>!r.me&&r.g&&r.g<=6&&r.pos-r.g>=6).sort((a,b)=>(b.pos-b.g)-(a.pos-a.g))[0]||null;
+  F.dnfs=rows.filter(r=>r.dnf&&!r.me&&r.g&&r.g<=10).sort((a,b)=>a.g-b.g);
+  F.champ=L.champ||[];
+  return F;
+}
+/* ---------------- storie candidate ---------------- */
+function mdCands(F){
+  const C=[],me=F.me,L=F.L,w=F.w;
+  /* il tuo weekend */
+  {
+    const gain=(me.g||me.pos)-me.pos;
+    const base={win:9,pod:7,pts:4.5,none:3.8,dnf:6}[F.kind]||4;
+    C.push({k:'me',sc:base+(F.kind!=='dnf'&&gain>=6?1.6:0)+(F.kind==='none'&&me.g&&me.pos-me.g>=5?1:0),gain});
+  }
+  if(F.win&&!F.win.me)C.push({k:'win',sc:6+(F.win.g>=6?2.2:0)+(F.win.g===1?0:0),r:F.win});
+  if(F.mover&&F.mover!==F.win)C.push({k:'mover',sc:4+Math.min(3,(F.mover.g-F.mover.pos-5)*.5),r:F.mover});
+  if(F.fall)C.push({k:'fall',sc:4.6,r:F.fall});
+  if(F.dnfs.length)C.push({k:'dnf',sc:3.6+(F.dnfs[0].g<=3?2:0),r:F.dnfs[0]});
+  if(w&&(w.rain||w.sur)){
+    C.push({k:'rain',sc:6.4+(w.rlr?1.6:0),r:w.rlr||null});
+  }
+  /* strategie dei rivali (tabella post gara) */
+  if(L.st&&L.st.ai&&L.st.ai.length){
+    const good=L.st.ai.filter(a=>a.vd===0&&a.pos<=3)[0],bad=L.st.ai.filter(a=>a.vd>=2&&a.pos>=6&&(S.teams[a.t]?S.teams[a.t].car:0)>=(S.teams[S.teamRank]?S.teams[S.teamRank].car:0))[0];
+    if(hu('mds|'+S.year+'|'+S.round)<.38){if(good)C.push({k:'strat',sc:5.6,r:good,ok:1});else if(bad)C.push({k:'strat',sc:5,r:bad,ok:0})}
+  }
+  /* campionato */
+  if(F.champ.length>1&&S.round>=Math.ceil(S.total*.4)){
+    const a=F.champ[0],b=F.champ[1],gap=a.pts-b.pts,avg=a.pts/Math.max(1,S.round);
+    const close=gap<=avg*1.6;
+    if(close||a.dd>0)C.push({k:'title',sc:close?5.8+(S.round>S.total*.75?1.2:0):4.6,a,b,gap,close,newLead:a.dd>0});
+  }
+  /* compagno di squadra */
+  if(L.mate){
+    const m=F.rows.find(r=>!r.me&&r.n===L.mate.n);
+    if(m){
+      const d=m.dnf||me.dnf?0:(m.pos-me.pos);
+      if(me.dnf!==m.dnf||Math.abs(d)>=4)C.push({k:'mate',sc:4.4+Math.min(1.5,Math.abs(d)*.15),m,d});
+    }
+  }
+  /* rivale */
+  if(S.riv){
+    const r=F.rows.find(x=>x.n===S.riv.n);
+    if(r&&!r.me&&(r.dnf||me.dnf||Math.abs(r.pos-me.pos)<=2))C.push({k:'riv',sc:4.2+(Math.abs(r.pos-me.pos)<=1?1:0)+(S.md&&S.md.rvf>0?1.5:0),r});
+  }
+  return C;
+}
+/* ---------------- scrittura ---------------- */
+function mdTone(j){const v=S.jr&&S.jr[j.id]!=null?S.jr[j.id]:50;return v>=62?0:v<=38?2:1}
+const mdRes=r=>r.dnf?'ritiro':'P'+r.pos;
+function mdWrite(c,j,F){
+  const key=S.year+'|'+S.round+'|'+j.id+'|'+c.k,P=a=>mdPk(a,key),nm=abbr(S.name),ci=F.c,me=F.me;
+  const o={c:ci,me:nm};
+  let h='',x='',tone=0;
+  switch(c.k){
+    case 'me':{
+      const t=mdTone(j),kind=F.kind;
+      h=mdSub(HL[j.id][kind][t],{n:nm,c:ci});
+      tone=clamp(({win:1,pod:1,pts:0,none:-1,dnf:-1})[kind]+(t===0?1:t===2?-1:0),-1,1);
+      const g=me.g||me.pos;
+      const dg=g-me.pos;
+      x=me.dnf?mdSub(P(['Partito P{g}, la gara finisce prima del traguardo.','Partenza dalla P{g} e fine corsa anticipata.']),{g}):dg===0?(me.pos===1?'Pole e vittoria: weekend senza macchia.':mdSub('Parte e arriva P{p}: una gara senza sorprese.',{p:me.pos})):dg>0?mdSub(P(['Partito P{g}, arrivato P{p}: +{d} '+(dg===1?'posizione':'posizioni')+'.','Dalla P{g} alla P{p}: +{d} '+(dg===1?'posizione guadagnata':'posizioni guadagnate')+'.']),{g,p:me.pos,d:dg}):mdSub('Partito P{g}, arrivato P{p}: perde {d} posizion'+(dg===-1?'e':'i')+'.',{g,p:me.pos,d:-dg});
+      if(F.L.mate){const m=F.rows.find(r=>r.n===F.L.mate.n);if(m&&!me.dnf&&!m.dnf)x+=' '+(m.pos>me.pos?'Davanti al compagno ('+mdRes(m)+').':'Dietro al compagno ('+mdRes(m)+').')}
+      if(F.w&&F.w.rlr&&(j.id==='ana'||j.id==='fer'))x+=' Sul bagnato: '+F.w.rlr.verdict.toLowerCase();
+      break}
+    case 'win':{
+      const r=c.r,t=mdTn(r.t),g=r.g||r.pos;
+      if(g===1)h=mdSub(P(['{s} vince dalla pole a {c}','{s} non sbaglia: pole e vittoria a {c}','{s} domina {c} dall\'inizio alla fine']),{s:r.n,c:ci});
+      else if(g>=6)h=mdSub(P(['{s} rimonta e vince a {c}: da P{g} al primo posto','Impresa di {s} a {c}: partito P{g}, vince','{s} firma una rimonta da film a {c}']),{s:r.n,c:ci,g});
+      else h=mdSub(P(['{s} vince a {c}','Festa {t}: {s} vince a {c}','{s} si prende {c}']),{s:r.n,c:ci,t});
+      x=(F.p2?'Secondo '+F.p2.n+(F.p3?', terzo '+F.p3.n:'')+'. ':'')+'Tu chiudi '+(me.dnf?'con un ritiro':me.pos+'°')+'.';
+      tone=0;break}
+    case 'mover':{
+      const r=c.r,g=r.g||r.pos,d=g-r.pos;
+      h=mdSub(P(['{s} risale da P{g} a P{p}','{s} brucia il gruppo: +{d} posizioni a {c}','Rimonta di {s}: P{g}→P{p}']),{s:r.n,g,p:r.pos,d,c:ci});
+      x=mdSub(P(['Il guadagno più grande del weekend, con la {t}.','{d} sorpassi netti: nessuno ha fatto meglio.']),{t:mdTn(r.t),d});
+      tone=1;break}
+    case 'fall':{
+      const r=c.r,g=r.g||r.pos;
+      h=mdSub(P(['{s} sprofonda: da P{g} a P{p}','Crollo di {s} a {c}','{s} parte davanti e si perde per strada']),{s:r.n,g,p:r.pos,c:ci});
+      x=mdSub(P(['Gara da dimenticare per la {t}.','Il passo non c\'era e le gomme hanno presentato il conto.']),{t:mdTn(r.t)});
+      tone=-1;break}
+    case 'dnf':{
+      const r=c.r;
+      h=mdSub(P(['{s} si ferma a {c}','Ritiro pesante per {s} a {c}','Giornata nera: {s} fuori a {c}']),{s:r.n,c:ci});
+      x=mdSub(P(['Era partito P{g} con la {t}: il ritiro cambia i conti del weekend.','Dalla P{g}, un weekend che prometteva bene finisce ai box.']),{g:r.g||r.pos,t:mdTn(r.t)});
+      tone=-1;break}
+    case 'rain':{
+      const R=c.r;
+      if(R){
+        const b=R.best&&R.best[0];
+        h=R.sur?mdSub(P(['Pioggia a sorpresa a {c}: i box impazziscono','{c}: arriva l\'acqua e cambia tutto','Cielo nero a {c}, cambio gomme al cardiopalma']),o):mdSub(P(['Il bagnato decide {c}','{c}: la pioggia ribalta le strategie','Partita a scacchi sotto l\'acqua a {c}']),o);
+        x=(b?b.n+' rientra al giro '+b.lap+' e azzecca la mossa'+(R.worst&&R.worst.n!==b.n?', mentre '+R.worst.n+' aspetta fino al giro '+R.worst.lap:'')+'. ':'')+'Tu rientri al giro '+R.pit+'. '+R.verdict;
+        tone=R.xd>=.25?1:R.xd<=-.25?-1:0;
+      }else{
+        h=mdSub(P(['La pioggia mescola le carte a {c}','{c} sotto l\'acqua: gara aperta','Bagnato a {c}: vince chi legge meglio la pista']),o);
+        x='Alla fine vince '+F.win.n+', che ha gestito meglio le condizioni.';
+        tone=0;
+      }
+      break}
+    case 'strat':{
+      const a=c.r,sg=typeof sgOf==='function'&&S.teams&&S.teams[a.t]?sgOf(a.t).nm:'Il muretto',t=mdTn(a.t);
+      if(c.ok){
+        h=mdSub(P(['{g} legge la gara meglio di tutti: strategia perfetta per {s}','Colpo di muretto {t}: {s} sul podio grazie ai box','{s} e il piano giusto: il capolavoro di {g}']),{g:sg,s:a.n,t});
+        x='Il piano scelto dalla '+t+' si è rivelato il migliore della griglia.';tone=1;
+      }else{
+        h=mdSub(P(['{g} sbaglia il piano: {s} chiude P{p}','Muretto {t} nel pallone: {s} paga la strategia','Strategia da dimenticare per {s} e la {t}']),{g:sg,s:a.n,t,p:a.pos});
+        x='Il piano della '+t+' è stato giudicato tra i peggiori del weekend.';tone=-1;
+      }
+      break}
+    case 'title':{
+      const a=c.a,b=c.b;
+      if(c.close)h=mdSub(P(['Titolo aperto: {a} a +{g} su {b}','{a} contro {b}: {g} punti dividono i due','Duello iridato: {a} comanda, ma {b} è lì']),{a:a.n,b:b.n,g:c.gap});
+      else h=mdSub(P(['{a} è il nuovo leader del campionato','Cambio al vertice: guida {a}']),{a:a.n});
+      x='Dopo '+S.round+' gare '+(a.me?'sei in testa tu':'il comando è di '+a.n+(b.me?', e il secondo sei tu':''))+'.';
+      tone=a.me?1:b.me?0:0;break}
+    case 'mate':{
+      const m=c.m,t=mdTn(me.t);
+      const ahead=!me.dnf&&(m.dnf||c.d>0);
+      h=ahead?mdSub(P(['Derby {t}: {me} batte {m}','In casa {t} vince {me}: {m} dietro','{me} davanti al compagno {m}']),{t,me:nm,m:m.n}):mdSub(P(['Derby {t}: {m} davanti a {me}','{m} fa meglio di {me} in casa {t}','Il compagno {m} mette in ombra {me}']),{t,me:nm,m:m.n});
+      x=m.dnf?'Il compagno non ha visto il traguardo.':me.dnf?'Il tuo ritiro lascia al compagno il dominio interno.':'Distacco interno: '+Math.abs(c.d)+' posizioni.';
+      tone=ahead?1:-1;break}
+    case 'riv':{
+      const r=c.r,rv=r.n,ahead=!me.dnf&&(r.dnf||me.pos<r.pos);
+      h=ahead?mdSub(P(['{me} ha la meglio su {r} a {c}','Altro round a {me}: {r} dietro']),{me:nm,r:rv,c:ci}):mdSub(P(['{r} risponde a {me} a {c}','La rivalità si accende: {r} davanti a {me}']),{me:nm,r:rv,c:ci});
+      x='Duello tra i più seguiti del paddock: '+(ahead?'stavolta vinci tu.':'stavolta ha vinto lui.');
+      tone=ahead?1:-1;break}
+  }
+  if(c.k!=='me')x+=' '+mdPk(MDV[j.id],key+'v');
+  return{h,x,tone};
+}
+/* ---------------- il turno dei media ---------------- */
+function mdTurn(){
+  const F=mdFacts();if(!F)return;
+  const m=mdEnsure(),C=mdCands(F);if(!C.length)return;
+  C.forEach(c=>{c.sc+=hu('mdn|'+S.year+'|'+S.round+'|'+c.k)*.8});
+  const used={};
+  const ras=JR.map(j=>{
+    let best=null,bv=-9;
+    C.forEach(c=>{
+      const w=(MDW[j.id][c.k]||1)*(1-(used[c.k]||0)*.4)*(m.lk&&m.lk[j.id]===c.k?.72:1);
+      const v=c.sc*w+hg('mdp|'+S.year+'|'+S.round+'|'+j.id+'|'+c.k)*.25;
+      if(v>bv){bv=v;best=c}
+    });
+    used[best.k]=(used[best.k]||0)+1;m.lk=m.lk||{};m.lk[j.id]=best.k;
+    const t=mdWrite(best,j,F);
+    return{j:j.id,o:mdOut(j),n:j.n,k:best.k,h:t.h,x:t.x,tone:t.tone,sc:best.sc};
+  });
+  /* prima pagina: la storia col peso maggiore, raccontata dalla testata che le somiglia di più */
+  const lead=C.slice().sort((a,b)=>b.sc-a.sc)[0];
+  let lj=JR[0],lv=-9;
+  JR.forEach(j=>{const v=(MDW[j.id][lead.k]||1)+hg('mdl|'+S.year+'|'+S.round+'|'+j.id)*.2;if(v>lv){lv=v;lj=j}});
+  const lt=mdWrite(lead,lj,F);
+  const rk=ras.map(r=>r.k),pad=C.filter(c=>c!==lead&&c.k!=='me'&&!rk.includes(c.k)).sort((a,b)=>b.sc-a.sc).slice(0,3).map(c=>{
+    let jj=JR[0],vv=-9;JR.forEach(j=>{const v=(MDW[j.id][c.k]||1)+hg('mdq|'+S.year+'|'+S.round+'|'+j.id+'|'+c.k)*.2;if(v>vv){vv=v;jj=j}});
+    const t=mdWrite(c,jj,F);return{k:c.k,o:mdOut(jj),n:jj.n,h:t.h,x:t.x,tone:t.tone};
+  });
+  const chron={y:S.year,w:S.round,c:F.c,tier:S.tier,lead:{k:lead.k,o:mdOut(lj),n:lj.n,h:lt.h,x:lt.x,tone:lt.tone,me:lead.k==='me'},ras,pad};
+  m.last=chron;
+  m.hist.unshift({y:S.year,w:S.round,c:F.c,k:lead.k,h:lt.h,o:mdOut(lj),me:lead.k==='me'});
+  if(m.hist.length>14)m.hist.length=14;
+  if(lead.sc>=7||(lead.k==='me'&&['win','dnf'].includes(F.kind))){
+    m.ar.push({y:S.year,w:S.round,tier:S.tier,c:F.c,k:lead.k,h:lt.h,me:lead.k==='me',kind:F.kind,sc:Math.round(lead.sc*10)/10});
+    if(m.ar.length>70)m.ar.splice(0,m.ar.length-70);
+  }
+  if(F.w&&(F.w.rain||F.w.sur)&&!F.me.dnf&&F.me.pos<=5)m.wet++;
+  mdMemo(F);
+  try{mdTurn2(F,{k:lead.k,sc:lead.sc,tone:lt.tone},lj)}catch(e){}
+  S.last.md=chron;
+}
+/* ---------------- memoria dei giornalisti ---------------- */
+function mdMemAdd(jid,t,v,k,c){
+  const m=mdEnsure();
+  m.mem.push({j:jid,y:S.year,w:S.round,t,v,k:k||null,c:c||null,n:m.nr||0});
+  if(m.mem.length>60)m.mem.splice(0,m.mem.length-60);
+}
+function mdMemo(F){
+  const me=F.me,ci=F.c,k=F.kind,gain=(me.g||me.pos)-me.pos;
+  if(k==='win'){mdMemAdd('fer','Ricorda la tua vittoria a '+ci+'.',1,'win',ci);if(gain>=6)mdMemAdd('pod','Non dimentica la rimonta vincente di '+ci+'.',1,'rim',ci)}
+  else if(k==='pod'&&gain>=6)mdMemAdd('pod','Ricorda la rimonta di '+ci+' fino al podio.',1,'rim',ci);
+  if(k==='dnf')mdMemAdd(hu('mm|'+S.year+'|'+S.round)<.5?'bra':'oko','Ricorda il tuo ritiro a '+ci+'.',-1,'dnf',ci);
+  if(k==='none'&&me.g&&me.pos-me.g>=5)mdMemAdd('bra','Ha segnato il tuo crollo a '+ci+'.',-1,'crol',ci);
+  if(F.w&&F.w.rlr&&F.w.rlr.xd>=.3)mdMemAdd('ana','Ricorda come hai letto il bagnato a '+ci+'.',1,'bag',ci);
+  if(F.w&&F.w.rlr&&F.w.rlr.xd<=-.3)mdMemAdd('ana','Ricorda il cambio gomme sbagliato a '+ci+'.',-1);
+  if(F.L.mate){const m=F.rows.find(r=>r.n===F.L.mate.n);if(m&&!me.dnf&&!m.dnf&&Math.abs(m.pos-me.pos)>=5)mdMemAdd('oko','Ricorda il derby interno di '+ci+'.',m.pos>me.pos?1:-1,'derby',ci)}
+}
+function mdMemTxt(j){
+  const m=S.md;if(!m||!m.mem)return '';
+  const L=m.mem.filter(x=>x.j===j.id).slice(-2).reverse();
+  return L.length?`<div class="mdm">${L.map(x=>`<small class="${x.v>0?'pos':'neg'}">${x.v>0?'▲':'▼'} ${esc(x.t)} <em>${x.y}</em></small>`).join('')}</div>`:'';
+}
+/* a inizio stagione un giornalista può cambiare testata */
+function mdSeason(){
+  try{
+    const m=mdEnsure();
+    if(hu('mv|'+S.year)>=.1)return;
+    const j=JR[hsh('mvj|'+S.year)%JR.length];
+    const used=JR.map(x=>mdOut(x)),free=MDO.filter(o=>!used.includes(o));
+    if(!free.length)return;
+    const no=free[hsh('mvo|'+S.year)%free.length],old=mdOut(j);
+    m.jo[j.id]=MDO.indexOf(no);
+    feedAdd('n','Paddock',j.n+' lascia '+old+' e passa a '+no+': porta con sé la sua linea.',0);
+    mdMemAdd(j.id,'Ha cambiato testata: ora scrive per '+no+'.',0);
+  }catch(e){}
+}
+/* ---------------- vista Cronaca ---------------- */
+const mdTabs=()=>[['ov','Panoramica'],['cr','Cronaca'],['pu','Pubblico'],['nw','Notizie'],['so','Social'],['mk','Mercato'],['ar','Archivio']];
+function crView(){
+  const m=mdEnsure(),C=m.last;
+  if(!C)return crCard()+'<section class="card"><div class="sech">Cronaca del paddock</div><p class="sub">La cronaca parte dalla prossima gara: ogni weekend i media raccontano la corsa, non solo te.</p></section>';
+  const col=k=>k>0?'green':k<0?'warn':'mut',ar=t=>['▼','●','▲'][t+1];
+  const KL={me:'Il tuo weekend',win:'La vittoria',mover:'La rimonta',fall:'Il crollo',dnf:'Il ritiro',rain:'Il bagnato',strat:'Il muretto',title:'Il campionato',mate:'In casa',riv:'La rivalità'};
+  const lead=`<section class="card fp mdlead"><div class="sech">Prima pagina · ${esc(C.c)} <small>weekend ${C.w}</small></div><div class="mdk">${KL[C.lead.k]||''}</div><h2 class="stq">${esc(C.lead.h)}</h2><p class="mdx">${esc(C.lead.x)}</p><small class="sub">${esc(C.lead.o)} · ${esc(C.lead.n)}</small></section>`;
+  const ras=`<section class="card"><div class="sech">Come l'hanno raccontata</div>${C.ras.map(r=>`<div class="mdr"><span class="mdo">${esc(r.o)}</span><div class="mdb"><b><span style="color:var(--${col(r.tone)})">${ar(r.tone)}</span> ${esc(r.h)}</b><small>${esc(r.x)}</small></div></div>`).join('')}</section>`;
+  const pad=C.pad&&C.pad.length?`<section class="card"><div class="sech">Dal paddock</div>${C.pad.map(r=>`<div class="mdr"><span class="mdo">${esc(r.o)}</span><div class="mdb"><b><span style="color:var(--${col(r.tone)})">${ar(r.tone)}</span> ${esc(r.h)}</b><small>${esc(r.x)}</small></div></div>`).join('')}</section>`:'';
+  const hs=m.hist.slice(1,8);
+  const hist=hs.length?`<section class="card"><div class="sech">Le storie delle ultime gare</div>${hs.map(h=>`<div class="news"><b>${esc(h.h)}</b><br><small>${esc(h.o)} · ${esc(h.c)} · ${h.y}</small></div>`).join('')}</section>`:'';
+  return crCard()+lead+ras+pad+hist;
+}
+const MDCSS=1;
+
+/* =====================================================================
+   v5 · W · Paddock vivo (2/3 e 3/3)
+   Pubblico diviso, brand del pilota, post, conferenze brevi e rare,
+   crisi con i loro tempi, voci di mercato che si avverano (o no),
+   conseguenze sul mondo, premi di fine anno e racconto di carriera.
+   Tutto deterministico (hash) tranne le scelte del giocatore.
+   Gli effetti sul gioco sono volutamente minuscoli.
+   ===================================================================== */
+const MDB=[['tal','Talento'],['car','Carattere'],['spe','Spettacolo'],['pro','Professionalità'],['sim','Simpatia']];
+const MDAU=[['fan','Tifosi'],['neu','Neutrali'],['det','Scettici']];
+const MDPERS={
+  tal:['Il talento puro','Veloce, naturale, fuori dal comune: il pubblico ti vede come un predestinato.'],
+  car:['Il combattente','Rimonte, risposte sul campo e mai un passo indietro: sei il pilota che non molla.'],
+  spe:['L\'uomo spettacolo','Con te la gara si guarda dall\'inizio alla fine: sorpassi, rischi e finali da brividi.'],
+  pro:['Il professionista','Costante, preciso, affidabile: i team ti adorano e i giornalisti non trovano appigli.'],
+  sim:['Il volto simpatico','Carisma, sorrisi e tanti follower: il paddock ti vuole bene.']
+};
+const mdC=v=>clamp(v,0,100);
+function mdPersona(){
+  const b=mdEnsure().br;let k='tal',v=-1,lo=101;
+  MDB.forEach(x=>{if(b[x[0]]>v){v=b[x[0]];k=x[0]}if(b[x[0]]<lo)lo=b[x[0]]});
+  if(v-lo<9)return{k:'x',v,t:'Immagine in costruzione',x:'Il pubblico non ti ha ancora messo un\'etichetta: ogni gara e ogni parola contano.'};
+  return{k,v,t:MDPERS[k][0],x:MDPERS[k][1]};
+}
+/* piccola spinta dell'immagine sulle offerte di contratto: al massimo ±2 punti su 100 */
+function mdImg(){
+  try{
+    const m=S&&S.md;if(!m||!m.br||!m.au)return 0;
+    return clamp(((m.au.neu+m.au.fan)/2-50)*.04+((m.br.tal+m.br.pro)/2-50)*.04,-2,2);
+  }catch(e){return 0}
+}
+function mdFx(fx){
+  if(!fx)return;
+  const m=mdEnsure();
+  if(fx.br)for(const k in fx.br)m.br[k]=mdC(m.br[k]+fx.br[k]);
+  if(fx.au)for(const k in fx.au)m.au[k]=mdC(m.au[k]+fx.au[k]);
+  if(fx.jr){ensureJr();for(const k in fx.jr)S.jr[k]=clamp(S.jr[k]+fx.jr[k],0,100)}
+  if(fx.team)S.team=clamp(S.team+fx.team,0,100);
+  if(fx.soc)S.soc=clamp(S.soc+fx.soc,0,100);
+  if(fx.fama)S.fama=clamp(S.fama+fx.fama,0,100);
+  if(fx.hh&&S.riv&&S.hh)S.hh[S.riv.n]=clamp((S.hh[S.riv.n]||0)+fx.hh,0,100);
+}
+/* ---------------- pubblico e brand dopo ogni gara ---------------- */
+function mdAud(F){
+  const m=mdEnsure(),me=F.me,k=F.kind,gain=(me.g||me.pos)-me.pos,hm=isHome(F.c);
+  const T={win:[2.2,2.6,1.4],pod:[1.2,1.4,.8],pts:[.3,.4,.1],none:[-.3,-.9,-1.3],dnf:[-.5,-1.2,-1.8]}[k]||[0,0,0];
+  const x=hm?1.5:1,bonus=!me.dnf&&gain>=6?1:0,xd=F.w&&F.w.rlr?clamp(F.w.rlr.xd,-.6,.6):0;
+  m.au.fan=mdC(m.au.fan+T[0]*x+bonus*.5);
+  m.au.neu=mdC(m.au.neu+T[1]*x+bonus+xd*.8);
+  m.au.det=mdC(m.au.det+T[2]*x+xd*.4);
+  [['fan',58],['neu',48],['det',32]].forEach(a=>{m.au[a[0]]=mdC(m.au[a[0]]+(a[1]-m.au[a[0]])*.04)});
+  m.co.h=mdC(m.co.h+T[1]*(hm?2.4:.5)+(hm&&bonus?1.5:0));m.co.a=mdC(m.co.a+T[1]*.7);
+  m.co.h=mdC(m.co.h+(55-m.co.h)*.03);m.co.a=mdC(m.co.a+(45-m.co.a)*.03);
+}
+function mdBrand(F){
+  const m=mdEnsure(),me=F.me,k=F.kind,gain=(me.g||me.pos)-me.pos,b=m.br;
+  const xd=F.w&&F.w.rlr?clamp(F.w.rlr.xd*1.6,-.8,.8):0;
+  let mt=0;
+  if(F.L.mate){const q=F.rows.find(r=>r.n===F.L.mate.n);if(q&&!me.dnf&&!q.dnf){const d=q.pos-me.pos;mt=d>=4?.4:d<=-4?-.3:0}}
+  b.tal=mdC(b.tal+({win:1.3,pod:.7,pts:.1,none:-.4,dnf:-.5}[k]||0)+xd+mt);
+  const rb=(m.pk==='none'||m.pk==='dnf')&&(k==='win'||k==='pod')?.9:0;
+  b.car=mdC(b.car+(!me.dnf&&gain>=6?.9:0)+rb+(k==='dnf'?-.2:0));
+  b.spe=mdC(b.spe+(!me.dnf&&gain>=5?.8:0)+(F.w&&(F.w.rain||F.w.sur)&&!me.dnf&&me.pos<=10?.5:0)+(gain<=-5?.2:0)+(k==='win'&&me.g===1?-.1:0));
+  b.pro=mdC(b.pro+({win:.3,pod:.35,pts:.35,none:-.15,dnf:-.6}[k]||0));
+  b.sim=mdC(b.sim+(S.soc-50)/120);
+  MDB.forEach(x=>{b[x[0]]=mdC(b[x[0]]+(50-b[x[0]])*.02)});
+}
+/* ---------------- post sui social ---------------- */
+const POS={
+  good:[
+    {l:'Ringrazia la squadra',t:'Misurato',x:'Grazie a tutta la squadra: questo risultato è di tutti.',fx:{br:{pro:1.5,sim:.8},au:{fan:.5,det:.6},team:.4,jr:{fer:1}},r:'Messaggio apprezzato: il muretto sorride e i tifosi condividono.'},
+    {l:'Festeggia con i tifosi',t:'Caloroso',x:'Che notte! Questa è per voi, siete incredibili! 🏆',fx:{br:{sim:1.6,spe:.5,pro:-.3},au:{fan:1.2,neu:.4},soc:.8,jr:{pod:1.5}},r:'I tifosi esplodono: il post fa il giro dei social.'},
+    {l:'Dedica a chi ha dubitato',t:'Provocatorio',x:'Dedicato a chi diceva che non ce l\'avrei fatta.',fx:{br:{car:1.6,sim:-.4},au:{fan:.8,det:-1.2},jr:{oko:2,bra:-1},hh:2},r:'Fa discutere: i fan applaudono, i critici storcono il naso.',rv:1}
+  ],
+  mid:[
+    {l:'Foto dal box e un grazie',t:'Misurato',x:'Weekend intenso. Grazie ai ragazzi del box, si va avanti.',fx:{br:{pro:.8,sim:.4},au:{fan:.3}},r:'Un post semplice, ben accolto da chi ti segue.'},
+    {l:'Analisi tecnica del weekend',t:'Tecnico',x:'Il passo gara è in crescita: ecco cosa abbiamo imparato oggi.',fx:{br:{pro:1,tal:.4},au:{neu:.3},jr:{fer:1.5,ana:1.5}},r:'Gli appassionati di dati apprezzano molto.'},
+    {l:'Promessa: la prossima si vince',t:'Ambizioso',x:'Oggi punti, la prossima la vinciamo. Promesso.',fx:{br:{car:.9,sim:.3},au:{fan:.6,neu:-.2},jr:{pod:1}},r:'I fan si esaltano, i più cauti alzano il sopracciglio.'}
+  ],
+  bad:[
+    {l:'Autocritica pubblica',t:'Maturo',x:'Weekend sbagliato, la responsabilità è mia. Lavoro per rifarmi.',fx:{br:{pro:1.4,car:.8},au:{det:.8,neu:.3},jr:{bra:2}},r:'Autocritica apprezzata: anche i più severi abbassano i toni.'},
+    {l:'Silenzio e lavoro',t:'Riservato',x:'',fx:{br:{pro:.5,sim:-.3}},r:'Nessun post: il paddock nota il silenzio e aspetta la prossima gara.'},
+    {l:'Sfogo: la macchina non andava',t:'Polemico',x:'Così non si può andare avanti: la macchina oggi non c\'era proprio.',fx:{br:{pro:-1.4,car:-.3,sim:.3},au:{fan:.4,det:-.8},team:-1,jr:{oko:1.8}},r:'Le tue parole fanno rumore: il team non l\'ha presa bene.',rv:0,blame:1}
+  ]
+};
+function mdPostGen(F){
+  const m=mdEnsure();
+  m.po=null;
+  if(hu('po|'+S.year+'|'+S.round)>=.5)return;
+  const k=F.kind;
+  m.po={y:S.year,w:S.round,c:F.c,cls:k==='win'||k==='pod'?'good':k==='pts'?'mid':'bad',d:null};
+}
+function mdActPost(i){
+  const m=mdEnsure(),p=m.po;if(!p||p.d!=null)return;
+  const o=POS[p.cls][i];if(!o)return;
+  p.d=i;p.r=o.r;p.tg=o.t;
+  mdFx(o.fx);
+  if(o.x){
+    const lk=Math.round(S.fol*(.05+hu('pl|'+S.year+'|'+S.round)*.12)*10)/10;
+    feedAdd('s','Il tuo profilo',o.x,0,lk);
+  }
+  if(o.blame){
+    mdMemAdd('oko','Ricorda lo sfogo dopo '+p.c+'.',-1,'sfogo',p.c);
+    if(!m.cr&&hu('pc|'+S.year+'|'+S.round)<.5)crOpen('post');
+  }
+  if(o.rv)mdRival();
+}
+/* ---------------- conferenze stampa: brevi e rare ---------------- */
+const CFOP={fer:'Dal punto di vista tecnico, ',oko:'Se ne parla molto nel paddock: ',bra:'Senza giri di parole: ',pod:'Parlando col cuore: ',ana:'Dati alla mano: '};
+const CFMQ={dnf:'Dopo il ritiro di {c}, ',win:'Dopo la vittoria di {c}, ',rim:'Dopo la rimonta di {c}, ',sfogo:'Dopo lo sfogo di {c}, ',derby:'Dopo il derby di {c}, ',bag:'Dopo il bagnato di {c}, ',crol:'Dopo il weekend di {c}, '};
+const CFQ={
+  win:{q:'come hai costruito la vittoria a {c}?',a:['Un lavoro di squadra: devo ringraziare tutti, il resto è venuto da sé.','Sapevo di poterla vincere. Ho spinto quando serviva.','Qualcuno aveva dubbi? Ora li ha risolti.']},
+  comeback:{q:'da P{g} a P{p}: come hai fatto a risalire così?',a:['Il passo c\'era e la squadra mi ha dato le gomme giuste.','Non ho mai smesso di crederci: dovevo solo rimanere calmo.','Non sono qui per fare comparsate. Chi parte davanti stia attento.']},
+  dnf:{q:'il ritiro di {c} pesa sul campionato?',a:['Fa parte del gioco. Analizziamo e andiamo avanti.','Succede. Alla prossima riprendo da dove ho lasciato.','Non è stata colpa mia. Chi ha sbagliato lo sa.']},
+  bad:{q:'weekend difficile a {c}: cosa non ha funzionato?',a:['Abbiamo sbagliato qualcosa insieme: ora capiamo cosa.','Una giornata storta. Ho il passo per rifarmi subito.','Non era il mio weekend. Le critiche non mi spaventano.']},
+  rain:{q:'il bagnato a {c} ha deciso molto: come l\'hai vissuto?',a:['Con prudenza: abbiamo letto le condizioni passo dopo passo.','Mi trovo bene quando si fa dura: era il mio terreno.','Con la pioggia si vede chi ha coraggio. Io non ho paura.']},
+  title:{q:'la lotta per il titolo si fa serrata: ti senti pronto?',a:['Una gara alla volta, senza guardare la classifica.','Sì. Ho la squadra e il ritmo per giocarmela fino all\'ultimo.','Il titolo è mio da perdere. Che si mettano in fila.']},
+  mate:{q:'il derby con {m}: quanto conta battere il compagno?',a:['Il lavoro di squadra viene prima di tutto.','Conta eccome. Voglio essere il numero uno del team.','Io penso a me. Chi non regge, si faccia da parte.']},
+  riv:{q:'la sfida con {r} si accende: è una rivalità?',a:['Rispetto tutti: è un avversario come gli altri.','Mi piace sfidarlo: ci vedremo spesso davanti.','Se vuole battaglia, la avrà. In pista e fuori.']}
+};
+const CFTAG=['Misurato','Sicuro','Provocatorio'];
+const CFFX={
+  'Misurato':{br:{pro:1.2,sim:.3},au:{det:.5,neu:.3},team:.2},
+  'Sicuro':{br:{car:1.1,tal:.4},au:{fan:.6,det:-.2}},
+  'Provocatorio':{br:{spe:1,sim:.6,pro:-.9},au:{fan:.9,det:-1.4},hh:3}
+};
+const CFJP={fer:{Misurato:2,Sicuro:.5,Provocatorio:-1.5},oko:{Misurato:-.5,Sicuro:1,Provocatorio:2.5},bra:{Misurato:1.5,Sicuro:1,Provocatorio:-2},pod:{Misurato:0,Sicuro:2,Provocatorio:1.5},ana:{Misurato:1.5,Sicuro:1,Provocatorio:-1}};
+const CFRE={Misurato:'Risposta da professionista: annotata.',Sicuro:'Sicurezza nei propri mezzi: titolo pronto.',Provocatorio:'Titolo servito: la risposta farà rumore.'};
+function mdMemLastNeg(j){
+  const m=S.md;if(!m||!m.mem)return null;
+  for(let i=m.mem.length-1;i>=0;i--){const x=m.mem[i];if(x.j===j.id&&x.k&&(m.nr-(x.n||0))<=10)return x}
+  return null;
+}
+function cfTopic(F,lead){
+  const me=F.me,k=F.kind,gain=(me.g||me.pos)-me.pos;
+  if(lead.k==='rain')return 'rain';
+  if(lead.k==='title')return 'title';
+  if(lead.k==='mate')return 'mate';
+  if(lead.k==='riv')return 'riv';
+  if(k==='dnf')return 'dnf';
+  if(!me.dnf&&gain>=6&&k!=='none')return 'comeback';
+  if(k==='win')return 'win';
+  if(k==='none'&&lead.k==='me')return 'bad';
+  return null;
+}
+function cfGen(F,lead,lj){
+  const m=mdEnsure();
+  if(m.cf&&m.cf.d==null)m.cf=null;
+  if(m.nr-(m.cl==null?-99:m.cl)<4)return;
+  if(S.tier===0&&F.kind!=='win')return;
+  const topic=cfTopic(F,lead);if(!topic)return;
+  if(lead.sc<5.5&&topic!=='win'&&topic!=='dnf')return;
+  if(hu('cf|'+S.year+'|'+S.round)>=.8)return;
+  const me=F.me,mt=F.L.mate?F.rows.find(r=>r.n===F.L.mate.n):null,rv=S.riv?F.rows.find(r=>r.n===S.riv.n):null;
+  const o={c:F.c,g:me.g||me.pos,p:me.pos,m:mt?mt.n:'il compagno',r:rv?rv.n:'il rivale'};
+  const mq=mdMemLastNeg(lj);
+  let pre=mq&&CFMQ[mq.k]?mdSub(CFMQ[mq.k],{c:mq.c||F.c}):CFOP[lj.id];
+  let q=pre+mdSub(CFQ[topic].q,o);
+  q=q.charAt(0).toUpperCase()+q.slice(1);
+  m.cf={y:S.year,w:S.round,c:F.c,j:lj.id,tp:topic,q,a:CFQ[topic].a.map(x=>mdSub(x,o)),d:null,mq:mq?mdSub(CFMQ[mq.k],{c:mq.c||F.c}):''};
+}
+function cfPick(i){
+  const m=mdEnsure(),cf=m.cf;if(!cf||cf.d!=null)return null;
+  const j=JR.find(x=>x.id===cf.j)||JR[0];
+  cf.d=i;m.cl=m.nr;m.cfh=(m.cfh||0)+1;
+  let tag,fx,line;
+  if(i>=0&&i<3){
+    tag=CFTAG[i];fx=JSON.parse(JSON.stringify(CFFX[tag]));
+    fx.jr={};fx.jr[j.id]=CFJP[j.id][tag];
+    line=j.n+' · '+CFRE[tag];
+  }else{
+    tag='Nessun commento';fx={br:{pro:.3,sim:-.5},jr:{}};fx.jr[j.id]=-1;
+    line=j.n+': «Nessun commento»: il paddock lo nota.';
+  }
+  cf.tg=tag;cf.r=line;
+  mdFx(fx);
+  const tone=tag==='Provocatorio'?-1:tag==='Sicuro'||tag==='Misurato'?1:0;
+  feedAdd('n',mdOut(j)+' · '+j.n,{Misurato:'In conferenza: «Una risposta da professionista».',Sicuro:'In conferenza: «Sicuro dei propri mezzi».',Provocatorio:'In conferenza: «Parole che faranno discutere».','Nessun commento':'In conferenza: «Nessun commento»'}[tag].replace('«','«'+abbr(S.name)+': '),tone>0?1:tone<0?-1:0);
+  mdMemAdd(j.id,'Ricorda la tua risposta in conferenza a '+cf.c+' ('+tag.toLowerCase()+').',tag==='Provocatorio'?-1:tag==='Nessun commento'?0:1);
+  if(tag==='Provocatorio')mdRival();
+  cf.fu=(tag==='Provocatorio'&&hu('fu|'+S.year+'|'+S.round)<.35)?1:0;
+  return cf;
+}
+function cfFuPick(i){
+  const m=mdEnsure(),cf=m.cf;if(!cf)return;
+  cf.fu=2;
+  if(i===0){mdFx({br:{car:.5,pro:-.4},hh:2});cf.fr='Confermi tutto: la polemica continua.'}
+  else{mdFx({br:{pro:.8,car:-.6},hh:-1});cf.fr='Ritratti: i toni si abbassano.'}
+}
+function cfAsk(){
+  try{
+    const m=S&&S.md;if(!m||!m.cf||m.cf.d!=null)return false;
+    if(!S.last||S.last.sim)return false;
+    if(typeof document.querySelector!=='function'||(typeof window!=='undefined'&&window.__noui)){cfPick(hsh('cfa|'+S.year+'|'+S.round)%4===3?-1:hsh('cfa|'+S.year+'|'+S.round)%3);return false}
+    cfModal();return true;
+  }catch(e){return false}
+}
+function cfModal(){
+  const m=S.md,cf=m.cf,j=JR.find(x=>x.id===cf.j)||JR[0];
+  const old=document.getElementById('dlg');if(old)old.remove();
+  const d=document.createElement('div');d.id='dlg';d.className='dlg';
+  const body=()=>{
+    if(cf.d==null){
+      return `<div class="dlb cfm" role="dialog" aria-modal="true"><div class="cfk">Conferenza stampa · ${esc(cf.c)}</div><div class="cfj"><b>${esc(j.n)}</b> · ${esc(mdOut(j))}</div><p>${esc(cf.q)}</p>${cf.a.map((t,i)=>`<button class="cfo" data-cf="${i}"><span class="cft">${CFTAG[i]}</span>«${esc(t)}»</button>`).join('')}<button class="ghost sm" data-cf="-1">Nessun commento</button></div>`;
+    }
+    if(cf.fu===1){
+      return `<div class="dlb cfm" role="dialog" aria-modal="true"><div class="cfk">Un\'ultima domanda</div><div class="cfj"><b>${esc(j.n)}</b></div><p>Una frase così non passerà inosservata: confermi o ritratti?</p><button class="cfo" data-fu="0"><span class="cft">Confermo</span>«Ho detto quello che penso.»</button><button class="cfo" data-fu="1"><span class="cft">Ritratto</span>«Forse ho esagerato: il rispetto viene prima.»</button></div>`;
+    }
+    return `<div class="dlb cfm" role="dialog" aria-modal="true"><div class="cfk">Conferenza stampa</div><p>${esc(cf.r)}${cf.fr?' '+esc(cf.fr):''}</p><div class="btns"><button data-cf="ok">Continua</button></div></div>`;
+  };
+  const paint=()=>{d.innerHTML=body()};
+  paint();
+  d.addEventListener('click',e=>{
+    e.stopPropagation();
+    const b=e.target.closest&&e.target.closest('[data-cf],[data-fu]');if(!b)return;
+    if(b.dataset.fu!=null){cfFuPick(+b.dataset.fu);cf.fu=2;paint();return}
+    const v=b.dataset.cf;
+    if(v==='ok'){d.remove();save();act('next');return}
+    cfPick(+v);paint();
+  });
+  document.body.appendChild(d);
+}
+/* ---------------- crisi ---------------- */
+const CRD={
+  forma:{t:'Pilota in crisi',x:'Quattro gare di fila senza punti: il paddock comincia a farsi delle domande.'},
+  derby:{t:'Il caso del compagno',x:'Il compagno ti ha battuto quasi ogni volta di recente: si parla di gerarchie nel team.'},
+  post:{t:'Polemica sul tuo sfogo',x:'Le tue parole sulla macchina fanno discutere: il team chiede chiarimenti.'}
+};
+const CRA=[
+  {l:'Fai autocritica',t:'Misurato',x:'Ammetti i problemi e rassicuri il team: niente scuse.',imm:{br:{pro:1,car:.5},au:{det:.6},team:.3}},
+  {l:'Rispondi in pista',t:'Silenzio',x:'Nessuna dichiarazione: parleranno i risultati delle prossime due gare.',imm:{}},
+  {l:'Replichi ai critici',t:'Combattivo',x:'Rispondi punto su punto a chi ti attacca.',imm:{br:{sim:.6,spe:.4,pro:-.6},au:{fan:.8,neu:-.8},jr:{oko:2},hh:1}}
+];
+const CRR=[
+  {good:{br:{car:1},au:{neu:1},jr:{bra:1}},mix:{br:{pro:.3}},bad:{br:{pro:-.4}}},
+  {good:{br:{car:2.5,tal:1},au:{neu:2,fan:1},jr:{bra:2}},mix:{},bad:{br:{car:-1.5},au:{det:-1.5},team:-.4,jr:{bra:-2}}},
+  {good:{br:{car:1},au:{fan:.8},jr:{pod:1.5}},mix:{},bad:{br:{pro:-1},au:{neu:-1},team:-.4}}
+];
+function crOpen(k){
+  const m=mdEnsure();
+  m.cr={k,y:S.year,w:S.round,st:0,a:null,n:0,sc:0,r0:m.nr};m.cc=m.nr;
+  feedAdd('n','Paddock',CRD[k].t+': '+CRD[k].x,-1);
+}
+function crAnswer(i){
+  const m=mdEnsure(),cr=m.cr;if(!cr||cr.st!==0)return;
+  cr.a=i;cr.st=1;cr.n=0;cr.sc=0;
+  mdFx(CRA[i].imm);
+  if(i===2)mdRival();
+}
+function crTurn(F){
+  const m=mdEnsure(),cr=m.cr;if(!cr)return;
+  const kk={win:2,pod:2,pts:1,none:0,dnf:-1}[F.kind];
+  if(cr.st===0){
+    if(m.nr>cr.r0){crAnswer(1)}
+    return;
+  }
+  if(cr.st===1){
+    cr.n++;cr.sc+=kk;
+    if(cr.n>=2){
+      const out=cr.sc>=3?'good':cr.sc<=1?'bad':'mix';
+      cr.st=2;cr.out=out;cr.r1=m.nr;
+      mdFx(CRR[cr.a][out]);
+      m.ch=m.ch||[];m.ch.push({k:cr.k,y:S.year,out,a:cr.a});
+      feedAdd('n','Paddock',CRD[cr.k].t+': '+(out==='good'?'crisi superata, la risposta è arrivata dalla pista.':out==='bad'?'la crisi non si chiude: restano dubbi e malumori.':'la tensione cala, ma non è tutto risolto.'),out==='good'?1:out==='bad'?-1:0);
+      mdMemAdd('bra','Ricorda la crisi: «'+CRD[cr.k].t+'».',out==='good'?1:out==='bad'?-1:0);
+    }
+    return;
+  }
+  if(cr.st===2&&m.nr>cr.r1+1)m.cr=null;
+}
+function crDetect(F){
+  const m=mdEnsure();
+  if(m.cr||m.nr-(m.cc==null?-99:m.cc)<14)return;
+  const r=m.res||[];
+  if(r.length>=4&&r.slice(-4).every(x=>x==='none'||x==='dnf')){crOpen('forma');return}
+  const dv=m.dv||[];
+  if(dv.length>=5&&dv.slice(-5).filter(x=>!x).length>=4)crOpen('derby');
+}
+function crCard(){
+  const m=mdEnsure(),cr=m.cr;if(!cr)return '';
+  const D=CRD[cr.k];
+  if(cr.st===0)return `<section class="card mdcr"><div class="sech">Crisi aperta · ${esc(D.t)}</div><p class="sub">${esc(D.x)}</p>${CRA.map((a,i)=>`<button class="ch" data-act="mdcr" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${a.l} <em class="tg">${a.t}</em></span><span class="od">${a.x}</span></span></button>`).join('')}<small class="sub">Se non scegli, il silenzio sarà la tua risposta alla prossima gara.</small></section>`;
+  if(cr.st===1)return `<section class="card mdcr"><div class="sech">Crisi in corso · ${esc(D.t)}</div><p class="sub">Hai scelto: <b>${CRA[cr.a].l}</b>. ${cr.n===0?'Le prossime due gare decidono come andrà a finire.':'Manca una gara per capire come andrà a finire.'}</p></section>`;
+  return `<section class="card mdcr"><div class="sech">Crisi chiusa · ${esc(D.t)}</div><p class="sub">${cr.out==='good'?'Hai risposto con i fatti: il paddock cambia tono.':cr.out==='bad'?'La crisi lascia il segno: serve una svolta.':'La tensione cala, ma qualche dubbio resta.'}</p></section>`;
+}
+/* ---------------- voci di mercato su di te ---------------- */
+function ruGen(F){
+  const m=mdEnsure();
+  if(S.first||!S.teams)return;
+  if(S.round!==Math.ceil(S.total*.55))return;
+  if(m.ru.some(r=>r.y===S.year&&r.tier!=null&&r.src))return;
+  const T=TIERS,nt=t=>T[t].teams.length,st=standings(),pos=st.findIndex(x=>x.me)+1,n=st.length;
+  const nm=abbr(S.name),j=JR[hsh('ruj|'+S.year)%JR.length];
+  const good=pos<=Math.ceil(n*.3);
+  let r=null;
+  if(good&&S.tier<3&&hu('ru1|'+S.year)<.7){const t=S.tier+1,rk=clamp(Math.round(nt(t)*.45+hg('ru2|'+S.year)*2),0,nt(t)-1);r={kind:'up',tier:t,team:T[t].teams[rk]}}
+  else if(S.teamRank>0&&hu('ru4|'+S.year)<.6){const rk=Math.max(0,S.teamRank-1-Math.floor(hu('ru3|'+S.year)*3));r={kind:'move',tier:S.tier,team:T[S.tier].teams[rk]}}
+  else if(pos>Math.ceil(n*.6))r={kind:'cut',tier:S.tier,team:S.teamName};
+  else r={kind:'stay',tier:S.tier,team:S.teamName};
+  const TX={up:'{t} segue da vicino {n} in vista della prossima stagione.',move:'{t} avrebbe messo {n} in cima alla lista dei desideri.',cut:'In {t} si discute se continuare con {n}.',stay:'{t} vorrebbe blindare {n} con un rinnovo.'};
+  const src=mdOut(j)+' · '+j.n;
+  const rec={id:S.year+'-'+S.round,y:S.year,w:S.round,kind:r.kind,tier:r.tier,team:r.team,t:mdSub(TX[r.kind],{t:r.team,n:nm}),src,st:'open'};
+  m.ru.unshift(rec);if(m.ru.length>10)m.ru.length=10;
+  feedAdd('n','Mercato · '+src,rec.t,0);
+}
+function mdOffers(L){
+  const m=mdEnsure();
+  if(!m.ru||!m.ru.length||!L)return;
+  m.ru.forEach(r=>{
+    const has=L.some(o=>o.tier===r.tier&&TIERS[o.tier].teams[o.rank]===r.team);
+    const mine=L.some(o=>o.tier===S.tier&&TIERS[o.tier].teams[o.rank]===S.teamName);
+    const truth=r.kind==='cut'?!mine:has;
+    if(r.st==='open'&&r.y===S.year){
+      if(truth){r.st='true';feedAdd('n','Mercato','Voce confermata: '+r.t.replace(/\.$/,'')+', e ora è arrivata l\'offerta.',1)}
+      else{r.st='wait';r.y2=S.year+1}
+    }else if(r.st==='wait'&&r.y2===S.year){
+      if(truth){r.st='early';feedAdd('n','Mercato','La voce dell\'anno scorso era in anticipo: '+r.t.replace(/\.$/,'')+' ora è realtà.',1)}
+      else{r.st='false';feedAdd('n','Mercato','Smentita: la voce su '+r.team+' non ha avuto seguito.',0)}
+    }
+  });
+}
+function ruCard(){
+  const m=mdEnsure(),R=m.ru||[];
+  if(!R.length)return '';
+  const LB={open:['In corso','var(--amber)'],wait:['Non ancora','var(--amber)'],true:['Confermata','var(--green)'],early:['In anticipo','var(--green)'],false:['Smentita','var(--warn)']};
+  return `<section class="card"><div class="sech">Voci su di te</div>${R.slice(0,5).map(r=>{const l=LB[r.st]||LB.open;return `<div class="news"><small>${r.y} · ${esc(r.src)}</small><br>${esc(r.t)} <span class="chip" style="color:${l[1]};border-color:${l[1]}">${l[0]}</span></div>`}).join('')}<p class="sub">Le voci si chiariscono quando arrivano le offerte di fine stagione: alcune erano vere, altre premature, altre no.</p></section>`;
+}
+/* ---------------- il mondo reagisce ---------------- */
+const RVT=['Parlare è facile: ci vediamo in pista.','Interessante. Rispondo domenica.','Se vuole la guerra, l\'avrà.','Le parole contano zero: contano i giri.'];
+function mdRival(){
+  const m=mdEnsure();
+  if(!S.riv)return;
+  m.rvf=2;
+  feedAdd('s',S.riv.n,RVT[hsh('rv|'+S.year+'|'+S.round+'|'+m.nr)%RVT.length],0,Math.round(S.fol*(.04+hu('rvl|'+m.nr)*.1)*10)/10);
+  if(S.hh)S.hh[S.riv.n]=clamp((S.hh[S.riv.n]||0)+1,0,100);
+}
+function mdWorld(F,lead,lj){
+  const k=F.kind,me=F.me;
+  if(lead.k==='me'&&hu('mw|'+S.year+'|'+S.round)<.45){
+    const tone=lead.tone;
+    if(tone<0&&(k==='none'||k==='dnf')){feedAdd('n','Team · '+S.teamName,'Il capo squadra ha letto '+mdOut(lj)+': «Ne parliamo con calma, serve una reazione.»',-1);S.team=clamp(S.team-.15,0,100)}
+    else if(tone>0&&(k==='win'||k==='pod')){feedAdd('n','Team · '+S.teamName,'Il capo squadra commenta '+mdOut(lj)+': «Parole giuste, lavoro giusto.»',1);S.team=clamp(S.team+.15,0,100)}
+  }
+  if(F.w&&F.w.rlr&&hu('mwe|'+S.year+'|'+S.round)<.5&&Math.abs(F.w.rlr.xd)>=.25){
+    feedAdd('n','Ingegnere di pista',F.w.rlr.xd>0?'«Il rientro sul bagnato è stato perfetto: se ne parla in tutto il paddock.»':'«Il momento del cambio gomme era da rivedere: ci lavoriamo insieme.»',F.w.rlr.xd>0?1:-1);
+  }
+  const m=S.md;
+  if(m.rvf>0&&S.riv){m.rvf--}
+}
+/* ---------------- classifica del turno (richiamata da mdTurn) ---------------- */
+function mdTurn2(F,lead,lj){
+  const m=mdEnsure(),me=F.me,k=F.kind;
+  m.nr=(m.nr||0)+1;
+  const gain=(me.g||me.pos)-me.pos;
+  if(!me.dnf&&gain>=6&&(!m.yb||m.yb.y!==S.year||gain>m.yb.g))m.yb={y:S.year,g:gain,from:me.g||me.pos,to:me.pos,c:F.c};
+  if(F.L.mate){const q=F.rows.find(r=>r.n===F.L.mate.n);if(q){const beat=me.dnf?0:(q.dnf||me.pos<q.pos)?1:0;m.dv=m.dv||[];m.dv.push(beat);if(m.dv.length>6)m.dv.shift()}}
+  if(S.riv){const r=F.rows.find(x=>x.n===S.riv.n);if(r){m.h2h=m.h2h||{};const h=m.h2h[r.n]||(m.h2h[r.n]={w:0,l:0});if(!me.dnf&&(r.dnf||me.pos<r.pos))h.w++;else if(!r.dnf||me.dnf)h.l++}}
+  mdAud(F);mdBrand(F);
+  m.pk=k;m.res=m.res||[];m.res.push(k);if(m.res.length>6)m.res.shift();
+  m.ah=m.ah||[];m.ah.push(Math.round((m.au.fan+m.au.neu+m.au.det)/3));if(m.ah.length>24)m.ah.shift();
+  crTurn(F);
+  if(F.L.sim){m.po=null;return}
+  crDetect(F);ruGen(F);mdPostGen(F);cfGen(F,lead,lj);mdWorld(F,lead,lj);
+}
+/* ---------------- viste ---------------- */
+function mdDot(){
+  const m=S&&S.md;if(!m)return false;
+  return !!((m.po&&m.po.d==null)||(m.cr&&m.cr.st===0));
+}
+function poCard(){
+  const m=S&&S.md,p=m&&m.po;if(!p)return '';
+  if(p.d==null)return `<section class="card mdpo"><div class="sech">Cosa pubblichi? <small>dopo ${esc(p.c)}</small></div>${POS[p.cls].map((o,i)=>`<button class="ch" data-act="mdpo" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.l} <em class="tg">${o.t}</em></span><span class="od">${o.x?'«'+esc(o.x)+'»':'Nessun post: lasci parlare la pista.'}</span></span></button>`).join('')}<small class="sub">Puoi anche ignorarlo: il post scade alla prossima gara.</small></section>`;
+  return `<section class="card"><div class="sech">Il tuo post · ${esc(p.c)}</div><p class="sub" style="margin:0">${esc(p.r)}</p></section>`;
+}
+function mdAct(a,i){
+  i=+i;KP=true;
+  if(a==='mdpo')mdActPost(i);
+  else if(a==='mdcr')crAnswer(i);
+  save();render();
+}
+function puBar(l,v,d){return srow(l,v,'',d||'')}
+function puView(){
+  const m=mdEnsure(),pe=mdPersona(),cc=S.nat?flag(S.nat):'';
+  const brs=MDB.map(x=>puBar(x[1],m.br[x[0]])).join('');
+  const aus=MDAU.map(x=>puBar(x[1],m.au[x[0]],{fan:'chi ti segue sempre',neu:'chi guarda la gara',det:'chi ti critica'}[x[0]])).join('');
+  const co=puBar('In patria '+cc,m.co.h,'il tuo paese')+puBar('All\'estero',m.co.a,'il resto del mondo');
+  const ah=m.ah||[];
+  return `<section class="card fp"><div class="sech">Come ti vede il pubblico</div><h2 class="stq">${esc(pe.t)}</h2><p class="mdx">${esc(pe.x)}</p></section>
+  <section class="card"><div class="sech">Il tuo marchio</div><div class="srs">${brs}</div></section>
+  <section class="card"><div class="sech">Opinione pubblica</div><div class="srs">${aus}</div>${ah.length>1?sparkSvg(ah):''}</section>
+  <section class="card"><div class="sech">Nel mondo</div><div class="srs">${co}</div><p class="sub">${m.cfh?'Conferenze stampa tenute: '+m.cfh+'. ':''}${(m.ch||[]).length?'Crisi attraversate: '+m.ch.length+'.':''}</p></section>`;
+}
+function arView(){
+  const m=mdEnsure(),A=m.aw||[];
+  const aw=A.slice().reverse().map(a=>`<section class="card"><div class="sech">Rassegna ${a.y} · ${esc(TIERS[a.tier].k)} <small>${a.pos}° posto</small></div>${a.items.map(x=>`<div class="news"><b>${esc(x.t)}</b><br><small>${esc(x.h)}</small></div>`).join('')}</section>`).join('');
+  const st=m.ar.slice().reverse().slice(0,14).map(a=>`<div class="news"><b>${esc(a.h)}</b><br><small>${a.y} · ${esc(a.c)}</small></div>`).join('');
+  return (aw||'<section class="card"><div class="sech">Rassegna dell\'anno</div><p class="sub">A fine stagione qui trovi i premi dell\'anno: gara, rimonta, immagine e il giornalista che ti racconta meglio.</p></section>')+(st?`<section class="card"><div class="sech">Le storie che restano</div>${st}</section>`:'');
+}
+/* ---------------- premi dell'anno ---------------- */
+function mdYear(){
+  const m=mdEnsure();
+  if(m.aw.some(a=>a.y===S.year&&a.tier===S.tier))return;
+  const st=standings(),pos=st.findIndex(x=>x.me)+1,it=[];
+  const ar=m.ar.filter(a=>a.y===S.year&&a.tier===S.tier);
+  const mine=ar.filter(a=>a.me).sort((a,b)=>(b.sc||0)-(a.sc||0))[0],any=ar.slice().sort((a,b)=>(b.sc||0)-(a.sc||0))[0];
+  const bst=mine||any;
+  if(bst)it.push({t:'Gara dell\'anno',h:bst.h+' ('+bst.c+')'});
+  if(m.yb&&m.yb.y===S.year&&m.yb.g>=6)it.push({t:'Rimonta dell\'anno',h:'Da P'+m.yb.from+' a P'+m.yb.to+' a '+m.yb.c});
+  const ch=(m.ch||[]).filter(c=>c.y===S.year).pop();
+  if(ch)it.push({t:'Momento di svolta',h:CRD[ch.k].t+': '+(ch.out==='good'?'crisi superata con i fatti':ch.out==='bad'?'una crisi che lascia il segno':'una crisi gestita a metà')});
+  const pe=mdPersona();it.push({t:'Immagine dell\'anno',h:pe.t});
+  const jb=JR.slice().sort((a,b)=>S.jr[b.id]-S.jr[a.id])[0];
+  it.push({t:'Il tuo giornalista',h:jb.n+' ('+mdOut(jb)+') è quello che ti racconta meglio'});
+  if(S.riv&&m.h2h&&m.h2h[S.riv.n]){const h=m.h2h[S.riv.n];it.push({t:'Rivalità dell\'anno',h:'Con '+S.riv.n+' è finita '+h.w+' a '+h.l+' nei confronti diretti'})}
+  const c=st[0];it.push({t:'Titolo piloti',h:(c.me?'Sei tu il campione':c.n)+' · '+c.pts+' punti'});
+  m.aw.push({y:S.year,tier:S.tier,pos,items:it});
+  if(m.aw.length>14)m.aw.shift();
+}
+function mdYearCard(){
+  const m=S&&S.md;if(!m||!m.aw||!m.aw.length)return '';
+  const a=m.aw[m.aw.length-1];if(a.y!==S.year)return '';
+  return `<section class="card"><div class="sech">Rassegna dell'anno</div>${a.items.map(x=>`<div class="news"><b>${esc(x.t)}</b><br><small>${esc(x.h)}</small></div>`).join('')}</section>`;
+}
+/* ---------------- racconto di carriera ---------------- */
+function mdNarr(){
+  try{
+    const m=S&&S.md;if(!m||!S.hist||!S.hist.length)return '';
+    const nm=abbr(S.name),c=S.career,h0=S.hist[0],h1=S.hist[S.hist.length-1],P=[];
+    P.push(nm+' è partito nel '+h0.y+' in '+TIERS[h0.tier].k+' e ha chiuso nel '+h1.y+', dopo '+c.races+' gare: '+c.wins+' vittorie, '+c.pod+' podi'+(c.titles?' e '+c.titles+(c.titles===1?' titolo mondiale':' titoli mondiali'):'')+'.');
+    const pe=mdPersona();
+    if(pe.k!=='x')P.push('Per il pubblico sei stato «'+pe.t.toLowerCase()+'». '+pe.x);
+    const jb=JR.slice().sort((a,b)=>S.jr[b.id]-S.jr[a.id])[0],jw=JR.slice().sort((a,b)=>S.jr[a.id]-S.jr[b.id])[0];
+    if(jb&&jw&&jb!==jw)P.push('La stampa ti ha diviso: '+jb.n+' ('+mdOut(jb)+') ti ha sempre raccontato meglio di tutti, mentre '+jw.n+' ('+mdOut(jw)+') è rimasto il tuo critico più severo.');
+    const top=m.ar.filter(a=>a.me).sort((a,b)=>(b.sc||0)-(a.sc||0)).slice(0,3);
+    if(top.length)P.push('Le pagine che restano: '+top.map(a=>'«'+a.h.replace(/\.$/,'')+'» ('+a.c+', '+a.y+')').join('; ')+'.');
+    const ch=m.ch||[];
+    if(ch.length){const g=ch.filter(x=>x.out==='good').length;P.push('Hai attraversato '+ch.length+(ch.length===1?' crisi':' crisi')+(g?', superandone '+g+' con i fatti':'')+': nei momenti difficili il paddock ti ha guardato in faccia.')}
+    if(S.riv&&m.h2h&&m.h2h[S.riv.n]){const h=m.h2h[S.riv.n];P.push('La tua rivalità con '+S.riv.n+' si chiude '+h.w+' a '+h.l+' nei confronti diretti.')}
+    const rt=(m.ru||[]).filter(r=>r.st==='true'||r.st==='early').length;
+    if(m.cfh||rt)P.push((m.cfh?'Hai parlato in '+m.cfh+(m.cfh===1?' conferenza stampa':' conferenze stampa'):'')+(m.cfh&&rt?'; ':'')+(rt?rt+(rt===1?' voce di mercato si è rivelata vera':' voci di mercato si sono rivelate vere'):'')+'.');
+    return `<section class="card"><div class="sech">Come ti hanno raccontato</div>${P.map(t=>`<p class="mdp">${esc(t)}</p>`).join('')}</section>`;
+  }catch(e){return ''}
+}
+/* hook sulle funzioni globali: offerte di mercato e fine stagione */
+(function(){
+  const _mo=makeOffers;
+  makeOffers=function(){const L=_mo.apply(this,arguments);try{mdOffers(L)}catch(e){}return L};
+  const _se=seasonEnd;
+  seasonEnd=function(){try{mdYear()}catch(e){}return _se.apply(this,arguments)};
+  const _mc=mercatoCard;
+  mercatoCard=function(){return ruCard()+_mc.apply(this,arguments)};
+})();
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
