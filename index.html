@@ -827,6 +827,11 @@ td.n{font-variant-numeric:tabular-nums}
 }
 /* ---- v5 · rifinitura: nessuna nuova dissolvenza se la schermata è la stessa ---- */
 #app.noan .card,#app.noan .opts>.ch,#app.noan .tw .row,#app.noan .hero,#app.noan .rgs{animation:none}
+.dv2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 4px}
+.dv2 span{background:var(--panel,rgba(0,0,0,.04));border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.dv2 small{font-size:11px;opacity:.7;line-height:1.25}
+.dv2 b{font-size:16px}
+.dv2n{margin:0 0 6px;font-size:12px}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -3469,7 +3474,7 @@ function resultView(){
   else if(k==='r')body=raceCard(L);
   else if(k==='c')body=champCard(L);
   else body=`<section class="card"><div class="sech">${steps[st][1]} · ${esc(L.circuit)}</div>${tower(spr[+k.slice(1)],'race',true)}</section>`;
-  const bl=[];if(L.mom)bl.push(`${ico('bolt','fl')} ${esc(L.mom)}`);(S.newA||[]).forEach(x=>bl.push(`${ico('medal','fl')} <b>${esc(x)}</b>`));if(L.st)bl.unshift(`<b style="color:${VD[L.st.vd][1]}">Strategia ${VD[L.st.vd][0].toLowerCase()}</b>`);{const gl=growLine(L.gr);if(gl)bl.push(gl)}if(L.home)bl.unshift('<b>🏠 Gran premio di casa</b>');if(L.sp)bl.unshift('<b>'+SP[L.sp].e+' '+SP[L.sp].n+'</b>');if(L.eng)bl.push('🎧 Intesa con '+esc(L.eng.n)+' in crescita');rsBanner(L).forEach(x=>bl.push(x));const ban=bl.length?`<p class="sub bn">${bl.join(' &nbsp;·&nbsp; ')}</p>`:'';
+  const bl=[];if(L.mom)bl.push(`${ico('bolt','fl')} ${esc(L.mom)}`);(S.newA||[]).forEach(x=>bl.push(`${ico('medal','fl')} <b>${esc(x)}</b>`));if(L.st)bl.unshift(`${stHead(L.st)}`);{const gl=growLine(L.gr);if(gl)bl.push(gl)}if(L.home)bl.unshift('<b>🏠 Gran premio di casa</b>');if(L.sp)bl.unshift('<b>'+SP[L.sp].e+' '+SP[L.sp].n+'</b>');if(L.eng)bl.push('🎧 Intesa con '+esc(L.eng.n)+' in crescita');rsBanner(L).forEach(x=>bl.push(x));const ban=bl.length?`<p class="sub bn">${bl.join(' &nbsp;·&nbsp; ')}</p>`:'';
   return `<div class="cl">${ban}${tabs}${body}<div class="dock"><button class="go" data-act="next">Avanti →</button></div></div>`;
 }
 function afterPlan(){startActs()}
@@ -3684,7 +3689,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 17/10 · 19:54</p></div>`;
+  <p class="foot">Versione 17/10 · 22:04</p></div>`;
 }
 
 function identityView(){
@@ -8792,6 +8797,94 @@ function obCal(k,p,t){
   }catch(e){}
   return _op.apply(this,arguments);
   }
+}}
+/* =====================================================================
+   "Copia i rivali" = fare davvero ciò che fa il team indicato.
+   Prima il gioco ti diceva "segui McLaren: M-H-M, due soste", ma nel motore
+   i rivali seguivano un altro piano (estratto a parte dal meteo) e la scheda
+   di gara mostrava un generico "M H". Ora il piano dei rivali è uno solo:
+   quello del team indicato, uguale in consiglio, scelta, scheda e gara.
+   ===================================================================== */
+function rvSync(w){
+  try{
+    if(!w||!w.ai||!w.ai.rk||w.rv===undefined)return;
+    if(!planOk(w.ai.rk)||w.ai.rk==='safe'||w.ai.rk==='inter')return;
+    w.rv=w.ai.rk;
+  }catch(e){}
+}
+{const _wi=wkInit;wkInit=function(w){const r=_wi.apply(this,arguments);rvSync(w||S.wk);return r}}
+{const _sv=stratView;stratView=function(){rvSync(S&&S.wk);return _sv.apply(this,arguments)}}
+{const _cp=choosePlanB;choosePlanB=function(){rvSync(S&&S.wk);return _cp.apply(this,arguments)}}
+/* la scheda del weekend mostra gli stint veri del team copiato */
+{const _sc=swChip;swChip=function(pl){
+  try{
+    const s=S.sw,w=S.wk;
+    if(pl&&pl.k==='safe'&&s&&s.k==='safe'&&w){
+      const rk=w.rv&&!['safe','inter'].includes(w.rv)?w.rv:(w.ai&&w.ai.rk)||'two';
+      const cfg=tyPre(rk),n=cfg.c.length-1;
+      return `<span class="chip pt">${cfg.c.map(cpb).join('')} Copia i rivali · ${esc(aiRvTeam(w))} · ${n===0?'nessuna sosta':n===1?'1 sosta':n+' soste'}</span>`;
+    }
+  }catch(e){}
+  return _sc.apply(this,arguments);
+}}
+
+/* =====================================================================
+   Tabella "Le strategie dei primi": se un rivale ha scelto gomme da asciutto
+   sul bagnato (o da bagnato sull'asciutto) non può risultare "Perfetta":
+   in quel caso il giudizio tiene conto di com'è andata davvero.
+   (Cambia solo l'etichetta mostrata: la prestazione dei rivali era già
+   calcolata sulle condizioni reali, e chi sbaglia perde davvero ritmo.)
+   ===================================================================== */
+{const _aa=aiAfter;aiAfter=function(){
+  const r=_aa.apply(this,arguments);
+  try{
+    const w=S.wk,L=S.last;
+    if(!w||!L||!L.st||!L.st.ai)return r;
+    const keys=planKeys().filter(k=>k!=='safe'),re={};
+    keys.forEach(k=>{re[k]=fitReal(k,w)});
+    const best=Math.max(...keys.map(k=>re[k]));
+    L.st.ai.forEach(a=>{
+      if(a.hs)return;
+      const wetPlan=a.k==='inter';
+      if(w.mixed||(wetPlan===!!w.rain))return;       /* scelta coerente col meteo: resta il giudizio di prima */
+      a.vd=Math.max(a.vd,verdictOf(Math.max(0,best-re[a.k])));a.hs=1;
+    });
+  }catch(e){}
+  return r;
+}}
+
+/* =====================================================================
+   Doppia valutazione della tua strategia:
+   · con le informazioni che avevi (è la scelta giusta, dato ciò che sapevi?)
+   · con ciò che è successo in gara (è stata la scelta giusta, col senno di poi?)
+   Cambia solo ciò che viene mostrato.
+   ===================================================================== */
+function stHs(s){
+  if(!s)return 0;
+  if(s.hindFit==null||s.fit==null)return s.vd|0;
+  return verdictOf(Math.max(0,s.hindFit-s.fit));
+}
+function stHead(s){
+  const a=VD[s.vd],h=stHs(s);
+  let t=`<b style="color:${a[1]}">Strategia ${a[0].toLowerCase()}</b>`;
+  if(h!==(s.vd|0))t+=` <span class="sub">· in gara: ${VD[h][0].toLowerCase()}</span>`;
+  return t;
+}
+{const _sd=stratCard;stratCard=function(L){
+  const html=_sd.apply(this,arguments);
+  try{
+    const s=L&&L.st;if(!s||typeof html!=='string')return html;
+    const a=s.vd|0,h=stHs(s);
+    const why=h===a?'':h>a?'Con ciò che è successo, un altro piano sarebbe andato meglio.':'Ti è andata meglio del previsto.';
+    const row=`<div class="dv2"><span><small>Con le informazioni che avevi</small><b style="color:${VD[a][1]}">${VD[a][0]}</b></span><span><small>Con ciò che è successo in gara</small><b style="color:${VD[h][1]}">${VD[h][0]}</b></span></div>${why?`<p class="sub dv2n">${why}</p>`:''}`;
+    let out=html.replace('<div class="gauges">',row+'<div class="gauges">');
+    /* "Copia i rivali": nella scheda compaiono gli stint veri del team copiato, non un generico "M H" */
+    if(s.k==='safe'&&S.phase==='result'&&S.wk&&S.wk.ai&&S.wk.ai.rk&&s.w&&S.wk.c===s.w.c&&!['safe','inter'].includes(S.wk.ai.rk)){
+      const cfg=tyPre(S.wk.ai.rk),n=cfg.c.length-1;
+      out=out.replace(/<small class="pl2">[\s\S]*?<\/small>/,`<small class="pl2">${cfg.c.map(cpb).join('')}<span>Copia i rivali · ${esc(aiRvTeam(S.wk))} · ${n===0?'nessuna sosta':n===1?'1 sosta':n+' soste'}</span></small>`);
+    }
+    return out;
+  }catch(e){return html}
 }}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
