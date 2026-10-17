@@ -3959,7 +3959,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 17/10 · 17:11</p></div>`;
+  <p class="foot">Versione 17/10 · 17:18</p></div>`;
 }
 
 function identityView(){
@@ -9008,7 +9008,10 @@ function gvInfo(w){
 }
 function gvLine(w){
   const g=gvInfo(w);
-  if(!g)return `<p class="sub qdg"><span class="qb n">griglia: peso da scoprire (telemetria)</span></p>`;
+  if(!g){
+    const n=w.tk||0;
+    return `<p class="sub qdg"><span class="qb n">griglia: peso da scoprire</span> ${n>0?`<button class="ghost sm" data-act="cons" data-i="2">${ico('chart','fl')} Chiedi la telemetria · ${n} ${n===1?'consulto':'consulti'}</button> <small>(i consulti sono quelli del weekend: valgono anche per la gara)</small>`:'<small>Nessun consulto rimasto. Ai prossimi weekend puoi scoprirlo con la simulazione di gara nelle libere.</small>'}</p>`;
+  }
   const L=[['pesa molto','a','si sorpassa poco: chi parte davanti resta davanti'],['pesa','n','sorpassi nella media'],['pesa poco','g','si sorpassa facilmente: si può rimontare']][g.lvl];
   const my=myStyle(),d=my.df-my.at;
   let tip='';
