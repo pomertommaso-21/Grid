@@ -790,6 +790,25 @@ td.n{font-variant-numeric:tabular-nums}
 .cfm .ghost.sm{width:100%;margin-top:2px}
 .cfm .btns button{min-width:120px}
 .cfm{max-height:92vh;overflow-y:auto}
+
+.qsd{margin-top:6px;font-size:12.5px;color:var(--mut);line-height:1.45}.qdc .qty{margin-top:10px}.qdc .qty:first-of-type{margin-top:4px}
+@media(min-width:1000px){.qdc{display:grid;grid-template-columns:1fr 1fr;column-gap:26px}.qdc>.sech,.qdc>p.sub{grid-column:1/-1}.qdc .qty{margin-top:6px}.qdc .qty:first-of-type{margin-top:6px}}
+.qdc{margin-top:10px}
+.qb{display:inline-block;font-size:10.5px;font-weight:700;line-height:1.5;padding:0 6px;border-radius:999px;white-space:nowrap}
+.qb.g{color:var(--green);background:color-mix(in srgb,var(--green) 14%,transparent)}
+.qb.r{color:var(--warn);background:color-mix(in srgb,var(--warn) 13%,transparent)}
+.qb.a{color:var(--amber);background:color-mix(in srgb,var(--amber) 16%,transparent)}
+.qb.n{color:var(--mut);font-weight:600}
+.qd .qtl{font-weight:700;font-size:13.5px}.qd .qtl small{font-weight:500;font-size:11.5px;color:var(--mut);margin-left:4px}
+.qd .btns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:5px}
+.qd .btns button{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;padding:7px 3px 6px;min-height:0;line-height:1.2;text-align:center}
+.qd .btns button b{font-size:12.5px}
+.qd .btns .qbs{display:flex;flex-wrap:wrap;justify-content:center;gap:3px;min-height:17px}
+.qd .btns button.on .qb{background:#161b2e}.qd .btns button.on .qb.n{color:#cbd2e6}
+.qdt{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:10px;padding-top:8px;border-top:1px solid var(--line,rgba(0,0,0,.08));font-size:12px;color:var(--mut)}
+.qdt>span:first-child{font-weight:700;margin-right:2px}
+.qsd .qrr{display:inline-block;margin:2px 8px 0 0}.qsd>b{margin-right:8px}
+@media(min-width:1000px){.qdc>.qdt{grid-column:1/-1}}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -1290,6 +1309,7 @@ function simulateRace(opt,table){
   const sd=clamp(6.5-S.st.costanza*.02,4,6.5)*homeP(cn)*spv('sd')*wxSd();
   const E=[{me:true,n:abbr(S.name),t:S.teamRank,perf:.55*rating(S)+.45*(car+(S.team-50)/40)+stB()+eff+(S.fama-30)/80+(flash?3:0)+ageInfo(S.age).mod+(S.sm&&S.sm.left>0?S.sm.mod:0)+(rivHere()?rivLv()/100*.8:0)+DFT()+(S.sw?S.sw.v*RFX:0)+qcOf()+(S.mo||0)*.2+(S.ordMod?S.ordMod.me:0)+ckB(cn)+trkB(cn)+(isHome(cn)?.35:0)+engPerf()+dmP()+fpB()+(NZX?NZX.m:gauss())*sd,dnf:rnd()<dnfP}];
   S.rivals.forEach(r=>E.push({r,n:r.n,t:r.t,perf:.55*(r.skill+(r.t===S.teamRank?0:1.5))+.45*S.teams[r.t].car+(r.t===S.teamRank?-stB()*.7:0)+(S.riv&&S.riv.n===r.n?rivLv()/100*1.2:0)+(S.ordMod&&S.ordMod.mate===r.n?S.ordMod.m:0)+aiV(r)*RFX+(NZX&&NZX.r[r.n]!=null?NZX.r[r.n]:gauss())*4.4,dnf:rnd()<.07+spv('dnf')+wxDnf()}));
+  gridInertia(E);
   if(PKK)return E;
   const fin=E.filter(e=>!e.dnf).sort((a,b)=>b.perf-a.perf);
   const out=E.filter(e=>e.dnf);
@@ -2280,7 +2300,7 @@ function stratCard(L){
   const kn=s.kn||{},lk=Math.abs(s.luck)>=.06;
   let lt='';
   if(lk){
-    if(!kn.rain&&(w.rain||s.k==='inter'))lt=s.luck>0?(w.rain?'la pioggia è arrivata: ti ha premiato.':'niente pioggia, come speravi.'):(w.rain?'la pioggia (prev. '+w.rp+'%) ha ribaltato il piano.':'la pioggia temuta non è arrivata.');
+    if(!kn.rain&&(w.rain||s.k==='inter'))lt=s.luck>0?(w.rain?(s.k==='inter'||s.k==='safe'?'la pioggia è arrivata: ti ha premiato.':'la pioggia è stata meno dura del temuto: hai perso meno.'):'niente pioggia, come speravi.'):(w.rain?'la pioggia (prev. '+w.rp+'%) ha ribaltato il piano.':'la pioggia temuta non è arrivata.');
     else if(!w.rain)lt=s.luck>0?(w.sc?'safety car in pista: ti ha aiutato.':'niente safety car: non ti serviva.'):(w.sc?'safety car nel momento sbagliato.':'niente safety car: la aspettavi.');
     else lt=s.luck>0?'le condizioni ti hanno aiutato.':'le condizioni non ti hanno aiutato.';
   }
@@ -2368,12 +2388,12 @@ function qsLine(s){
   return `<div class="qsl"><div><b style="color:${vd[1]}">${vd[0]}</b> · ${p.n}${s.auto?' <small>(scelta del muretto)</small>':''}</div><div>${qWhy(s)}${dg?` <b>${dg>0?'+':''}${dg} posizioni</b> rispetto a una scelta neutra.`:''}</div></div>`;
 }
 function qualiView(){
-  if(S.wk.fmt==='elim'&&!S.wk.grid&&!S.wk.eq)return exView();
+  if(isEl(S.wk)&&!S.wk.grid&&!S.wk.eq)return exView();
   const w=S.wk,q=w.q,d=S.diff==null?1:S.diff,vg=q.vt[0]!==q.vt[1];
   const tile=(ic,lab,big,sub)=>`<div class="bt"><small class="bl">${ico(ic)} ${lab}</small><b>${big}</b><small class="bs">${sub}</small></div>`;
   const tb=vg?L3[q.vt[0]+1]+' – '+L3[q.vt[1]+1]:L3[q.t+1];
   return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>La qualifica</h1><p>Un solo giro vale la griglia. Scegli quando scendere in pista.</p></div>
-  ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf"><div class="gauges qg">${tile('cloud','Pioggia',w.rp+'%','prob. di pioggia')}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}</div></section>
+  ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf"><div class="gauges qg">${tile('cloud','Pioggia sab.',wtQPv(w),wtQSb(w))}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}</div></section>
   ${obCard(w)}${puCard(w)}${qOptsX(w,q)}
   
   <div class="btns"><button class="ghost" data-act="qauto">Lascia decidere al muretto</button></div>`;
@@ -3030,7 +3050,7 @@ const FMT={
 function pickFmt(){
   if(S.fmLast!=null&&S.round-S.fmLast<2)return 'std';
   const r=rnd(),sp=S.tier===3?.2:0;
-  return r<sp?'spr':r<sp+.2?'fp':r<sp+.38?'elim':'std';
+  return r<sp?'spr':r<sp+.2?'fp':r<sp+.38&&S.tier!==3?'elim':'std';
 }
 function sprX(){
   if(S.tier!==3)return 0;
@@ -3084,7 +3104,7 @@ function q2Pick(i){
 }
 function qxF(w,qv,lim){
   if(lim){w.limSel=1;qv=qv*1.8+.3}
-  if(w.fmt==='elim'&&!w.eq){w.eq={k:'soft'};w.tyb=-.2}
+  if(isEl(w)&&!w.eq){w.eq={k:'soft'};w.tyb=-.2}
   if(w.eq&&w.eq.out)qv=Math.min(qv,-1.8);
   return qv;
 }
@@ -3101,7 +3121,7 @@ function gridPen(a){
   S.pen=0;return moved;
 }
 function qOptsX(w,q){
-  if(w.fmt==='elim'&&!w.eq)return q2Opts(w);
+  if(isEl(w)&&!w.eq)return q2Opts(w);
   const t=S.trt&&S.trt.qual;
   return `<div class="opts">${q.ord.map((qi,i)=>{const p=QL[qi];return `<button class="ch" data-act="qp" data-i="${i}"><span class="lt">${'ABC'[i]}</span><span class="cb"><span class="ot">${p.n}</span><span class="od">${p.d}</span>${w.qhint===p.k?`<span class="tags"><span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span></span>`:''}</span></button>`}).join('')}${t?`<button class="ch" data-act="qlim"><span class="lt">D</span><span class="cb"><span class="ot">⏱️ Giro al limite</span><span class="od">Il tuo marchio: tutto per la pole. Può valere due posizioni, o farti sbagliare.</span><span class="tags"><span class="tg r2">Esito incerto</span><span class="tg hint">Specialista</span></span></span></button>`:''}</div>`;
 }
@@ -3353,7 +3373,7 @@ function initPool(){
 }
 function evolveAll(){
   const P=S.pool,up=3;
-  for(let i=0;i<=up;i++)P[i].forEach(d=>{d.a++;d.o=clamp(d.o+.5*(d.a<=23?1+rnd()*3.5:d.a<=33?gauss()*1.2:-1-rnd()*2.5),40,99)});
+  for(let i=0;i<=up;i++)P[i].forEach(d=>{d.a++;d.o=tGrowY(d,i)});
   for(let i=up;i>=0;i--){
     const T=TIERS[i],nt=T.teams.length,cap=[19,21,23,38][i];
     const low=P[i].slice().sort((a,b)=>a.o-b.o)[0];const gone=P[i].filter(d=>(i===3?d.a>=cap&&rnd()<.3+(d.a-cap)*.2:d.a>cap)||d.a>=43||(d===low&&rnd()<(i===3?.25:.6)));
@@ -3362,8 +3382,8 @@ function evolveAll(){
     const need=2*nt-P[i].length;
     for(let k=0;k<need;k++){
       let d;
-      if(i>0){P[i-1].sort((a,b)=>b.o-a.o);d=P[i-1].shift();d.o=clamp(d.o+2,40,99);S.mkt.push(d.n+' sale in '+T.k+' dalla '+TIERS[i-1].k+'.')}
-      else d=mkD(0,0,15+Math.floor(rnd()*2),38+rnd()*10);
+      if(i>0)d=kFill(i,P,T);
+      else d=kDraw(T);
       d.t=-1;P[i].push(d);
     }
     const rk=P[i].slice().sort((a,b)=>b.o-a.o),nTop=Math.max(3,Math.round(nt*.6));
@@ -3401,7 +3421,7 @@ function gridView(){
   const T=TIERS[S.tier],s=stS();
   const D=S.rivals.map(r=>({n:r.n,t:r.t,o:r.skill,a:r.age})).concat([{n:abbr(S.name),t:S.teamRank,o:rating(S),a:S.age,me:1}]);
   const order=S.teams.map((x,i)=>i).sort((a,b)=>S.teams[b].car-S.teams[a].car);
-  const gv=S.gv||'team',gtab=`<div class="btns">${[['team','Per scuderia'],['all','Tutti i piloti']].map(x=>`<button class="ghost${gv===x[0]?' on':''}" data-act="gv" data-i="${x[0]}">${x[1]}</button>`).join('')}</div>`;
+  const gv=S.gv||'team',gtab=`<div class="btns">${[['team','Per scuderia'],['all','Tutti i piloti'],['kart','Vivaio kart']].map(x=>`<button class="ghost${gv===x[0]?' on':''}" data-act="gv" data-i="${x[0]}">${x[1]}</button>`).join('')}</div>`;
   if(gv==='all'){
     const st=standings(),pt={};st.forEach((x,k)=>pt[x.n]={p:x.pts,k:k+1});
     const L=D.slice().sort((a,b)=>b.o-a.o);
@@ -3794,6 +3814,9 @@ function act0(a,i,v){
   else if(a==='ob'){KP=true;const w=S.wk;if(w&&w.ob){w.ob.sel=(w.ob.sel===i)?-1:i;save();render()}return}
   else if(a==='q2a'){qSecond();save();render();return}
   else if(a==='qok'){qOk();save();render();return}
+  else if(a==='qd'){qdSet(i!=null&&v==null?i:v);save();render();return}
+  else if(a==='qsec'){qdSec(v);save();render();return}
+  else if(a==='exsec'){const w=S.wk;if(w&&w.ex)w.ex.sec=+v;KP=true;save();render();return}
   else if(a==='qt'){KP=true;S.wk.qt=v==='med'?'med':'soft';save();render();return}
   else if(a==='trs'){KP=true;const w=S.wk;if(w&&w.tk>0&&!w.ts){w.ts=1;w.tk--}save();render();return}
   else if(a==='ex'){exStage(i);save();render();return}
@@ -3803,8 +3826,8 @@ function act0(a,i,v){
   else if(a==='qlim'){chooseQuali(3);if(S.wk.gp===1)vib('pole');save();render();return}
   else if(a==='pu'){KP=true;puAct(v);save();render();return}
   else if(a==='qp'){chooseQuali(S.wk.q.ord[i]);if(S.wk.gp===1)vib('pole');save();render();return}
-  else if(a==='qauto'){if(S.wk.fmt==='elim'&&!S.wk.grid&&!S.wk.eq)exAutoAll();else chooseQuali(autoQ(),1);if(S.wk.gp===1)vib('pole');save();render();return}
-  else if(a==='next'&&S.phase==='quali'){if(S.wk.fmt==='elim'&&!S.wk.grid&&!S.wk.eq)exAutoAll();else chooseQuali(autoQ(),1);save();render();return}
+  else if(a==='qauto'){if(isEl(S.wk)&&!S.wk.grid&&!S.wk.eq)exAutoAll();else chooseQuali(autoQ(),1);if(S.wk.gp===1)vib('pole');save();render();return}
+  else if(a==='next'&&S.phase==='quali'){if(isEl(S.wk)&&!S.wk.grid&&!S.wk.eq)exAutoAll();else chooseQuali(autoQ(),1);save();render();return}
   else if(a==='obo'){KP=true;const w=S.wk;if(w&&w.ob){w.ob.open=!w.ob.open;if(!w.ob.open)w.ob.seen=1}save();render();return}
   else if(a==='win'){KP=true;const w=S.wk;if(w&&WINS.includes(v))w.win=v;save();render();return}
   else if(a==='bo'){KP=true;S.bo=!S.bo;save();render();return}
@@ -3936,7 +3959,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 17/10 · 01:41</p></div>`;
+  <p class="foot">Versione 17/10 · 17:11</p></div>`;
 }
 
 function identityView(){
@@ -4092,7 +4115,7 @@ function decideView(){
     const r=RACES.find(x=>x.id===S.cur);
     h+=`<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(S.cal[S.round])}</div><h1>${r.t}</h1><p>${r.x}</p></div>${wkLine()}
     <div class="opts">${r.o.map((o,i)=>{
-      const rk=o.risk>=.06?2:o.risk>=.03?1:0;
+      const rk=o.risk>=.04?2:o.risk>=.02?1:0;
       return `<button class="ch" data-act="opt" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.t}</span><span class="od">${o.d}</span><span class="tags"><span class="tg r${rk}">Rischio ${['basso','medio','alto'][rk]}</span><span class="tg">Premia: ${LBL[o.sk]}</span></span></span></button>`}).join('')}</div>
     ${simOpt()}`;
   }else if(p==='result'){
@@ -4349,7 +4372,7 @@ function rvGrow(order){
   const cur={};
   S.pool.forEach((P,ti)=>P.forEach(d=>{
     if(d.o0==null)d.o0=d.o;
-    const base=(d.a<=23?1.4:d.a<=33?0:-1.1)/R;
+    const base=tSeas(d,ti)/R;
     const f=ti===S.tier&&form[d.n]!=null?form[d.n]*.3:0;
     d.o=clamp(clamp(d.o+base+f+gauss()*.22,d.o0-4,d.o0+4),40,99);
     if(ti===S.tier)cur[d.n]=d;
@@ -4792,7 +4815,7 @@ function exView(){
   const expl=s===0?`<div class="qsl"><b>🎯 Qualifica a eliminazione.</b> Tre sessioni: in <b>Q1</b> restano fuori gli ultimi ${ex.cut} (da P${ex.k1+1}), in <b>Q2</b> altri ${ex.cut}, in <b>Q3</b> i migliori ${ex.k2} si giocano la pole. Ad ogni sessione scegli le gomme: le morbide nuove sono le più veloci, ma in gara ne sentirai la mancanza.</div>`
     :`<div class="qsl">${s===1?`<b>Q2</b>: restano fuori gli ultimi ${ex.cut}. Sei ancora in gioco, scegli le gomme.`:'<b>Q3</b>: l\'ultima sessione decide la pole.'}${ex.pc.length?` <small>Gomme finora: ${w.tyb<0?'consumate':'risparmiate'}.</small>`:''}</div>`;
   return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>Qualifica · Q${s+1}</h1><p>${s===0?'Con quali gomme esci per il tuo primo giro?':s===1?'Q1 superata: ora tocca a Q2.':'Sei tra i migliori: gioca la pole.'}</p></div>
-  ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf"><div class="gauges qg">${tile('cloud','Pioggia',w.rp+'%','prob. di pioggia')}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}</div></section>
+  ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf"><div class="gauges qg">${tile('cloud','Pioggia sab.',wtQPv(w),wtQSb(w))}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}</div></section>
   ${expl}${obCard(w)}${puCard(w)}
   <div class="opts">${O.map((o,i)=>{const p=exProb(w,i),l=exLbl(p,s);return `<button class="ch" data-act="ex" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.n}</span><span class="od">${o.d}</span><span class="tags"><span class="tg r${l[1]}">${l[0]}</span><span class="tg">${o.tg}</span></span></span></button>`}).join('')}</div>
   <div class="btns"><button class="ghost" data-act="exauto">Lascia decidere al muretto</button></div>${simOpt()}`;
@@ -4992,7 +5015,7 @@ function q5lap(k,x,r){
 }
 const q5K=x=>[.18,.12,.07][x.o==null?1:x.o];
 const q5Tc=x=>(.04+.025*(x.u==null?2:x.u))/q5K(x);
-const q5err=x=>clamp(.07+.045*(x.t+1)+(x.rain?.07:0)-(mf()>=70?.03:0),.05,.28);
+let q5err=x=>clamp(.07+.045*(x.t+1)+(x.rain?.07:0)-(mf()>=70?.03:0),.05,.28);
 function q5field(x){
   const f1=q5ev(x,.28)-.6*q5tr(x,.28),f2=q5ev(x,.8)-.6*q5tr(x,.8),p=.78*(x.red?.4:1);
   return f1+p*q5mx(f2-f1,1.1);
@@ -5049,7 +5072,7 @@ function q5Rows(w,myq,kind){
 /* ---- primo tentativo ---- */
 function chooseQuali(i,auto){
   const w=S.wk,q=w.q,lim=(i===3),k=lim?'lim':QL[i].k,fr=lim?.6:qReal(k,w),fe=lim?.58:qEV(k,w),bk=qBest(w),loss=bk[1]-fe;let vd=verdictOf(loss);
-  const x=q5X(w),elim=w.fmt==='elim';
+  const x=q5X(w),elim=isEl(w);
   if(lim)w.limSel=1;
   if(elim&&!w.eq){w.eq={k:'soft'};w.tyb=-.2}
   const ty=elim?null:(w.qt||'soft');
@@ -5199,20 +5222,20 @@ function q5Tiles(w,q){
   const tile=(ic,lab,big,sub)=>`<div class="bt"><small class="bl">${ico(ic)} ${lab}</small><b>${big}</b><small class="bs">${sub}</small></div>`;
   const vg=q.vt[0]!==q.vt[1],tb=vg?L3[q.vt[0]+1]+' – '+L3[q.vt[1]+1]:L3[q.t+1];
   const rd=Q5RD[w.sck==null?1:w.sck];
-  return `<div class="gauges qg">${tile('cloud','Pioggia',w.rp+'%','prob. di pioggia')}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}${tile('sc','Bandiera rossa',rd>=.3?'Alta':rd>=.18?'Media':'Bassa','rischio interruzioni')}</div>`;
+  return `<div class="gauges qg">${tile('cloud','Pioggia sab.',wtQPv(w),wtQSb(w))}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}${tile('sc','Bandiera rossa',rd>=.3?'Alta':rd>=.18?'Media':'Bassa','rischio interruzioni')}</div>`;
 }
 function qTyreRow(w){
   const t=w.qt||'soft',c=(.08+.04*(w.u||0)).toFixed(2).replace(/0$/,'');
   return `<div class="qty"><div class="qtl">Gomme per il giro</div><div class="btns"><button class="ghost${t==='soft'?' on':''}" data-act="qt" data-v="soft">Morbide nuove</button><button class="ghost${t==='med'?' on':''}" data-act="qt" data-v="med">Medie</button></div><p class="sub">${t==='soft'?'Più veloci in qualifica (circa mezza posizione in più), ma in gara le sentirai: −'+c+' al passo.':'Un po\' più lente in qualifica, ma ti tengono un set fresco: +0.05 al passo in gara.'}</p></div>`;
 }
 function qOptsX(w,q){
-  if(w.fmt==='elim'&&!w.eq)return q2Opts(w);
+  if(isEl(w)&&!w.eq)return q2Opts(w);
   const t=S.trt&&S.trt.qual;
   const tag=p=>p.k==='late'?'<span class="tg r1">1 solo tentativo</span><span class="tg">Max evoluzione</span>':`<span class="tg">2 tentativi</span>${p.k==='tow'?'<span class="tg">Scia</span>':'<span class="tg">Pista libera</span>'}`;
   return `${qTyreRow(w)}<div class="opts">${q.ord.map((qi,i)=>{const p=QL[qi];return `<button class="ch" data-act="qp" data-i="${i}"><span class="lt">${'ABC'[i]}</span><span class="cb"><span class="ot">${p.n}</span><span class="od">${p.d}</span><span class="tags">${tag(p)}${w.qhint===p.k?`<span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span>`:''}</span></span></button>`}).join('')}${t?`<button class="ch" data-act="qlim"><span class="lt">★</span><span class="cb"><span class="ot">Giro al limite</span><span class="od">Il tuo istinto sul giro secco: spinge oltre il limite, ma il giro può non riuscire.</span><span class="tags"><span class="tg r2">Rischio alto</span><span class="tg">2 tentativi</span></span></span></button>`:''}</div>`;
 }
 function qualiView(){
-  if(S.wk.fmt==='elim'&&!S.wk.grid&&!S.wk.eq)return exView();
+  if(isEl(S.wk)&&!S.wk.grid&&!S.wk.eq)return exView();
   const w=S.wk,q=w.q;
   return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>La qualifica</h1><p>Scegli quando scendere in pista. Dopo il primo giro vedrai la classifica e potrai tenere il tempo o riprovare.</p></div>
   ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf">${q5Tiles(w,q)}</section>
@@ -5473,7 +5496,7 @@ function exF(){
 }
 function obEf(w){
   const N=mkN(),ex=exF();
-  return clamp(w&&w.gpx?(.55*w.gp+.45*ex):ex,1,N);
+  return clamp(w&&w.gpx?(gwOf(w)*w.gp+(1-gwOf(w))*ex):ex,1,N);
 }
 const OBS=2.4;
 /* probabilità approssimata di riuscita */
@@ -8058,6 +8081,964 @@ function mdNarr(){
   const _mc=mercatoCard;
   mercatoCard=function(){return ruCard()+_mc.apply(this,arguments)};
 })();
+
+/* =====================================================================
+   v5 · X · Vivaio kart e ricambio vero dei piloti
+   - un vivaio di ragazzi dal kart (talento attuale + potenziale nascosto,
+     academy dei team) da cui la F4 pesca ogni anno
+   - le promozioni non sono automatiche: merito + rumore + qualche arrivo
+     da altre serie; chi non trova posto resta o esce
+   - notizie e scheda nel Paddock; salvataggi vecchi migrati al volo
+   ===================================================================== */
+const KPK0=70,KPKS=1.25,KPOOL=44,KEXT=-5,KCMP=.55,KOFF=38.8;
+const kUsed=()=>{
+  const u=new Set();
+  (S.pool||[]).forEach(P=>P.forEach(d=>u.add(d.n)));
+  (S.rivals||[]).forEach(r=>u.add(r.n));
+  (S.kart||[]).forEach(k=>u.add(k.n));
+  if(S.name)u.add(abbr(S.name));
+  return u;
+};
+function kName(used){
+  for(let q=0;q<60;q++){
+    const n=pick(INIT.split(''))+'. '+pick(SURN);
+    if(!used.has(n)&&!TAKEN.has(n)){used.add(n);return n}
+  }
+  const n=pick(INIT.split(''))+'. '+pick(SURN)+pick(INIT.split(''));used.add(n);return n;
+}
+const kAcad=()=>{const T=TIERS[3].teams;return T[Math.floor(rnd()*Math.min(T.length,10))]};
+/* livello a 13 anni correlato col potenziale, crescita per anno legata al potenziale */
+function kMk(age,used){
+  const pot=clamp(58+gauss()*9+(rnd()<.04?12:0),36,98);
+  const b13=34.5+(pot-58)*.3+gauss()*3.2;
+  const o=b13+(age-13)*(4.2+.05*(pot-58))+gauss()*.8;
+  return{n:kName(used),a:age,o:Math.round(o*10)/10,pot:Math.round(pot*10)/10,ac:rnd()<.18?kAcad():'',rich:rnd()<.12?1:0,y:S.year};
+}
+function kEns(){
+  if(S.kart&&S.kart.length)return S.kart;
+  const used=kUsed();S.kart=[];
+  [[13,10],[14,10],[15,9],[16,8],[17,7]].forEach(x=>{for(let i=0;i<x[1];i++)S.kart.push(kMk(x[0],used))});
+  S.kd=S.kd||[];
+  return S.kart;
+}
+/* un anno di kart: crescita, campionato, academy, notizie */
+function kartPre(){
+  kEns();
+  const news=[];
+  S.kart.forEach(k=>{
+    k.a++;
+    k.o=Math.round((k.o+(4.2+.05*(k.pot-58))*(.8+.4*rnd()))*10)/10;
+  });
+  /* campionato juniores: i migliori attirano le academy */
+  const L=S.kart.filter(k=>k.a>=14).map(k=>[k,k.o+gauss()*3.5]).sort((a,b)=>b[1]-a[1]);
+  if(L.length){
+    const c=L[0][0];
+    news.push('Kart · '+c.n+' ('+c.a+' anni) vince il campionato juniores.');
+    L.slice(0,3).forEach(x=>{const k=x[0];if(!k.ac&&rnd()<.6){k.ac=kAcad();if(k===c)news.push('Kart · '+k.n+' entra nell\'academy '+k.ac+'.')}});
+  }
+  const ph=S.kart.filter(k=>k.pot>=76&&k.a<=14&&!k.fam);
+  if(ph.length){const k=pick(ph);k.fam=1;news.push('Kart · '+k.n+' ('+k.a+' anni) è il nome del momento: dicono sia un fenomeno.')}
+  S.kn=news;
+}
+/* chi sale in F4 dal kart (chiamato per ogni posto libero) */
+function kDraw(T){
+  kEns();
+  const el=S.kart.filter(k=>k.a>=15&&k.a<=17);
+  if(!el.length)return mkD(0,0,15+Math.floor(rnd()*2),38+rnd()*10);
+  const sc=el.map(k=>[k,k.o+(k.ac?2.5:0)+(k.rich?1.5:0)+(17-k.a)*1.2+gauss()*5]).sort((a,b)=>b[1]-a[1]);
+  const k=sc[0][0];
+  S.kart.splice(S.kart.indexOf(k),1);
+  /* il livello F4 è compresso verso la media storica per non gonfiare la categoria */
+  const o=clamp(KOFF+(k.o-43)*KCMP,38,54);
+  const d={n:k.n,t:-1,a:clamp(k.a,15,17),o,pk:clamp(KPK0+(k.pot-62)*KPKS+gauss()*3,56,99),gs:clamp(1+gauss()*.2,.6,1.45),fk:{y:S.year+1,ac:k.ac||'',pot:k.pot,o:k.o}};
+  S.kd=S.kd||[];S.kd.unshift({n:k.n,a:k.a,ac:k.ac||'',y:S.year+1});if(S.kd.length>8)S.kd.length=8;
+  return d;
+}
+/* dopo le promozioni: chi non ha trovato posto, nuovi ragazzini */
+function kartPost(){
+  kEns();
+  const used=kUsed(),news=[];
+  const out=S.kart.filter(k=>k.a>=18);
+  out.forEach(k=>{
+    if(k.o>=44&&rnd()<.5)news.push('Kart · '+k.n+' ('+k.a+') non trova un sedile in F4 e lascia il kart.');
+    S.kart.splice(S.kart.indexOf(k),1);
+  });
+  const need=Math.max(8,KPOOL-S.kart.length);
+  for(let i=0;i<need;i++)S.kart.push(kMk(13,used));
+  (S.kn||[]).concat(news).slice(0,3).forEach((t,i)=>{if(S.mkt)S.mkt.splice(Math.min(i+2,S.mkt.length),0,t);try{if(i<2)feedAdd('n','Paddock',t,0)}catch(e){}});
+  S.kn=null;
+}
+/* posto libero in una categoria superiore: merito + rumore, o un arrivo da altre serie */
+function kFill(i,P,T){
+  const L=P[i-1]||[];
+  if(!L.length||rnd()<.12){
+    const d=mkD(i,-1,[0,18,19,20][i]+Math.floor(rnd()*2),T.base+KEXT+gauss()*3.5);
+    if(d.o>=T.base+3)S.mkt.push(d.n+' arriva in '+T.k+' da altre serie.');
+    return d;
+  }
+  const sc=L.map(d=>[d,d.o+gauss()*3.2+(d.fk&&d.fk.ac?1.2:0)]).sort((a,b)=>b[1]-a[1]);
+  const d=sc[0][0];
+  L.splice(L.indexOf(d),1);
+  d.o=clamp(d.o+.3,40,99);
+  S.mkt.push(d.n+' sale in '+T.k+' dalla '+TIERS[i-1].k+(d.fk?' (ex kart'+(d.fk.ac?', academy '+d.fk.ac:'')+')':'')+'.');
+  return d;
+}
+{const _ev=evolveAll;evolveAll=function(){
+  try{kartPre()}catch(e){}
+  _ev.apply(this,arguments);
+  /* una storia di mancata promozione: il migliore rimasto indietro */
+  try{for(let i=1;i<=3;i++){const rest=(S.pool[i-1]||[]).slice().sort((a,b)=>b.o-a.o)[0];
+    if(rest&&rest.o>=TIERS[i-1].base+8&&rest.a>=[16,19,21][i-1]&&rnd()<.4)S.mkt.push(rest.n+' ('+TIERS[i-1].k+', '+rest.a+' anni) resta indietro: in '+TIERS[i].k+' per ora non c\'è un sedile per lui.')}}catch(e){}
+  try{kartPost()}catch(e){}
+}}
+
+/* ---------- interfaccia: tab Kart nella Griglia ---------- */
+const kStars=p=>p>=76?'★★★':p>=64?'★★☆':p>=54?'★☆☆':'☆☆☆';
+function kartView(){
+  kEns();
+  const L=S.kart.slice().sort((a,b)=>b.o-a.o).slice(0,12);
+  const rows=L.map(k=>{
+    const e=Math.round(k.o+hg(k.n+'ke')*2.5),pe=k.pot+hg(k.n+'kp')*7;
+    return `<div class="row rk" data-act="lore" data-v="${esc(k.n)}" style="grid-template-columns:1fr auto"><span class="nm"><b>${esc(k.n)}</b><small>${k.a} anni${k.ac?' · academy '+esc(k.ac):k.rich?' · famiglia facoltosa':' · autonomo'}</small></span><em>${e-3}–${e+3}<small> ${kStars(pe)}</small></em></div>`;
+  }).join('');
+  const kd=(S.kd||[]).slice(0,5).map(x=>`<div class="news">${esc(x.n)} (${x.a}) · in F4 dal ${x.y}${x.ac?' · academy '+esc(x.ac):''}</div>`).join('');
+  return `<section class="card"><div class="sech">Il vivaio · kart</div><p class="sub" style="margin:2px 0 6px">Ogni anno la F4 pesca qui. Il livello è una stima (potenziale a stelle, ma sbagliare è facile): non tutti arrivano.</p><div class="srs">${rows}</div></section>${kd?`<section class="card"><div class="sech">Saliti dal kart</div>${kd}</section>`:''}`;
+}
+{const _gv=gridView;gridView=function(){
+  if(S.gv==='kart'&&S.teams&&!S.first)return gtabKart()+kartView();
+  return _gv.apply(this,arguments);
+}}
+function gtabKart(){
+  return `<section class="card" style="padding-bottom:6px"><div class="btns">${[['team','Per scuderia'],['all','Tutti i piloti'],['kart','Vivaio kart']].map(x=>`<button class="ghost${S.gv===x[0]?' on':''}" data-act="gv" data-i="${x[0]}">${x[1]}</button>`).join('')}</div></section>`;
+}
+/* scheda pilota: origine dal kart */
+{const _sh=sheetHtml;sheetHtml=function(){
+  let h=_sh.apply(this,arguments);
+  try{
+    const n=S&&S.lore;if(!n||!h)return h;
+    let line='';
+    const inf=drvInfo(n);
+    if(inf&&inf.d.fk)line=`<p class="sub">Dal kart: ${inf.d.fk.y-1}, passato in F4${inf.d.fk.ac?' con l\'academy '+esc(inf.d.fk.ac):' da autonomo'}.</p>`;
+    else{const k=(S.kart||[]).find(x=>x.n===n);if(k)line=`<p class="sub">Ancora nel kart a ${k.a} anni${k.ac?', academy '+esc(k.ac):''}.</p>`}
+    if(line)h=h.replace('<p><b>',line+'<p><b>');
+  }catch(e){}
+  return h;
+}}
+
+
+/* =====================================================================
+   Potenziale e velocità di crescita (tutti i piloti, anche quelli già esistenti)
+   - pk: livello di picco che il pilota può raggiungere (nascosto)
+   - gs: velocità di crescita (precoce < 1 < tardiva... qui: più alto = più veloce)
+   - la crescita chiude una frazione del divario ogni anno, il picco dura,
+     poi arriva il declino. Chi esiste già riceve pk e gs al primo aggiornamento.
+   ===================================================================== */
+const TGM=[2.6,2.4,1.8,1.0];                       /* crescita futura media per anno, per categoria */
+function tGet(d,ti){
+  if(d.pk==null){
+    const a=d.a,y=Math.max(0,27-a);
+    if(y>0){const gm=clamp(TGM[ti]+gauss()*(ti===3?.7:1.1),ti===3?0:.5,5.2);d.pk=clamp(d.o+y*gm,d.o,99)}
+    else d.pk=clamp(d.o+(a<=29?rnd()*1.2:0),d.o,99);
+    d.pk=Math.round(d.pk*10)/10;
+  }
+  if(d.gs==null)d.gs=Math.round(clamp(1+gauss()*.2,.6,1.45)*100)/100;
+  return d;
+}
+const tPeak=d=>clamp(26+Math.round((1-d.gs)*5),25,29);
+const tRate=a=>a<=18?.24:a<=21?.22:a<=24?.21:.2;
+/* passo annuale atteso a quell'età */
+function tExp(d){
+  const a=d.a,gap=d.pk-d.o;
+  if(a<=tPeak(d))return gap>0?gap*tRate(a)*clamp(d.gs,.7,1.3):gap*.3;
+  if(a<=33)return clamp(gap*.1,-.6,.5);
+  return -(.5+.3*(a-33));
+}
+const tSeas=(d,ti)=>{tGet(d,ti);return clamp(.5*tExp(d),-2.2,3.8)};
+const tGrowY=(d,ti)=>{tGet(d,ti);return clamp(d.o+clamp(.5*tExp(d),-2.2,6)+gauss()*.9,40,99)};
+/* stelle di potenziale (stima: più sei vicino al picco, più è affidabile) */
+const tStars=(d,ti)=>{tGet(d,ti);const e=d.pk+hg(d.n+'pk')*(d.a>=24?1.5:6);return e>=88?4:e>=80?3:e>=72?2:e>=64?1:0};
+const tSpeed=d=>d.gs>=1.12?'rapida':d.gs<=.88?'lenta, da tardivo':'regolare';
+{const _sh=sheetHtml;sheetHtml=function(){
+  let h=_sh.apply(this,arguments);
+  try{
+    const n=S&&S.lore;if(!n||!h)return h;
+    const inf=drvInfo(n);if(!inf||inf.d.a>=31)return h;
+    const d=tGet(inf.d,inf.ti),st=tStars(d,inf.ti);
+    const line=`<p class="sub"><b>Potenziale</b> ${'★'.repeat(st)}${'☆'.repeat(4-st)} <span class="qb n">crescita ${tSpeed(d)}</span></p>`;
+    h=h.replace('<p><b>',line+'<p><b>');
+  }catch(e){}
+  return h;
+}}
+
+/* =====================================================================
+   v5 · Y · Weekend coerente
+   - un solo meteo per tutto il weekend (temperatura, pista umida, safety
+     car legati alla pioggia), previsioni distinte sabato / domenica
+   - stato di gara reale (gomme dal costruttore, soste rimaste, distacchi)
+     che decide quali eventi compaiono e qual è la scelta migliore
+   - riepilogo "previsto / accaduto" a fine gara
+   ===================================================================== */
+const wtK=(w,s)=>s+'|'+w.c+'|'+S.year+'|'+S.round+'|'+(S.name||'');
+const wtHeavy=w=>!!(w&&w.rain&&!w.mixed&&w.wx&&w.wx.ri===1);
+const wtQP=w=>Math.round((w.rp/100*.7+(1-w.rp/100)*.12)*20)*5;
+
+/* ---------- meteo del weekend: coerenza tra pioggia, temperatura, safety car ---------- */
+function wtPost(w){
+  if(!w||w.wt)return;w.wt=1;
+  const heavy=wtHeavy(w),sp=w.sp;
+  /* pista umida: qualifica bagnata, gara asciutta */
+  if(w.q&&w.q.rain&&!w.rain&&sp!=='heat'&&hu(wtK(w,'dmp'))<.75)w.damp=1;
+  /* la temperatura segue il meteo (salvo i weekend speciali già decisi) */
+  if(sp!=='heat'&&sp!=='night'&&sp!=='storm'){
+    let cap=99;
+    if(w.rain)cap=(w.mixed?19:16)+Math.floor(hu(wtK(w,'tp'))*8);
+    else if(w.damp)cap=20+Math.floor(hu(wtK(w,'tp'))*8);
+    if(w.temp>cap){
+      w.temp=cap;w.ta=w.temp<=24?-1:w.temp>=34?1:0;w.u=clamp(w.wear+1+w.ta,0,4);
+    }
+  }
+  /* con la pioggia forte le neutralizzazioni sono più probabili */
+  const bump=heavy?.2:w.rain?(w.mixed?.04:.08):0;
+  if(bump){
+    w.scp=Math.min(.9,(w.scp||.35)+bump);
+    if(!w.sc&&hu(wtK(w,'scw'))<bump*1.4)w.sc=true;
+    if(heavy&&w.sck<2){
+      w.sck=Math.min(2,w.sck+1);
+      w.vs=w.sck===0?[0,1]:w.sck===2?[1,2]:(hu(wtK(w,'vs'))<.5?[0,1]:[1,2]);
+    }
+  }
+  /* consigli e scelte dei rivali rifatti sullo stesso modello */
+  try{
+    const rk=PL.filter(p=>p.k!=='safe'&&planOk(p.k)).map(p=>[p.k,planFit(p.k,xOf(w,w.scp,null))]).sort((a,b)=>b[1]-a[1]);
+    const r=hu(wtK(w,'rv'));w.rv=r<.45?rk[0][0]:r<.8?rk[1][0]:rk[2][0];
+    if(w.hint!==undefined){
+      const bb=bestPlan(w),bk=bb[0],ks=planKeys().filter(x=>x!==bk);
+      w.hint=hu(wtK(w,'h'))<hintP()?bk:ks[hsh(wtK(w,'h2'))%ks.length];
+      if(winAvail())w.hw=w.hint===bk?bb[2]:WINS[hsh(wtK(w,'h3'))%WINS.length];
+    }
+    if(w.qhint!==undefined&&w.q){
+      const bq=QL.map(p=>p.k).sort((a,b)=>qEV(b,w)-qEV(a,w))[0],ko=QL.map(p=>p.k).filter(x=>x!==bq);
+      w.qhint=hu(wtK(w,'qh'))<.72?bq:ko[hsh(wtK(w,'qh2'))%ko.length];
+    }
+  }catch(e){}
+}
+{const _wkInit=wkInit;wkInit=function(w){_wkInit.apply(this,arguments);try{wtPost(w)}catch(e){}}}
+
+/* tessere e righe meteo, onestà sulle previsioni */
+const wtQPv=w=>wtQP(w)+'%';
+const wtQSb=w=>'domenica: '+(w.kn&&w.kn.rain?(w.rain?(w.mixed?'a tratti':'bagnata'):'asciutta'):w.rp+'%');
+function wtLine(w){
+  if(!w||!w.wt)return '';
+  let h='';
+  if(w.damp&&w.gpx)h+=`<div class="rvl ckl fml">💧 <b>Pista umida alla partenza</b> · la qualifica era bagnata, la gara si corre all'asciutto: nei primi giri c'è meno grip e le gomme si consumano meno.</div>`;
+  if(w.rain&&w.temp<=24&&w.kn&&w.kn.rain)h+='';
+  return h;
+}
+{const _fm=fmLine;fmLine=function(w){return _fm(w)+wtLine(w)}}
+
+/* ---------- stato reale di gara ---------- */
+function rsNow(){
+  const w=S.wk,rc=S.rc;if(!w||!rc)return null;
+  const n=rc.n,T=tyLaps(),lap=[1,Math.max(2,Math.round(T*.45)),Math.round(T*.85)][n]||1,P=posNow(),s=S.sw;
+  let ratio,ratioE,age,left=null,j=0,cmp=null;
+  let cfg=s&&s.cfg,tys=s&&s.ty;
+  const pk=s?(s.k==='safe'?(w.rv&&w.rv!=='safe'?w.rv:'two'):s.k):null;
+  if(s&&!(cfg&&tys&&tys.length)&&pk!=='inter'){
+    try{cfg=tyPre(pk);const dd=tyDrv();tys=cfg.c.map((c,q)=>({c,Le:tyEst(w,c,(cfg.p&&cfg.p[q])||0)[0],Lr:tyReal(w,c,(cfg.p&&cfg.p[q])||0,dd)}))}catch(e){cfg=null}
+  }
+  if(cfg&&tys&&tys.length){
+    const e=cfg.e||[];
+    j=e.filter(x=>x<lap).length;
+    age=lap-(j>0?e[j-1]:0);
+    const st=tys[Math.min(j,tys.length-1)];
+    ratio=age/Math.max(3,st.Lr||st.Le||20);ratioE=age/Math.max(3,st.Le||st.Lr||20);
+    left=cfg.c.length-1-j;cmp=st.c;
+  }else{
+    const idx=clamp(w.u*.8+n*.7-rc.ty*.9,0,4);
+    ratio=ratioE=.25+idx*.22;age=null;
+  }
+  return{n,lap,T,p:P.p,N:P.N,a:P.a,b:P.b,ratio,ratioE,age,left,j,cmp,wet:!!w.rain};
+}
+const rsWord=r=>r<.5?'fresche':r<.75?'buone':r<.95?'da gestire':r<1.1?'al limite':'finite';
+function rsTxt(s){
+  if(!s)return '';
+  let t='Sei P'+s.p+' con gomme '+rsWord(s.ratioE)+(s.age!=null?' ('+s.age+' giri)':'');
+  if(s.left>0)t+=': ti resta ancora una sosta';else if(s.left===0&&s.age!=null)t+=': non hai altre soste in programma';
+  return t+'.';
+}
+
+/* ---------- eventi: compaiono solo se hanno senso ---------- */
+(function(){
+  const ev=id=>ACTL.find(e=>e.id===id);
+  const cnd=(id,f)=>{const e=ev(id);if(!e)return;const o=e.cond;e.cond=o?(w=>o(w)&&f(w)):f};
+  const ovr=(id,f)=>{const e=ev(id);if(!e)return;const o=e.ctx;e.ctx=function(w){let r=null;try{const s=rsNow();if(s)r=f(w,s)}catch(_){r=null}return r||(o?o(w):null)}};
+  const xtr=(id,f)=>{const e=ev(id);if(!e)return;const o=e.x;e.x=function(w){const t=typeof o==='function'?o(w):o;let a='';try{a=f(w)||''}catch(_){}return t+a}};
+  /* neutralizzazioni: solo quando il meteo/strategia del weekend le prevedeva */
+  ['sc','vsc','red'].forEach(id=>cnd(id,()=>false));
+  /* gomme: serve davvero un degrado */
+  cnd('deg',w=>{const s=rsNow();return !s||s.ratio>=.78});
+  cnd('f3_gomme',w=>{const s=rsNow();return !s||(s.ratio>=.7&&(s.left==null||s.left===0))});
+  cnd('f2_sosta',w=>{const s=rsNow();return !s||s.left==null||s.left>=1});
+  cnd('f1_undercut',w=>{const s=rsNow();return !s||s.left==null||s.left>=1});
+  cnd('f1_pitslow',w=>{const s=rsNow();return !s||s.left==null||s.j>=1});
+  /* attacco: serve qualcuno vicino davanti e gomme che reggano */
+  cnd('fatt',w=>{const s=rsNow();return !s||s.ratio<1.15});
+  /* ---- scelta migliore secondo lo stato reale ---- */
+  const tyI=e=>e.o.findIndex(o=>o.ty);
+  ovr('deg',(w,s)=>s.ratio>=1?[0,1]:s.ratio<.85?[1,2]:[0,2]);
+  ovr('f3_gomme',(w,s)=>s.ratio>=.95?[1,0]:s.ratio<.8?[0,2]:[1,2]);
+  const neuCtx=(w,s)=>{
+    const pit=(s.left>0||s.ratio>=.7);
+    if(pit)return[0,s.ratio>=.9?1:2];
+    return[1,s.ratio>=.55?0:2];
+  };
+  ovr('sc',neuCtx);ovr('vsc',neuCtx);
+  ovr('red',(w,s)=>w.rain&&!w.mixed?[0,2]:s.ratio>=.4?[0,2]:[1,2]);
+  ovr('fatt',(w,s)=>{
+    const g=s.a==null?2:s.a,sc=(w.ovt-1)*.5+(1.4-g)*.45+(.8-s.ratio)*1.1;
+    return sc>.45?[0,2]:sc<-.35?[1,0]:[1,2];
+  });
+  ovr('fdef',(w,s)=>{
+    const g=s.b==null?2:s.b;
+    if(s.ratio>=1.05)return[1,0];
+    if(w.ovt===0||(g<=1.2&&s.ratio<.85&&w.ovt<=1))return[0,2];
+    if(w.ovt===2&&g<=1.2&&s.ratio>=.85)return[1,0];
+    return[1,2];
+  });
+  ovr('fgap',(w,s)=>s.ratio>=.95?[2,0]:s.ratio<.6?[0,2]:[1,2]);
+  ovr('flead',(w,s)=>{
+    const m=s.b==null?5:s.b;
+    if(s.ratio>=1||m>10)return[2,1];
+    if(m<3&&s.ratio<.85)return[1,2];
+    return[0,2];
+  });
+  ovr('duel',(w,s)=>{
+    if(s.ratio>=1.05)return[1,0];
+    return null;
+  });
+  ovr('st',(w)=>w.damp&&!w.rain?[1,0]:null);
+  /* testi: il quadro vero, non una frase generica */
+  const FL={
+    sc:{dry:['Un incidente in curva 3 ha sparso detriti sul rettilineo: entra la safety car.','Una vettura si ferma a bordo pista: safety car in pista.'],wet:['Una vettura è andata in aquaplaning contro il muro: entra la safety car.','L\'acqua sulla pista ha mandato un\'auto a muro: safety car.']},
+    vsc:{dry:['Detriti in curva 8: la virtual safety car compare sul display e tutti rallentano.','Una vettura ferma a bordo pista: virtual safety car, tutti rallentano.'],wet:['Una vettura è finita larga sul bagnato: virtual safety car, tutti rallentano.']},
+    red:{dry:['Un incidente blocca la gara: bandiera rossa, hai qualche minuto per decidere come ripartire.'],wet:['La pista è allagata dopo un incidente: bandiera rossa, hai qualche minuto per decidere come ripartire.']}
+  };
+  ['sc','vsc','red'].forEach(id=>{
+    const e=ev(id);if(!e)return;
+    e.x=function(w){
+      const L=FL[id],a=(w.rain?L.wet||L.dry:L.dry),t=a[hsh(wtK(w,'fl'+id))%a.length];
+      return t+' '+rsTxt(rsNow());
+    };
+  });
+  xtr('deg',()=>{const s=rsNow();return s&&s.age!=null?' Le gomme hanno '+s.age+' giri'+(s.left>0?' e ti resta una sosta.':'.'):''});
+  xtr('st',w=>w.damp&&!w.rain?' L\'asfalto è ancora umido dopo la pioggia di ieri: nei primi giri c\'è meno grip.':'');
+})();
+
+/* neutralizzazione: la safety car del weekend arriva davvero, una volta */
+function wtNeu(w){
+  const t=S.tier|0,h=hu(wtK(w,'neu')),heavy=wtHeavy(w);
+  const pr=heavy?.2:.07,pv=[.12,.3,.4,.45][t];
+  return h<pr?'red':h<pr+pv?'vsc':'sc';
+}
+{const _rp=rcPick;rcPick=function(n){
+  const w=S.wk,rc=S.rc;
+  if(rc)rc.hp=null;
+  _rp.apply(this,arguments);
+  try{
+    if(!w||!rc||n!==1||!w.sc||w.neu||!w.wt)return;
+    const k=wtNeu(w);
+    rc.ev=k;rc.h=null;rc.wsig=null;w.neu=k;
+    const e=ACTS[k];
+    if(S.eng&&S.eng.k==='ana'&&engTier()>=1&&e&&e.ctx){const q=e.ctx(w);if(q){rc.h=rnd()<.8?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)];rc.hp=80}}
+  }catch(err){}
+  if(rc&&rc.h!=null&&rc.hp==null&&n===1)rc.hp=80;
+}}
+{const _ah=actHint;actHint=function(){
+  const had=S.rc&&S.rc.h;_ah.apply(this,arguments);
+  if(S.rc&&S.rc.h!=null&&had==null)S.rc.hp=Math.round((.55+.35*mf()/100)*100);
+}}
+
+/* ---------- interfaccia: gomme vere, pista, affidabilità dei consigli ---------- */
+{const _as=actSit;actSit=function(){
+  let h=_as.apply(this,arguments);
+  try{
+    const s=rsNow(),w=S.wk;
+    if(s&&h){
+      const tx='Gomme '+rsWord(s.ratioE)+(s.age!=null?' · '+s.age+' '+(s.age===1?'giro':'giri'):'');
+      const tr=w.rain?(w.mixed?'Pioggia a tratti':(w.wx&&w.wx.ri?'Pioggia forte':'Pioggia leggera')):(w.damp&&s.n===0?'Pista umida':'Asciutto');
+      h=h.replace(/ Gomme (fresche|buone|da gestire|al limite|finite)<\/span>/,' '+tx+'</span><span class="chip">'+tr+'</span>');
+    }
+  }catch(e){}
+  return h;
+}}
+{const _av=actView;actView=function(){
+  let h=_av.apply(this,arguments);
+  try{
+    const rc=S.rc;
+    if(rc&&rc.h!=null&&rc.hp)h=h.replace('Consiglio del muretto</span>','Consiglio del muretto · affidabile al '+rc.hp+'%</span>');
+  }catch(e){}
+  return h;
+}}
+
+/* ---------- a fine gara: previsto, scelto, accaduto ---------- */
+function wkSumm(L){
+  const w=S.wk,s=L&&L.st;
+  if(!w||!s||!w.wt||w.c!==L.circuit)return '';
+  const row=(lb,pre,acc,ok)=>`<div class="sr"><span class="lb">${lb}<small>Previsto: ${pre}<br>Accaduto: ${acc}</small></span><em style="color:var(--${ok?'green':'amber'})">${ok?'come previsto':'sorpresa'}</em></div>`;
+  const fp=w.rp,fcT=w.fc?'pioggia '+w.fc.a+'% → '+w.fc.b+'% dopo la qualifica':'pioggia '+fp+'%';
+  const wx=w.rain?(w.mixed?'bagnato a tratti':(w.wx&&w.wx.ri?'pioggia forte':'pioggia leggera')+(w.wx&&w.wx.rt==='stop'?', in calo':w.wx&&w.wx.rt==='worse'?', in peggioramento':'')):(w.damp?'asciutto, con pista umida alla partenza':'asciutto');
+  const okW=w.rain?fp>=45:fp<55;
+  const qd=w.q?(w.q.rain?'bagnata':'asciutta'):'';
+  const neu=w.sc?(w.neu==='red'?'bandiera rossa':w.neu==='vsc'?'virtual safety car':'safety car'):'nessuna neutralizzazione';
+  const okS=(w.sck===0&&!w.sc)||(w.sck===2&&w.sc)||w.sck===1;
+  let h=row('Meteo',fcT,wx+(qd?' · qualifica '+qd:''),okW)+row('Safety car','probabilità '+SL[w.sck].toLowerCase(),neu,okS);
+  return `<section class="card"><div class="sech">Il weekend in sintesi</div>${h}</section>`;
+}
+{const _sc=stratCard;stratCard=function(L){let a='';try{a=wkSumm(L)}catch(e){}return _sc(L)+a}}
+
+/* ---------- chi è in testa non attacca nessuno ---------- */
+(function(){
+  const ev=id=>ACTL.find(e=>e.id===id);
+  const cnd=(id,f)=>{const e=ev(id);if(!e)return;const o=e.cond;e.cond=o?(w=>o(w)&&f(w)):f};
+  cnd('f3_scia',()=>hasAhead());
+  cnd('f1_ers',()=>hasAhead());
+  cnd('fgap',()=>hasAhead());
+  cnd('f1_batt',()=>{const P=posNow();return (P.p>1&&(P.a==null||P.a<4))||(P.p<P.N&&P.b!=null&&P.b<3)});
+  {const e=ev('f1_batt');if(e){const o=e.x;e.x=function(w){return posNow().p===1?'La batteria si scarica più in fretta del previsto: devi decidere come dosare l\'energia per tenere dietro chi ti insegue. Il muretto ti propone tre mappature.':(typeof o==='function'?o(w):o)}}}
+})();
+const LDR={
+  st:[{t:'Difendi la pole alla prima curva',d:'Chiudi la traiettoria e tieni la testa.',out:'Hai chiuso la traiettoria e difeso la testa alla prima curva.'}],
+  f4_ventaglio:[{t:'Chiudi la traiettoria',d:'Difendi la testa nel caos.',out:'Hai chiuso la traiettoria e difeso la testa.'}],
+  oil:[null,null,{t:'Sfrutta il caos per allungare',d:'Chi ti insegue deve guardare l\'asfalto, tu no.',out:'Hai approfittato dell\'olio per guadagnare margine.'}],
+  f1_batt:[{t:'Modalità difesa',d:'Tutta l\'energia per respingere gli attacchi, poi sei scarico.',out:'Hai usato la modalità difesa a piena potenza.'},null,{t:'Ricarica per i prossimi giri',d:'Rallenti oggi per difenderti domani.',out:'Hai ricaricato la batteria per i giri successivi.'}]
+};
+{const _ao=actOpts;actOpts=function(e,n){
+  const O=_ao.apply(this,arguments);
+  try{if(e&&LDR[e.id]&&posNow().p===1){const L=LDR[e.id];L.forEach((r,i)=>{if(r&&O[i])Object.assign(O[i],r)})}}catch(err){}
+  return O;
+}}
+
+/* =====================================================================
+   v5 · Z · Piano di qualifica: più scelte, più profonde salendo di categoria
+   F4: approccio · F3: + scia col compagno · F2: + mappa motore, giro di
+   lancio, settore da spingere al secondo giro · F1: + energia ibrida.
+   Ogni scelta ha un compromesso che dipende da dati visibili (pioggia,
+   traffico, temperatura). Il piano "normale" non cambia nulla: chi non
+   tocca niente gioca come prima.
+   ===================================================================== */
+const QDKEY=[['ap'],['ap','tow'],['ap','tow','mp','lc'],['ap','tow','mp','lc','ers']];
+const QDDEF={ap:'std',tow:'alt',mp:'std',lc:'std',ers:'dist'};
+const QDO={
+ ap:{n:'Approccio',o:[['safe','Prudente'],['std','Normale'],['push','Al limite']]},
+ tow:{n:'Scia col compagno',o:[['me','Prima io'],['alt','Alternati'],['him','Prima lui']]},
+ mp:{n:'Mappa motore',o:[['eco','Gestione'],['std','Standard'],['max','Qualifica']]},
+ lc:{n:'Giro di lancio',o:[['long','Scalda a lungo'],['std','Standard'],['short','Corto']]},
+ ers:{n:'Energia ibrida',o:[['all','Tutta subito'],['dist','Distribuita'],['save','Per il 2° giro']]}
+};
+const QDU=.62;                                   /* posizioni per unità di giro, circa */
+const qdPos=u=>{const v=Math.round(u*QDU*10)/10;return (v>=0?'+':'−')+Math.abs(v).toFixed(1).replace('.',',')+' pos.'};
+const qdT=()=>Math.max(0,Math.min(3,S.tier|0));
+const qdKeys=()=>QDKEY[qdT()].filter(k=>k!=='tow'||(typeof mateOf==='function'&&mateOf()));
+const qdOn=w=>!!(w&&w.q&&!isEl(w)&&!w.grid);
+function qdGet(w){
+  if(!w.qd)w.qd={};
+  qdKeys().forEach(k=>{if(!w.qd[k])w.qd[k]=QDDEF[k]});
+  return w.qd;
+}
+function qdSet(v){
+  const w=S.wk;if(!w||w.grid)return;
+  const p=String(v).split(':'),k=p[0],o=p[1];
+  if(!QDO[k]||!QDO[k].o.some(x=>x[0]===o))return;
+  qdGet(w)[k]=o;KP=true;
+}
+function qdSec(v){
+  const w=S.wk;if(!w||!w.qR||w.a2||!w.qdr)return;
+  w.qdr.sec=+v;KP=true;
+}
+/* effetto di una scelta, con lo stato vero del weekend */
+function qdEff(w,k,v,style){
+  const q=w.q,rain=!!q.rain,t=q.t+1,tp=w.temp,cold=tp<=22?1:tp>=31?-1:0,r={p:0,e:0,ee:0,r2:0,pu:0,tn:0,tyb:0,mf:0};
+  if(k==='ap'){
+    if(v==='safe'){r.p=-.6+(rain?.7:0)+.24*t;r.ee=-.04}
+    else if(v==='push'){r.p=.9-(rain?1.1:0)-.34*t;r.e=.10+(rain?.14:0)+.03*t;r.ee=.05;r.tyb=-.03}
+  }else if(k==='tow'){
+    if(style==='tow'){
+      if(v==='me'){r.p=.55;r.tn=6}else if(v==='him'){r.p=-.35;r.tn=-6;r.mf=1}else r.tn=-1;
+    }
+  }else if(k==='mp'){
+    if(v==='eco'){r.p=-.4;r.pu=-3}
+    else if(v==='max'){r.p=Math.max(0,.8*(1-(S.pu||0)/100));r.pu=4;if((S.pu||0)>=75)r.e=.05}
+  }else if(k==='lc'){
+    if(v==='long'){r.p=cold>0?.6:cold<0?-.35:-.08;r.tyb=-.01}
+    else if(v==='short')r.p=cold>0?-.4:cold<0?.25:0;
+  }else if(k==='ers'){
+    if(v==='all'){r.p=.55;r.e=.04;r.r2=-.6}
+    else if(v==='save'){r.p=-.4;r.r2=.7}
+  }
+  return r;
+}
+/* somma delle scelte di questo weekend */
+function qdSum(w,style){
+  const d=qdGet(w),S0={p:0,e:0,ee:0,r2:0,pu:0,tn:0,tyb:0,mf:0},items=[];
+  qdKeys().forEach(k=>{
+    const o=d[k],r=qdEff(w,k,o,style);
+    for(const f in S0)S0[f]+=r[f];
+    if(o!==QDDEF[k]||(k==='tow'&&style==='tow')){
+      const nm=QDO[k].o.find(x=>x[0]===o)[1];
+      items.push({k,n:QDO[k].n,v:nm,p:r.p,r2:r.r2,pu:r.pu,tn:r.tn});
+    }
+  });
+  return{...S0,items};
+}
+/* il muretto, se decide lui, sceglie per contesto solo a volte */
+function qdAuto(w,style,force){
+  const d=qdGet(w),p=force?1:.02+.46*mf()/100,q=w.q,pq=wtQP(w)/100;
+  const best=k=>{
+    const os=QDO[k].o.map(x=>x[0]);
+    let bv=QDDEF[k],bs=-9;
+    for(const o of os){
+      const r=qdEff(w,k,o,style);
+      let ev=r.p*gvK(w)-r.e*3;
+      /* stime con ciò che il pilota sa: pioggia = probabilità del sabato */
+      if(k==='ap'){const pr=pq;const rn=qdEff({...w,q:{...q,rain:true}},k,o,style),dr=qdEff({...w,q:{...q,rain:false}},k,o,style);ev=pr*(rn.p*gvK(w)-rn.e*3)+(1-pr)*(dr.p*gvK(w)-dr.e*3)}
+      if(k==='mp')ev-=r.pu*.18;
+      if(k==='ers')ev+=(style==='late'?0:.4*r.r2)-0;
+      if(ev>bs){bs=ev;bv=o}
+    }
+    return bv;
+  };
+  qdKeys().forEach(k=>{if(rnd()<p)d[k]=best(k);else d[k]=QDDEF[k]});
+}
+/* applicazione: prima del primo giro */
+{const _cq=chooseQuali;chooseQuali=function(i,auto){
+  const w=S.wk;
+  let rec=null,fp0=null;
+  try{
+    if(qdOn(w)){
+      const style=i===3?'lim':QL[i].k;
+      qdGet(w);
+      if(auto)qdAuto(w,style);
+      rec=qdSum(w,style);
+      let B=rec.p,ferr=false;
+      if(rec.e>0&&rnd()<rec.e){ferr=true;B-=3.0}
+      fp0=w.fpq;w.fpq=(w.fpq||0)+B;
+      rec.ferr=ferr;
+    }
+  }catch(e){rec=null}
+  _cq.apply(this,arguments);
+  try{
+    if(rec){
+      w.fpq=fp0;
+      const m=typeof mateOf==='function'?mateOf():null;
+      if(rec.pu)S.pu=clamp((S.pu||0)+rec.pu,0,130);
+      if(m&&rec.tn&&S.hh)S.hh[m.n]=clamp((S.hh[m.n]||0)+rec.tn,0,100);
+      if(rec.mf)S.mf=clamp(mf()+rec.mf,0,100);
+      w.tyb=(w.tyb||0)+rec.tyb;
+      w.qdr={ee:rec.ee,r2:rec.r2,sec:0,style:w.qs&&w.qs.k};
+      if(w.qs)w.qs.qd={items:rec.items,ferr:rec.ferr?1:0,pu:rec.pu};
+    }
+  }catch(e){}
+}}
+/* errore e secondo giro tengono conto del piano */
+{const _e=q5err;q5err=function(x){
+  let v=_e.apply(this,arguments);
+  try{const w=S.wk;if(w&&w.qdr&&w.qdr.ee)v=clamp(v+w.qdr.ee,.03,.4)}catch(e){}
+  return v;
+}}
+function qdSecs(w){
+  const d=[0,1,2].map(i=>Math.max(0,.45+.3*hg(wtK(w,'sc'+i)))),mx=d.indexOf(Math.max(...d)),mn=d.indexOf(Math.min(...d));
+  const rk=[0,1,2].sort((a,b)=>d[b]-d[a]);
+  return{d,weak:mx,strong:mn,rk};
+}
+const qdSecB=(w,s)=>{const S0=qdSecs(w),r=S0.rk.indexOf(s-1);return r===0?.6:r===1?.2:-.3};
+{const _l=q5lap;q5lap=function(k,x,r){
+  let v=_l.apply(this,arguments);
+  try{
+    const w=S.wk;
+    if(k==='r2'&&w&&w.qdr){
+      v+=w.qdr.r2||0;
+      if(w.qdr.sec&&qdT()>=2)v+=qdSecB(w,w.qdr.sec);
+    }
+  }catch(e){}
+  return v;
+}}
+{const _qs=qSecond;qSecond=function(){
+  const w=S.wk,had=w&&w.a2;
+  _qs.apply(this,arguments);
+  try{
+    if(w&&!had&&w.a2&&w.qs&&w.qdr){
+      w.qs.qd=w.qs.qd||{items:[]};
+      if(w.qdr.r2)w.qs.qd.items.push({k:'ers2',n:'Energia ibrida',v:w.qdr.r2>0?'carica per il 2° giro':'scarica al 1° giro',p:w.qdr.r2});
+      if(w.qdr.sec&&qdT()>=2)w.qs.qd.items.push({k:'sec',n:'Settore',v:'Settore '+w.qdr.sec,p:qdSecB(w,w.qdr.sec)});
+    }
+  }catch(e){}
+}}
+
+/* ---------- interfaccia ---------- */
+const qdSg=v=>(v>=0?'+':'−')+Math.abs(v).toFixed(1).replace('.',',');
+const qdPill=(t,c)=>`<span class="qb ${c}">${t}</span>`;
+/* bonus e malus di un'opzione, già pronti da mostrare */
+function qdTags(w,k,o,style){
+  const r=qdEff(w,k,o,'tow'),t=[];
+  const pos=Math.round(r.p*QDU*10)/10;
+  if(Math.abs(pos)>=.1)t.push([qdSg(pos)+' pos.',pos>0?'g':'r']);
+  if(r.e>0)t.push(['errore '+Math.round(r.e*100)+'%','r']);
+  else if(r.ee)t.push(['errori '+(r.ee>0?'+':'−')+Math.round(Math.abs(r.ee)*100)+'%',r.ee>0?'r':'g']);
+  if(r.pu)t.push(['usura '+(r.pu>0?'+':'−')+Math.abs(r.pu),r.pu>0?'a':'g']);
+  if(Math.abs(r.tn)>=2)t.push(['tensione '+(r.tn>0?'+':'−')+Math.abs(r.tn),r.tn>0?'r':'g']);
+  const p2=Math.round(r.r2*QDU*10)/10;
+  if(Math.abs(p2)>=.1)t.push(['2° giro '+qdSg(p2),p2>0?'g':'r']);
+  if(r.tyb<=-.02)t.push(['gomme gara −','a']);
+  return t;
+}
+function qdHint(w,k){
+  const q=w.q,pq=wtQP(w),tmax=Math.max(...q.vt),tmin=Math.min(...q.vt),tp=w.temp;
+  if(k==='ap')return pq>=50?'pioggia '+pq+'%: meglio prudenti':(tmin<=-1&&pq<30)?'pista libera e asciutto: spingere rende':tmax>=1?'traffico alto: spingere è rischioso':'';
+  if(k==='tow')return 'conta solo se scegli «Scia»';
+  if(k==='mp')return 'usura motore '+Math.round(S.pu||0)+(S.pu>=75?': rischio errore':'');
+  if(k==='lc')return tp<=22?'pista fredda '+tp+'°: meglio lungo':tp>=31?'pista calda '+tp+'°: meglio corto':'';
+  if(k==='ers')return 'senza 2° giro usi tutto subito';
+  return '';
+}
+function qdTotal(w){
+  const r=qdSum(w,'late'),t=[];
+  const pos=Math.round(r.p*QDU*10)/10;
+  if(Math.abs(pos)>=.1)t.push(qdPill(qdSg(pos)+' pos.',pos>0?'g':'r'));
+  if(r.e>0)t.push(qdPill('errore '+Math.round(r.e*100)+'%','r'));
+  if(r.pu)t.push(qdPill('usura '+(r.pu>0?'+':'−')+Math.abs(r.pu),r.pu>0?'a':'g'));
+  if(r.r2){const p2=Math.round(r.r2*QDU*10)/10;if(Math.abs(p2)>=.1)t.push(qdPill('2° giro '+qdSg(p2),p2>0?'g':'r'))}
+  return t.length?t.join(' '):'<span class="qb n">piano standard: nessun bonus né malus</span>';
+}
+function qdCard(w){
+  if(!qdOn(w))return '';
+  const d=qdGet(w),ks=qdKeys();
+  const rows=ks.map(k=>{
+    const O=QDO[k],h=qdHint(w,k);
+    return `<div class="qty qd"><div class="qtl">${O.n}${h?` <small>${h}</small>`:''}</div><div class="btns">${O.o.map(x=>{
+      const tg=qdTags(w,k,x[0]);
+      return `<button class="ghost${d[k]===x[0]?' on':''}" data-act="qd" data-v="${k}:${x[0]}"><b>${x[1]}</b><span class="qbs">${tg.length?tg.map(y=>qdPill(y[0],y[1])).join(''):'<span class="qb n">base</span>'}</span></button>`}).join('')}</div></div>`;
+  }).join('');
+  return `<section class="card qdc"><div class="sech">Il piano del giro</div>${rows}<div class="qdt"><span>Effetto del piano</span>${qdTotal(w)}</div></section>`;
+}
+{const _qo=qOptsX;qOptsX=function(w,q){
+  let h=_qo.apply(this,arguments);
+  try{
+    if(qdOn(w)&&!(isEl(w)&&!w.eq)){
+      const idx=h.indexOf('<div class="opts">'),c=qdCard(w);
+      if(idx>0&&h.slice(0,idx).endsWith('</div>'))h=h.slice(0,idx-6)+c+'</div>'+h.slice(idx);
+      else h=c+h;
+    }
+  }catch(e){}
+  return h;
+}}
+function qdSecPanel(w){
+  if(qdT()<2||!w.qdr||w.a2||!w.qR)return '';
+  const S0=qdSecs(w),T=qdT();
+  const sel=w.qdr.sec||0;
+  const btns=[0,1,2].map(i=>{
+    const r=S0.rk.indexOf(i),b=qdSecB(w,i+1),col=r===0?'giallo':r===1?'verde':'viola';
+    const lab=T>=3?'+'+S0.d[i].toFixed(2).replace('.',',')+' s':col;
+    return `<button class="ghost${sel===i+1?' on':''}" data-act="qsec" data-v="${i+1}"><b>Settore ${i+1}</b><span class="qbs"><span class="qb ${r===0?'a':r===2?'n':'n'}">${lab}</span>${qdPill(qdSg(Math.round(b*QDU*10)/10)+' pos.',b>0?'g':'r')}</span></button>`;
+  }).join('');
+  return `<div class="qty qdw"><section class="card qdc"><div class="sech">Secondo giro: dove spingi?</div><div class="qty qd"><div class="qtl">Scegli un settore <small>spingere nel più lento rende di più</small></div><div class="btns">${btns}</div></div></section></div>`;
+}
+{const _ql=qlView;qlView=function(){
+  let h=_ql.apply(this,arguments);
+  try{
+    const w=S.wk,ql=w.ql||{};
+    if(!ql.fin&&ql.t!=='st'){
+      const p=qdSecPanel(w),mk='<div class="opts"><button class="ch" data-act="q2a">';
+      if(p&&h.indexOf(mk)>=0)h=h.replace(mk,p+mk);
+    }
+  }catch(e){}
+  return h;
+}}
+/* riepilogo: previsto, scelto, accaduto */
+function qdRecap(s){
+  const d=s&&s.qd;
+  if(!d||!(d.items.length||d.ferr))return '';
+  const it=d.items.filter(x=>x.p||x.pu).map(x=>{
+    const pos=Math.round(x.p*QDU*10)/10;
+    return `<span class="qrr">${x.n}: ${x.v} ${Math.abs(pos)>=.1?qdPill(qdSg(pos)+' pos.',pos>0?'g':'r'):''}${x.pu?qdPill('usura '+(x.pu>0?'+':'−')+Math.abs(x.pu),x.pu>0?'a':'g'):''}</span>`}).join('');
+  return `<div class="qsd">${it?'<b>Il tuo piano</b>'+it:''}${d.ferr?'<span class="qrr"><b style="color:var(--warn)">Errore nel primo giro</b> '+qdPill('−1,9 pos.','r')+'</span>':''}</div>`;
+}
+{const _qs=qsLine;qsLine=function(s){
+  let h=_qs.apply(this,arguments);
+  try{h+=qdRecap(s)}catch(e){}
+  return h;
+}}
+{const _ql2=qlView;qlView=function(){
+  let h=_ql2.apply(this,arguments);
+  try{
+    const w=S.wk,ql=w.ql||{};
+    if(ql.fin&&w.qs){const r=qdRecap(w.qs),mk='<section class="card"><div class="sech">Griglia';if(r&&h.indexOf(mk)>=0)h=h.replace(mk,r+mk)}
+  }catch(e){}
+  return h;
+}}
+
+/* =====================================================================
+   Qualifica a eliminazione (Q1 · Q2 · Q3): in F1 è sempre questa.
+   Ad ogni sessione, oltre alle gomme, c'è il piano del giro; dopo Q1 e
+   Q2 vedi i settori e scegli dove spingere nella sessione dopo.
+   ===================================================================== */
+const isEl=w=>!!w&&(w.fmt===('el'+'im')||w.el===1);
+const EXK=.68,EXE=2.0;                       /* da unità di giro a unità della classifica a eliminazione */
+{const _wi=wkInit;wkInit=function(w){
+  try{if(w&&S.tier===3&&!w.grid&&!isEl(w))w.el=1}catch(e){}
+  return _wi.apply(this,arguments);
+}}
+const exPlOn=w=>!!(w&&w.ex&&w.q&&!w.grid&&w.ex.s<3);
+/* effetto di una scelta in una sessione: errore e usura contano per sessione */
+function exEff(w,k,o,s){
+  const r=Object.assign({},qdEff(w,k,o,'tow'));
+  r.e=Math.max(0,r.e+Math.max(0,r.ee));
+  r.cy=s<2?r.r2:0;                            /* energia: si porta alla sessione dopo */
+  r.pu=Math.round(r.pu*.5);r.tn=Math.round(r.tn*.5);
+  return r;
+}
+function exTags(w,k,o,s){
+  const r=exEff(w,k,o,s),t=[];
+  const pos=Math.round(r.p*QDU*10)/10;
+  if(Math.abs(pos)>=.1)t.push([qdSg(pos)+' pos.',pos>0?'g':'r']);
+  if(r.e>0)t.push(['errore '+Math.round(r.e*100)+'%','r']);
+  if(r.pu)t.push(['usura '+(r.pu>0?'+':'−')+Math.abs(r.pu),r.pu>0?'a':'g']);
+  if(Math.abs(r.tn)>=1)t.push(['tensione '+(r.tn>0?'+':'−')+Math.abs(r.tn),r.tn>0?'r':'g']);
+  const c=Math.round(r.cy*QDU*10)/10;
+  if(Math.abs(c)>=.1)t.push(['Q'+(s+2)+' '+qdSg(c),c>0?'g':'r']);
+  if(r.tyb<=-.02)t.push(['gomme gara −','a']);
+  return t;
+}
+/* somma del piano per la sessione s */
+function exPlan(w,s){
+  const d=qdGet(w),ex=w.ex,P={pace:0,e:0,pu:0,tn:0,tyb:0,cy:0,mf:0,items:[]};
+  qdKeys().forEach(k=>{
+    const r=exEff(w,k,d[k],s);
+    P.pace+=r.p*EXK;P.e+=r.e;P.pu+=r.pu;P.tn+=r.tn;P.tyb+=r.tyb;P.cy+=r.cy;P.mf+=r.mf;
+    if(d[k]!==QDDEF[k]){
+      const nm=QDO[k].o.find(x=>x[0]===d[k])[1];
+      P.items.push({k,n:QDO[k].n,v:nm,p:r.p,pu:r.pu});
+    }
+  });
+  const cy=(ex.cy&&ex.cy[s])||0;
+  if(cy){P.pace+=cy*EXK;P.items.push({k:'ers2',n:'Energia della sessione prima',v:cy>0?'carica':'scarica',p:cy,pu:0})}
+  if(ex.sec&&qdT()>=2){const b=qdSecB(w,ex.sec);P.pace+=b*EXK;P.sec=ex.sec;P.items.push({k:'sec',n:'Settore',v:'Settore '+ex.sec,p:b,pu:0})}
+  P.e=Math.min(.45,P.e);
+  return P;
+}
+/* probabilità del taglio: tiene conto del piano e del rischio di errore */
+{const _ep=exProb;exProb=function(w,i){
+  if(!exPlOn(w))return _ep.apply(this,arguments);
+  const s=w.ex.s,O=exOpts(s)[i],pl=exPlan(w,s),p0=O.pace;
+  let a=0,b=0;
+  try{
+    O.pace=p0+pl.pace;a=_ep.call(this,w,i);
+    if(pl.e>0){O.pace=p0+pl.pace-EXE;b=_ep.call(this,w,i)}
+  }finally{O.pace=p0}
+  return pl.e>0?a*(1-pl.e)+b*pl.e:a;
+}}
+/* la sessione: applica ritmo, errore, usura, tensione, energia */
+{const _er=exRun;exRun=function(w,O){
+  if(!O||!exPlOn(w))return _er.apply(this,arguments);
+  const ex=w.ex,s=ex.s,pl=exPlan(w,s);
+  let err=0;
+  if(pl.e>0&&rnd()<pl.e)err=1;
+  const O2=Object.assign({},O,{pace:O.pace+pl.pace-(err?EXE:0)});
+  ex.pl=ex.pl||{};ex.pl[s]={items:pl.items,err,pu:pl.pu};
+  try{
+    if(pl.pu)S.pu=clamp((S.pu||0)+pl.pu,0,130);
+    const m=typeof mateOf==='function'?mateOf():null;
+    if(m&&pl.tn&&S.hh)S.hh[m.n]=clamp((S.hh[m.n]||0)+pl.tn,0,100);
+    if(pl.mf)S.mf=clamp(mf()+pl.mf,0,100);
+    w.tyb=(w.tyb||0)+pl.tyb;
+  }catch(e){}
+  ex.cy=ex.cy||{};ex.cy[s+1]=pl.cy;ex.sec=0;
+  return _er.call(this,w,O2);
+}}
+{const _ap=exAutoPick;exAutoPick=function(w){
+  try{if(exPlOn(w))qdAuto(w,'tow')}catch(e){}
+  return _ap.apply(this,arguments);
+}}
+{const _ef=exFinal;exFinal=function(w){
+  _ef.apply(this,arguments);
+  try{if(w.qs&&w.ex&&w.ex.pl)w.qs.exq=w.ex.pl}catch(e){}
+}}
+/* interfaccia: piano per sessione */
+function exPlanCard(w){
+  const s=w.ex.s,d=qdGet(w),ks=qdKeys();
+  const rows=ks.map(k=>{
+    const O=QDO[k];
+    let h=qdHint(w,k);
+    if(k==='tow')h='conta solo se scegli «Scia»'.replace('conta solo se scegli «Scia»','chi va davanti dà la scia all\'altro');
+    if(k==='ers')h=s<2?'risparmiare ora dà energia a Q'+(s+2):'ultima sessione: usa tutto';
+    return `<div class="qty qd"><div class="qtl">${O.n}${h?` <small>${h}</small>`:''}</div><div class="btns">${O.o.map(x=>{
+      const tg=exTags(w,k,x[0],s);
+      return `<button class="ghost${d[k]===x[0]?' on':''}" data-act="qd" data-v="${k}:${x[0]}"><b>${x[1]}</b><span class="qbs">${tg.length?tg.map(y=>qdPill(y[0],y[1])).join(''):'<span class="qb n">base</span>'}</span></button>`}).join('')}</div></div>`;
+  }).join('');
+  const pl=exPlan(w,s),t=[];
+  const pos=Math.round(pl.pace/EXK*QDU*10)/10;
+  if(Math.abs(pos)>=.1)t.push(qdPill(qdSg(pos)+' pos.',pos>0?'g':'r'));
+  if(pl.e>0)t.push(qdPill('errore '+Math.round(pl.e*100)+'%','r'));
+  if(pl.pu)t.push(qdPill('usura '+(pl.pu>0?'+':'−')+Math.abs(pl.pu),pl.pu>0?'a':'g'));
+  return `<section class="card qdc"><div class="sech">Piano del giro · Q${s+1}</div>${rows}<div class="qdt"><span>Effetto del piano</span>${t.length?t.join(' '):'<span class="qb n">piano standard: nessun bonus né malus</span>'}</div></section>`;
+}
+{const _xv=exView;exView=function(){
+  let h=_xv.apply(this,arguments);
+  try{
+    const w=S.wk,mk='<div class="opts">';
+    if(exPlOn(w)){const i=h.indexOf(mk);if(i>0)h=h.slice(0,i)+'<div class="qty qdw">'+exPlanCard(w)+'</div>'+h.slice(i)}
+  }catch(e){}
+  return h;
+}}
+function exSecPanel(w){
+  const ex=w.ex,s=ex.s-1;
+  if(qdT()<2||ex.s>=3)return '';
+  const S0=qdSecs(w),T=qdT(),sel=ex.sec||0;
+  const btns=[0,1,2].map(i=>{
+    const r=S0.rk.indexOf(i),b=qdSecB(w,i+1),col=r===0?'giallo':r===1?'verde':'viola';
+    const lab=T>=3?'+'+S0.d[i].toFixed(2).replace('.',',')+' s':col;
+    return `<button class="ghost${sel===i+1?' on':''}" data-act="exsec" data-v="${i+1}"><b>Settore ${i+1}</b><span class="qbs"><span class="qb n">${lab}</span>${qdPill(qdSg(Math.round(b*QDU*10)/10)+' pos.',b>0?'g':'r')}</span></button>`;
+  }).join('');
+  return `<div class="qty qdw"><section class="card qdc"><div class="sech">Per Q${ex.s+1}: dove spingi?</div><div class="qty qd"><div class="qtl">Scegli un settore <small>spingere nel più lento rende di più</small></div><div class="btns">${btns}</div></div></section></div>`;
+}
+function exRecap(w,s){
+  const p=w.ex&&w.ex.pl&&w.ex.pl[s];
+  if(!p||!(p.items.length||p.err))return '';
+  const it=p.items.filter(x=>x.p||x.pu).map(x=>{
+    const pos=Math.round(x.p*QDU*10)/10;
+    return `<span class="qrr">${x.n}: ${x.v} ${Math.abs(pos)>=.1?qdPill(qdSg(pos)+' pos.',pos>0?'g':'r'):''}${x.pu?qdPill('usura '+(x.pu>0?'+':'−')+Math.abs(x.pu),x.pu>0?'a':'g'):''}</span>`}).join('');
+  return `<div class="qsd">${it?'<b>Il tuo piano</b>'+it:''}${p.err?'<span class="qrr"><b style="color:var(--warn)">Errore nel giro</b> '+qdPill('−1,4 pos.','r')+'</span>':''}</div>`;
+}
+{const _sv=exStageView;exStageView=function(){
+  let h=_sv.apply(this,arguments);
+  try{
+    const w=S.wk,ql=w.ql,rc=exRecap(w,ql.s),mk='<section class="card"><div class="sech">Classifica Q';
+    if(rc&&h.indexOf(mk)>=0)h=h.replace(mk,rc+mk);
+    if(!ql.fin&&ql.s<2){const sp=exSecPanel(w),dk='<div class="dock">';if(sp&&h.indexOf(dk)>=0)h=h.replace(dk,sp+dk)}
+  }catch(e){}
+  return h;
+}}
+{const _el=elimLine;elimLine=function(s){
+  let h=_el.apply(this,arguments);
+  try{
+    if(s&&s.exq){
+      let r='';
+      for(const k in s.exq){const p=s.exq[k];if(p&&(p.items.length||p.err)){
+        const it=p.items.filter(x=>x.p||x.pu).map(x=>{const pos=Math.round(x.p*QDU*10)/10;return x.n+': '+x.v+(Math.abs(pos)>=.1?' '+qdPill(qdSg(pos)+' pos.',pos>0?'g':'r'):'')}).join(' · ');
+        r+=`<span class="qrr"><b>Q${+k+1}</b> ${it}${p.err?' <b style="color:var(--warn)">errore</b>':''}</span>`}}
+      if(r)h+=`<div class="qsd"><b>Il tuo piano</b>${r}</div>`;
+    }
+  }catch(e){}
+  return h;
+}}
+
+/* =====================================================================
+   v5 · ZA · La griglia pesa dove non si sorpassa; difesa e attacco
+   - il circuito (sorpassi difficili/medi/facili) decide quanto la griglia
+     "tiene" in gara: dove si passa poco, chi parte davanti resta davanti
+   - ogni pilota ha una difesa e un attacco: chi difende bene tiene la
+     posizione, chi attacca bene rimonta
+   - il piano di qualifica mostra quanto vale la griglia su quella pista
+   ===================================================================== */
+const GW3=[.28,.12,0];                              /* inerzia della griglia: difficili / medi / facili */
+const GWO=[.7,.55,.42];                               /* peso della griglia nella stima obiettivi */
+const GVK=[1.45,1,.7];                                /* quanto vale un guadagno di griglia */
+const ovtOf=w=>w&&w.ovt!=null?w.ovt:1;
+const gwOf=w=>GWO[ovtOf(w)];
+const gvK=w=>GVK[ovtOf(w)];
+/* difesa e attacco: del giocatore, da statistiche, stile di guida e storia */
+function myStyle(){
+  const st=S.st||{},sy=S.sty||{a:0,d:0},sb=S.style===0?[5,-4]:S.style===2?[-3,6]:[0,0];
+  return{at:Math.round(clamp(50+.5*((st.talento||50)-50)+.5*((st.ritmo||50)-50)+sy.a+sb[0],20,95)),
+         df:Math.round(clamp(50+.5*((st.costanza||50)-50)+.5*((st.tecnica||50)-50)+sy.d+sb[1],20,95))};
+}
+/* degli altri: dal carattere (tratto) e da un'inclinazione personale, senza consumare numeri casuali */
+const TRSTY={'Aggressivo in staccata':[12,-4],'Metodico':[-2,9],'Showman':[4,-2],'Silenzioso':[0,3],'Re del bagnato':[0,0],'Qualificatore':[-7,5],
+ 'Gestore di gomme':[-3,6],'Veterano scaltro':[3,10],'Talento ribelle':[9,-6],'Uomo squadra':[0,4],'Partenza fulminea':[8,-1],'Specialista dei cittadini':[0,6]};
+function drvStyle(n){
+  const t=TRSTY[trait(n)[0]]||[0,0];
+  return{at:Math.round(clamp(50+t[0]+hg(n+'at')*7,20,95)),df:Math.round(clamp(50+t[1]+hg(n+'df')*7,20,95))};
+}
+const styOf=e=>e.me?myStyle():drvStyle(e.n);
+/* la griglia che tiene */
+function gridInertia(E){
+  try{
+    const w=S.wk;
+    if(!QUALI||!QUALI.rows||!w||w.rd!==S.round||!w.grid)return;
+    const gi=GW3[ovtOf(w)];if(!gi)return;
+    const sp=E.map(e=>e.perf).sort((a,b)=>b-a),N=sp.length,gm={};
+    QUALI.rows.forEach(r=>{gm[r.n]=r.g});
+    const adj=E.map(e=>{
+      const g=gm[e.n];if(!g)return 0;
+      const diff=sp[Math.min(g,N)-1]-e.perf,st=styOf(e);
+      const k=diff>0?1+(st.df-50)/70:1-(st.at-50)/70;
+      return gi*diff*clamp(k,.5,1.5);
+    });
+    E.forEach((e,i)=>{e.perf+=adj[i]});
+  }catch(err){}
+}
+/* effetto dello stile sulle scelte di gara */
+const ATKIDS=['st','fatt','friv','duel','deg','fgap'];
+{const _ap=actPick;actPick=function(i){
+  try{
+    const rc=S.rc,w=S.wk;
+    if(rc){
+      const e=ACTS[rc.ev],o=actOpts(e,rc.n)[i],my=myStyle(),ov=ovtOf(w);
+      let x=0;
+      if(o&&e.id==='fdef'&&i<=1)x=(my.df-50)/50*.5*(ov===0?1.3:ov===2?.75:1);
+      else if(o&&(o.ag||ATKIDS.includes(e.id))&&o.mod>=1.5)x=(my.at-50)/50*.5*(ov===0?.75:ov===2?1.25:1);
+      if(x)rc.xd=(rc.xd||0)+x;
+      /* lo stile si forma con quello che fai: difese e attacchi riusciti */
+      const r=e.ctx?e.ctx(w):null,good=r&&i===r[0];
+      S.sty=S.sty||{a:0,d:0};
+      if(o&&good&&e.id==='fdef'&&i<=1)S.sty.d=Math.min(12,S.sty.d+.6);
+      else if(o&&good&&(o.ag||ATKIDS.includes(e.id))&&o.mod>=1.5)S.sty.a=Math.min(12,S.sty.a+.5);
+    }
+  }catch(err){}
+  return _ap.apply(this,arguments);
+}}
+/* griglia e circuito nel piano di qualifica */
+function gvInfo(w){
+  const k=w.kn,o=ovtOf(w);
+  let lvl=o,est=false;
+  if(k&&!k.ovt){
+    if(S.diff===2)return null;
+    const v=w.vo||[o,o];lvl=Math.round((v[0]+v[1])/2);est=!(v[0]===v[1]);
+  }
+  return{lvl,est};
+}
+function gvLine(w){
+  const g=gvInfo(w);
+  if(!g)return `<p class="sub qdg"><span class="qb n">griglia: peso da scoprire (telemetria)</span></p>`;
+  const L=[['pesa molto','a','si sorpassa poco: chi parte davanti resta davanti'],['pesa','n','sorpassi nella media'],['pesa poco','g','si sorpassa facilmente: si può rimontare']][g.lvl];
+  const my=myStyle(),d=my.df-my.at;
+  let tip='';
+  if(g.lvl===0)tip=d>=8?'Difendi meglio di quanto attacchi: qui la pole vale doppio.':d<=-8?'Attacchi bene, ma qui la tua rimonta è frenata: conta la griglia.':'';
+  else if(g.lvl===2)tip=d<=-8?'Qui il tuo attacco paga: puoi risparmiare gomme in qualifica.':d>=8?'Difendi bene ma qui si passa facile: la griglia non basta.':'';
+  return `<p class="sub qdg">${qdPill('griglia: '+L[0]+(g.est?' (stima)':''),L[1])} ${L[2]}.${tip?' <b>'+tip+'</b>':''}</p>`;
+}
+const gvIns=(h,w)=>{try{const i=h.indexOf('</div>');return i>0?h.slice(0,i+6)+gvLine(w)+h.slice(i+6):h}catch(e){return h}};
+{const _qc=qdCard;qdCard=function(w){const h=_qc.apply(this,arguments);return h?gvIns(h,w):h}}
+{const _ec=exPlanCard;exPlanCard=function(w){const h=_ec.apply(this,arguments);return h?gvIns(h,w):h}}
+/* scheda: Pilota → stile in gara; altri piloti → attacco e difesa */
+const stBar=(l,v)=>`<div class="sr"><span class="lb">${l}</span><em>${v}</em><div class="bar"><i style="width:${v}%"></i></div></div>`;
+const stWords=(a,d)=>d-a>=8?'Difende meglio di quanto attacca: con la griglia davanti non lo passi.':a-d>=8?'Attacca meglio di quanto difende: rimonta, ma si fa passare.':(a>=60&&d>=60)?'Completo: attacca e difende.':'Equilibrato.';
+{const _tc=traitCard;traitCard=function(){
+  let h=_tc.apply(this,arguments);
+  try{
+    const m=myStyle();
+    h=`<section class="card"><div class="sech">Attacco e difesa</div><div class="srs">${stBar('Attacco',m.at)}${stBar('Difesa',m.df)}</div><p class="sub">${stWords(m.at,m.df)} Cambia con le statistiche e con le difese e gli attacchi che riescono in gara. Sulle piste dove si sorpassa poco pesa di più la difesa, dove si sorpassa facilmente l'attacco.</p></section>`+h;
+  }catch(e){}
+  return h;
+}}
+{const _sh=sheetHtml;sheetHtml=function(){
+  let h=_sh.apply(this,arguments);
+  try{
+    const n=S&&S.lore;if(!n||!h||!drvInfo(n))return h;
+    const s=drvStyle(n);
+    h=h.replace('<p><b>',`<p class="sub"><span class="qb n">Attacco ${s.at}</span> <span class="qb n">Difesa ${s.df}</span> ${stWords(s.at,s.df)}</p><p><b>`);
+  }catch(e){}
+  return h;
+}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
