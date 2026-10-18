@@ -832,6 +832,40 @@ td.n{font-variant-numeric:tabular-nums}
 .dv2 small{font-size:11px;opacity:.7;line-height:1.25}
 .dv2 b{font-size:16px}
 .dv2n{margin:0 0 6px;font-size:12px}
+.qkc .btns{display:flex;gap:8px;flex-wrap:wrap}
+.qkc .ghost.on{background:var(--ink,#0f1a3d);color:#fff}
+.evh{border-left:3px solid var(--kc,var(--line));padding-left:10px}
+.evh.k-neu{--kc:var(--amber)}.evh.k-wet{--kc:#3b82f6}.evh.k-duel{--kc:var(--warn)}.evh.k-tyre{--kc:var(--green)}.evh.k-fin{--kc:var(--purple)}
+.tg.rw{color:var(--purple)}
+.od.plo{display:block;color:var(--purple);font-size:12px;margin-top:3px;line-height:1.3}
+.pick .ch .od.plo{display:block;-webkit-line-clamp:unset;overflow:visible}
+.chip.plvc{flex-basis:100%;font-weight:600;color:var(--mut)}
+.chip.plvc b{color:var(--fg)}
+.ph p.chn{color:var(--fg);font-size:13px;margin-top:6px}
+/* v7 · pioggia: gauge gomme, scheda previsioni, tasto attesa */
+.wgs{margin:8px 0 2px}
+.wgr{display:grid;grid-template-columns:104px 1fr auto;align-items:center;gap:8px;padding:3px 0;font-size:12.5px}
+.wgr.on{background:linear-gradient(90deg,transparent,var(--soft),transparent);border-radius:8px}
+.wgl{display:flex;align-items:center;gap:5px;min-width:0;white-space:nowrap}
+.wgl b{font-weight:700}
+.wgn{display:flex;flex-direction:column;min-width:0;line-height:1.15}
+.wgl small{font-size:9.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.wgt{position:relative;height:10px;border-radius:6px;background:var(--line);overflow:visible}
+.wgz{position:absolute;top:0;bottom:0;border-radius:6px;background:var(--green);opacity:.55}
+.wgm{position:absolute;top:-4px;bottom:-4px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--fg);box-shadow:0 0 0 2px var(--soft);text-decoration:none}
+.wgr em{font-style:normal;font-size:11.5px;font-weight:700;min-width:62px;text-align:right}
+.wgr em.ok{color:var(--green)}
+.wgr em.ko{color:var(--warn)}
+.wgx{display:flex;justify-content:space-between;margin:3px 70px 0 112px;font-size:10.5px;color:var(--mut)}
+.rnc .rnl{margin:2px 0 4px;font-size:14px}
+.rnr{margin:6px 0 0;font-size:12.5px}
+.rla{margin:4px 0 0;font-size:13px}
+.rls .lt{opacity:.7}
+
+.pane.dec>.rnc{order:5}
+
+.bcg.n5 .bcs.on{flex:2.4 1 0}
+.bcg.n5 .bcs{padding-left:2px;padding-right:2px}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -2144,11 +2178,12 @@ const DEGL=['molto basso','basso','medio','alto','molto alto'],WL=['Bassa','Medi
 function whyBase(k,w){
   const u=w.u,ov=w.ovt,g=w.gp;let t;
   if(w.rain){
-    if(k==='inter')t=w.mixed?'La pioggia a tratti ha premiato le intermedie.':'Pioggia piena: le intermedie sono state la mossa vincente.';
+    if(isRn(k))t=rnWhy(k,w);
     else if(k==='safe')t='I rivali non erano pronti alla pioggia, e tu con loro.';
     else t=w.mixed?'La pioggia a tratti ha creato caos: le gomme scelte non erano ideali.':'La pioggia ha ribaltato i piani: senza gomme da bagnato hai pagato.';
   }else switch(k){
     case 'inter':t='Pista asciutta: le intermedie si sono consumate nei primi giri.';break;
+    case 'wet':t='Pista asciutta: le gomme da bagnato si sono distrutte in pochi giri.';break;
     case 'one':t=u<=1?'Degrado basso: la sosta unica ha retto senza problemi.':u>=3?'Degrado '+DEGL[u]+' (usura'+(w.ta>0?' e caldo':'')+'): una sola sosta ti ha costretto a rallentare.':'La sosta unica ha retto, ma al limite.';break;
     case 'two':t=u>=3?'Con un degrado '+DEGL[u]+' due soste hanno tenuto le gomme fresche.':u<=1?'Il degrado era basso: la sosta in più è stata tempo perso.':'Due soste: un compromesso solido.';break;
     case 'soft':t=ov===2?'Sorpassi facili: l\'attacco ha reso.':ov===0?'Dove è difficile sorpassare, l\'attacco non ha pagato.':'Un attacco senza grandi guadagni.';t+=g>=Math.round(w.N*.6)?' Partire dalle retrovie giustificava il rischio.':g<=4?' Partendo davanti non serviva rischiare.':'';break;
@@ -2182,7 +2217,7 @@ function stratAfterBase(){
   if(!S.sw||!S.last){S.mm=null;return}
   const s=S.sw,w=S.wk,m0=mf();
   S.mf=clamp(m0+[5,2,-1,-4][s.vd]+(S.mm?(S.mm.g?2:S.mm.b?-2:0):0),0,100);
-  S.last.st={...s,w:{c:w.c,rain:w.rain,mixed:w.mixed,wear:w.wear,ovt:w.ovt,rp:w.rp,temp:w.temp,ta:w.ta,u:w.u,sc:w.sc,scp:w.scp,gp:w.gp,N:w.N,rv:w.rv,rvFit:fitReal(w.rv==='safe'?'two':w.rv,w),mixedR:w.mixed},mm:S.mm||null,dt:Math.round(S.mf-m0)};
+  S.last.st={...s,w:{c:w.c,rain:w.rain,mixed:w.mixed,wear:w.wear,ovt:w.ovt,rp:w.rp,temp:w.temp,ta:w.ta,u:w.u,sc:w.sc,scp:w.scp,gp:w.gp,N:w.N,rv:w.rv,rvFit:fitReal(w.rv==='safe'?'two':w.rv,w),mixedR:w.mixed,wx:w.wx?{ri:w.wx.ri,rt:w.wx.rt}:null,sur:w.sur?1:0},mm:S.mm||null,dt:Math.round(S.mf-m0)};
   S.pfT=(S.pfT||0)+(s.vd===0?1:0);
   S.sw=null;S.mm=null;
 }
@@ -2245,13 +2280,13 @@ function stratCard(L){
   const kn=s.kn||{},lk=Math.abs(s.luck)>=.06;
   let lt='';
   if(lk){
-    if(!kn.rain&&(w.rain||s.k==='inter'))lt=s.luck>0?(w.rain?(s.k==='inter'||s.k==='safe'?'la pioggia è arrivata: ti ha premiato.':'la pioggia è stata meno dura del temuto: hai perso meno.'):'niente pioggia, come speravi.'):(w.rain?'la pioggia (prev. '+w.rp+'%) ha ribaltato il piano.':'la pioggia temuta non è arrivata.');
+    if(!kn.rain&&(w.rain||isRn(s.k)))lt=s.luck>0?(w.rain?(isRn(s.k)||s.k==='safe'?'la pioggia è arrivata: ti ha premiato.':'la pioggia è stata meno dura del temuto: hai perso meno.'):'niente pioggia, come speravi.'):(w.rain?'la pioggia (prev. '+w.rp+'%) ha ribaltato il piano.':'la pioggia temuta non è arrivata.');
     else if(!w.rain)lt=s.luck>0?(w.sc?'safety car in pista: ti ha aiutato.':'niente safety car: non ti serviva.'):(w.sc?'safety car nel momento sbagliato.':'niente safety car: la aspettavi.');
     else lt=s.luck>0?'le condizioni ti hanno aiutato.':'le condizioni non ti hanno aiutato.';
   }
   const luck=lt?`<div class="news" style="color:var(--${s.luck>0?'green':'warn'})">${s.luck>0?'▲ Fortuna':'▼ Sfortuna'}: ${lt}</div>`:'';
   return `<section class="card dbf"><div class="vd" style="--c:${vd[1]}"><small class="pl2">${(s.cfg?s.cfg.c:pl.c).map(cpb).join('')}<span>${pl.n}</span></small><b>${vd[0]}</b><span>${est?es+' pos. circa':'effetto neutro'}</span></div>
-  <div class="gauges">${tile('cloud','Pioggia',w.rain?(w.mixed?'A tratti':'Sì'):'No')}${tile('temp','Pista',w.temp+'°C')}${tile('tyre','Degrado',DEGL[w.u])}${tile('ovt','Sorpassi',OL[w.ovt])}${tile('sc','Safety car',w.sc?'Sì':'No')}${tile('grid','Partenza','P'+w.gp)}</div>
+  <div class="gauges">${tile('cloud','Pioggia',w.rain?(w.mixed?'A tratti':'Sì'):w.sur?'A sorpresa':'No')}${tile('temp','Pista',w.temp+'°C')}${tile('tyre','Degrado',DEGL[w.u])}${tile('ovt','Sorpassi',OL[w.ovt])}${tile('sc','Safety car',w.sc?'Sì':'No')}${tile('grid','Partenza','P'+w.gp)}</div>
   <p class="why">${why(s.k,w,s)}</p>
   ${luck}${s.vd>0?`<div class="bst">${kn.rain&&kn.sc&&kn.rv?'La migliore era':'Coi tuoi dati, la migliore'}: ${bp.c.map(cpb).join('')}<b>${bp.n.split(' · ')[0]}</b></div>`:''}${s.hind&&s.hind!==s.best&&s.hindFit-s.fit>=.08?`<div class="bst">A giochi fatti, la migliore era: ${hp.c.map(cpb).join('')}<b>${hp.n.split(' · ')[0]}</b></div>`:''}
   <div class="bst">I rivali: ${rp.c.map(cpb).join('')}<b>${rp.n.split(' · ')[0]}</b></div>
@@ -2884,7 +2919,7 @@ function replayGen(L,main,me,kind,sp0,hm){
     return out.sort((a,b)=>a.l-b.l);
   }
   if(st){
-    const pf=(st.cfg&&st.cfg.e&&st.cfg.e.length?st.cfg.e[0]/T:null)||{one:.5,two:.33,soft:.4,under:.28,over:.62,inter:.25,safe:.5}[st.k]||.45,pl=PL.find(x=>x.k===st.k),pp=clamp(p1+Math.round(gauss()*1.6),1,N);
+    const pf=(st.cfg&&st.cfg.e&&st.cfg.e.length?st.cfg.e[0]/T:null)||{one:.5,two:.33,soft:.4,under:.28,over:.62,inter:.25,wet:.25,safe:.5}[st.k]||.45,pl=PL.find(x=>x.k===st.k),pp=clamp(p1+Math.round(gauss()*1.6),1,N);
     add(pf,'Rientri ai box al giro '+lp(pf)+' ('+(pl?pl.n.split(' · ')[0].toLowerCase():'sosta')+'): riparti P'+pp+'.');
     if(st.w&&st.w.sc)add(.55,'Safety car per detriti: il gruppo si ricompatta.'+(st.vd<=1?' Il tuo muretto coglie il momento giusto.':' La tua strategia ne risente.'));
   }
@@ -3689,7 +3724,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 17/10 · 22:04</p></div>`;
+  <p class="foot">Versione 18/10 · 05:06</p></div>`;
 }
 
 function identityView(){
@@ -5013,7 +5048,7 @@ const SIT=[
   ctx:w=>w.u>=3?[2,0]:[1,2]},
  {id:'f1_pitslow',a:[1],tw:[0,0,.4,1.3],t:'Sosta lenta',
   x:'Il cambio della posteriore destra si inceppa: sei fermo tre secondi più del previsto. Rientri in pista in mezzo al traffico.',
-  cond:()=>!!(S.sw&&S.sw.k!=='inter'&&S.sw.k!=='safe')&&!stopNone(),
+  cond:()=>!!(S.sw&&!isRn(S.sw.k)&&S.sw.k!=='safe')&&!stopNone(),
   o:[{t:'Spingi per recuperare subito',d:'Giri veloci, anche con rischio.',mod:2.1,risk:.05,ag:1,out:'Hai spinto subito per recuperare il tempo perso.'},
      {t:'Rientra e gestisci il traffico',d:'Una gara di pazienza.',mod:1.2,risk:.01,out:'Hai gestito il traffico dopo la sosta lenta.'},
      {t:'Allunga lo stint successivo',d:'Cambi strategia per aria pulita.',mod:.8,risk:.01,ty:1,out:'Hai allungato lo stint per trovare aria pulita.'}],
@@ -5225,8 +5260,8 @@ function obCard(w){
    v5 · E · Strategia: piani per categoria, finestra di sosta (F2/F1),
    lettura del contesto, obiettivo rivedibile dopo le qualifiche
    ===================================================================== */
-/* piani disponibili per categoria: F4 4, F3 5, F2 6, F1 7 */
-const PLK=[['one','soft','inter','safe'],['one','two','soft','inter','safe'],['one','two','soft','under','inter','safe'],['one','two','soft','under','over','inter','safe']];
+/* piani disponibili per categoria: F4 5, F3 6, F2 7, F1 8 (due sono scommesse sulla pioggia: intermedie o bagnato) */
+const PLK=[['one','soft','inter','wet','safe'],['one','two','soft','inter','wet','safe'],['one','two','soft','under','inter','wet','safe'],['one','two','soft','under','over','inter','wet','safe']];
 const planKeys=()=>PLK[Math.max(0,Math.min(3,S.tier|0))];
 const planOk=k=>planKeys().includes(k);
 const winAvail=()=>(S.tier|0)>=2;
@@ -5238,7 +5273,6 @@ function plV(p){
   if((S.tier|0)===0){
     if(p.k==='one')return{...p,n:'Gara di gestione',c:['M'],d:'Gomma unica: passo costante e pazienza, aspetta gli errori degli altri.'};
     if(p.k==='soft')return{...p,n:'Attacco dal via',c:['M'],d:'Parti a tutta e guadagna posizioni subito: l\'usura si paga nel finale.'};
-    if(p.k==='inter')return{...p,n:'Scommessa pioggia',c:['W'],d:'Assetto e gomma da bagnato dal via: tutto sulla pioggia.'};
     if(p.k==='safe')return{...p,c:['M'],d:'Segui l\'approccio dei team davanti a te.'};
   }
   return p;
@@ -5290,7 +5324,7 @@ function choosePlan(i){
   const bk=bpX(w,false),br=bpX(w,true),loss=Math.max(0,bk[1]-fe),vd=verdictOf(loss);
   const tb=mf()>=70?.5:mf()<=30?-.5:0;
   const v=(fr-PCV)*KD()+tb;
-  const rk=({soft:.02,under:.01,inter:w.rain?0:.03,one:0,two:0,over:0,safe:0})[p.k]+(fr<.3?.02:0)+(win==='late'&&w.u>=3?.01:0);
+  const rk=({soft:.02,under:.01,inter:w.rain?0:.03,wet:w.rain?0:.04,one:0,two:0,over:0,safe:0})[p.k]+(fr<.3?.02:0)+(win==='late'&&w.u>=3?.01:0);
   S.sw={i,k:p.k,fit:fr,fe,best:bk[0],bestFit:bk[1],hind:br[0],hindFit:br[1],vd,v:Math.round(v*10)/10,risk:rk,loss,luck:fr-fe,kn:{...w.kn}};
   if(win)S.sw.win=win;
   if(bk[2]&&winAvail())S.sw.bw=bk[2];
@@ -5301,7 +5335,7 @@ function autoPlan(){
   const k=rnd()<p?b[0]:keys[Math.floor(rnd()*keys.length)],i=PL.findIndex(x=>x.k===k),pl=PL[i];
   const win=(winAvail()&&winPlan(k))?(rnd()<p?b[2]:'std'):null;
   const f=clamp(fitReal(k,w)+winReal(win,k,w),0,1.1);
-  const o={auto:1,i,k,fit:f,v:(f-PCV)*KD(),risk:({soft:.02,under:.01,inter:w.rain?0:.03,one:0,two:0,over:0,safe:0})[k]+(f<.3?.02:0)};
+  const o={auto:1,i,k,fit:f,v:(f-PCV)*KD(),risk:({soft:.02,under:.01,inter:w.rain?0:.03,wet:w.rain?0:.04,one:0,two:0,over:0,safe:0})[k]+(f<.3?.02:0)};
   if(win)o.win=win;
   return o;
 }
@@ -6256,13 +6290,13 @@ const PUSHN=['Gestisci','Standard','Spingi'];
 const cp3=c=>({c:c.c.slice(),e:c.e.slice(),p:(c.p||c.c.map(()=>0)).slice()});
 function bInit(w){
   if(w.b&&w.b.c)return w.b;
-  let k=w.hint&&planOk(w.hint)&&w.hint!=='safe'&&w.hint!=='inter'?w.hint:(planOk('one')?'one':planKeys()[0]);
+  let k=w.hint&&planOk(w.hint)&&w.hint!=='safe'&&!isRn(w.hint)?w.hint:(planOk('one')?'one':planKeys()[0]);
   const pre=tyPre(k);
   w.b={m:'b',pk:k,...cp3(pre)};
   return w.b;
 }
 function bPre(w,k){
-  if(k==='safe'||k==='inter'){w.b={m:k,pk:k,c:['M'],e:[],p:[0]};return}
+  if(k==='safe'||isRn(k)){w.b={m:k,pk:k,c:[k==='wet'?'W':k==='inter'?'I':'M'],e:[],p:[0]};return}
   const pre=tyPre(k);w.b={m:'b',pk:k,...cp3(pre)};
 }
 function bStops(w,n){
@@ -6276,18 +6310,20 @@ function bStops(w,n){
   w.b={m:'b',pk:null,c,e,p};
   if(t>=2&&n>=1&&!c.some(x=>x!==c[0]))w.b.c[w.b.c.length-1]=TY.cps[t].find(x=>x!==c[0]);
 }
-const bCmpL=(t,j)=>TY.cps[t].concat(j===0&&planOk('inter')?['I']:[]);
+const bCmpL=(t,j)=>TY.cps[t].concat(j===0&&planOk('inter')?['I','W']:[]);
 function bCompound(w,j){
   const t=tyT(),b=bInit(w);
-  if(b.m==='inter'){bPre(w,'one');return}
+  if(isRn(b.m)){bPre(w,'one');return}
   if(b.m!=='b')return;
   const L=bCmpL(t,j),i=L.indexOf(b.c[j]),nx=L[(i+1)%L.length];
   if(nx==='I'){bPre(w,'inter');return}
+  if(nx==='W'){bPre(w,'wet');return}
   b.c[j]=nx;b.pk=null;
 }
 function bCompoundSet(w,j,c){
   const t=tyT(),b=bInit(w);
   if(c==='I'){bPre(w,'inter');return}
+  if(c==='W'){bPre(w,'wet');return}
   if(b.m!=='b'){bPre(w,'one');return bCompoundSet(w,j,c)}
   if(!TY.cps[t].includes(c))return;
   b.c[j]=c;b.pk=null;
@@ -6327,7 +6363,7 @@ function advOf(w){
   const k=w.hint;if(!k||!planOk(k))return null;
   const T=tyLaps(),t=tyT();
   if(k==='safe')return{k,m:'safe'};
-  if(k==='inter')return{k,m:'inter'};
+  if(isRn(k))return{k,m:k};
   const pre=tyPre(k),cfg=cp3(pre);
   const sh=w.hw==='early'?-1:w.hw==='late'?1:0;
   if(sh&&cfg.e.length)cfg.e[0]+=sh*Math.max(1,Math.round(T*.07));
@@ -6336,7 +6372,8 @@ function advOf(w){
 function advTxt(a,w){
   const T=tyLaps();
   if(a.m==='safe')return `Segui la strategia di <b>${esc(aiRvTeam(w))}</b>`;
-  if(a.m==='inter')return 'Parti con le <b>Intermedie</b> e scommetti sulla pioggia';
+  if(a.m==='inter')return 'Parti con le <b>Intermedie</b> e scommetti sulla pioggia leggera o a tratti';
+  if(a.m==='wet')return 'Parti con le <b>gomme da bagnato</b> e scommetti sull\'acqua alta';
   const c=a.cfg,n=c.c.length-1;
   const seq=c.c.map(x=>TYN[x]).join(' → ');
   const st=n===0?'Nessuna sosta':n===1?'1 sosta':n+' soste';
@@ -6349,6 +6386,7 @@ function advWhy(w,a){
   if(kn.rain)p.push(w.rain?'pioggia in pista':'asciutto');else if(w.rp>=30)p.push('pioggia possibile ('+w.rp+'%)');
   if(kn.sc&&w.sc)p.push('safety car probabile');
   if(a.k==='under')p.push('conviene anticipare la sosta');else if(a.k==='over')p.push('conviene allungare lo stint');else if(a.k==='soft')p.push('si attacca con le morbide');
+  else if(a.k==='inter')p.push('le intermedie reggono pioggia leggera e a tratti');else if(a.k==='wet')p.push('con l\'acqua alta servono le gomme da bagnato');
   return p.length?'Perché: '+p.join(', ')+'.':'Perché: lo dicono i dati raccolti finora.';
 }
 const advSame=(b,a)=>a&&b.m===a.m&&(a.m!=='b'||(JSON.stringify([b.c,b.e,b.p||b.c.map(()=>0)])===JSON.stringify([a.cfg.c,a.cfg.e,a.cfg.p])));
@@ -6357,7 +6395,7 @@ function advBox(w,b){
   const nm=o?`${esc(o.nm)} <span class="sgs">${stars(o.v)}</span>`:'';
   const a=advOf(w);
   const rel=o?(o.v>=70?'molto affidabile':o.v>=45?'affidabile, ma non infallibile':'da prendere con cautela'):'';
-  const cps=a&&a.m==='b'?a.cfg.c.map(cpb).join(''):a&&a.m==='inter'?cpb('I'):a&&a.m==='safe'?cpb('M'):'';
+  const cps=a&&a.m==='b'?a.cfg.c.map(cpb).join(''):a&&a.m==='inter'?cpb('I'):a&&a.m==='wet'?cpb('W'):a&&a.m==='safe'?cpb('M'):'';
   const copy=planOk('safe')?`<button class="ghost sm${b.m==='safe'?' on':''}" data-act="bcopy">Copia i rivali</button>`:'';
   if(!a)return `<div class="adv"><div class="advh"><b>Il muretto</b>${nm?' · '+nm:''}</div><p class="advw">Questa volta non si sbilancia: mancano dati per un consiglio chiaro. Decidi tu${copy?', oppure segui i rivali':''}.</p>${copy?`<div class="advb">${copy}</div>`:''}</div>`;
   const same=advSame(b,a);
@@ -6367,7 +6405,7 @@ function advBox(w,b){
 function rvNote(w,b){
   if(b.m!=='b'||!b.e.length)return '';
   if(!(w.kn&&w.kn.rv)||!w.rv)return '<p class="bsm">Non sai ancora cosa faranno i rivali: il consulto «Strateghi» te lo dice.</p>';
-  const rp=w.rv==='safe'||w.rv==='inter'?null:tyPre(w.rv);
+  const rp=w.rv==='safe'||isRn(w.rv)?null:tyPre(w.rv);
   if(!rp||!rp.e.length)return '';
   const d=rp.e[0]-b.e[0],tm=esc(aiRvTeam(w));
   if(d>=3)return `<p class="bsm">Ti fermi <b>${d} giri prima</b> di ${tm}: tentativo di <b>undercut</b>.</p>`;
@@ -6389,7 +6427,7 @@ function bldView(w){
       const pit=!last?`<div class="bpl"><button data-act="bpl" data-i="${s.j}" data-v="-" aria-label="Sosta prima">−</button><span>sosta <b>${s.e}</b></span><button data-act="bpl" data-i="${s.j}" data-v="+" aria-label="Sosta dopo">+</button></div>`:'<div class="bpl end"><span>fino al giro <b>'+T+'</b></span></div>';
       const e0=tyEst(w,s.c,0),dl=Math.round(s.L-e0[0]);
       const ps=`<div class="bps" role="group" aria-label="Guida"><span>Guida</span>${[-1,0,1].map(v=>`<button class="p${v+1}${s.p===v?' on':''}" data-act="bpu" data-i="${s.j}" data-v="${v}">${PUSHN[v+1]}</button>`).join('')}</div><p class="bpt">${s.p?`${PUSHN[s.p+1]}: ${dl>0?'+':''}${dl} giri di gomma · ${s.p>0?'+':'−'}${sfmt(.2*TY.pm[t])} s/giro`:'Ritmo e consumo standard'}</p>`;
-      return `<div class="bst2"><div class="bsh"><div class="bcg" role="group" aria-label="Mescola">${cs}</div></div><div class="bsh bsl2"><span class="bsl">${s.len} giri <small>(${s.a}–${s.e})</small></span>${pit}</div>${bBar(s,mx,s.p?e0[0]:null)}<div class="bse"><span>Gomma: ${est}</span><span class="stt ${STC[s.st]}">${STN[s.st]}</span></div>${ps}</div>`;
+      return `<div class="bst2"><div class="bsh"><div class="bcg${bCmpL(t,s.j).length>4?' n5':''}" role="group" aria-label="Mescola">${cs}</div></div><div class="bsh bsl2"><span class="bsl">${s.len} giri <small>(${s.a}–${s.e})</small></span>${pit}</div>${bBar(s,mx,s.p?e0[0]:null)}<div class="bse"><span>Gomma: ${est}</span><span class="stt ${STC[s.st]}">${STN[s.st]}</span></div>${ps}</div>`;
     }).join('');
     const bad=tyOk(b);ok=!bad.length;msg=bad[0]||'';
     const kk=tyKey(b),cpre=tyPre(kk.k);
@@ -6399,10 +6437,11 @@ function bldView(w){
     const sum=`<p class="bsm">Equivale a <b>${esc(pl.n.split(' · ')[0])}</b>${kk.win&&kk.win!=='std'?' · sosta '+(kk.win==='early'?'anticipata':'ritardata'):''}${Math.abs(dl)>=.5?` · <span class="${dl>0?'pos':'neg'}">${dl>0?'−':'+'}${sfmt(Math.abs(dl))} s</span> stimati rispetto al piano standard`:''}</p>${rvNote(w,b)}`;
     body=`<div class="bsg"><span>Soste</span><div class="seg2">${seg}</div></div>${rows}${sum}`;
   }else if(b.m==='safe'){
-    const rk=w.ai&&w.ai.rk&&planOk(w.ai.rk)&&w.ai.rk!=='inter'&&w.ai.rk!=='safe'?w.ai.rk:null,rp=rk?plV(PL.find(x=>x.k===rk)):null;
+    const rk=w.ai&&w.ai.rk&&planOk(w.ai.rk)&&w.ai.rk!=='safe'?w.ai.rk:null,rp=rk?plV(PL.find(x=>x.k===rk)):null;
     body=`<div class="bst2"><p class="bsm" style="margin:0 0 6px">Segui la strategia di <b>${esc(aiRvTeam(w))}</b>${rp?': <span class="cps">'+rp.c.map(cpb).join('')+'</span> '+esc(rp.n.split(' · ')[0]):''}. Nessun controllo sugli stint: ti affidi a loro.</p><div class="advb"><button class="ghost sm" data-act="bcust">Personalizza gli stint</button></div></div>`;
   }else{
-    body=`<div class="bst2"><div class="bsh"><div class="bcg" role="group" aria-label="Mescola">${bCmpL(t,0).map(c=>`<button class="bcs c${c}${c==='I'?' on':''}" data-act="bcs" data-i="0" data-v="${c}" aria-label="${TYN[c]}">${cpb(c)}<span>${TYN[c]}</span></button>`).join('')}</div></div><p class="bsm" style="margin:8px 0 0">Intermedie dal via: nessun controllo sugli stint, tutto sulla pioggia. Se il meteo cambia, il giro del cambio gomme lo deciderai in gara, guardando anche i rivali.</p></div>`;
+    const rw=b.m==='wet',cur=rw?'W':'I';
+    body=`<div class="bst2"><div class="bsh"><div class="bcg${bCmpL(t,0).length>4?' n5':''}" role="group" aria-label="Mescola">${bCmpL(t,0).map(c=>`<button class="bcs c${c}${c===cur?' on':''}" data-act="bcs" data-i="0" data-v="${c}" aria-label="${TYN[c]}">${cpb(c)}<span>${TYN[c]}</span></button>`).join('')}</div></div><p class="bsm" style="margin:8px 0 0">${rw?'Gomme da bagnato dal via: grip massimo con l\'acqua alta, ma pesanti e lente se la pioggia è leggera o a tratti.':'Intermedie dal via: ottime con pioggia leggera o a tratti, vanno in crisi con l\'acqua alta.'} Se resta asciutto perdi molto con entrambe. Nessun controllo sugli stint: tutto sulla pioggia. Se il meteo cambia, giro e gomma del cambio li deciderai in gara, guardando radar e rivali.</p></div>`;
   }
   return `<section class="card bld"><div class="sech">La tua strategia <small>${T} giri</small></div>${advH}${body}${msg?`<p class="bwn">${esc(msg)}</p>`:''}<div class="btns"><button class="go" data-act="bok"${ok?'':' disabled'}>Conferma la strategia</button></div></section>`;
 }
@@ -6451,7 +6490,7 @@ function choosePlanB(){
   const sts=bStints(w,cfg),d=tyDrv();
   const ty=sts.map(s=>({c:s.c,len:s.len,p:s.p,Le:Math.round(s.L*10)/10,lo:Math.round(s.lo),hi:Math.round(s.hi),Lr:Math.round(tyReal(w,s.c,s.p,d)*10)/10}));
   const over=ty.reduce((a,x)=>a+(x.len>x.Lr+1.5?1:0),0);
-  const rk=({soft:.02,under:.01,inter:w.rain?0:.03,one:0,two:0,over:0,safe:0})[k]+(fr<.3?.02:0)+(win==='late'&&w.u>=3?.01:0)+Math.min(.03,over*.012);
+  const rk=({soft:.02,under:.01,inter:w.rain?0:.03,wet:w.rain?0:.04,one:0,two:0,over:0,safe:0})[k]+(fr<.3?.02:0)+(win==='late'&&w.u>=3?.01:0)+Math.min(.03,over*.012);
   S.sw={i,k,fit:fr,fe,best:bk[0],bestFit:bk[1],hind:br[0],hindFit:br[1],vd,v:Math.round(v*10)/10,risk:rk,loss,luck:fr-fe,kn:{...w.kn},cfg,ty,dl:Math.round(dR*1000)/1000};
   if(win)S.sw.win=win;
   if(bk[2]&&winAvail())S.sw.bw=bk[2];
@@ -6460,7 +6499,7 @@ function choosePlanB(){
 function bApplyAdv(w){
   const a=advOf(w);if(!a)return;
   if(a.m==='safe')w.b={m:'safe',pk:'safe',c:['M'],e:[],p:[0]};
-  else if(a.m==='inter')bPre(w,'inter');
+  else if(isRn(a.m))bPre(w,a.m);
   else w.b={m:'b',pk:a.k,...cp3(a.cfg)};
 }
 function bAct(a,i,v){
@@ -6474,14 +6513,14 @@ function bAct(a,i,v){
   else if(a==='bpu')bPush(w,i,v);
   else if(a==='badv')bApplyAdv(w);
   else if(a==='bcopy')bPre(w,'safe');
-  else if(a==='bcust'){const rk=w.ai&&w.ai.rk&&planOk(w.ai.rk)&&!['safe','inter'].includes(w.ai.rk)?w.ai.rk:'one';bPre(w,rk)}
+  else if(a==='bcust'){const rk=w.ai&&w.ai.rk&&planOk(w.ai.rk)&&w.ai.rk!=='safe'&&!isRn(w.ai.rk)?w.ai.rk:'one';bPre(w,rk)}
   else return false;
   save();render();return true;
 }
 /* ---------------- piano mostrato nei chip del weekend ---------------- */
 function swChip(pl){
   const s=S.sw,cs=s&&s.cfg?s.cfg.c:pl.c;
-  return `<span class="chip pt">${cs.map(cpb).join('')} ${pl.n.split(' · ')[0]}${s&&s.cfg&&!['safe','inter'].includes(pl.k)?' · '+(s.cfg.c.length-1===0?'nessuna sosta':s.cfg.c.length-1===1?'1 sosta':(s.cfg.c.length-1)+' soste'):''}</span>`;
+  return `<span class="chip pt">${cs.map(cpb).join('')} ${pl.n.split(' · ')[0]}${s&&s.cfg&&pl.k!=='safe'&&!isRn(pl.k)?' · '+(s.cfg.c.length-1===0?'nessuna sosta':s.cfg.c.length-1===1?'1 sosta':(s.cfg.c.length-1)+' soste'):''}</span>`;
 }
 /* ---------------- dopo la gara: com'è andata con le gomme ---------------- */
 function tyBlock(s){
@@ -6668,16 +6707,61 @@ function stratAfter(){
 }
 
 /* =====================================================================
-   v5 · T · Pioggia in gara, decisione live
-   Quando il meteo cambia (anche in una gara partita all'asciutto) scegli
-   TU il giro del cambio gomme, guardando il radar (sempre più affidabile
-   avvicinandosi al momento) e cosa fanno i rivali. Ogni rivale decide in
-   base al suo stratega e alla sua capacità sul bagnato; chi sbaglia il
-   momento perde tempo, chi lo azzecca lo guadagna.
-   Tutto deterministico (hash): ricaricare la pagina non cambia l'esito.
+   v7 · T · Pioggia in gara: un solo modello del bagnato
+   Ogni gomma rende bene in un campo di bagnato della pista (slick:
+   asciutto, intermedie: pioggia leggera o a tratti, bagnato: acqua alta);
+   fuori dal campo si perde tempo, e se ne perde di più quanto più si è
+   lontani. La pista segue una curva che dipende dalla verità del
+   weekend (resta uguale, peggiora, cala, arriva). Da questa sola curva
+   nascono la gomma giusta, il radar, cosa vedi in pista, cosa fanno i
+   rivali e il giudizio sulla tua scelta.
+   Quando il meteo cambia scegli TU il giro e la gomma del cambio (o di
+   non rientrare), guardando il radar (sempre più affidabile avvicinandosi
+   al momento) e cosa fanno i rivali, che partono con la gomma del loro
+   piano. Tutto deterministico (hash): ricaricare non cambia l'esito.
    ===================================================================== */
 const RLST=[1,2,2,2];
-const RLN={0:'gomme da bagnato',1:'intermedie',2:'slick'};
+const WMC=['D','I','W'];
+const WMN={D:'Slick',I:'Intermedie',W:'Bagnato'};
+const WMNs={D:'slick',I:'intermedie',W:'gomme da bagnato'};
+const WMNa={D:'le slick',I:'le intermedie',W:'le gomme da bagnato'};
+const WMSu={D:'sulle slick',I:'sulle intermedie',W:'sulle gomme da bagnato'};
+const WMNc={D:'slick',I:'intermedie',W:'da bagnato'};
+/* campo di rendimento di ogni gomma (livello di bagnato 0..1) e quanto costa uscirne, in s/giro per unità */
+const WMT={D:{lo:0,hi:.10,a:0,b:14,x:.65,xb:8},I:{lo:.16,hi:.60,a:10,b:9},W:{lo:.55,hi:1.2,a:11,b:0}};
+/* livelli base della pioggia (L leggera, H forte, M a tratti, N asciutto) e dove va dopo il cambiamento */
+const WMB={L:.42,H:.80,M:.30,N:.03};
+const WMA={worse:[.52,.95],stop:[.06,.38]};
+/* tempo perso a giro con la gomma c su una pista bagnata w */
+function wmL1(c,w){
+  const t=WMT[c];let l=0;
+  if(w<t.lo)l+=t.a*(t.lo-w);
+  if(w>t.hi)l+=t.b*(w-t.hi);
+  if(t.x!=null&&w>t.x)l+=t.xb*(w-t.x);
+  return l;
+}
+/* livello di bagnato al giro l, per la verità tr = {rt, ri, Lc, st} (st = giri della transizione) */
+function wmLvl(tr,l){
+  const B=tr.ri?WMB.H:WMB.L,ramp=(a,b)=>l<=tr.Lc?a:l>=tr.Lc+tr.st?b:a+(b-a)*(l-tr.Lc)/tr.st;
+  switch(tr.rt){
+    case 'keep':return B;
+    case 'mixed':return WMB.M;
+    case 'worse':return ramp(B,WMA.worse[tr.ri?1:0]);
+    case 'stop':return ramp(B,WMA.stop[tr.ri?1:0]);
+    case 'arrive':return ramp(WMB.N,B);
+    default:return WMB.N;
+  }
+}
+/* tempo totale perso dal giro a al giro T: parti con c0 e, se L non è null, rientri al giro L per montare c1 */
+function wmTot(tr,a,T,c0,L,c1,pit){
+  let s=0;
+  for(let l=a;l<=T;l++){const c=(L!=null&&l>=L)?c1:c0;s+=wmL1(c,wmLvl(tr,l))}
+  return s+(L!=null?pit:0);
+}
+const wmChip=c=>cpb(c==='D'?'M':c);
+const wmName=lv=>lv<.12?'asciutta':lv<.3?'umida':lv<.62?'bagnata':lv<.88?'molto bagnata':'allagata';
+const wmBest1=lv=>WMC.map(c=>[c,wmL1(c,lv)]).sort((x,y)=>x[1]-y[1])[0][0];
+
 function rlWin(){
   const T=tyLaps(),st=RLST[tyT()],a=Math.max(2,Math.round(T*.34)),b=Math.max(a+st*3,Math.round(T*.66));
   return{T,st,a,b,n:Math.floor((b-a)/st)+1};
@@ -6691,48 +6775,65 @@ function rvWet(r){
 }
 /* la mia capacità sul bagnato (-1..1) */
 const rlWetMe=()=>clamp((((S.st&&S.st.tecnica)||55)-55)/35,-1,1);
-/* verità nascosta: tipo di cambiamento e giro ideale */
+/* la gomma con cui parti: quella del tuo piano (copiando i rivali, quella del loro piano) */
+function rlC0me(w){
+  const s=S.sw;let k=s?s.k:null;
+  if(k==='safe')k=(w.rv&&w.rv!=='safe')?w.rv:(w.ai&&w.ai.rk&&w.ai.rk!=='safe'?w.ai.rk:'two');
+  return k==='wet'?'W':k==='inter'?'I':'D';
+}
+/* la gomma con cui parte un rivale: quella del piano che ha scelto */
+function rlC0r(r,w){
+  const a=w&&w.ai&&w.ai.d&&w.ai.d[r.n];
+  if(a)return a[0]==='wet'?'W':a[0]==='inter'?'I':'D';
+  return 'D';
+}
+/* verità nascosta: tipo di cambiamento, intensità, giro in cui accade */
 function rlTruth(w){
   const W=rlWin(),key=rlKey(w);
-  const rt=w.rain?((w.wx&&w.wx.rt)||'keep'):'arrive',ri=rlRi(w);
+  const rt=w.mixed?'mixed':w.rain?((w.wx&&w.wx.rt)||'keep'):'arrive';
+  const ri=w.mixed?0:rlRi(w);
   const k=1+Math.floor(hu(key+'lc')*Math.max(1,W.n-3));
-  const Lc=W.a+k*W.st;
-  let Ls;
-  if(rt==='stop')Ls=Math.min(W.a+(W.n-1)*W.st,Lc+W.st);
-  else if(rt==='keep'){const idx=clamp(Math.round((4-(w.u==null?2:w.u))/4*(W.n-1)),0,W.n-1);Ls=W.a+idx*W.st}
-  else Ls=Lc;
-  return{rt,ri,Lc,Ls,W};
+  return{rt,ri,Lc:W.a+k*W.st,rmp:Math.max(2,W.st*2),W};
 }
-/* gomma giusta (indice di WXO: 0 bagnato, 1 intermedie, 2 slick) */
-function rlBestTyre(w,tr){
-  if(w.mixed)return 1;
-  if(tr.rt==='arrive')return tr.ri?0:1;
-  if(tr.rt==='worse')return tr.ri?0:1;
-  if(tr.rt==='stop')return tr.ri?1:2;
-  return tr.ri?0:1;
+const rlTr=rl=>({rt:rl.rt,ri:rl.ri,Lc:rl.Lc,st:rl.rmp});
+const rlLv=(rl,l)=>wmLvl(rlTr(rl),l);
+const rlTotFor=(rl,c0,L,c)=>wmTot(rlTr(rl),rl.a,rl.T,c0,L,c,rl.pitS);
+const rlTot=(rl,L,c)=>rlTotFor(rl,rl.c0,L,c);
+const rlGrid=rl=>{const g=[];for(let L=rl.a;L<=rl.last;L+=rl.st)g.push(L);return g};
+/* la mossa migliore (con la verità in mano) partendo da c0: restare o rientrare in uno dei giri utili */
+function rlOptFor(rl,c0){
+  let best={L:null,c:null,loss:rlTotFor(rl,c0,null,null)};
+  rlGrid(rl).forEach(L=>WMC.forEach(c=>{
+    if(c===c0)return;
+    const v=rlTotFor(rl,c0,L,c);
+    if(v<best.loss-1e-9)best={L,c,loss:v};
+  }));
+  return best;
 }
-/* qualità del giro scelto: -1..1 (tardi costa di più quando arriva la pioggia, presto quando si asciuga) */
-function rlQ(rt,lap,Ls,st){
-  const e=(lap-Ls)/st;let pen;
-  if(rt==='stop')pen=e<0?-e*1.5:e*.75;
-  else if(rt==='keep')pen=Math.abs(e)*.9;
-  else pen=e>0?e*1.35:-e*.8;
-  return clamp(1.15-pen*.6,-1,1);
-}
-/* i rivali: ognuno decide il proprio giro e la propria gomma */
-function rlRivals(w,tr){
-  const W=tr.W,key=rlKey(w),best=rlBestTyre(w,tr),out=[];
+/* qualità di una scelta: -1..1 in base ai secondi persi rispetto alla mossa migliore */
+const rlQf=(ex,Qs)=>clamp(1.15-ex/Qs,-1,1);
+/* i rivali: ognuno parte con la gomma del suo piano e decide giro e gomma del cambio */
+function rlRivals(w,rl){
+  const key=rlKey(w),st=rl.st,out=[],grid=rlGrid(rl);
+  const snap=l=>clamp(rl.a+Math.round((l-rl.a)/st)*st,rl.a,rl.last);
   (S.rivals||[]).forEach(r=>{
     const sg=sgV(r.t)/100,wet=rvWet(r),sk=.5*sg+.5*wet;
-    const sd=(.5+2.3*(1-sk))*W.st;
-    let lap=tr.Ls+hg(key+'|'+r.n)*sd+(1-sk)*.4*W.st;
-    lap=W.a+Math.round((lap-W.a)/W.st)*W.st;
-    lap=clamp(lap,W.a,W.b+W.st);
-    const ok=hu(key+'ty'+r.n)<.45+.5*sk;
-    const ty=ok?best:[0,1,2].filter(x=>x!==best)[hsh(key+'tz'+r.n)%2];
-    let q=rlQ(tr.rt,lap,tr.Ls,W.st);
-    if(ty!==best)q-=.5;
-    out.push({n:r.n,t:r.t,lap,ty,sk:Math.round(sk*100)/100,q:Math.round(q*100)/100});
+    const c0=rlC0r(r,w),opt=rlOptFor(rl,c0);
+    const sd=(.5+2.3*(1-sk))*st,nz=hg(key+'|'+r.n)*sd+(1-sk)*.4*st;
+    const ok=hu(key+'ok'+r.n)<.40+.55*sk;
+    const alt=WMC.filter(x=>x!==c0);
+    let L=null,c=null;
+    if(ok){
+      if(opt.L!=null){L=snap(opt.L+nz);c=opt.c}
+    }else if(opt.L==null){
+      L=grid[hsh(key+'wl'+r.n)%grid.length];c=alt[hsh(key+'wc'+r.n)%alt.length];
+    }else if(hsh(key+'wk'+r.n)%2===0){
+      /* sbaglia non rientrando */
+    }else{
+      L=snap(opt.L+nz);c=alt.find(x=>x!==opt.c)||opt.c;
+    }
+    const loss=rlTotFor(rl,c0,L,c);
+    out.push({n:r.n,t:r.t,sk:Math.round(sk*100)/100,c0,L,c,q:Math.round(rlQf(loss-opt.loss,rl.Qs)*100)/100});
   });
   return out;
 }
@@ -6740,42 +6841,86 @@ function rlRivals(w,tr){
 function rlEnsure(){
   const rc=S.rc,w=S.wk;
   if(!rc||!w)return null;
-  if(rc.rl&&rc.rl.k===rlKey(w))return rc.rl;
-  const tr=rlTruth(w),rv=rlRivals(w,tr);
-  rc.rl={k:rlKey(w),lap:tr.W.a,pit:null,done:0,rt:tr.rt,ri:tr.ri,Lc:tr.Lc,Ls:tr.Ls,a:tr.W.a,b:tr.W.b,st:tr.W.st,T:tr.W.T,rv,best:rlBestTyre(w,tr),sur:w.rain?0:1};
-  return rc.rl;
+  if(rc.rl&&rc.rl.k===rlKey(w)&&(rc.rl.v===2||rc.rl.done))return rc.rl;
+  const tr=rlTruth(w),W=tr.W;
+  const rl={v:2,k:rlKey(w),lap:W.a,pit:null,ty:null,stay:0,done:0,
+    rt:tr.rt,ri:tr.ri,Lc:tr.Lc,rmp:tr.rmp,a:W.a,b:W.b,st:W.st,T:W.T,
+    last:W.a+Math.floor((W.b-W.a)/W.st)*W.st,
+    c0:rlC0me(w),pitS:TY.pit[tyT()],Qs:12+.25*W.T,sur:w.rain?0:1};
+  rl.opt=rlOptFor(rl,rl.c0);
+  rl.rv=rlRivals(w,rl);
+  rc.rl=rl;
+  return rl;
 }
-const rlLast=rl=>rl.lap>=rl.a+Math.floor((rl.b-rl.a)/rl.st)*rl.st;
-/* radar: sempre più affidabile avvicinandosi al momento giusto */
+const rlLast=rl=>rl.lap>=rl.last;
+/* ---------------- cosa vedi (e cosa leggi) ---------------- */
+/* perdita a giro, adesso, con la gomma montata rispetto alla migliore */
+function rlLossNow(rl,lv){const b=wmBest1(lv);return{best:b,d:Math.max(0,wmL1(rl.c0,lv)-wmL1(b,lv))}}
+/* radar: sempre più affidabile avvicinandosi al momento del cambiamento */
 function rlRadar(w,rl){
   const key=rlKey(w)+'|rd'+rl.lap;
-  const prog=clamp((rl.lap-rl.a)/Math.max(1,(rl.Ls-rl.a)),0,1);
-  let pr=.52+.34*prog+.05*rlWetMe();
-  if(S.eng&&S.eng.k==='ana'&&(engTier()||0)>=1)pr+=.06;
-  pr=clamp(pr,.45,.94);
-  const right=hu(key)<pr;
-  const all=['worse','stop','keep'],truth=rl.rt==='arrive'?'worse':rl.rt;
+  const past=rl.rt!=='keep'&&rl.rt!=='mixed'&&rl.lap>=rl.Lc+rl.rmp;
+  const prog=clamp((rl.lap-rl.a)/Math.max(1,(rl.Lc-rl.a)),0,1);
+  let pr=past?.95:.52+.34*prog+.05*rlWetMe();
+  if(!past&&S.eng&&S.eng.k==='ana'&&(engTier()||0)>=1)pr+=.06;
+  pr=clamp(pr,.45,.95);
+  const right=past||hu(key)<pr;
+  const all=['worse','stop','keep'],truth=rl.rt==='arrive'?'worse':rl.rt==='mixed'?'keep':rl.rt;
   const sg=right?truth:all.filter(x=>x!==truth)[hsh(key+'f')%2];
   const eta=Math.max(1,Math.round((rl.Lc-rl.lap)+(right?0:(hu(key+'e')<.5?-1:2)*rl.st)));
   let tx;
-  if(sg==='worse')tx=rl.lap<rl.Lc?`Cella intensa in avvicinamento: tra circa ${eta} ${eta===1?'giro':'giri'}.`:'La cella è sopra la pista: piove più forte.';
-  else if(sg==='stop')tx='Il fronte si sta allontanando: la pioggia calerà presto.';
-  else tx='Il radar è stabile: nessuna variazione in vista.';
-  return{tx,lb:pr<.65?'bassa':pr<.8?'media':'alta',pr,sg};
+  if(past)tx=rl.rt==='arrive'||rl.rt==='worse'?'La cella è sopra la pista: la pioggia è arrivata.':rl.rt==='stop'?'Il fronte si è allontanato: la pioggia è calata.':'Nessuna variazione in vista.';
+  else if(sg==='worse')tx=rl.rt==='arrive'?`Cella di pioggia in avvicinamento: sulla pista tra circa ${eta} ${eta===1?'giro':'giri'}.`:`Cella più intensa in avvicinamento: tra circa ${eta} ${eta===1?'giro':'giri'}.`;
+  else if(sg==='stop')tx=`Il fronte si sta allontanando: la pioggia calerà tra circa ${eta} ${eta===1?'giro':'giri'}.`;
+  else tx=rl.rt==='mixed'?'Celle sparse: la pista resta bagnata a tratti.':'Il radar è stabile: nessuna variazione in vista.';
+  return{tx,lb:pr<.65?'bassa':pr<.8?'media':'alta',pr,sg,eta,past};
 }
-/* cosa vedi in pista adesso (si vede solo a cambiamento avvenuto) */
+/* se il radar avesse ragione, cosa converrebbe fare da qui in poi */
+function rlAdvice(rl,rd){
+  const lap=rl.lap,cur=rlLv(rl,lap),c0=rl.c0;
+  let lv;
+  if(rd.past||rd.sg==='keep'||rl.rt==='mixed')lv=()=>cur;
+  else{
+    const hi=rl.ri?1:0;
+    const tgt=rd.sg==='worse'?(cur<.2?(hi?WMB.H:WMB.L):WMA.worse[hi]):(cur<.2?WMB.N:WMA.stop[hi]);
+    const L0=lap+rd.eta;
+    lv=l=>l<=L0?cur:l>=L0+rl.rmp?tgt:cur+(tgt-cur)*(l-L0)/rl.rmp;
+  }
+  const tot=(L,c)=>{let s=0;for(let l=lap;l<=rl.T;l++)s+=wmL1((L!=null&&l>=L)?c:c0,lv(l));return s+(L!=null?rl.pitS:0)};
+  let best={L:null,c:null,loss:tot(null,null)};
+  const grid=rlGrid(rl).filter(L=>L>=lap);
+  grid.forEach(L=>WMC.forEach(c=>{if(c===c0)return;const v=tot(L,c);if(v<best.loss-1e-9)best={L,c,loss:v}}));
+  return best;
+}
+function rlAdviceTx(rl,rd){
+  const b=rlAdvice(rl,rd);
+  if(b.L==null)return `Se il radar ha ragione, conviene restare con ${WMNa[rl.c0]}.`;
+  if(b.L<=rl.lap)return `Se il radar ha ragione, conviene rientrare ora ${WMSu[b.c]}.`;
+  return `Se il radar ha ragione, conviene rientrare al giro ${b.L} ${WMSu[b.c]}.`;
+}
+/* cosa vedi in pista adesso */
 function rlTrack(rl){
-  const ch=rl.rt==='keep'?false:(rl.lap>rl.Lc);
-  if(rl.rt==='arrive'||rl.rt==='worse')return ch?(rl.ri?'Pioggia forte: l\'acqua si accumula sul rettilineo.':'Cominciano a cadere gocce fitte: l\'asfalto si scurisce.'):(rl.rt==='arrive'?'Pista asciutta, il cielo si sta coprendo.':'Pista bagnata, pioggia regolare.');
-  if(rl.rt==='stop')return ch?'Si forma la traiettoria asciutta in curva.':'Pista bagnata, pioggia regolare.';
-  return 'Pista bagnata, condizioni invariate.';
+  const lap=rl.lap,lv=rlLv(rl,lap),pv=rlLv(rl,Math.max(1,lap-rl.st)),dv=lv-pv;
+  const nm=rl.rt==='mixed'?'a tratti bagnata':wmName(lv);
+  let tx='Pista '+nm;
+  if(dv>.04)tx+=': l\'acqua aumenta';
+  else if(dv<-.04)tx+=': si sta asciugando, compare la traiettoria asciutta';
+  else if(rl.rt==='arrive'&&lv<.12)tx+=', ma il cielo si sta coprendo';
+  else if(lv>=.12)tx+=rl.rt==='mixed'?', con tratti quasi asciutti':', pioggia regolare';
+  return tx+'.';
 }
-/* quanto tempo stai perdendo rispetto ai rivali migliori (visibile solo quando è già successo) */
-function rlLose(rl){
-  if(rl.rt==='keep')return 0;
-  const late=rl.rt==='stop'?(rl.lap-rl.Ls)/rl.st:(rl.lap-rl.Lc)/rl.st;
-  return Math.max(0,late)*.7;
+/* riga per gomma: campo di rendimento, livello della pista, perdita adesso */
+function rlGauge(lv,cur,opts){
+  opts=opts||{};
+  const rows=WMC.slice().reverse().map(c=>{
+    const t=WMT[c],lo=Math.max(0,t.lo)*100,hi=Math.min(1,t.hi)*100;
+    const d=lv==null?0:wmL1(c,lv);
+    const st=lv==null?'':d<.5?'<em class="ok">adatta</em>':`<em class="ko">−${sfmt(d)} s/giro</em>`;
+    return `<div class="wgr${cur===c?' on':''}"><span class="wgl">${wmChip(c)}<span class="wgn"><b>${WMN[c]}</b>${cur===c?'<small>in uso</small>':''}</span></span><span class="wgt"><i class="wgz" style="left:${lo.toFixed(0)}%;width:${(hi-lo).toFixed(0)}%"></i>${lv!=null?`<u class="wgm" style="left:${(clamp(lv,0,1)*100).toFixed(0)}%"></u>`:''}</span>${st}</div>`;
+  }).join('');
+  return `<div class="wgs" role="img" aria-label="Campo di rendimento delle gomme sul bagnato">${rows}<div class="wgx"><span>asciutta</span><span>bagnata</span><span>allagata</span></div></div>`;
 }
+/* classifica dei rivali mostrati: i vicini, poi i migliori */
 function rlShown(w,rl){
   const P=typeof posNow==='function'?posNow():{},names=[P.an,P.bn].filter(Boolean);
   const top=(S.rivals||[]).slice().sort((x,y)=>S.teams[y.t].car-S.teams[x.t].car).map(r=>r.n);
@@ -6784,73 +6929,118 @@ function rlShown(w,rl){
   return ord.slice(0,6).map(n=>rl.rv.find(x=>x.n===n));
 }
 function rlRivRow(w,rl,x){
-  const pit=x.lap<=rl.lap&&x.lap<=rl.b;
+  const pit=x.L!=null&&x.L<=rl.lap;
   const kl=typeof sgKl==='function'?sgKl(x.t):0;
   const lab=kl>=1?(x.sk>=.68?'esperto':x.sk>=.45?'nella media':'incerto'):'';
-  const st=pit?`<span class="rlp">Ai box · ${RLN[x.ty]} <small>(giro ${x.lap})</small></span>`:`<span class="rlo">In pista</span>`;
+  const st=pit?`<span class="rlp">${wmChip(x.c)}Ai box <small>(giro ${x.L})</small></span>`:`<span class="rlo">${wmChip(x.c0)}In pista</span>`;
   return `<div class="rlr"><span class="rln">${dot(S.tier,x.t)}${esc(x.n)}${lab?`<small>${lab}</small>`:''}</span>${st}</div>`;
 }
-/* decisione: effetto del giro scelto */
-function rlResolve(w,rl,i){
-  rl.pit=rl.lap;rl.ty=i;
-  const W={st:rl.st};
-  const stay=rl.sur&&i===2;
-  const q=stay?-.8:rlQ(rl.rt,rl.lap,rl.Ls,rl.st);
-  const qb=rl.rv.reduce((a,x)=>a+x.q,0)/Math.max(1,rl.rv.length);
-  const wm=rlWetMe();
-  const dq=q-qb;
+/* ---------------- le opzioni: dipendono dalla gomma che hai e dal giro ---------------- */
+const RLM={D:1.6,I:1.3,W:1.6,stay:1.2};
+/* taratura: quanto vale una lettura giusta (K.f) e il passo di base per categoria di gara, tarati perché la media resti quella di prima */
+const RLK={f:.75,off:{rain:-.12,sur:.10}};
+const rlFq=q=>q>=0?AD1*q:AD0*(-q);
+const rlGood=q=>q>=.75?1:q<=-.35?-1:0;
+const RLDESC={
+  W:'Massimo grip con l\'acqua alta; lente se la pioggia cala.',
+  I:'Per la pista bagnata o che si sta asciugando.',
+  D:'Solo per la pista asciutta: sul bagnato è pericolosa.'
+};
+const rlRisk=(c,lv)=>Math.round(clamp(.01+.045*Math.min(1,wmL1(c,lv)/5),.01,.055)*1000)/1000;
+function rlBaseOpts(rl){
+  /* posizioni fisse: A bagnato, B intermedie, C slick; la gomma che hai già diventa «resta» */
+  const lv=rlLv(rl,rl.lap);
+  return ['W','I','D'].map(c=>c===rl.c0
+    ?{t:'Resta con '+WMNa[c],d:'Nessuna sosta: la pista deve restare adatta alle tue gomme.',mod:RLM.stay,risk:rlRisk(c,lv),out:'Sei rimasto con '+WMNa[c]+'.',rl:{k:'stay',c}}
+    :{t:'Rientra ora: '+WMNs[c],d:RLDESC[c],tg:'Sosta circa '+rl.pitS+' s',mod:RLM[c],risk:rlRisk(c,lv),out:'Hai montato '+WMNa[c]+'.',rl:{k:'pit',c}});
+}
+function rlLosses(rl){
+  return rlBaseOpts(rl).map(o=>o.rl.k==='pit'?rlTot(rl,rl.lap,o.rl.c):rlTot(rl,null,null));
+}
+/* [migliore, peggiore] tra le opzioni mostrate adesso */
+function rlCtx(){
+  const rl=rlEnsure();if(!rl||rl.v!==2)return [2,0];
+  const ls=rlLosses(rl),mn=Math.min(...ls),mx=Math.max(...ls);
+  const si=['W','I','D'].indexOf(rl.c0),b=ls[si]-mn<1e-6?si:ls.indexOf(mn),wi=ls.indexOf(mx);
+  return [b,mx-mn<1.5?-1:wi===b?-1:wi];
+}
+/* conviene aspettare? (la mossa migliore è più avanti e vale la pena) */
+function rlWaitBetter(rl){
+  if(rlLast(rl)||rl.opt.L==null||rl.opt.L<=rl.lap)return false;
+  const ls=rlLosses(rl);
+  return Math.min(...ls)-rl.opt.loss>.5;
+}
+/* ---------------- decisione: effetto della scelta ---------------- */
+function rlResolve(w,rl,i,o){
+  let L=null,c=null,kind='stay',fac=1;
+  if(o&&o.tr){
+    if(o.tr.k==='cal'){kind='opt';L=rl.opt.L;c=rl.opt.c}
+    else{fac=o.tr.k==='wet'?.6:.95}
+  }else if(o&&o.rl&&o.rl.k==='pit'){kind='pit';L=rl.lap;c=o.rl.c}
+  const lossRaw=rlTot(rl,L,c);
+  const loss=fac<1?lossRaw*fac:lossRaw;
+  const ex=Math.max(0,loss-rl.opt.loss);
+  const stay=L==null;
+  rl.pit=stay?null:L;rl.ty=stay?null:c;rl.stay=stay?1:0;rl.tk=o&&o.tr?o.tr.k:null;rl.kind=kind;
+  const q=rlQf(ex,rl.Qs),qb=rl.rv.reduce((a,x)=>a+x.q,0)/Math.max(1,rl.rv.length);
+  const wm=rlWetMe(),dq=q-qb;
   const xd=dq*.7*(dq>0?1+.25*wm:1-.15*wm);
-  rl.q=Math.round(q*100)/100;rl.qb=Math.round(qb*100)/100;rl.xd=Math.round(xd*100)/100;
+  const val=RLK.f*rlFq(q)+RLK.off[rl.sur?'sur':'rain'];
+  rl.q=Math.round(q*100)/100;rl.qb=Math.round(qb*100)/100;rl.xd=Math.round(xd*100)/100;rl.ex=Math.round(ex*10)/10;rl.val=Math.round(val*100)/100;
   rl.rvd={};
   rl.rv.forEach(x=>{rl.rvd[x.n]=Math.round((x.q-qb)*.55*100)/100});
   rl.done=1;
   try{
     const srt=rl.rv.slice().sort((a,b)=>b.q-a.q),wr=srt[srt.length-1];
-    w.rlr={pit:rl.pit,ty:i,rt:rl.rt,sur:rl.sur,Ls:rl.Ls,xd:rl.xd,q:rl.q,qb:rl.qb,verdict:rlVerdict(rl),best:srt.slice(0,2).map(x=>({n:x.n,t:x.t,lap:x.lap,ty:x.ty})),worst:wr?{n:wr.n,t:wr.t,lap:wr.lap}:null};
+    w.rlr={pit:rl.pit,ty:rl.ty,stay:rl.stay,c0:rl.c0,rt:rl.rt,ri:rl.ri,sur:rl.sur,Ls:rl.opt.L,xd:rl.xd,q:rl.q,qb:rl.qb,verdict:rlVerdict(rl),
+      best:srt.slice(0,2).map(x=>({n:x.n,t:x.t,lap:x.L,ty:x.c})),worst:wr?{n:wr.n,t:wr.t,lap:wr.L}:null};
   }catch(e){}
-  return xd;
+  return val;
 }
 function rlVerdict(rl){
-  const e=(rl.pit-rl.Ls)/rl.st;
-  if(rl.sur&&rl.ty===2)return 'Sei rimasto sulle slick: la pioggia è arrivata comunque.';
-  if(Math.abs(e)<.5)return 'Momento perfetto.';
-  if(rl.rt==='stop')return e<0?'Troppo presto: la pista era ancora bagnata.':'Un po\' tardi: i rivali più svelti erano già sulle slick.';
-  if(rl.rt==='keep')return e<0?'Rientro anticipato: le gomme reggevano ancora.':'Rientro tardivo: le gomme erano già finite.';
-  return e<0?'Rientrato in anticipo sulla pioggia.':'Rientrato quando i rivali erano già sotto l\'acqua.';
+  const o=rl.opt;
+  if(rl.kind==='opt')return 'Hai letto la situazione alla perfezione.';
+  if(rl.ex<=rl.Qs*.12)return rl.stay?'Hai fatto bene a restare in pista: le gomme erano quelle giuste.':'Momento e gomme perfetti.';
+  if(rl.stay)return o.L==null?'Hai tenuto '+WMNa[rl.c0]+', ma c\'era di meglio.':'Sei rimasto fuori: serviva rientrare '+WMSu[o.c]+'.';
+  if(o.L==null)return 'Rientro inutile: '+WMNa[rl.c0]+' andavano ancora bene.';
+  if(rl.ty!==o.c)return 'Hai scelto '+WMNa[rl.ty]+', ma la gomma giusta erano '+WMNa[o.c]+'.';
+  const e=(rl.pit-o.L)/rl.st;
+  return e<0?'Troppo presto: la pista non era ancora cambiata.':'Troppo tardi: ormai i rivali avevano già guadagnato terreno.';
 }
 function rlRecap(){
   const rc=S.rc;
   if(!rc||!rc.rl||!rc.rl.done)return '';
-  const rl=rc.rl,g=rl.xd>=.25?'up':rl.xd<=-.25?'down':'';
-  const v=rl.rv.filter(x=>x.sk>=.55).map(x=>x.lap);
-  const rng=v.length?`I rivali migliori sono rientrati tra i giri ${Math.min(...v)} e ${Math.max(...v)}.`:'';
-  return `<div class="chips"><span class="chip ${g}">${ico('cloud','fl')} Pioggia · giro ${rl.pit} · ${esc(rlVerdict(rl))} ${rng}</span></div>`;
+  const rl=rc.rl,gq=rlGood(rl.q),g=gq>0?'up':gq<0?'down':'';
+  if(rl.v!==2)return `<div class="chips"><span class="chip ${g}">${ico('cloud','fl')} Pioggia · rientro al giro ${rl.pit}</span></div>`;
+  const v=rl.rv.filter(x=>x.sk>=.55&&x.L!=null).map(x=>x.L);
+  const rng=v.length?`I rivali migliori sono rientrati tra i giri ${Math.min(...v)} e ${Math.max(...v)}.`:'I rivali migliori sono rimasti in pista.';
+  const head=rl.stay?'Sei rimasto in pista':'Rientro al giro '+rl.pit+' · '+WMN[rl.ty].toLowerCase();
+  return `<div class="chips"><span class="chip ${g}">${ico('cloud','fl')} Pioggia · ${head} · ${esc(rlVerdict(rl))} ${rng}</span></div>`;
 }
 /* ---------------- vista dell'atto ---------------- */
 function rlView(){
   const w=S.wk,rc=S.rc,n=rc.n,e=ACTS[rc.ev],rl=rlEnsure(),x=typeof e.x==='function'?e.x(w):e.x;
-  const rd=rlRadar(w,rl),last=rlLast(rl);
-  const steps=[];for(let L=rl.a;L<=rl.a+Math.floor((rl.b-rl.a)/rl.st)*rl.st;L+=rl.st)steps.push(L);
+  const rd=rlRadar(w,rl),last=rlLast(rl),lv=rlLv(rl,rl.lap),ls=rlLossNow(rl,lv);
+  const steps=[];for(let L=rl.a;L<=rl.last;L+=rl.st)steps.push(L);
   const tl=`<div class="rlt" aria-hidden="true">${steps.map(L=>`<i class="${L<rl.lap?'p':L===rl.lap?'c':''}"></i>`).join('')}</div>`;
-  const lose=rlLose(rl);
   const rlpast=rc.lg.length?`<div class="chips">${rc.lg.map(l=>`<span class="chip ${l.g>0?'up':l.g<0?'down':''}">${ACTN[l.a]}: ${esc(l.t)}</span>`).join('')}</div>`:'';
-  const rows=rlShown(w,rl).map(x=>rlRivRow(w,rl,x)).join('');
-  const OP=rl.sur?[
-    {t:'Rientra ora: gomme da bagnato',d:'Più grip con l\'acqua alta, ma lente se smette presto.',risk:.02},
-    {t:'Rientra ora: intermedie',d:'La via di mezzo: vanno bene con pioggia leggera.',risk:.01},
-    {t:'Resta sulle slick',d:'Scommetti che non piova davvero: se piove, perdi molto.',risk:.055}
-  ]:[
-    {t:'Rientra ora: gomme da bagnato',d:'Più grip con l\'acqua alta, ma lente se la pista si asciuga.',risk:.02},
-    {t:'Rientra ora: intermedie',d:'La via di mezzo: tieni il ritmo se l\'acqua non cambia.',risk:.01},
-    {t:'Rientra ora: slick',d:'Se la pista si asciuga vinci la gara, altrimenti rischi l\'aquaplaning.',risk:.055}
-  ];
-  const btn=OP.map((o,i)=>{const rk=o.risk>=.04?2:o.risk>=.02?1:0;return `<button class="ch" data-act="ac" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.t}</span><span class="od">${o.d}</span><span class="tags"><span class="tg r${rk}">Rischio ${['basso','medio','alto'][rk]}</span>${rc.h===i?`<span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span>`:''}</span></span></button>`}).join('');
-  const stay=last?'':`<button class="ch rls" data-act="rls"><span class="lt">D</span><span class="cb"><span class="ot">Resta fuori ancora ${rl.st===1?'un giro':rl.st+' giri'}</span><span class="od">Aspetti di vedere cosa fanno i rivali e cosa dice il radar.</span></span></button>`;
+  const rows=rlShown(w,rl).map(r=>rlRivRow(w,rl,r)).join('');
+  const O=actOpts(e,n),ctx=rlCtx(),wb=rlWaitBetter(rl);
+  const hintOnWait=rc.h!=null&&rc.h===ctx[0]&&wb;
+  const btn=O.map((o,i)=>{
+    const rk=o.risk>=.04?2:o.risk>=.02?1:0;
+    const hint=!hintOnWait&&rc.h===i&&!o.tr?`<span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span>`:'';
+    return `<button class="ch" data-act="ac" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.tr?o.tr.e+' ':''}${o.rl?wmChip(o.rl.c)+' ':''}${o.t}</span><span class="od">${o.d}</span><span class="tags"><span class="tg r${rk}">Rischio ${['basso','medio','alto'][rk]}</span>${o.tg?`<span class="tg">${o.tg}</span>`:''}${o.tr?`<span class="tg hint">${o.tr.n}</span>`:''}${hint}</span></span></button>`;
+  }).join('');
+  const wl=ls.d>=.5?`Intanto con ${WMNa[rl.c0]} perdi circa ${sfmt(ls.d)} s a giro.`:'Aspetti di vedere cosa fanno i rivali e cosa dice il radar.';
+  const stay=last?'':`<button class="ch rls" data-act="rls"><span class="lt">+</span><span class="cb"><span class="ot">Aspetta ancora ${rl.st===1?'un giro':rl.st+' giri'}</span><span class="od">${wl}</span>${hintOnWait?`<span class="tags"><span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span></span>`:''}</span></button>`;
+  const loss=ls.d>=.5?`<b class="neg">Con ${WMNa[rl.c0]} perdi circa ${sfmt(ls.d)} s/giro</b> rispetto alle ${WMNs[ls.best]}.`:`Con ${WMNa[rl.c0]} sei in linea con la pista.`;
+  const mark=rd.pr>=.8?'green':rd.pr>=.65?'amber':'warn';
   return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)} · ${ACTN[n]}</div><h1>${rl.sur?'Arriva la pioggia':'Il meteo cambia'}</h1><p>${x}</p></div>
   ${mainBanner()}${actSit()}${raceMap()}${wkLine()}${rlpast}
   <section class="card rlc"><div class="sech">Muretto live <small>giro ${rl.lap} di ${rl.T}</small></div>${tl}
-  <div class="rlw"><div class="rlk"><b>Radar</b><span class="stt ${rd.pr>=.8?'green':rd.pr>=.65?'amber':'warn'}">affidabilità ${rd.lb}</span></div><p>${esc(rd.tx)}</p></div>
-  <div class="rlw"><div class="rlk"><b>Pista</b></div><p>${esc(rlTrack(rl))}${lose>0?` <b class="neg">Perdi circa ${sfmt(lose)} s/giro</b> rispetto a chi è già rientrato.`:''}</p></div>
+  <div class="rlw"><div class="rlk"><b>Pista</b><span>${rl.rt==='mixed'?'a tratti':wmName(lv)}</span></div><p>${esc(rlTrack(rl))} ${loss}</p>${rlGauge(lv,rl.c0)}</div>
+  <div class="rlw"><div class="rlk"><b>Radar</b><span class="stt ${mark}">affidabilità ${rd.lb}</span></div><p>${esc(rd.tx)}</p><p class="sub rla">${esc(rlAdviceTx(rl,rd))}</p></div>
   <div class="rlw"><div class="rlk"><b>Cosa fanno gli altri</b></div>${rows||'<p class="sub">Nessun dato dal muretto.</p>'}</div>
   ${last?'<p class="bwn">Ultimo giro utile: devi decidere adesso.</p>':''}</section>
   <div class="opts">${btn}${stay}</div>
@@ -6865,39 +7055,64 @@ function rlAct(a){
 /* ---------------- collegamento con gli atti di gara ---------------- */
 (function(){
   const e=ACTL.find(x=>x.id==='wx');if(!e)return;
-  e.x=w=>w.rain?'La pista è bagnata e il cielo non è fermo. Decidi tu il giro giusto per rientrare ai box: guarda il radar e cosa fanno gli altri.':'Il cielo si è fatto nero: la pioggia non era prevista adesso, ma sta arrivando. Anticipa il giro giusto per montare le gomme da bagnato, guardando radar e rivali.';
-  e.wt=w=>{
-    if(w.rain)return 3.5;
-    if(w.sur&&!(S.sw&&S.sw.k==='inter'))return 400;
-    return 0;
+  e.t='Il meteo cambia';
+  e.x=w=>{
+    const rl=S.rc&&S.rc.ev==='wx'?rlEnsure():null,cur=rl?WMNa[rl.c0]:'le tue gomme';
+    return w.rain?`La pista è bagnata e il cielo non è fermo. Sei con ${cur}: decidi se restare o rientrare, guardando pista, radar e rivali.`:`Il cielo si è fatto nero: la pioggia non era prevista adesso, ma sta arrivando. Sei con ${cur}: decidi se e quando rientrare, guardando radar e rivali.`;
   };
-  const oc=e.ctx;
-  e.ctx=w=>{
-    if(w.rain)return oc?oc(w):[1,0];
-    return rlRi(w)?[0,1]:[1,0];
-  };
+  /* compare in ogni gara bagnata e quando arriva una pioggia a sorpresa a chi è su gomme da asciutto */
+  e.wt=w=>(w.rain||(w.sur&&rlC0me(w)==='D'))?1:0;
+  e.ctx=w=>rlCtx();
   ACTS.wx=e;
 })();
+/* in quegli atti non compare nient'altro: la decisione sulla pioggia è l'evento della gara */
+function rlForce(w){
+  try{return !!(w&&S.rc&&S.rc.n===1&&(w.rain||(w.sur&&rlC0me(w)==='D')))}catch(e){return false}
+}
+{const _ao=actOpts;actOpts=function(e,n){
+  const base=_ao.apply(this,arguments);
+  if(!e||e.id!=='wx'||!S.rc||S.rc.ev!=='wx'||!S.wk)return base;
+  const rl=rlEnsure();
+  if(!rl||rl.v!==2)return base;
+  const out=rlBaseOpts(rl);
+  if(base.length>3){
+    /* la carta del talento ha un effetto preciso in questo atto: lo dice il testo */
+    const t=base[3],k=t.tr&&t.tr.k,d=k==='wet'?'Resti in pista senza sosta: sul bagnato trovi aderenza dove gli altri non la trovano e perdi meno tempo.':k==='tyr'?'Resti in pista e fai durare le gomme: con quelle che hai perdi un po\' meno tempo.':k==='cal'?'Hai già visto cosa succederà: scegli la mossa migliore, senza rischi.':t.d;
+    out.push(Object.assign({},t,{d}));
+  }
+  return out;
+}}
 const _actView0=actView,_actPick0=actPick;
 actView=function(){
-  if(S.rc&&S.rc.ev==='wx')return rlView();
+  if(S.rc&&S.rc.ev==='wx'&&S.wk){const rl=rlEnsure();if(rl&&rl.v===2)return rlView()}
   return _actView0();
 };
 actPick=function(i){
   const rc=S.rc;
+  let rlx=null,e0=null,c0=null;
   if(rc&&rc.ev==='wx'&&S.wk){
     const rl=rlEnsure();
-    if(rl&&!rl.done){rc.xd=rlResolve(S.wk,rl,i)}
+    if(rl&&rl.v===2&&!rl.done){
+      const e=ACTS.wx,O=actOpts(e,rc.n),o=O[i];
+      if(o){
+        const val=rlResolve(S.wk,rl,i,o),gq=rlGood(rl.q);
+        /* il valore dell'atto viene dalla qualità della scelta (lettura giusta/sbagliata) invece che da «migliore adesso»:
+           faccio dire al motore base la stessa cosa (bonus e segno della lettura), così contatori e catene restano coerenti */
+        const bd=o.tr?(o.perfect?AD1:0):(gq>0?AD1:gq<0?AD0:0);
+        rc.xd=val-bd;rlx=rl;e0=e;c0=e.ctx;
+        e.ctx=()=>gq>0?[i,-1]:gq<0?[-1,i]:[-1,-1];
+      }
+    }
   }
-  const lg=rc&&rc.lg,rl2=rc&&rc.rl,wxn=rc&&rc.ev==='wx',n0=rc?rc.n:0;
-  _actPick0(i);
+  const lg=rc&&rc.lg,n0=rc?rc.n:0;
+  try{_actPick0(i)}finally{if(e0)e0.ctx=c0}
   try{
-    if(wxn&&lg&&rl2&&rl2.done){
+    if(rlx&&lg){
       const l=lg[lg.length-1];
       if(l&&l.a===n0){
-        l.t=(rl2.sur&&rl2.ty===2)?'Resti sulle slick':'Rientro al giro '+rl2.pit+' · '+RLN[rl2.ty];
-        l.s=(l.s||'')+' '+rlVerdict(rl2);
-        if(rl2.xd>=.25)l.g=1;else if(rl2.xd<=-.25)l.g=-1;
+        l.t=rlx.stay?'Resti con '+WMNa[rlx.c0]:'Rientro al giro '+rlx.pit+' · '+WMN[rlx.ty].toLowerCase();
+        l.s=(l.s||'')+' '+rlVerdict(rlx);
+        if(S.phase==='act'&&S.rc===rc){save();render()}
       }
     }
   }catch(e){}
@@ -7067,7 +7282,9 @@ function mdWrite(c,j,F){
       if(R){
         const b=R.best&&R.best[0];
         h=R.sur?mdSub(P(['Pioggia a sorpresa a {c}: i box impazziscono','{c}: arriva l\'acqua e cambia tutto','Cielo nero a {c}, cambio gomme al cardiopalma']),o):mdSub(P(['Il bagnato decide {c}','{c}: la pioggia ribalta le strategie','Partita a scacchi sotto l\'acqua a {c}']),o);
-        x=(b?b.n+' rientra al giro '+b.lap+' e azzecca la mossa'+(R.worst&&R.worst.n!==b.n?', mentre '+R.worst.n+' aspetta fino al giro '+R.worst.lap:'')+'. ':'')+'Tu rientri al giro '+R.pit+'. '+R.verdict;
+        const bt=b?(b.lap!=null?' rientra al giro '+b.lap+' e azzecca la mossa':' resta in pista e azzecca la mossa'):'';
+        const wt=b&&R.worst&&R.worst.n!==b.n?(R.worst.lap!=null?', mentre '+R.worst.n+' rientra al giro '+R.worst.lap+' e sbaglia':', mentre '+R.worst.n+' sbaglia la scelta'):'';
+        x=(b?b.n+bt+wt+'. ':'')+(R.stay?'Tu resti in pista. ':'Tu rientri al giro '+R.pit+'. ')+R.verdict;
         tone=R.xd>=.25?1:R.xd<=-.25?-1:0;
       }else{
         h=mdSub(P(['La pioggia mescola le carte a {c}','{c} sotto l\'acqua: gara aperta','Bagnato a {c}: vince chi legge meglio la pista']),o);
@@ -7910,7 +8127,7 @@ function rsNow(){
   let ratio,ratioE,age,left=null,j=0,cmp=null;
   let cfg=s&&s.cfg,tys=s&&s.ty;
   const pk=s?(s.k==='safe'?(w.rv&&w.rv!=='safe'?w.rv:'two'):s.k):null;
-  if(s&&!(cfg&&tys&&tys.length)&&pk!=='inter'){
+  if(s&&!(cfg&&tys&&tys.length)&&!isRn(pk)){
     try{cfg=tyPre(pk);const dd=tyDrv();tys=cfg.c.map((c,q)=>({c,Le:tyEst(w,c,(cfg.p&&cfg.p[q])||0)[0],Lr:tyReal(w,c,(cfg.p&&cfg.p[q])||0,dd)}))}catch(e){cfg=null}
   }
   if(cfg&&tys&&tys.length){
@@ -8053,8 +8270,8 @@ function wkSumm(L){
   if(!w||!s||!w.wt||w.c!==L.circuit)return '';
   const row=(lb,pre,acc,ok)=>`<div class="sr"><span class="lb">${lb}<small>Previsto: ${pre}<br>Accaduto: ${acc}</small></span><em style="color:var(--${ok?'green':'amber'})">${ok?'come previsto':'sorpresa'}</em></div>`;
   const fp=w.rp,fcT=w.fc?'pioggia '+w.fc.a+'% → '+w.fc.b+'% dopo la qualifica':'pioggia '+fp+'%';
-  const wx=w.rain?(w.mixed?'bagnato a tratti':(w.wx&&w.wx.ri?'pioggia forte':'pioggia leggera')+(w.wx&&w.wx.rt==='stop'?', in calo':w.wx&&w.wx.rt==='worse'?', in peggioramento':'')):(w.damp?'asciutto, con pista umida alla partenza':'asciutto');
-  const okW=w.rain?fp>=45:fp<55;
+  const wx=w.rain?(w.mixed?'bagnato a tratti':(w.wx&&w.wx.ri?'pioggia forte':'pioggia leggera')+(w.wx&&w.wx.rt==='stop'?', in calo':w.wx&&w.wx.rt==='worse'?', in peggioramento':'')):(w.damp?'asciutto, con pista umida alla partenza'+(w.sur?', poi pioggia a sorpresa a metà gara':''):w.sur?'asciutto, poi pioggia a sorpresa a metà gara':'asciutto');
+  const okW=w.rain?fp>=45:(fp<55&&!w.sur);
   const qd=w.q?(w.q.rain?'bagnata':'asciutta'):'';
   const neu=w.sc?(w.neu==='red'?'bandiera rossa':w.neu==='vsc'?'virtual safety car':'safety car'):'nessuna neutralizzazione';
   const okS=(w.sck===0&&!w.sc)||(w.sck===2&&w.sc)||w.sck===1;
@@ -8808,7 +9025,7 @@ function obCal(k,p,t){
 function rvSync(w){
   try{
     if(!w||!w.ai||!w.ai.rk||w.rv===undefined)return;
-    if(!planOk(w.ai.rk)||w.ai.rk==='safe'||w.ai.rk==='inter')return;
+    if(!planOk(w.ai.rk)||w.ai.rk==='safe')return;
     w.rv=w.ai.rk;
   }catch(e){}
 }
@@ -8820,7 +9037,8 @@ function rvSync(w){
   try{
     const s=S.sw,w=S.wk;
     if(pl&&pl.k==='safe'&&s&&s.k==='safe'&&w){
-      const rk=w.rv&&!['safe','inter'].includes(w.rv)?w.rv:(w.ai&&w.ai.rk)||'two';
+      const rk=w.rv&&w.rv!=='safe'?w.rv:(w.ai&&w.ai.rk&&w.ai.rk!=='safe'?w.ai.rk:'two');
+      if(isRn(rk))return `<span class="chip pt">${cpb(rk==='wet'?'W':'I')} Copia i rivali · ${esc(aiRvTeam(w))} · ${rk==='wet'?'gomme da bagnato':'intermedie'}</span>`;
       const cfg=tyPre(rk),n=cfg.c.length-1;
       return `<span class="chip pt">${cfg.c.map(cpb).join('')} Copia i rivali · ${esc(aiRvTeam(w))} · ${n===0?'nessuna sosta':n===1?'1 sosta':n+' soste'}</span>`;
     }
@@ -8845,7 +9063,7 @@ function rvSync(w){
     const best=Math.max(...keys.map(k=>re[k]));
     L.st.ai.forEach(a=>{
       if(a.hs)return;
-      const wetPlan=a.k==='inter';
+      const wetPlan=isRn(a.k);
       if(w.mixed||(wetPlan===!!w.rain))return;       /* scelta coerente col meteo: resta il giudizio di prima */
       a.vd=Math.max(a.vd,verdictOf(Math.max(0,best-re[a.k])));a.hs=1;
     });
@@ -8879,12 +9097,726 @@ function stHead(s){
     const row=`<div class="dv2"><span><small>Con le informazioni che avevi</small><b style="color:${VD[a][1]}">${VD[a][0]}</b></span><span><small>Con ciò che è successo in gara</small><b style="color:${VD[h][1]}">${VD[h][0]}</b></span></div>${why?`<p class="sub dv2n">${why}</p>`:''}`;
     let out=html.replace('<div class="gauges">',row+'<div class="gauges">');
     /* "Copia i rivali": nella scheda compaiono gli stint veri del team copiato, non un generico "M H" */
-    if(s.k==='safe'&&S.phase==='result'&&S.wk&&S.wk.ai&&S.wk.ai.rk&&s.w&&S.wk.c===s.w.c&&!['safe','inter'].includes(S.wk.ai.rk)){
-      const cfg=tyPre(S.wk.ai.rk),n=cfg.c.length-1;
-      out=out.replace(/<small class="pl2">[\s\S]*?<\/small>/,`<small class="pl2">${cfg.c.map(cpb).join('')}<span>Copia i rivali · ${esc(aiRvTeam(S.wk))} · ${n===0?'nessuna sosta':n===1?'1 sosta':n+' soste'}</span></small>`);
+    if(s.k==='safe'&&S.phase==='result'&&S.wk&&S.wk.ai&&S.wk.ai.rk&&s.w&&S.wk.c===s.w.c&&S.wk.ai.rk!=='safe'){
+      const rk=S.wk.ai.rk;
+      if(isRn(rk))out=out.replace(/<small class="pl2">[\s\S]*?<\/small>/,`<small class="pl2">${cpb(rk==='wet'?'W':'I')}<span>Copia i rivali · ${esc(aiRvTeam(S.wk))} · ${rk==='wet'?'gomme da bagnato':'intermedie'}</span></small>`);
+      else{
+        const cfg=tyPre(rk),n=cfg.c.length-1;
+        out=out.replace(/<small class="pl2">[\s\S]*?<\/small>/,`<small class="pl2">${cfg.c.map(cpb).join('')}<span>Copia i rivali · ${esc(aiRvTeam(S.wk))} · ${n===0?'nessuna sosta':n===1?'1 sosta':n+' soste'}</span></small>`);
+      }
     }
     return out;
   }catch(e){return html}
+}}
+/* =====================================================================
+   v6 · Weekend rapido
+   · «Simula questo weekend»: una sola gara, con le stesse regole delle gare
+     simulate che il gioco già conosce (piano affidato al muretto).
+   · «Weekend rapido automatico» (interruttore, spento di base): i weekend
+     tranquilli passano da soli; il gioco si ferma e ti lascia le scelte in
+     apertura, finale di stagione, GP di casa, debutto in categoria e lotta
+     per il titolo. Nessuna regola nuova: usa doRace(null) come sempre.
+   ===================================================================== */
+function qkKey(){
+  try{
+    if(!S||!S.cal||S.round==null)return '';
+    const T=S.total,R=S.round,cn=S.cal[R];
+    if(R===0)return 'Apertura di stagione';
+    if(R>=T-2)return 'Finale di stagione';
+    if(typeof isHome==='function'&&isHome(cn))return 'Gran premio di casa';
+    const c=S.career&&S.career.cat?S.career.cat[S.tier]:null;
+    if(c&&c.r<3)return 'Debutto in categoria';
+    const st=standings(),pos=st.findIndex(x=>x.me)+1,gap=st[0].pts-S.me.pts,rem=T-R,mp=PTS[0]||25;
+    if(R>=T*.4&&pos>=1&&pos<=3&&gap<=mp*Math.min(rem,4))return 'Lotta per il titolo';
+    return '';
+  }catch(e){return ''}
+}
+/* simula una o più gare consecutive del calendario (finché non arriva un weekend chiave o un evento) */
+function qkRun(single){
+  const b=[];let g=0;
+  while(S.round<S.total&&g++<60){
+    const st=S.steps[S.step];
+    if(!st||st.k!=='race'||st.at!==S.round)break;
+    if(b.length&&(single||qkKey()))break;
+    doRace(null);
+    const L=S.last;L.sim=1;
+    b.push({n:S.round,c:L.circuit,races:L.races,rows:L.rows,champ:L.champ});
+    S.step++;
+  }
+  if(!b.length)return false;
+  S.batch=b;S.phase='batch';S.rstep=0;
+  save();render();return true;
+}
+{const _e0=enterStep0;enterStep0=function(){
+  try{
+    const st=S&&S.steps?S.steps[S.step]:null;
+    if(S&&S.quick&&!S.auto&&st&&st.k==='race'&&st.at===S.round&&!qkKey()){
+      if(qkRun(false))return;
+    }
+  }catch(e){}
+  return _e0.apply(this,arguments);
+}}
+function qkCard(){
+  try{
+    const p=S.phase,why=qkKey(),w=S.wk;
+    const inWk=(p==='fp'||p==='quali');
+    const on=!!S.quick;
+    const t1=inWk?`<button class="ghost" data-act="qk1">Simula questo weekend</button>`:'';
+    return `<section class="card qkc"><div class="sech">Weekend rapido</div>
+    <p class="sub" style="margin:0 0 6px">${on?'Attivo: i weekend tranquilli passano da soli e ti fermo nei weekend chiave':'Salta i weekend tranquilli e gioca solo quelli importanti'} (apertura, finale, GP di casa, debutto, lotta per il titolo).${why&&inWk?` <b>Questo è un weekend chiave: ${esc(why.toLowerCase())}.</b>`:''}</p>
+    <div class="btns">${t1}<button class="ghost${on?' on':''}" data-act="qkt">Automatico: ${on?'acceso':'spento'}</button></div></section>`;
+  }catch(e){return ''}
+}
+{const _dv=decideView;decideView=function(){
+  let h=_dv.apply(this,arguments);
+  try{
+    const p=S&&S.phase;
+    if(typeof h==='string'&&(p==='fp'||p==='event'||(p==='quali'&&typeof simShow==='function'&&simShow()))&&simShow()){
+      h+=qkCard();
+    }
+  }catch(e){}
+  return h;
+}}
+{const _ac=act;act=function(a,i,v){
+  if(a==='qkt'){
+    try{KP=true;S.quick=!S.quick;save();render()}catch(e){}
+    return;
+  }
+  if(a==='qk1'){
+    try{
+      if(!S||!S.steps||!simShow())return;
+      askUI('Simulare questo weekend? Non potrai scegliere nulla: il muretto gestisce la gara per te.','Simula',()=>{try{qkRun(true)}catch(e){try{flash('Non sono riuscito a simulare il weekend.')}catch(_){}}},{});
+    }catch(e){}
+    return;
+  }
+  return _ac.apply(this,arguments);
+}}
+/* la scheda dei weekend simulati ricorda perché sei stato fermato */
+{const _dv2=decideView;decideView=function(){
+  let h=_dv2.apply(this,arguments);
+  try{
+    if(S&&S.phase==='batch'&&S.quick){
+      const why=qkKey();
+      if(why&&S.round<S.total)h=h.replace('</p></div>','</p></div><p class="sub" style="margin:-4px 0 8px"><b>Prossimo weekend chiave:</b> '+esc(S.cal[S.round])+' · '+esc(why.toLowerCase())+'.</p>');
+    }
+  }catch(e){}
+  return h;
+}}
+/* =====================================================================
+   v6 · Momenti di gara più vari e più belli
+   · nuove situazioni legate al contesto (pioggia, rivale, compagno,
+     griglia, titolo, aria sporca, pressione da dietro, incidente davanti)
+   · sequenze: una scelta può avere una conseguenza nell'atto dopo
+   · presentazione: giro stimato, colore della situazione, «resa» di ogni
+     scelta accanto al rischio
+   Nessuna regola nuova: stessa scala di rischio e resa delle situazioni
+   già esistenti, stessi bonus di lettura giusta.
+   ===================================================================== */
+const NXP=()=>{try{return posNow()}catch(e){return{p:10,N:20,a:null,b:null,an:null,bn:null,n:0}}};
+const nxRs=()=>{try{return rsNow()}catch(e){return null}};
+const nxPz=n=>n+' '+(n===1?'posizione':'posizioni');
+const nxGrid=nm=>{try{const w=S.wk,r=w&&w.grid&&w.grid.find(x=>x.n===nm);return r?r.g:0}catch(e){return 0}};
+const nxRivClose=w=>{
+  try{
+    if(!S.riv||!rivHere()||!w||!w.gp)return null;
+    const g=nxGrid(S.riv.n);
+    return g&&g!==w.gp&&Math.abs(g-w.gp)<=3?g:null;
+  }catch(e){return null}
+};
+const nxMateClose=w=>{
+  try{
+    const m=mateOf();if(!m||!w||!w.gp)return null;
+    const g=nxGrid(m.n);
+    return g&&g!==w.gp&&Math.abs(g-w.gp)<=2?{m,g}:null;
+  }catch(e){return null}
+};
+function nxTitle(){
+  try{
+    const T=S.total,R=S.round;if(R<T*.4)return null;
+    const st=standings(),pos=st.findIndex(x=>x.me)+1;if(pos<1||pos>3)return null;
+    const gap=st[0].pts-st[pos-1].pts,rem=T-R,mp=PTS[0]||25;
+    return gap<=mp*Math.min(rem,4)?{pos,gap,rem}:null;
+  }catch(e){return null}
+}
+/* sequenze: quale situazione-conseguenza può seguire una scelta */
+const NX_START=['st','f4_ventaglio','f4_sporca','f1_formazione','f1_ers','n_start_wet','n_retrovie','n_pole','n_start_riv','n_start_mate','n_gruppo'];
+const NX_PIT=['deg','f2_sosta','f1_undercut','f1_pace','f1_pitslow','f3_gomme'];
+const NX_RIV=['n_start_riv','f2_drs','f3_scia','f4_sporca','n_aria_sporca','n_sotto_pressione','friv','duel'];
+const NX_NEU=['sc','vsc','red'];
+function nxChainOf(pk,n){
+  const out=[];
+  try{
+    if(!pk||!(pk.i>=0&&pk.i<=2))return out;
+    const e=ACTS[pk.ev],o=e&&e.o&&e.o[pk.i];
+    const ag=!!(o&&(o.ag||o.risk>=.045));
+    if(n>=1&&NX_RIV.includes(pk.ev)&&ag)out.push('ch_riv');
+    if(n===1&&NX_START.includes(pk.ev)){if(pk.i===0)out.push('ch_att');else if(pk.i===2)out.push('ch_cons')}
+    if(n===2&&NX_NEU.includes(pk.ev))out.push('ch_restart');
+    if(n===2&&NX_PIT.includes(pk.ev))out.push('ch_gomme');
+  }catch(e){}
+  return out;
+}
+const nxIs=id=>{const rc=S.rc;return !!(rc&&rc.pk&&nxChainOf(rc.pk,rc.n).includes(id))};
+const NX_STANCE={
+  deg:['hai anticipato la sosta','hai allungato lo stint','hai scelto la doppia sosta'],
+  f2_sosta:['sei rientrato subito','hai aspettato un giro','sei rimasto fuori il più possibile'],
+  f1_undercut:['hai coperto l\'undercut','sei rimasto fuori per l\'overcut','sei rientrato due giri dopo il rivale'],
+  f1_pace:['hai seguito il nuovo piano del muretto','hai tenuto il tuo piano','hai chiesto un compromesso al muretto'],
+  f1_pitslow:['hai spinto subito dopo la sosta lenta','hai gestito il traffico','hai allungato lo stint successivo'],
+  f3_gomme:['hai alzato il ritmo','hai gestito le gomme','hai seguito il compagno di squadra']
+};
+
+/* ---------- le nuove situazioni ---------- */
+const NX_NEW=[
+ /* ----- partenza ----- */
+ {id:'n_start_wet',a:[0],t:'Partenza sull\'acqua',wt:3,cond:w=>!!w.rain,
+  x:w=>{const g=w.gp||10;return (w.wx&&w.wx.ri?'Pioggia forte':'Pioggia leggera')+' sul rettilineo: '+(g<=3?'davanti hai l\'acqua libera, ma il grip è tutto da scoprire.':g>=11?'dal gruppo non si vede nulla, solo spruzzi.':'nel gruppo si guida a memoria, tra spruzzi e traiettorie incerte.')+' La frizione è un\'incognita.'},
+  o:[{t:'Cerca il grip fuori traiettoria',d:'Dove la gomma non ha ancora lavato l\'asfalto.',mod:2.1,risk:.05,ag:1,out:'Hai cercato il grip fuori traiettoria, dove l\'asfalto era più ruvido.'},
+     {t:'Segui la linea e dosa il gas',d:'Niente colpi di testa, tanta progressione.',mod:1.2,risk:.015,out:'Hai tenuto la linea dosando il gas in uscita di curva.'},
+     {t:'Resta fuori dagli spruzzi',d:'Lasci spazio e vedi dove vai.',mod:.4,risk:0,out:'Ti sei tenuto lontano dagli spruzzi, lasciando sfogare il gruppo.'}],
+  ctx:w=>w.wx&&w.wx.ri?[1,0]:(w.gp||10)<=3?[1,0]:[0,2]},
+ {id:'n_retrovie',a:[0],t:'Dal fondo, un giro per decidere',wt:2.5,cond:w=>(w.gp||10)>=12,
+  x:w=>'Parti P'+w.gp+': davanti un muro di vetture e un solo giro per capire che gara fare. Dal fondo si guadagna dove gli altri si toccano.',
+  o:[{t:'Infilati ovunque ci sia spazio',d:'Il fondo del gruppo è dove si guadagna di più.',mod:2.2,risk:.055,ag:1,out:'Ti sei infilato in ogni varco: hai guadagnato posizioni nel caos.'},
+     {t:'Rimonta con metodo',d:'Una posizione alla volta, senza buttarti.',mod:1.2,risk:.015,out:'Hai rimontato una vettura alla volta, senza buttarti.'},
+     {t:'Pensa al passo di gara',d:'Lasci passare il caos e punti sul ritmo.',mod:.5,risk:0,ty:1,out:'Hai lasciato passare il caos e puntato sul passo di gara.'}],
+  ctx:w=>(w.gp||10)>=16?[0,2]:[1,2]},
+ {id:'n_pole',a:[0],t:'Davanti a tutti',wt:3,cond:w=>(w.gp||10)<=2,
+  x:w=>w.gp===1?'Sei in pole: davanti a te solo asfalto libero, ma alle tue spalle chi parte secondo ha la stessa fame. La prima curva è tutta da difendere.':'Sei in prima fila: davanti c\'è solo il poleman, dietro hanno fame. Una buona partenza vale una posizione intera.',
+  o:[{t:'Parti al limite',d:'Costruisci subito un margine.',mod:2.0,risk:.045,ag:1,out:'Sei scattato al limite e hai costruito subito qualche metro.'},
+     {t:'Parti pulito, copri l\'interno',d:'Prima curva sicura e niente sorprese.',mod:1.3,risk:.01,out:'Hai coperto l\'interno e chiuso la porta in sicurezza.'},
+     {t:'Scia e pazienza',d:'Non forzi: aspetti la fase di gara.',mod:.5,risk:0,ty:1,out:'Hai scelto la pazienza nei primi giri, risparmiando le gomme.'}],
+  ctx:w=>w.ovt===0?[0,2]:[1,2]},
+ {id:'n_start_riv',a:[0],t:'Il rivale a un passo',wt:3,cond:w=>nxRivClose(w)!=null,
+  x:w=>{const g=nxRivClose(w);return (S.riv?S.riv.n:'Il rivale')+' parte '+(g<w.gp?'davanti a te':'dietro di te')+' (P'+g+'), a un passo. La prima curva è un duello personale: chi cede ora, cederà anche dopo.'},
+  o:[{t:'Stringilo all\'interno',d:'Mandi il segnale: oggi non passa.',mod:2.3,risk:.055,ag:1,rv:6,out:'Hai stretto il rivale all\'interno: messaggio chiaro fin dal primo metro.'},
+     {t:'Parti pulito, resta a contatto',d:'La gara è lunga: non regali nulla.',mod:1.3,risk:.015,rv:2,out:'Hai fatto una partenza pulita, restando a contatto con il rivale.'},
+     {t:'Lascialo andare',d:'La sfida si gioca più avanti.',mod:.4,risk:0,rv:-3,out:'Hai lasciato spazio al rivale: la sfida si gioca più avanti.'}],
+  ctx:w=>w.ovt===0?[0,2]:w.ovt===2?[1,0]:[1,2]},
+ {id:'n_start_mate',a:[0],t:'Il compagno di squadra a fianco',wt:2.5,cond:w=>!!nxMateClose(w),
+  x:w=>{const q=nxMateClose(w);return q.m.n+' parte '+(q.g<w.gp?'davanti a te':'dietro di te')+' (P'+q.g+'). Il muretto ve l\'ha ripetuto in griglia: due macchine dello stesso team che si toccano alla prima curva sono una disfatta.'},
+  o:[{t:'Attaccalo senza riguardi',d:'Prima curva, tutto per te.',mod:2.1,risk:.055,ag:1,mv:5,out:'Hai attaccato il compagno alla prima curva, senza riguardi.'},
+     {t:'Parti pulito, rispetta la linea',d:'Vi coprite a vicenda dagli altri.',mod:1.2,risk:.01,out:'Hai rispettato la linea del compagno, partendo pulito.'},
+     {t:'Fagli strada',d:'Gioco di squadra: rinunci a qualcosa.',mod:.5,risk:0,fx:{team:1},mv:-3,out:'Hai fatto strada al compagno: il muretto lo apprezza.'}],
+  ctx:w=>{const q=nxMateClose(w);return q&&q.g<w.gp&&w.ovt===0?[0,2]:[1,0]}},
+ {id:'n_gruppo',a:[0],t:'Il gruppo si chiude',wt:1.6,cond:w=>(w.gp||10)>=4&&(w.gp||10)<=11,
+  x:'Nel gruppo di centro i distacchi sono di pochi decimi: alla prima staccata si frena in cinque, e in due curve la gara può già essere decisa.',
+  o:[{t:'Frena più tardi di tutti',d:'Guadagni posizioni, ma togli margine.',mod:2.1,risk:.05,ag:1,out:'Hai frenato più tardi degli altri, guadagnando posizioni.'},
+     {t:'Segui il flusso',d:'Resti nella scia senza strafare.',mod:1.2,risk:.01,out:'Hai seguito il flusso del gruppo senza strafare.'},
+     {t:'Apri la traiettoria',d:'Eviti il ginepraio e riparti con calma.',mod:.5,risk:0,ty:1,out:'Hai aperto la traiettoria evitando il ginepraio.'}],
+  ctx:w=>w.ovt===0?[0,2]:w.u>=3?[2,0]:[1,2]},
+ /* ----- metà gara ----- */
+ {id:'n_aria_sporca',a:[1],t:'Aria sporca',wt:2,cond:()=>gapNear(),
+  x:()=>{const P=NXP();return 'Sei a '+sec(P.a)+' dalla vettura che ti precede: nell\'aria sporca le gomme anteriori scivolano e si scaldano più in fretta. Restare lì costa gomme, uscire costa tempo.'},
+  o:[{t:'Esci dalla scia e attacca',d:'Cerchi un\'altra linea per passare.',mod:2.0,risk:.045,ag:1,out:'Sei uscito dalla scia cercando un\'altra linea per passare.'},
+     {t:'Resta e gestisci il calore',d:'Ti accontenti, ma controlli le gomme.',mod:1.1,risk:.01,out:'Sei rimasto in scia, gestendo il surriscaldamento.'},
+     {t:'Rallenta e crea spazio',d:'Qualche decimo in meno per respirare.',mod:.5,risk:0,ty:1,out:'Hai rallentato per uscire dall\'aria sporca e salvare le gomme.'}],
+  ctx:w=>{const s=nxRs();if(s&&s.ratio>=.9)return[2,0];return w.ovt===2?[0,2]:w.ovt===0?[1,0]:[1,2]}},
+ {id:'n_sotto_pressione',a:[1,2],t:'Lo specchietto si riempie',wt:2,cond:()=>gapBack(),
+  x:()=>{const P=NXP();return (P.bn||'Chi ti segue')+' ti è alle spalle, a '+sec(P.b)+': ha più passo e lo mostra. Se resisti consumi gomme, se cedi perdi una posizione.'},
+  o:[{t:'Difendi con le unghie',d:'Linea chiusa, niente regali.',mod:1.9,risk:.045,ag:1,out:'Hai difeso con le unghie, chiudendo ogni linea.'},
+     {t:'Difendi con intelligenza',d:'Lo fai passare solo se serve davvero.',mod:1.1,risk:.01,out:'Hai difeso con intelligenza, senza sprecare gomme.'},
+     {t:'Lascialo passare e riparti',d:'Preferisci tenere gomme e ritmo.',mod:.4,risk:0,ty:1,out:'Hai lasciato passare chi era più veloce, per tenerti le gomme.'}],
+  ctx:w=>{const s=nxRs();if(s&&s.ratio>=.95)return[2,0];return w.ovt===0?[0,2]:[1,2]}},
+ {id:'n_mate_dietro',a:[1,2],t:'Il compagno ti sta addosso',wt:3,
+  cond:()=>{const m=mateOf(),P=NXP();return !!(m&&P.bn===m.n&&P.b!=null&&P.b<2.5)},
+  x:()=>{const m=mateOf(),P=NXP();return (m?m.n:'Il compagno')+' è dietro di te a '+sec(P.b)+': ha più passo e il muretto lo sa. La radio può chiederti di farlo passare, oppure tieni la posizione con tutti i rischi del caso.'},
+  o:[{t:'Tieni duro',d:'La posizione è tua, non c\'è nessun ordine.',mod:1.9,risk:.045,ag:1,mv:4,out:'Hai tenuto duro contro il compagno, senza fare sconti.'},
+     {t:'Gestisci senza sprecarti',d:'Difendi quanto basta, poi si vedrà.',mod:1.1,risk:.01,out:'Hai difeso senza sprecare gomme, in attesa del muretto.'},
+     {t:'Fallo passare',d:'Gioco di squadra: perdi una posizione.',mod:.3,risk:0,fx:{team:1},mv:-2,out:'Hai fatto passare il compagno: il box ringrazia.'}],
+  ctx:()=>[1,0]},
+ {id:'n_incidente_davanti',a:[1,2],t:'Incidente davanti a te',wt:1.2,
+  cond:()=>{const P=NXP();return P.p>1&&P.a!=null&&P.a<=5},
+  x:()=>{const P=NXP();return (P.a<.15?'Subito davanti a te':'Davanti a te, a '+sec(P.a))+', due vetture si toccano in curva: pezzi di carbonio sulla traiettoria e una nube di polvere. Hai un secondo per decidere da che parte passare.'},
+  o:[{t:'Infilati nel varco',d:'Se passa, guadagni posizioni.',mod:2.2,risk:.055,ag:1,out:'Ti sei infilato nel varco tra le vetture incidentate.'},
+     {t:'Passa piano sulla linea sicura',d:'Eviti detriti e rischi.',mod:1.2,risk:.01,out:'Hai passato piano sulla linea pulita, evitando i detriti.'},
+     {t:'Alza il piede e aspetta',d:'Meglio una posizione in meno che una gomma bucata.',mod:.4,risk:0,out:'Hai alzato il piede e aspettato che la pista si liberasse.'}],
+  ctx:w=>{const s=nxRs();return !w.rain&&s&&s.ratio<.6?[0,2]:[1,0]}},
+ /* ----- finale ----- */
+ {id:'n_finale_titolo',a:[2],t:'Il campionato passa da qui',wt:5,cond:()=>!!nxTitle(),
+  x:()=>{const t=nxTitle();return 'Gara '+(S.round+1)+' di '+S.total+': '+(t.pos===1?'sei in testa al campionato':'sei P'+t.pos+' a '+t.gap+' '+(t.gap===1?'punto':'punti')+' dalla vetta')+'. Ogni posizione pesa più di quanto dica il tabellone.'},
+  o:[{t:'All\'attacco, costi quel che costi',d:'Il titolo non si vince con la prudenza.',mod:2.4,risk:.06,ag:1,out:'Hai attaccato fino all\'ultimo, con il titolo nel mirino.'},
+     {t:'Gara da campione',d:'Freddo, regolare, senza errori.',mod:1.3,risk:.01,out:'Hai corso da campione: freddo e regolare.'},
+     {t:'Porta a casa i punti',d:'Meglio un piazzamento certo di un azzardo.',mod:.4,risk:0,ty:1,out:'Hai portato a casa i punti senza rischiare.'}],
+  ctx:()=>{const t=nxTitle();if(!t)return[1,2];if(t.pos===1)return[1,0];return t.gap>(PTS[0]||25)*.6?[0,2]:[1,2]}}
+];
+
+/* ---------- le conseguenze (compaiono solo dopo una scelta precisa) ---------- */
+const NX_CH=[
+ {id:'ch_att',a:[1],t:'Dopo la partenza all\'attacco',wt:0,cond:()=>nxIs('ch_att'),
+  x:w=>{const P=NXP(),d=(w.gp||10)-P.p;
+    return 'La partenza all\'attacco '+(d>0?'ti ha dato '+nxPz(d)+': ora sei P'+P.p+'.':d<0?'è costata cara: sei sceso a P'+P.p+'.':'non ha cambiato la tua posizione: sei ancora P'+P.p+'.')+' Le gomme sono calde e il gruppo è ancora compatto.'},
+  o:[{t:'Spingi finché sei caldo',d:'Approfitti delle gomme in temperatura.',mod:1.9,risk:.04,ag:1,out:'Hai spinto finché le gomme erano in temperatura.'},
+     {t:'Consolida la posizione',d:'Tieni quello che hai guadagnato.',mod:1.2,risk:.01,out:'Hai consolidato la posizione, senza strappi.'},
+     {t:'Gestisci il vantaggio',d:'Una gara lunga: prima il ritmo.',mod:.5,risk:0,ty:1,out:'Hai gestito le gomme dopo la partenza.'}],
+  ctx:w=>((w.gp||10)-NXP().p)>0?[1,0]:[0,2]},
+ {id:'ch_cons',a:[1],t:'Dopo la partenza prudente',wt:0,cond:()=>nxIs('ch_cons'),
+  x:w=>{const P=NXP(),d=(w.gp||10)-P.p;
+    return 'Hai lasciato sfogare la prima curva: ora sei P'+P.p+(d>0?' (+'+d+')':d<0?' ('+d+')':'')+'. Il gruppo si è sgranato e le gomme sono in forma: c\'è spazio per spingere.'},
+  o:[{t:'Ora spingi',d:'Il passo c\'è: usalo.',mod:2.0,risk:.04,ag:1,out:'Hai alzato il ritmo appena il gruppo si è sgranato.'},
+     {t:'Trova il tuo ritmo',d:'Costante, senza strafare.',mod:1.2,risk:.01,out:'Hai trovato il tuo ritmo, senza strafare.'},
+     {t:'Resta in scia e aspetta',d:'Il momento giusto arriverà.',mod:.5,risk:0,ty:1,out:'Sei rimasto in scia, in attesa del momento giusto.'}],
+  ctx:()=>{const P=NXP();return P.p>1&&P.a!=null&&P.a<=3?[0,2]:[1,2]}},
+ {id:'ch_restart',a:[2],t:'La ripartenza',wt:0,cond:()=>nxIs('ch_restart'),
+  x:()=>{const k=S.rc.pk.ev,P=NXP();
+    const b=k==='sc'?'La safety car rientra ai box e si riparte.':k==='vsc'?'La virtual safety car è finita: si riparte.':'La bandiera rossa è finita: si riparte da fermi, in griglia.';
+    return b+' Sei P'+P.p+(P.a!=null&&P.p>1?', con una vettura a '+sec(P.a)+' davanti.':'.')+' Alla prima curva tutti spingono.'},
+  o:[{t:'Scatta alla ripartenza',d:'Tutto subito, appena si spegne la luce.',mod:2.2,risk:.05,ag:1,out:'Sei scattato alla ripartenza, prendendoti ogni rischio.'},
+     {t:'Resta in scia e decidi dopo',d:'Non bruci il giro in cui tutti spingono.',mod:1.2,risk:.01,out:'Sei rimasto in scia alla ripartenza, decidendo dopo.'},
+     {t:'Ripartenza prudente',d:'Gomme e posizione prima di tutto.',mod:.5,risk:0,ty:1,out:'Hai ripartito con prudenza, senza rischi.'}],
+  ctx:w=>NXP().p===1?[1,0]:w.ovt===2?[0,2]:w.ovt===0?[1,0]:[1,2]},
+ {id:'ch_gomme',a:[2],t:'Le gomme dopo la tua scelta',wt:0,cond:()=>nxIs('ch_gomme'),
+  x:()=>{const pk=S.rc.pk,st=(NX_STANCE[pk.ev]||[])[pk.i],P=NXP(),s=nxRs();
+    return (st?'Poco fa '+st+'. ':'')+(s?rsTxt(s):'')+(P.a!=null&&P.p>1?' Davanti hai una vettura a '+sec(P.a)+'.':'')},
+  o:[{t:'Spingi fino alla fine',d:'Giri veloci a ripetizione.',mod:1.8,risk:.035,ag:1,out:'Hai spinto fino alla bandiera, dopo la tua scelta di strategia.'},
+     {t:'Mantieni il ritmo',d:'Regolarità prima di tutto.',mod:1.1,risk:.01,out:'Hai mantenuto il ritmo fino all\'arrivo.'},
+     {t:'Gestisci le gomme',d:'Le porti fino in fondo.',mod:.4,risk:0,ty:1,out:'Hai gestito le gomme fino all\'arrivo.'}],
+  ctx:()=>{const s=nxRs();return !s?[1,2]:s.ratio>=.95?[2,0]:s.ratio<.6?[0,2]:[1,2]}},
+ {id:'ch_riv',a:[1,2],t:'Il rivale risponde',wt:0,
+  cond:()=>{if(!nxIs('ch_riv'))return false;const P=NXP();return !!(S.riv&&(P.an===S.riv.n||P.bn===S.riv.n))},
+  x:()=>{const P=NXP(),r=S.riv?S.riv.n:'Il rivale',dav=P.an===(S.riv&&S.riv.n);
+    return r+' non ci sta: '+(dav?'è davanti a te'+(P.a!=null?', a '+sec(P.a):''):'è dietro di te'+(P.b!=null?', a '+sec(P.b):''))+'. Dopo il duello di prima la sfida è personale.'},
+  o:[{t:'Rispondi colpo su colpo',d:'Non gli lasci un centimetro.',mod:2.2,risk:.05,ag:1,rv:5,out:'Hai risposto colpo su colpo al rivale.'},
+     {t:'Gioca d\'astuzia',d:'Aspetti il suo errore e lo punisci.',mod:1.3,risk:.015,rv:2,out:'Hai giocato d\'astuzia, aspettando l\'errore del rivale.'},
+     {t:'Lascia perdere',d:'Oggi non vale il rischio.',mod:.4,risk:0,rv:-3,out:'Hai lasciato perdere il duello: oggi non ne valeva la pena.'}],
+  ctx:w=>{const P=NXP(),dav=S.riv&&P.an===S.riv.n;return dav?(w.ovt===2?[0,2]:[1,0]):[1,0]}}
+];
+NX_NEW.concat(NX_CH).forEach(e=>{if(!ACTL.find(x=>x.id===e.id))ACTL.push(e);ACTS[e.id]=e});
+
+/* ---------- registra la scelta fatta; rivalità e compagno ---------- */
+{const _ap=actPick;actPick=function(i){
+  try{
+    const rc=S.rc,e=rc&&ACTS[rc.ev],O=e?actOpts(e,rc.n):null,o=O&&O[i];
+    if(o){
+      rc.pk={ev:rc.ev,i,t:o.t,n:rc.n};
+      if(o.mv){const m=mateOf();if(m){S.hh=S.hh||{};S.hh[m.n]=clamp((S.hh[m.n]||0)+o.mv,0,100)}}
+    }
+  }catch(err){}
+  return _ap.apply(this,arguments);
+}}
+/* ---------- l'atto successivo può essere la conseguenza della scelta ---------- */
+{const _rp=rcPick;rcPick=function(n){
+  const w=S.wk,rc=S.rc,hadNeu=w&&w.neu;
+  _rp.apply(this,arguments);
+  try{
+    if(!rc||!w)return;
+    rc.ch=null;
+    if(n<1||!rc.pk)return;
+    if(!hadNeu&&w.neu)return;                       /* neutralizzazione del weekend: resta com'è */
+    if(rc.ev==='wx'||NX_NEU.includes(rc.ev))return;
+    const cand=nxChainOf(rc.pk,n);if(!cand.length)return;
+    const id=cand.find(c=>{const e=ACTS[c];return e&&e.a.includes(n)&&(!e.cond||e.cond(w))});
+    if(!id)return;
+    if(rnd()>=(id==='ch_restart'?.85:.7))return;
+    const e=ACTS[id];
+    rc.ev=id;rc.ch={f:rc.pk.ev,t:rc.pk.t};rc.h=null;rc.wsig=null;rc.hp=null;
+    if(n===1&&S.eng&&S.eng.k==='ana'&&engTier()>=1&&e.ctx){const q=e.ctx(w);if(q){rc.h=rnd()<.8?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)];rc.hp=80}}
+  }catch(err){}
+}}
+
+/* ---------- presentazione ---------- */
+const NX_KIND={sc:'neu',vsc:'neu',red:'neu',ch_restart:'neu',wx:'wet',n_start_wet:'wet',rain:'wet',dry:'wet',
+  friv:'duel',duel:'duel',fatt:'duel',fdef:'duel',f2_drs:'duel',n_start_riv:'duel',n_start_mate:'duel',n_sotto_pressione:'duel',n_mate_dietro:'duel',ch_riv:'duel',
+  deg:'tyre',f2_sosta:'tyre',f1_undercut:'tyre',f1_pace:'tyre',f1_pitslow:'tyre',f3_gomme:'tyre',tyre:'tyre',ch_gomme:'tyre',n_aria_sporca:'tyre',
+  n_finale_titolo:'fin',n_pole:'fin',fgap:'fin'};
+{const _av=actView;actView=function(){
+  let h=_av.apply(this,arguments);
+  try{
+    const w=S.wk,rc=S.rc,n=rc.n,e=ACTS[rc.ev];
+    const kd=NX_KIND[rc.ev];
+    if(kd)h=h.replace('<div class="ph">','<div class="ph evh k-'+kd+'">');
+    const s=nxRs();
+    if(s&&s.lap&&s.T)h=h.replace(/(<span class="chip pt">Atto \d di \d<\/span>)/,'$1<span class="chip lap">Giro ~'+s.lap+' di '+s.T+'</span>');
+    if(rc.ch&&rc.ch.t&&h.indexOf('</p></div>')>0)h=h.replace('</p></div>','</p><p class="chn">↳ Dopo la tua scelta: <b>'+esc(rc.ch.t)+'</b></p></div>');
+    /* resa accanto al rischio */
+    const O=actOpts(e,n);let i=0;
+    h=h.replace(/<span class="tg r([012])">Rischio (basso|medio|alto)<\/span>/g,m=>{
+      const o=O[i++];if(!o||o.tr||typeof o.mod!=='number')return m;
+      const rw=o.mod>=1.8?'alta':o.mod>=.9?'media':'bassa';
+      return m+`<span class="tg rw">Resa ${rw}</span>`+(o.ty?'<span class="tg rw">Gomme +</span>':'');
+    });
+  }catch(err){}
+  return h;
+}}
+/* =====================================================================
+   v6 · Il piano in gara
+   · mentre scegli se rientrare prima o allungare, vedi cosa succede al
+     piano di partenza: giro della sosta, stint, gomme, tempo stimato
+   · il piano si aggiorna davvero (sosta anticipata, ritardata o in più)
+     e le situazioni successive ne tengono conto
+   · a fine gara: piano iniziale → piano reale, e se il cambio ha pagato
+   Il costo di un cambio è quello vero del box: tempo di sosta e stint più
+   o meno adatti alla vita reale delle gomme; nessun gettone in più.
+   ===================================================================== */
+const PLV_MAP={
+  deg:[['now'],['late',1],['extra']],
+  f2_sosta:[['now'],['late',.3],['late',1]],
+  f1_undercut:[['now'],['late',1],['late',.3]],
+  f1_pace:[['late',1],[],['late',.5]],
+  f1_pitslow:[[],[],['late',.5]]
+};
+const PLV_OKK=['one','two','under','over','soft'];
+let PLV_K=.5,PLV_M=-.5;                   /* quanto pesa il cambio di piano, e correzione di taratura */
+const PLV_DBG={n:0,sum:0,sum2:0};
+function plvOn(){try{const s=S.sw,w=S.wk;if(w&&w.rain)return false;const rl=S.rc&&S.rc.rl;if(rl&&rl.v===2&&rl.done&&!rl.stay)return false;return !!(s&&w&&!s.auto&&PLV_OKK.includes(s.k)&&(S.tier|0)>=2)}catch(e){return false}}
+const plvBase=()=>{const s=S.sw;return cp3(s.cfg&&s.cfg.c?s.cfg:tyPre(s.k))};
+const plvCur=()=>{const rc=S.rc;return rc&&rc.pl?rc.pl.cur:plvBase()};
+const plvLap=n=>{const T=tyLaps();return [1,Math.max(2,Math.round(T*.45)),Math.round(T*.85)][n]||1};
+const plvName=c=>TYN[c]||c;
+function plvTxt(cfg){
+  const n=cfg.c.length-1;
+  return (n===0?'Nessuna sosta':n===1?'Una sosta':n===2?'Due soste':'Tre soste')+(n?' · giro '+cfg.e.join(' e '):'')+' · '+cfg.c.map(plvName).join(' → ');
+}
+const plvEst=(w,cfg)=>tyCost(cfg,j=>tyEst(w,cfg.c[j],(cfg.p&&cfg.p[j])||0)[0]);
+/* il piano dopo il cambio richiesto; mai un piano non valido */
+function plvRev(w,cfg0,spec,L){
+  const no=txt=>({changed:false,txt,cfg:cfg0});
+  if(!spec||!spec.length)return no('Nessun cambio al piano.');
+  const t=tyT(),T=tyLaps(),mn=TY.min[t],mx=TY.stops[t][1];
+  const cfg=cp3(cfg0),e=cfg.e,j=e.findIndex(x=>x>=L);
+  const kind=spec[0],f=spec[1]||1,prev=j>0?e[j-1]:0;
+  let what='';
+  if(kind==='late'){
+    if(j<0)return no('Nessuna sosta da spostare: gestisci le gomme che hai.');
+    const d=Math.max(1,Math.round(T*.1*f)),hi=(j<e.length-1?e[j+1]:T)-mn,n=Math.min(e[j]+d,hi);
+    if(n<=e[j])return no('Non c\'è margine per allungare ancora lo stint.');
+    what='sosta giro '+e[j]+' → '+n;e[j]=n;
+  }else{
+    const at=Math.max(L+1,prev+mn);
+    const move=()=>{
+      if(j<0)return no('Non hai altre soste da anticipare.');
+      let n=Math.min(e[j],at);
+      const nxt=j<e.length-1?e[j+1]:T;
+      if(nxt-n<mn)n=nxt-mn;
+      if(n>=e[j]||n<prev+mn)return no('La sosta è già in programma proprio ora.');
+      what='sosta giro '+e[j]+' → '+n;e[j]=n;return null;
+    };
+    if(kind==='now'&&j>=0){const r=move();if(r)return r}
+    else{
+      if(e.length+1>mx){if(j>=0){const r=move();if(r)return r}else return no('Hai già usato tutte le soste consentite.')}
+      else{
+        if(T-at<mn||(j>=0&&e[j]-at<mn))return no('Troppo tardi per una sosta in più.');
+        const idx=j<0?e.length:j;
+        let best=null;
+        for(const c of TY.cps[t]){
+          const x=cp3(cfg);x.e.splice(idx,0,at);x.c.splice(idx+1,0,c);x.p.splice(idx+1,0,0);
+          if(tyOk(x).length)continue;
+          const v=plvEst(w,x);if(!best||v<best[0])best=[v,x,c];
+        }
+        if(!best)return no('Non c\'è margine per una sosta in più.');
+        what='sosta in più al giro '+at+' ('+plvName(best[2])+')';
+        return fin(best[1]);
+      }
+    }
+  }
+  return fin(cfg);
+  function fin(c2){
+    if(tyOk(c2).length)return no('Il cambio non è consentito dal regolamento.');
+    return{changed:true,what,cfg:c2,txt:''};
+  }
+}
+/* anteprima: che effetto ha, sul piano, ogni scelta (solo con ciò che sai) */
+function plvPrev(w,cfg0,spec,L){
+  const r=plvRev(w,cfg0,spec,L);
+  if(!r.changed)return r.txt;
+  const dt=plvEst(w,r.cfg)-plvEst(w,cfg0),S1=bStints(w,r.cfg),S0=bStints(w,cfg0);
+  const ch=S1.filter((s,i)=>!S0[i]||S0[i].len!==s.len||S0[i].c!==s.c).slice(0,2);
+  const wo=Math.max(0,...ch.map(s=>s.st));
+  const st=ch.length?'stint di '+ch.map(s=>s.len).join(' e ')+' giri, gomme '+['gestite','al limite','oltre il limite'][wo]:'';
+  const a=Math.abs(dt),tm=a<1.5?'tempo di gara quasi invariato':(a>=8?(dt<0?'piano molto più veloce':'piano molto più lento'):(dt<0?'piano più veloce':'piano più lento'));
+  return 'Sul tuo piano: '+r.what+(st?' · '+st:'')+' · '+tm+' (stima).';
+}
+/* valore del piano con la vita vera delle gomme (stessa formula del costruttore) */
+function plvV(w,cfg){
+  const {k,win}=tyKey(cfg);
+  const fr=clamp(fitReal(k,w)+winRealNW(win,w)+tyDelta(w,cfg,true),0,1.1);
+  return exShape(fr-PCV,tyExe(),sgZ())*KD();
+}
+/* applica la scelta appena fatta al piano vivo, prima di scegliere l'atto successivo */
+function plvApply(){
+  const rc=S.rc,w=S.wk;if(!rc||!w||!plvOn())return;
+  const pk=rc.pk;if(!pk||pk.pd)return;
+  pk.pd=1;
+  const map=PLV_MAP[pk.ev],spec=map&&map[pk.i];
+  if(!spec||!spec.length)return;
+  const cur=plvCur(),r=plvRev(w,cur,spec,plvLap(pk.n));
+  if(!r.changed)return;
+  const dv=plvV(w,r.cfg)-plvV(w,cur),adj=clamp((dv-PLV_M)*PLV_K,-1.2,1.2);
+  if(!rc.pl)rc.pl={init:cp3(cur),cur:cp3(cur),log:[]};
+  rc.pl.cur=cp3(r.cfg);
+  rc.pl.log.push({n:pk.n,e:ACTS[pk.ev]?ACTS[pk.ev].t:'',t:pk.t,w:r.what,d:Math.round(adj*100)/100});
+  rc.mod+=adj;
+  PLV_DBG.n++;PLV_DBG.sum+=dv;PLV_DBG.sum2+=dv*dv;
+}
+{const _rp=rcPick;rcPick=function(n){
+  try{plvApply()}catch(err){}
+  return _rp.apply(this,arguments);
+}}
+/* le soglie e i testi delle situazioni seguono il piano vivo */
+{const _rs=rsNow;rsNow=function(){
+  const rc=S.rc,s0=S.sw;
+  if(!rc||!rc.pl||!s0)return _rs.apply(this,arguments);
+  const hc=Object.prototype.hasOwnProperty.call(s0,'cfg'),ht=Object.prototype.hasOwnProperty.call(s0,'ty'),sc=s0.cfg,st=s0.ty;
+  try{
+    const w=S.wk,cfg=rc.pl.cur,d=tyDrv();
+    s0.cfg=cfg;
+    s0.ty=bStints(w,cfg).map(s=>({c:s.c,len:s.len,p:s.p,Le:Math.round(s.L*10)/10,lo:Math.round(s.lo),hi:Math.round(s.hi),Lr:Math.round(tyReal(w,s.c,s.p,d)*10)/10}));
+    return _rs.apply(this,arguments);
+  }finally{
+    if(hc)s0.cfg=sc;else delete s0.cfg;
+    if(ht)s0.ty=st;else delete s0.ty;
+  }
+}}
+/* a fine gara il piano reale resta nella scheda della strategia */
+{const _ae=actEnd;actEnd=function(){
+  try{const rc=S.rc;if(rc&&rc.pl&&rc.pl.log.length&&S.sw)S.sw.pl={init:rc.pl.init,cur:rc.pl.cur,log:rc.pl.log}}catch(err){}
+  return _ae.apply(this,arguments);
+}}
+/* ---------- in gara: il piano e l'effetto di ogni scelta ---------- */
+{const _av=actView;actView=function(){
+  let h=_av.apply(this,arguments);
+  try{
+    const w=S.wk,rc=S.rc;
+    if(!plvOn())return h;
+    const cur=plvCur(),init=rc.pl?rc.pl.init:cur;
+    const rev=rc.pl&&rc.pl.log.length;
+    const lp=plvLap(rc.n);
+    const dn=c=>c.e.length&&c.e.every(x=>x<lp)?(c.e.length>1?' · già fatte':' · già fatta'):'';
+    const chips=`<span class="chip plvc"><b>${rev?'Partenza':'Piano'}</b> ${plvTxt(init)}${rev?'':dn(init)}</span>`+(rev?`<span class="chip plvc"><b>Ora</b> ${plvTxt(cur)}${dn(cur)}</span>`:'');
+    h=h.replace(/(<div class="chips wl">[\s\S]*?)(<\/div>)/,'$1'+chips+'$2');
+    if(rev)h=h.replace(/<span class="chip">Sosta (presto|standard|tardi)<\/span>/,'<span class="chip">Sosta rivista</span>');
+    const map=PLV_MAP[rc.ev];
+    if(map){
+      const e=ACTS[rc.ev],O=actOpts(e,rc.n);let i=0;
+      h=h.replace(/(<span class="od">[\s\S]*?<\/span>)(<span class="tags">)/g,(m,a,b)=>{
+        const k=i++;if(k>2||!O[k]||O[k].tr)return m;
+        let t='';try{t=plvPrev(w,cur,map[k],lp)}catch(er){t=''}
+        return t?a+`<span class="od plo">${t}</span>`+b:m;
+      });
+    }
+  }catch(err){}
+  return h;
+}}
+/* ---------- a fine gara: piano iniziale → piano reale ---------- */
+{const _sc=stratCard;stratCard=function(L){
+  const html=_sc.apply(this,arguments);
+  try{
+    const s=L&&L.st,p=s&&s.pl;if(!p||!p.log||!p.log.length||typeof html!=='string')return html;
+    const tot=p.log.reduce((a,x)=>a+(x.d||0),0);
+    const eff=tot>.15?['green','▲','Ha pagato: con le gomme vere lo stint nuovo era più adatto.']:tot<-.15?['warn','▼','Non ha pagato: con le gomme vere il piano nuovo ti è costato tempo.']:['mut','●','Effetto trascurabile sul risultato.'];
+    const blk=`<div class="sech" style="margin-top:2px">Il piano in corsa</div>
+      <div class="news"><b>Partenza</b> · ${plvTxt(p.init)}</div>
+      <div class="news"><b>Reale</b> · ${plvTxt(p.cur)}</div>
+      ${p.log.map(x=>`<div class="news"><small>${esc(x.e)}: ${esc(x.t)} → ${esc(x.w)}</small></div>`).join('')}
+      <div class="news" style="color:var(--${eff[0]})">${eff[1]} ${eff[2]}</div>`;
+    const mk='<div class="sech" style="margin-top:2px">Le tue decisioni</div>';
+    return html.indexOf(mk)>=0?html.replace(mk,blk+mk):html;
+  }catch(err){return html}
+}}
+
+/* le situazioni di sosta compaiono un po' più spesso (stesse opzioni e stessa resa: cambia solo quanto spesso) */
+['deg','f2_sosta','f1_undercut','f1_pace','f1_pitslow'].forEach(id=>{
+  const e=ACTS[id];if(!e)return;
+  if(e.tw)e.tw=e.tw.map(x=>x*1.4);
+  else if(TWX[id])TWX[id]=TWX[id].map(x=>x*1.4);
+});
+
+/* coerenza col piano vivo: "allungare lo stint" o "rientrare ora" hanno senso solo se la sosta
+   è ancora davanti; "sosta lenta" solo se la sosta c'è già stata. Cambia solo quando compaiono. */
+function plvAhead(){
+  try{
+    if(!plvOn())return !stopDone();
+    const lp=plvLap(S.rc?S.rc.n:1);
+    return plvCur().e.some(x=>x>=lp);
+  }catch(err){return !stopDone()}
+}
+function plvBehind(){
+  try{
+    if(!plvOn())return true;
+    const lp=plvLap(S.rc?S.rc.n:1);
+    return plvCur().e.some(x=>x<lp);
+  }catch(err){return true}
+}
+['f2_sosta','f1_undercut','f1_pace'].forEach(id=>{
+  const e=ACTS[id];if(!e)return;
+  const o=e.cond;e.cond=function(w){return (!o||o.apply(this,arguments))&&plvAhead()};
+});
+{const e=ACTS['f1_pitslow'];if(e){const o=e.cond;e.cond=function(w){return (!o||o.apply(this,arguments))&&plvBehind()}}}
+/* =====================================================================
+   v7 · Pioggia: due scommesse (intermedie / gomme da bagnato) e una sola
+   lettura del bagnato.
+   · «Pioggia con intermedie» e «Pioggia con gomme da bagnato» sono due
+     piani diversi, in ogni categoria: le intermedie vincono con acqua
+     leggera o a tratti, il bagnato con acqua alta; con la pista asciutta
+     perdono tutte e due.
+   · Tutte le gomme (piano, cambio live, rivali, risultato) parlano la
+     stessa lingua: slick (D), intermedie (I), bagnato (W).
+   ===================================================================== */
+function isRn(k){return k==='inter'||k==='wet'}
+const RNT={inter:'I',wet:'W'};
+(function(){
+  const pi=PL.find(p=>p.k==='inter');
+  if(pi){
+    pi.n='Scommessa intermedie';pi.c=['I'];
+    pi.d='Intermedie dal via: ottime con pioggia leggera o a tratti, in crisi con l\'acqua alta.';
+  }
+  if(!PL.some(p=>p.k==='wet'))PL.push({k:'wet',n:'Scommessa bagnato',c:['W'],d:'Gomme da bagnato dal via: grip massimo con l\'acqua alta, pesanti se la pioggia è leggera.'});
+})();
+/* resa dei piani sotto la pioggia: [leggera / forte] x [resta uguale / cala / peggiora] */
+(function(){
+  const L=WXP.L,H=WXP.H;
+  L.keep.wet=.5;L.stop.wet=.17;L.worse.wet=.69;
+  H.keep.wet=1;H.stop.wet=.6;H.worse.wet=1;
+  /* con l'acqua alta le intermedie non sono più la mossa perfetta */
+  H.keep.inter=.78;H.stop.inter=.58;H.worse.inter=.78;
+})();
+{const _pf=planFit;planFit=function(k,x){
+  if(k!=='wet')return _pf.apply(this,arguments);
+  let f;
+  if(x.rain){
+    if(x.mixed)f=.44;
+    else{
+      const ri=x.ri==null?.35:x.ri,rt=x.rt||'keep';
+      f=WXP.L[rt].wet*(1-ri)+WXP.H[rt].wet*ri;
+    }
+  }else f=.03;
+  return clamp(f,0,1);
+}}
+/* momenti di gara contestuali: chi scommette sulla pioggia (intermedie o bagnato) */
+MCX.rain=(p,w)=>[isRn(p)?1:0,1];
+MCX.dry=(p,w)=>[isRn(p)?0:1,2];
+/* perché è andata così: la gomma giusta dipende dall'intensità, non solo dalla pioggia */
+function rnWhy(k,w){
+  if(!w.wx&&!w.mixed)return k==='inter'?'Pioggia piena: le intermedie sono state la mossa vincente.':'Pioggia piena: le gomme da bagnato sono state la mossa vincente.';
+  const x=w.wx||{ri:0,rt:'keep'},heavy=!!x.ri,nm=k==='wet'?'le gomme da bagnato':'le intermedie';
+  if(w.mixed)return k==='inter'?'La pioggia a tratti ha premiato le intermedie.':'La pioggia a tratti ha lasciato tratti quasi asciutti: le gomme da bagnato si sono surriscaldate.';
+  if(k==='inter'){
+    if(heavy&&x.rt==='stop')return 'Pioggia forte ma in calo: le intermedie hanno retto.';
+    if(heavy)return 'Pioggia forte: con l\'acqua alta le intermedie sono andate in crisi.';
+    if(x.rt==='stop')return 'La pioggia è calata: le intermedie sono state la scelta più sicura.';
+    return 'Pioggia leggera: le intermedie erano la gomma giusta.';
+  }
+  if(heavy&&x.rt==='stop')return 'Pioggia forte ma in calo: le gomme da bagnato hanno perso terreno quando l\'acqua è scesa.';
+  if(heavy)return 'Pioggia forte: le gomme da bagnato sono state la mossa vincente.';
+  if(x.rt==='stop')return 'La pioggia leggera è calata: le gomme da bagnato erano troppo pesanti.';
+  return 'Pioggia leggera: '+nm+' erano troppo pesanti, meglio le intermedie.';
+}
+
+/* nelle gare bagnate (o con pioggia a sorpresa, se parti su gomme da asciutto) l'atto di metà gara è la decisione sulla pioggia */
+(function(){
+  ACTL.forEach(e=>{
+    if(e.id==='wx'||!e.a.includes(1))return;
+    const o=e.cond;
+    e.cond=function(w){return !rlForce(w)&&(!o||o.apply(this,arguments))};
+  });
+})();
+
+/* ---------- in gara: pista, gomme e ritmo dicono la verità sul momento ---------- */
+function rnLapOf(n){const T=tyLaps();return [1,Math.max(2,Math.round(T*.45)),Math.round(T*.85)][n]||1}
+/* gomma montata e livello di bagnato al giro lap, secondo ciò che hai deciso */
+function rnNow(lap){
+  const w=S.wk,rc=S.rc;
+  if(!w||!rc||!(w.rain||w.sur))return null;
+  const rl=rlEnsure();if(!rl||rl.v!==2)return null;
+  let c=rl.c0;
+  if(rc.ev==='wx'&&!rl.done)lap=rl.lap;
+  else if(rl.done&&!rl.stay&&lap>=rl.pit)c=rl.ty;
+  const lv=rlLv(rl,lap),d=wmL1(c,lv),pv=rlLv(rl,Math.max(1,lap-rl.st)),dv=lv-pv;
+  return{rl,c,lv,d,dv,lap};
+}
+function rnChips(h){
+  const rc=S.rc,s=rnNow(rnLapOf(rc.n));
+  if(!s)return h;
+  const fit=s.d<.5?'adatte':s.d<3?'al limite':'inadatte';
+  const mixed=s.rl.rt==='mixed';
+  const tr=s.dv>.04?' · in peggioramento':s.dv<-.04?' · in miglioramento':'';
+  const nm=mixed?'bagnata a tratti':wmName(s.lv);
+  const rep=`Gomme ${WMNc[s.c]} · ${fit}</span><span class="chip">Pista ${nm}${tr}</span>`;
+  const re=/Gomme [^<]*<\/span><span class="chip">(?:Pioggia a tratti|Pioggia forte|Pioggia leggera|Pista umida|Asciutto)<\/span>/;
+  if(!re.test(h))return h;
+  h=h.replace(re,rep);
+  if(s.d>=3)h=h.replace(/<span class="chip">(<svg[^>]*>[\s\S]*?<\/svg>)? ?Gomme /,m=>m.replace('class="chip"','class="chip down"'));
+  return h;
+}
+{const _as=actSit;actSit=function(){
+  let h=_as.apply(this,arguments);
+  try{h=rnChips(h)}catch(e){}
+  try{h=h.replace('>In crescita<','>Ritmo in crescita<').replace('>In difficoltà<','>Ritmo in difficoltà<')}catch(e){}
+  return h;
+}}
+{const _av=actView;actView=function(){
+  let h=_av.apply(this,arguments);
+  try{
+    const rc=S.rc;
+    if(rc&&rc.ev==='wx'&&S.wk){
+      const rl=rlEnsure();
+      if(rl&&rl.v===2){
+        h=h.replace(/<span class="chip lap">Giro ~\d+ di \d+<\/span>/,`<span class="chip lap">Giro ${rl.lap} di ${rl.T}</span>`);
+        h=h.replace(/<span class="tg rw">(?:Resa (?:bassa|media|alta)|Gomme \+)<\/span>/g,'');
+      }
+    }
+  }catch(e){}
+  return h;
+}}
+
+/* la neutralizzazione del weekend (safety car, virtuale, bandiera rossa) non cancella la decisione sulla pioggia:
+   se a metà gara tocca al meteo, la neutralizzazione slitta all'atto finale */
+{const _rp=rcPick;rcPick=function(n){
+  const w=S.wk,rc=S.rc;
+  let held=false;
+  try{
+    if(n===1&&w&&rc&&rlForce(w)&&!w.neu&&w.sc&&w.wt&&typeof wtNeu==='function'){w.neu='hold';held=true;rc.nd=1}
+  }catch(e){}
+  try{_rp.apply(this,arguments)}finally{if(held)delete w.neu}
+  try{
+    if(n===2&&w&&rc&&rc.nd&&!w.neu&&typeof wtNeu==='function'){
+      const k=wtNeu(w);
+      if(ACTS[k]){rc.ev=k;rc.h=null;rc.wsig=null;rc.hp=null;rc.ch=null;w.neu=k}
+    }
+  }catch(e){}
+}}
+
+/* ---------- prima della gara: cosa sai della pioggia e cosa fa ogni gomma ---------- */
+const rnHeavyP=w=>w.rp>=70?.5:w.rp>=45?.35:.22;
+function rnInfoCard(w){
+  if(!w||!(w.rp>=15||w.rain||(w.kn&&w.kn.rain)))return '';
+  const kn=w.kn&&w.kn.rain;let l1;
+  if(kn&&w.rain){
+    const wh=!w.mixed&&w.wxh?{keep:'resta uguale',stop:'in calo',worse:'in aumento'}[w.wxh]:'';
+    l1=`<b>Domenica si bagna</b>${w.mixed?': pioggia a tratti, con tratti quasi asciutti':': pioggia '+(w.wx&&w.wx.ri?'forte':'leggera')+(wh?', tendenza '+wh+' (stima del muretto)':'')}.`;
+  }else if(kn){
+    l1='<b>Domenica resta asciutto</b>: le gomme da pioggia non servono.';
+  }else{
+    const hp=Math.round(rnHeavyP(w)*100);
+    l1=`<b>Pioggia ${w.rp}%</b>. Non sai se piove davvero né quanto: il consulto «Muretto · meteo» lo dice. Se piove, ${100-hp}% leggera o a tratti, ${hp}% forte.`;
+  }
+  const ru=`<p class="sub rnr">Barra verde: dove la gomma rende al meglio. <b>Slick</b> per la pista asciutta · <b>Intermedie</b> per pioggia leggera o a tratti · <b>Bagnato</b> per l'acqua alta. La gomma sbagliata costa secondi a ogni giro; cambiarla ai box costa circa ${TY.pit[tyT()]} secondi.</p>`;
+  return `<section class="card rnc"><div class="sech">Pioggia e gomme</div><p class="rnl">${l1}</p>${rlGauge(null,null)}${ru}</section>`;
+}
+{const _sv=stratView;stratView=function(){
+  let h=_sv.apply(this,arguments);
+  try{
+    const w=S.wk,c=rnInfoCard(w);
+    if(c&&typeof h==='string'){
+      const a=h.indexOf('<section class="card obc'),b=h.indexOf('<div class="opts bldo">');
+      const at=a>=0?a:b;
+      if(at>=0)h=h.slice(0,at)+c+h.slice(at);
+    }
+  }catch(e){}
+  return h;
+}}
+
+/* dopo un cambio gomme deciso in gara sotto la pioggia, le situazioni parlano delle gomme montate davvero (età, soste rimaste) */
+{const _r2=rsNow;rsNow=function(){
+  const s=_r2.apply(this,arguments);
+  try{
+    const w=S.wk,rc=S.rc,rl=rc&&rc.rl;
+    if(s&&w&&(w.rain||w.sur)&&rl&&rl.v===2&&rl.done&&!rl.stay&&rl.pit!=null){
+      const age=Math.max(0,s.lap-rl.pit),life=Math.max(6,Math.round(rl.T*.75));
+      s.age=age;s.left=0;s.j=1;s.cmp=rl.ty;s.ratio=s.ratioE=age/life;
+    }
+  }catch(e){}
+  return s;
 }}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
