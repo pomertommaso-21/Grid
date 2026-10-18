@@ -866,6 +866,16 @@ td.n{font-variant-numeric:tabular-nums}
 
 .bcg.n5 .bcs.on{flex:2.4 1 0}
 .bcg.n5 .bcs{padding-left:2px;padding-right:2px}
+
+/* v8 · larghezza: nessun riquadro può allargare la pagina (iPhone: schede più larghe, pagina che scorre di lato) */
+html,body{max-width:100%;overflow-x:clip}
+.opts{grid-template-columns:minmax(0,1fr)}
+.opts>*,.pane>*,.ctx>*,.wrap>*{min-width:0;max-width:100%}
+.card.bld,.card.bld>*{min-width:0;max-width:100%}
+.seg.win{padding:0;border:0;display:block;min-width:0;gap:0}
+.strip>.seg{min-width:0}
+.tyh small{font-weight:600;text-transform:none;letter-spacing:0}
+@media(max-width:359px){.nav .nv{flex:1 1 0;min-width:0;padding-left:2px;padding-right:2px}}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -3724,7 +3734,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 18/10 · 05:06</p></div>`;
+  <p class="foot">Versione 18/10 · 12:57</p></div>`;
 }
 
 function identityView(){
@@ -9047,9 +9057,9 @@ function rvSync(w){
 }}
 
 /* =====================================================================
-   Tabella "Le strategie dei primi": se un rivale ha scelto gomme da asciutto
-   sul bagnato (o da bagnato sull'asciutto) non può risultare "Perfetta":
-   in quel caso il giudizio tiene conto di com'è andata davvero.
+   Tabella "Le strategie dei primi": il giudizio è a gara conclusa, con la
+   stessa misura del tuo secondo giudizio ("con ciò che è successo in gara"):
+   due piloti con lo stesso piano ricevono lo stesso voto, il tuo compreso.
    (Cambia solo l'etichetta mostrata: la prestazione dei rivali era già
    calcolata sulle condizioni reali, e chi sbaglia perde davvero ritmo.)
    ===================================================================== */
@@ -9062,13 +9072,15 @@ function rvSync(w){
     keys.forEach(k=>{re[k]=fitReal(k,w)});
     const best=Math.max(...keys.map(k=>re[k]));
     L.st.ai.forEach(a=>{
-      if(a.hs)return;
-      const wetPlan=isRn(a.k);
-      if(w.mixed||(wetPlan===!!w.rain))return;       /* scelta coerente col meteo: resta il giudizio di prima */
-      a.vd=Math.max(a.vd,verdictOf(Math.max(0,best-re[a.k])));a.hs=1;
+      if(a.hs||re[a.k]==null)return;
+      a.vd=verdictOf(Math.max(0,best-re[a.k]));a.hs=1;
     });
   }catch(e){}
   return r;
+}}
+{const _ab=aiBlock;aiBlock=function(s){
+  const h=_ab.apply(this,arguments);
+  return typeof h==='string'?h.replace('Le strategie dei primi</div>','Le strategie dei primi <small>· giudizio a gara conclusa</small></div>'):h;
 }}
 
 /* =====================================================================
