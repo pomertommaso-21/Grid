@@ -1444,12 +1444,6 @@ function genRumors(){
     if(rn.length&&rnd()<.5){const d=pick(rn);add(T.k+' · '+d.n+' ha firmato con '+T.teams[d.t]+' fino al '+(S.year+d.proj)+'.')}
   });
 }
-function carNext(tier,i,rg){
-  const base=carBase(tier,i),pv=S.cm&&S.cm[tier]?S.cm[tier][i]:null;
-  if(pv==null||isNaN(pv))return base+gauss()*2.2;
-  const k=rg?.55:.92;
-  return base+(pv-base)*k+gauss()*(rg?1.8:1);
-}
 function newSeason(){
   ktSeas();rvSeasonMark();sgSeason();mdSeason();
   S.sx={best:null,worst:null,dnf:0,w:0,pod:0,mb:0,mn:0};
@@ -1806,7 +1800,7 @@ function seasonEnd(){
     if(S.dev&&d>=0)d+=S.dev;if(pos>S.rivals.length*.6)d-=1.5;if(rnd()<.2)d-=2.5;
     if(S.style===1&&k==='tecnica'&&d>=0)d+=1;
     if(k===surge)d+=3+rnd()*2;
-    S.st[k]=clamp(S.st[k]+(d>0?d*gm*gf(S.st[k]):d),1,99);
+    S.st[k]=clamp(S.st[k]+(d>0?d*gm*gf(S.st[k])*gAdj():d),1,99);
   });
   S.gtag=gtag+(surge?(gtag?' · ':'')+'Scatto improvviso in '+LBL[surge]:'');
   if(pos===1){const b=.35*(S.tier+1);Object.keys(S.st).forEach(k=>S.st[k]=clamp(S.st[k]+b,1,99))}
@@ -1816,7 +1810,7 @@ function seasonEnd(){
   const dpos=Math.round(aR*(S.teams.length*2)*10)/10;
   const news=[st[0].me?'Sei tu il campione: hai chiuso in testa con '+st[0].pts+' punti.':st[0].n+' vince il titolo piloti con '+st[0].pts+' punti.',S.teams[teams3[0]].name+' vince il titolo costruttori.'];
   if(Math.abs(dpos)>=0.8)news.push(dpos>0?'Hai reso sopra la vettura: in gara in media '+dpos+' posizioni meglio del previsto, e ne hai tratto crescita.':'Hai reso sotto la vettura: in gara in media '+(-dpos)+' posizioni peggio del previsto, e la crescita ne risente.');
-  seasonMisNews(news);
+  seasonMisNews(news);seasonRwNews(news);
   const sy=seasonStory(pos,pos===1);S.story=sy;
   S.hist.push({story:sy.head,y:S.year,age:S.age,ovr:Math.round(rating(S)),tier:S.tier,team:S.teamName,rank:S.teamRank,pos,pts:S.me.pts,w:S.me.wins,pod:S.me.pod,top3:st.slice(0,3).map(x=>({n:x.n,t:x.t})),teams3,news});
   const champ=pos===1;
@@ -2509,7 +2503,7 @@ function raceGrowth(me,n,ex){
   const OV={talento:14*qq,ritmo:14*rr,costanza:7*rr,tecnica:4.2*(qq+rr)},ev=[];
   keys.forEach(k=>{
     const v0=S.sd[k]+(OV[k]||0);
-    const v=LAM*(v0>0?v0*S.sgm*gf(S.st[k])*GK:v0)/R+gauss()*.14;
+    const v=LAM*(v0>0?v0*S.sgm*gf(S.st[k])*GK*gAdj():v0)/R+gauss()*.14;
     S.st[k]=clamp(S.st[k]+v,1,99);
   });
   if(rnd()<.03){
@@ -3393,7 +3387,7 @@ function gridView(){
     const dr=D.filter(d=>d.t===t).sort((a,b)=>b.o-a.o);
     if(t===S.teamRank&&dr.length>1&&s)dr.sort((a,b)=>(a.me?-1:1)*(s===1?1:-1));
     const mine=t===S.teamRank;
-    return `<div class="gt${mine?' mine':''}"><div class="sr"><span class="lb">${dot(S.tier,t)} ${esc(T.teams[t])}</span><em>${Math.round(car)}</em><div class="bar car"><i style="width:${clamp(car,0,100)}%"></i></div></div><div class="gd">${dr.map((d,k)=>`<span class="${d.me?'me':'lk'}" ${d.me?'':`data-act="lore" data-v="${esc(d.n)}"`}><i class="st s${k+1}">P${k+1}</i>${esc(d.n)}${S.riv&&S.riv.n===d.n?' '+ico('flame','fl'):''}${d.me?' <span class="yb">TU</span>':''} <b>${Math.round(d.o)}</b> <small>${d.a} anni</small></span>`).join('')}</div></div>`;
+    return `<div class="gt${mine?' mine':''}"><div class="sr"><span class="lb">${dot(S.tier,t)} ${esc(T.teams[t])}</span><em>${Math.round(car)}${carDl(t)}</em><div class="bar car"><i style="width:${clamp(car,0,100)}%"></i></div></div><div class="gd">${dr.map((d,k)=>`<span class="${d.me?'me':'lk'}" ${d.me?'':`data-act="lore" data-v="${esc(d.n)}"`}><i class="st s${k+1}">P${k+1}</i>${esc(d.n)}${S.riv&&S.riv.n===d.n?' '+ico('flame','fl'):''}${d.me?' <span class="yb">TU</span>':''} <b>${Math.round(d.o)}</b> <small>${d.a} anni</small></span>`).join('')}</div></div>`;
   }).join('')+'</div></section>';
 }
 const qualiCard=L=>L.q?`<section class="card"><div class="sech">Qualifica</div><div class="tw">${L.q.map(r=>`<div class="row${r.me?' me':''}"><span class="n">${r.g}</span><span class="sq" style="--c:${hue(S.tier,r.t)}"></span><span class="nm">${esc(r.n)}</span><span class="pt">${r.tm}</span></div>`).join('')}</div></section>`:'';
@@ -3678,7 +3672,7 @@ function resultView(){
   const st=clamp(S.rstep||0,0,steps.length-1),k=steps[st][0],last=st===steps.length-1;
   const tabs=`<div class="btns">${steps.map((x,i)=>`<button class="ghost${i===st?' on':''}" data-act="rs" data-i="${i}">${x[1]}</button>`).join('')}</div>`;
   let body;
-  if(k==='m')body=podiumCard(L)+sumCard(L);
+  if(k==='m')body=podiumCard(L)+sumCard(L)+upgCard(L);
   else if(k==='q')body=qualiFull(L);
   else if(k==='st')body=stratCard(L);
   else if(k==='ra')body=radioCard(L);
@@ -3901,7 +3895,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 19/10 · 19:49</p></div>`;
+  <p class="foot">Versione 19/10 · 23:14</p></div>`;
 }
 
 function identityView(){
@@ -3997,12 +3991,12 @@ function offersView(){
   let h=(f?`<section class="card"><div class="sech">Difficoltà</div><div class="btns">${DIFF.map((d,i)=>`<button class="ghost${(S.diff==null?1:S.diff)===i?' on':''}" data-act="diff" data-i="${i}">${d[0]}</button>`).join('')}</div><p class="sub">${DIFF[S.diff==null?1:S.diff][1]}</p></section>`:'')+`<div class="ph"><div class="kick">${f?'Formula 4':'Mercato piloti'}</div><h1>${f?'Il tuo primo sedile':'Contratti per il '+(S.year+1)}</h1><p>${f?'Tre team ti vogliono. La vettura non è tutto: scegli il progetto che ti fa crescere meglio.':'Le offerte dipendono da piazzamento, fama, passo e rapporto con la squadra.'}</p></div>${mktView()}<div class="stack">`;
   const INFO={win:['Vincente','Vettura competitiva. Se vinci arrivi con esperienza e pedigree, altrimenti rischi di restare senza sbocchi.'],bal:['Equilibrato','Risultati e sviluppo in egual misura.'],dev:['Sviluppo','Vettura debole, ma ti fanno crescere: arrivi più forte anche senza vincere.']};
   S.offers.forEach((o,i)=>{
-    const T=TIERS[o.tier],k=offerKind(o),car=Math.round(carBase(o.tier,o.rank));
+    const T=TIERS[o.tier],k=offerKind(o),car=Math.round(carShow(o.tier,o.rank));
     const inf=INFO[k],cur=!f&&o.tier===S.tier&&T.teams[o.rank]===S.teamName;
     h+=`<button class="offer" style="--c:${hue(o.tier,o.rank)}" data-act="offer" data-i="${i}"><span class="oft"><b>${esc(T.teams[o.rank])}</b><span class="ser">${T.n}</span></span>
     <span class="cr"><span>Vettura</span><span class="bar car"><i style="width:${clamp(car,0,100)}%"></i></span><em>${car}</em></span>
     <span class="ofi"><span class="kd ${k}">${inf[0]}</span>${inf[1]}</span>
-    ${f?'':`<span class="tags"><span class="tg">${o.note}</span>${cur?'<span class="tg">La tua squadra</span>':''}</span>`}</button>`;
+    ${f?'':`<span class="tags"><span class="tg">${o.note}</span>${cur?'<span class="tg">La tua squadra</span>':''}${carTrend(o.tier,o.rank)}${carMajor(o.tier)?'<span class="tg">Nuovo regolamento · vettura incerta</span>':''}</span>`}</button>`;
   });
   h+='</div>';
   if(!f)h+='<div class="btns"><button class="ghost" data-act="retire">Ritirati dalle corse</button></div>';
@@ -8210,7 +8204,7 @@ function kFill(i,P,T){
     if(d.o>=T.base+3)S.mkt.push(d.n+' arriva in '+T.k+' da altre serie.');
     return d;
   }
-  const sc=L.map(d=>[d,d.o+gauss()*3.2+(d.fk&&d.fk.ac?1.2:0)]).sort((a,b)=>b[1]-a[1]);
+  const sc=L.map(d=>[d,d.o+(d.rf||0)*1.2+gauss()*3.2+(d.fk&&d.fk.ac?1.2:0)]).sort((a,b)=>b[1]-a[1]);
   const d=sc[0][0];
   L.splice(L.indexOf(d),1);
   d.o=clamp(d.o+.3,40,99);
@@ -8288,7 +8282,7 @@ function tExp(d){
   return -(.5+.3*(a-33));
 }
 const tSeas=(d,ti)=>{tGet(d,ti);return clamp(.5*tExp(d),-2.2,3.8)};
-const tGrowY=(d,ti)=>{tGet(d,ti);return clamp(d.o+clamp(.5*tExp(d),-2.2,6)+gauss()*.9,40,99)};
+const tGrowY=(d,ti)=>{tGet(d,ti);return clamp(d.o+clamp(.5*tExp(d),-2.2,6)+(d.rf||0)+gauss()*.9,40,99)};
 /* stelle di potenziale (stima: più sei vicino al picco, più è affidabile) */
 const tStars=(d,ti)=>{tGet(d,ti);const e=d.pk+hg(d.n+'pk')*(d.a>=24?1.5:6);return e>=88?4:e>=80?3:e>=72?2:e>=64?1:0};
 const tSpeed=d=>d.gs>=1.12?'rapida':d.gs<=.88?'lenta, da tardivo':'regolare';
@@ -11061,6 +11055,316 @@ function rlLead(rl){
   try{if(typeof h==='string')h=h.replace(/<\/section>(\s*<div class="opts">)/,'<p class="sub rlt2"><b>Tempismo</b> · rientrare con la gomma giusta prima dei rivali dà un premio extra; aspettare più di loro lo riduce, e anticipare una mossa sbagliata costa di più.</p></section>$1')}catch(e){}
   return h;
 }}
+/* ---------- Auto che evolvono · contratti con l'overall reale ----------
+   - ogni scuderia ha un livello di fondo che si muove negli anni (progetti, investimenti, crisi): una retrovia può risalire,
+     una squadra di vertice può perdere colpi
+   - in stagione ogni scuderia porta aggiornamenti: di solito piccoli, a volte un exploit (o un flop)
+   - le vetture dell'anno dopo vengono estratte quando escono le offerte: il numero che vedi nei contratti è quello vero */
+const CLC=8;                                         /* scarto massimo del livello di fondo dal valore per posizione */
+const CLK={up:.07,upF:.16,dn:.05,dnF:.12,dec:.62,rev:.1,w:.4,keep:.85,sig:.9,kRg:.5,sigRg:1.8,
+  ux:.055,ul:.045,uk:.4,us:.55};                     /* ux/ul: probabilità exploit/flop per aggiornamento; uk: peso del progetto in corso */
+function clvEns(){
+  if(!S.cl)S.cl={y:0};
+  if(!S.cp)S.cp={};
+  if(!S.cq)S.cq={};
+  for(let t=0;t<4;t++){
+    const n=TIERS[t].teams.length;
+    if(!S.cl[t]||S.cl[t].length!==n)S.cl[t]=TIERS[t].teams.map((_,i)=>carBase(t,i));
+    if(!S.cp[t]||S.cp[t].length!==n)S.cp[t]=TIERS[t].teams.map(()=>0);
+    if(!S.cq[t]||S.cq[t].length!==n)S.cq[t]=S.cl[t].slice();
+  }
+}
+/* sposta una volta all'anno il livello di fondo di ogni scuderia */
+function clvStep(y){
+  clvEns();
+  if(S.cl.y===y)return;
+  S.cl.y=y;
+  for(let t=0;t<4;t++){
+    const n=TIERS[t].teams.length;
+    S.cq[t]=S.cl[t].slice();
+    for(let i=0;i<n;i++){
+      const base0=carBase(t,i),f=n>1?i/(n-1):.5;
+      let cp=S.cp[t][i],lv=S.cl[t][i];
+      const r=rnd(),pu=CLK.up+CLK.upF*f,pd=CLK.dn+CLK.dnF*(1-f);
+      if(r<pu)cp=Math.max(cp*.5,.9+rnd()*1.1);
+      else if(r<pu+pd)cp=Math.min(cp*.5,-(.7+rnd()*.9));
+      else cp*=CLK.dec;
+      lv+=cp+(base0-lv)*CLK.rev+gauss()*CLK.w*.6;
+      S.cl[t][i]=clamp(lv,base0-CLC,base0+CLC);
+      S.cp[t][i]=Math.round(cp*100)/100;
+    }
+  }
+}
+/* la vettura a inizio stagione: livello di fondo + quello che resta dello sviluppo dell'anno prima + un po' di imprevisto */
+function carCalc(tier,i,rg,y){
+  clvStep(y);
+  const lv=S.cl[tier][i],pv=S.cm&&S.cm[tier]?S.cm[tier][i]:null;
+  if(pv==null||isNaN(pv))return lv+gauss()*2.2;
+  const prev=S.cq[tier][i];
+  return lv+(pv-prev)*(rg?CLK.kRg:CLK.keep)+gauss()*(rg?CLK.sigRg:CLK.sig);
+}
+function carNext(tier,i,rg){
+  const c=S.cn;
+  if(c&&c.y===S.year&&c.c&&c.c[tier]&&c.c[tier][i]!=null)return c.c[tier][i];
+  return carCalc(tier,i,rg,S.year);
+}
+/* le vetture dell'anno dopo, estratte una volta sola quando escono le offerte */
+function carPre(force){
+  clvEns();
+  const yN=S.first?S.year:S.year+1;
+  if(S.cn&&S.cn.y===yN&&S.cn.c)return S.cn;
+  /* stagione già avviata con queste vetture: fuori dal mercato non si rigenera nulla */
+  if(!force&&S.cn&&S.cn.y===S.year&&S.cn.c&&!['offers','neg','negres'].includes(S.phase))return S.cn;
+  const cn={y:yN,c:{},pn:{}};
+  for(let t=0;t<4;t++){
+    const n=TIERS[t].teams.length,rg=regOf(yN,t);
+    let a=Array.from({length:n},(_,i)=>carCalc(t,i,rg,yN));
+    if(rg&&rg[1]<4){a=a.map(v=>v+gauss()*rg[1]);cn.pn[t]=1}
+    cn.c[t]=a;
+  }
+  S.cn=cn;
+  try{carNews()}catch(e){}
+  return cn;
+}
+/* il numero che vedi nei contratti: vettura (con il tuo contributo tecnico) a inizio stagione */
+function carShow(t,r){
+  const cn=carPre(),c=cn.c[t];let v=c[r];
+  const cap=(S.rl&&S.rl.cap)||(S.rsch||[]).some(x=>x.y===cn.y&&x.id==='cap');
+  if(cap){const m=c.reduce((a,b)=>a+b,0)/c.length;v=m+(v-m)*.8}
+  return v+(S.st?(S.st.tecnica-50)/40:0);
+}
+const carMajor=(t)=>{const cn=S.cn;return cn?!!regMajor(cn.y,t):false};
+{const _mo=makeOffers;makeOffers=function(){try{carPre(true)}catch(e){}return _mo.apply(this,arguments)}}
+{const _ra=regApply;regApply=function(rg){
+  if(rg&&rg[1]<4&&S.cn&&S.cn.y===S.year&&S.cn.pn&&S.cn.pn[S.tier])return;   /* il rumore è già nelle vetture estratte */
+  return _ra.apply(this,arguments);
+}}
+/* a inizio stagione ricordo le vetture di partenza (per le frecce in Griglia e le notizie di fine anno) */
+{const _ns=newSeason;newSeason=function(){
+  const r=_ns.apply(this,arguments);
+  try{S.cs0=S.teams.map(x=>x.car);S.cu={y:S.year,a:[0,0]};S.cuL=[]}catch(e){}
+  return r;
+}}
+{const _es=ensureSh;ensureSh=function(){
+  const had=S.sh&&S.sh.y===S.year&&S.sh.tier===S.tier;
+  const r=_es.apply(this,arguments);
+  try{if(!had&&S.sh){for(const t in S.sh.T)S.sh.T[t].c0=S.sh.T[t].car.slice()}}catch(e){}
+  return r;
+}}
+
+/* ---------- aggiornamenti in stagione ---------- */
+function carUpDo(idx){
+  const log=[];
+  for(let t=0;t<4;t++){
+    const n=TIERS[t].teams.length,own=t===S.tier;
+    if(!own&&!(S.sh&&S.sh.T[t]))continue;
+    for(let i=0;i<n;i++){
+      const cur=own?S.teams[i].car:S.sh.T[t].car[i];
+      if(cur==null||isNaN(cur))continue;
+      const cp=(S.cp&&S.cp[t]&&S.cp[t][i])||0;
+      let d=cp*CLK.uk+gauss()*CLK.us,tag=0;
+      const r=rnd();
+      if(r<CLK.ux){d+=1.7+rnd()*1.6;tag=2}
+      else if(r<CLK.ux+CLK.ul){d-=1.1+rnd()*1.1;tag=-2}
+      d=clamp(d,-3,4.5);
+      if(own)S.teams[i].car=cur+d;else S.sh.T[t].car[i]=cur+d;
+      if(own||t===3)log.push({t,i,d,tag});
+    }
+  }
+  try{carUpNews(log,idx)}catch(e){}
+}
+function carUpNews(log,idx){
+  const L=S.last?(S.last.upg=S.last.upg||[]):[];
+  const nm=x=>TIERS[x.t].teams[x.i],K=x=>TIERS[x.t].k;
+  const mine=log.find(x=>x.t===S.tier&&x.i===S.teamRank);
+  const rest=log.filter(x=>!(x.t===S.tier&&x.i===S.teamRank)&&(x.t===S.tier||(S.tier>=2&&Math.abs(x.d)>=2)));
+  const up=rest.filter(x=>x.d>=1.5).sort((a,b)=>b.d-a.d)[0];
+  const dn=rest.filter(x=>x.d<=-1.2).sort((a,b)=>a.d-b.d)[0];
+  const f=v=>(Math.round(Math.abs(v)*10)/10).toFixed(1).replace('.',',');
+  if(mine&&Math.abs(mine.d)>=.8){
+    const t=mine.d>0?(mine.tag>0?'Il nuovo pacchetto della tua squadra funziona benissimo: la vettura guadagna '+f(mine.d)+' punti.':'Gli aggiornamenti della tua squadra portano qualcosa: la vettura guadagna '+f(mine.d)+' punti.')
+      :(mine.tag<0?'Gli aggiornamenti della tua squadra vanno nella direzione sbagliata: la vettura perde '+f(mine.d)+' punti.':'Lo sviluppo della tua squadra rallenta: la vettura perde '+f(mine.d)+' punti.');
+    feedAdd('n','Paddock · aggiornamenti',t,mine.d>0?1:-1);L.push({t,k:mine.d>0?1:-1});
+  }
+  if(up){const t=K(up)+' · '+nm(up)+(up.tag>0?' porta un pacchetto che funziona: la vettura guadagna ':' migliora la vettura di ')+f(up.d)+' punti.';feedAdd('n','Paddock · aggiornamenti',t,0);L.push({t,k:0})}
+  if(dn){const t=K(dn)+' · '+nm(dn)+(dn.tag<0?' sbaglia direzione di sviluppo: la vettura perde ':' perde terreno: la vettura cala di ')+f(dn.d)+' punti.';feedAdd('n','Paddock · aggiornamenti',t,0);L.push({t,k:0})}
+}
+function carUp(){
+  if(!S.teams||S.first||!S.total)return;
+  const c1=Math.max(2,Math.round(S.total*.34)),c2=Math.max(c1+2,Math.round(S.total*.68));
+  if(!S.cu||S.cu.y!==S.year)S.cu={y:S.year,a:[S.round>c1?1:0,S.round>c2?1:0]};
+  const idx=!S.cu.a[0]&&S.round>=c1?0:!S.cu.a[1]&&S.round>=c2?1:-1;
+  if(idx<0)return;
+  S.cu.a[idx]=1;
+  carUpDo(idx);
+}
+{const _dr=doRace0;doRace0=function(){const r=_dr.apply(this,arguments);try{carUp()}catch(e){}return r}}
+
+/* ---------- notizie dal paddock sulle vetture dell'anno dopo ---------- */
+function carNews(){
+  const cn=S.cn;if(!cn||!S.mkt)return;
+  const ts=[S.tier,3].concat(S.tier<3?[S.tier+1]:[]).filter((x,k,a)=>a.indexOf(x)===k);
+  const out=[];
+  ts.forEach(t=>{
+    const pv=S.cm&&S.cm[t];if(!pv)return;
+    const a=cn.c[t].map((v,i)=>({i,d:v-pv[i],v:carShow(t,i)}));
+    const up=a.slice().sort((x,y)=>y.d-x.d)[0],dn=a.slice().sort((x,y)=>x.d-y.d)[0];
+    const k=TIERS[t].k,nm=i=>TIERS[t].teams[i],r=v=>Math.round(v);
+    if(up&&up.d>=3&&(S.cp[t][up.i]||0)>=.6)out.push(k+' · '+nm(up.i)+' ha investito molto: la vettura '+cn.y+' parte da '+r(up.v)+' (nel '+(cn.y-1)+' chiudeva a '+r(pv[up.i])+').');
+    else if(up&&up.d>=4)out.push(k+' · '+nm(up.i)+' fa un grande salto: la vettura '+cn.y+' parte da '+r(up.v)+', '+Math.round(up.d)+' punti sopra la scorsa stagione.');
+    if(dn&&dn.d<=-3&&(S.cp[t][dn.i]||0)<=-.5)out.push(k+' · '+nm(dn.i)+' attraversa un periodo difficile: la vettura '+cn.y+' parte da '+r(dn.v)+' (scorsa stagione: '+r(pv[dn.i])+').');
+    else if(dn&&dn.d<=-4)out.push(k+' · '+nm(dn.i)+' perde terreno: la vettura '+cn.y+' parte da '+r(dn.v)+', '+Math.round(-dn.d)+' punti sotto la scorsa stagione.');
+  });
+  S.mkt.splice(0,0,...out.slice(0,4));
+}
+/* freccia in Griglia: quanto è cambiata la vettura dall'inizio stagione */
+const carDl=t=>{
+  try{
+    if(!S.cs0||S.cs0[t]==null)return '';
+    const d=Math.round(S.teams[t].car-S.cs0[t]);
+    if(!d)return '';
+    return `<small class="cdl ${d>0?'up':'dn'}">${d>0?'▲ +'+d:'▼ −'+(-d)}</small>`;
+  }catch(e){return ''}
+};
+/* scheda nel riepilogo: aggiornamenti tecnici del weekend */
+const upgCard=L=>L&&L.upg&&L.upg.length?`<section class="card upg"><div class="sech">Aggiornamenti tecnici</div>${L.upg.map(x=>`<div class="news"><span style="color:var(--${x.k>0?'green':x.k<0?'warn':'mut'})">${x.k>0?'▲':x.k<0?'▼':'●'}</span> ${esc(x.t)}</div>`).join('')}</section>`:'';
+/* nei contratti: come è cambiata la vettura rispetto a fine stagione scorsa */
+const carTrend=(t,r)=>{
+  try{
+    const cn=carPre(),pv=S.cm&&S.cm[t]?S.cm[t][r]:null;
+    if(pv==null)return '';
+    const d=Math.round(cn.c[t][r]-pv);
+    if(Math.abs(d)<2)return '';
+    return `<span class="tg ${d>0?'cu':'cd'}">Vettura ${d>0?'▲ +':'▼ −'}${Math.abs(d)} sul ${cn.y-1}</span>`;
+  }catch(e){return ''}
+};
+/* ---------- Crescita legata ai risultati ----------
+   Giocatore: un giovane che finisce davanti guadagna un bonus di crescita ad ogni weekend (vittoria > podio > zona punti).
+     Il bonus dipende dall'età (pieno fino a 22 anni, poi cala), dalla categoria (pesa di più in F1) e si riduce
+     da ~82 di OVR in su, fino a quasi spegnersi verso 94: la curva alta resta quella di prima.
+   Rivali: da una stagione all'altra l'OVR dei piloti tiene conto di come hanno chiuso rispetto alle attese
+     (OVR + vettura): chi va oltre cresce di più, chi delude cresce meno o cala. */
+const RWP=[0,.22,.14,.10,.06,.05,.04,.02,.02,.015,.015];
+const RWK={talento:1.15,ritmo:1.15,costanza:.7,tecnica:1};
+const RWT=[0,0,.3,1];
+let RWS=.4;
+let RWC=1.4;                                       /* tetto morbido del bonus in una stagione (OVR) */
+let F1G=1;                                         /* crescita di base in F1 (taratura): 1 = come prima */
+let LOWG=.97;                                       /* crescita di base nelle serie minori (taratura) */
+const gAdj=()=>S&&S.tier===3?F1G:LOWG;
+const rwAge=a=>a<=22?1:a<=25?.8:a<=28?.45:a<=31?.2:0;
+const rwTaper=o=>o<=82?1:o>=94?.12:1-(o-82)/12*.88;
+function resReward(me,old){
+  if(!me||me.dnf||!me.pos)return 0;
+  const b=RWP[me.pos]||0;if(!b)return 0;
+  const yf=rwAge(S.age);if(!yf)return 0;
+  const R=Math.max(1,S.total);
+  const X0=RWS*b*(24/R)*RWT[S.tier]*yf*rwTaper(rating(S))*gMis();
+  if(X0<=0)return 0;
+  /* in una stagione il bonus si smorza: i primi guadagni valgono per intero, poi sempre meno (tetto morbido RWC) */
+  const raw=(S.rwR||0)+X0;S.rwR=raw;
+  const X=RWC*(1-Math.exp(-raw/RWC))-(S.rwS||0);
+  if(X<=.0005)return 0;
+  const keys=Object.keys(S.st);
+  keys.forEach(k=>{S.st[k]=clamp(S.st[k]+X*(RWK[k]||1),1,99)});
+  S.carBonus+=X*(RWK.tecnica)/40;
+  S.rwS=(S.rwS||0)+X;
+  const g=S.last&&S.last.gr;
+  if(g){
+    const ch=[];keys.forEach(k=>{const a=Math.round(old[k]),b2=Math.round(S.st[k]);if(a!==b2)ch.push({k,d:b2-a})});
+    g.ch=ch;g.o1=Math.round(rating(S));g.rw=Math.round(X*100)/100;
+  }
+  return X;
+}
+{const _rg=raceGrowth;raceGrowth=function(me,n,ex){
+  const old={...S.st};
+  _rg.apply(this,arguments);
+  try{resReward(me,old)}catch(e){}
+}}
+{const _gl=growLine;growLine=function(g){
+  let h=_gl.apply(this,arguments);
+  try{if(g&&g.rw>=.015){const t=S.rwS||0;h+=(h?' &nbsp;·&nbsp; ':'')+`<b style="color:var(--green)">▲ Bonus risultati +${g.rw.toFixed(2).replace('.',',')}</b>`+(t>=.15?` <span style="color:var(--mut)">(stagione +${t.toFixed(1).replace('.',',')})</span>`:'')}}catch(e){}
+  return h;
+}}
+{const _ns=newSeason;newSeason=function(){const r=_ns.apply(this,arguments);try{S.rwS=0;S.rwR=0}catch(e){}return r}}
+function seasonRwNews(news){
+  const x=S.rwS||0;
+  if(x>=1.2&&S.age<=28)news.push('I risultati ti hanno dato una spinta in più: oltre alla crescita normale, questa stagione vale circa +'+x.toFixed(1).replace('.',',')+' di OVR.');
+}
+
+/* ---------- rivali: la stagione conta ---------- */
+function rfCalc(){
+  const out={};
+  for(let t=0;t<4;t++){
+    const P=S.pool&&S.pool[t];if(!P||!P.length)continue;
+    let rows=null,cars=null;
+    if(t===S.tier&&S.teams&&!S.first){rows=standings().map(x=>({n:x.n,pts:x.pts}));cars=S.teams.map(x=>x.car)}
+    else if(S.sh&&S.sh.T&&S.sh.T[t]&&S.sh.T[t].r>0){rows=shRows(t);cars=S.sh.T[t].car}
+    if(!rows||rows.length<6||!cars)continue;
+    const rk={};rows.forEach((x,k)=>{rk[x.n]=k});
+    const E=P.filter(d=>rk[d.n]!=null&&d.t>=0&&cars[d.t]!=null).map(d=>({d,p:.55*d.o+.45*cars[d.t]}));
+    const M=E.length;if(M<6)continue;
+    E.sort((a,b)=>b.p-a.p);E.forEach((e,i)=>e.ex=i);
+    E.slice().sort((a,b)=>rk[a.d.n]-rk[b.d.n]).forEach((e,i)=>e.ac=i);
+    E.forEach(e=>{
+      const perf=clamp((e.ex-e.ac)/(M/2),-1.2,1.2),a=e.d.a;
+      const af=perf>=0?(a<=23?1:a<=27?.75:a<=31?.45:.2):(a<=23?.6:a<=27?.9:1.1);
+      e.d.rf=Math.round(clamp(perf*1.7,-1.6,1.9)*af*100)/100;
+      out[e.d.n]=e.d.rf;
+    });
+  }
+  return out;
+}
+/* i giovani della F1 che hanno chiuso bene crescono un po' di più: il livello del gruppo di vertice non scende mai per i soli ritiri dei veterani */
+let RVB=.3;
+function rvBoost(){
+  const P=S.pool&&S.pool[3];if(!P||!RVB)return;
+  P.forEach(d=>{if(d.a<=25&&d.o<94)d.o=clamp(d.o+RVB*(d.rf>=0?1:.5),40,99)});
+}
+{const _ev=evolveAll;evolveAll=function(){
+  let o0={};
+  try{rfCalc();(S.pool||[]).forEach((P,t)=>P.forEach(d=>{o0[d.n]=d.o}))}catch(e){}
+  _ev.apply(this,arguments);
+  try{rvBoost()}catch(e){}
+  try{
+    const news=[];
+    [3,S.tier].filter((x,k,a)=>a.indexOf(x)===k).forEach(t=>{
+      const P=S.pool[t]||[];
+      const L=P.filter(d=>o0[d.n]!=null&&d.rf!=null&&d.rf!==0).map(d=>({d,x:d.o-o0[d.n]}));
+      const up=L.filter(e=>e.d.rf>=.9&&e.x>=2.4).sort((a,b)=>b.x-a.x)[0];
+      const dn=L.filter(e=>e.d.rf<=-.8&&e.x<=-.6).sort((a,b)=>a.x-b.x)[0];
+      if(up)news.push(TIERS[t].k+' · '+up.d.n+' ('+up.d.a+' anni) ha chiuso oltre le attese e fa un salto di livello: ora è a '+Math.round(up.d.o)+'.');
+      if(dn)news.push(TIERS[t].k+' · '+dn.d.n+' ('+dn.d.a+' anni) ha deluso rispetto alle attese e perde smalto: ora è a '+Math.round(dn.d.o)+'.');
+    });
+    if(S.mkt)S.mkt.splice(0,0,...news.slice(0,3));
+    (S.pool||[]).forEach(P=>P.forEach(d=>{d.rf=0}));
+  }catch(e){}
+}}
+/* ---------- Scheda Pilota: riga "Bonus risultati" nel riquadro "cosa conta adesso" ---------- */
+{
+  const _pf=pfNow;
+  pfNow=function(){
+    let h=_pf.apply(this,arguments);
+    try{
+      if(S.tier>=2&&S.st){
+        const yf=rwAge(S.age);
+        if(yf>0){
+          const o=rating(S),x=S.rwS||0;
+          const pct=Math.round(yf*100);
+          const ag=pct===100?`a ${S.age} anni vale per intero`:`a ${S.age} anni vale il ${pct}%`;
+          let t=`Le buone gare danno crescita extra: ${ag}.`;
+          if(S.tier===2)t=`In F2 il bonus è ridotto, in F1 le buone gare pesano di più: ${ag}.`;
+          if(o>82)t+=' Sopra 82 di OVR cala, verso 94 si spegne.';
+          if(x>=.1)t+=` Finora in stagione: <b>+${x.toFixed(1).replace('.',',')}</b>.`;
+          const row=`<div class="nr"><span class="ne">📈</span><span><small>Bonus risultati</small>${t}</span></div>`;
+          const i=h.lastIndexOf('<div class="nr">');
+          if(i>0)h=h.slice(0,i)+row+h.slice(i);
+        }
+      }
+    }catch(e){}
+    return h;
+  };
+}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
