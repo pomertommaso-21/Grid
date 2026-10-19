@@ -968,6 +968,76 @@ html,body{max-width:100%;overflow-x:clip}
 /* v11: etichette delle caselle (es. "Safety car") vanno a capo se la casella e stretta */
 .bt .bl{white-space:normal;align-items:flex-start;line-height:1.15;overflow:visible;text-overflow:clip}.bt .bl .ic{margin-top:-1px}
 .tyh small{font-size:10.5px}
+
+/* ---- v14 · weekend: «Lascia decidere al muretto» subito sotto il titolo, desktop a due colonne, conferma strategia sempre visibile ---- */
+.mur{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--line);border-left:4px solid var(--yellow);border-radius:10px;padding:9px 12px;cursor:pointer;font-family:var(--body);color:var(--fg);box-shadow:var(--shadow);transition:border-color .12s,transform .12s}
+.mur:hover{border-color:var(--yellow)}
+.mur:active{transform:scale(.99)}
+.mur .mi{flex:none;width:34px;height:34px;border-radius:9px;background:var(--yellow);color:var(--yellow-ink);display:grid;place-items:center}
+.mur .mi .ic{width:19px;height:19px;color:var(--yellow-ink)}
+.mur .mt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mur .mt b{font:800 14.5px var(--display);letter-spacing:-.01em;line-height:1.2}
+.mur .mt small{font-size:12px;color:var(--mut);line-height:1.25}
+.mur>i{flex:none;font-style:normal;font-size:24px;line-height:1;color:var(--mut)}
+.pane.dec>.mur{order:2}
+@media(min-width:1000px){
+ .pane.dsk>.dR.stk{position:sticky;top:14px}
+ .pane.dsk>.dR>.brf{order:-3}.pane.dsk>.dR>.obc{order:-2}.pane.dsk>.dR>.nts{order:-1}
+ .pane.dsk.qlv{grid-template-columns:minmax(0,1fr) minmax(430px,.95fr)}
+ .dL>.btns.sim{margin-top:2px}
+ .dL>.mur{margin-bottom:2px}
+}
+@media(max-width:999px){
+ .pane.p-strat .card.bld .btns{position:fixed;left:16px;right:16px;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px;margin:0;box-shadow:0 10px 30px rgba(13,27,61,.24)}
+ .pane.p-strat{padding-bottom:92px}
+}
+@media(min-width:700px) and (max-width:999px){.pane.p-strat .card.bld .btns{left:50%;right:auto;width:min(868px,calc(100% - 32px));transform:translateX(-50%)}}
+@media(orientation:landscape) and (max-height:500px) and (pointer:coarse){
+ .pane.p-strat .card.bld .btns{bottom:calc(50px + env(safe-area-inset-bottom,0px))}
+ .pane.p-strat{padding-bottom:76px}
+}
+@media(min-width:1000px){.qdc.one{grid-template-columns:1fr}.qdc.one .qd .btns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* v14 · riepilogo gara su desktop: due colonne, classifiche su due colonne (P1–P10 | P11–P20) */
+@media(min-width:1000px){
+ .pane.dec.p-result:not(.dsk){max-width:none}
+ .pane.p-result>.cl{max-width:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px;row-gap:12px;align-items:start}
+ .pane.p-result>.cl>*{min-width:0}
+ .pane.p-result>.cl>.bn,.pane.p-result>.cl>.btns,.pane.p-result>.cl>.news,.pane.p-result>.cl>.dock{grid-column:1/-1}
+ .pane.p-result>.cl>.dock{justify-self:end;width:min(100%,380px)}
+ .pane.p-result>.cl.kl>.card:first-of-type{grid-column:1/-1}
+ .pane.p-result>.cl.kl>.card:first-of-type .tw{display:block;column-count:2;column-gap:34px}
+ .pane.p-result>.cl.kl .tw .row{break-inside:avoid}
+ .pane.p-result>.cl.k-st>.card.dbf{grid-row:span 2}
+}
+/* v14 · Scheda Pilota: riquadro «cosa conta adesso» e sezioni richiudibili */
+.now{display:flex;flex-direction:column;gap:8px;background:var(--soft);border:1px solid var(--line);border-left:4px solid var(--yellow);border-radius:10px;padding:10px 12px;margin:2px 0 4px}
+.now .nowt{font:700 10.5px var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.now .nr{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;align-items:start;font-size:13.5px;line-height:1.4}
+.now .nr small{display:block;font:600 10.5px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:1px}
+.now .ne{font-size:16px;line-height:1.3;text-align:center}
+.pfs{display:flex;flex-direction:column}
+.pfh{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;background:none;border:0;border-top:1px solid var(--line);padding:8px 0;font-family:var(--body);color:var(--fg);text-align:left;cursor:pointer}
+.card>.pfs:first-child>.pfh{border-top:0;padding-top:2px}
+.pfh .pft{flex:none;font:700 11px var(--body);letter-spacing:.08em;text-transform:uppercase}
+.pfh .pfc{flex:1;min-width:0;font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.pfh i{flex:none;width:9px;height:9px;border-right:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s;margin-right:3px}
+.pfs.open>.pfh i{transform:rotate(-135deg) translate(-2px,-2px)}
+.pfs.open>.pfh .pfc{display:none}
+.pfs:not(.open)>.pfb{display:none}
+.pfs.open>.pfb{padding-top:4px}
+.pfs.pfc2>.pfh{border-top:0;padding-top:2px;padding-bottom:2px}
+.pfs.pfc2.open>.pfh{border-bottom:2px solid var(--yellow);margin-bottom:6px}
+.pfh i{margin-left:auto}
+.pfs.pfc2>.pfh{min-height:36px}
+.pfs.pfc2.open>.pfh{padding-bottom:6px}
+.rlt2{margin:2px 0 0;font-size:12px;color:var(--mut);line-height:1.4}.rlt2 b{color:var(--fg)}
+@media(min-width:1000px){.pane.dsk.nor>.dL{max-width:900px}}
+/* v15 · frecce di sviluppo delle vetture */
+.sr em .cdl{font-size:10px;font-weight:800;margin-left:6px;letter-spacing:.2px;font-style:normal}
+.sr em .cdl.up{color:var(--green)}
+.sr em .cdl.dn{color:var(--warn)}
+.offer .tg.cu{color:var(--green)}
+.offer .tg.cd{color:var(--warn)}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -1634,7 +1704,7 @@ function doRace0(opt){
   S.round++;
   shSim(1);
   if(S.round===Math.round(S.total*.35)||S.round===Math.round(S.total*.7))genRumors();
-  S.strip.push(best);
+  S.strip.push(kind);
   if(S.sm&&S.sm.left>0)S.sm.left--;
   const sc=6/S.total;
   const hm=isHome(S.cal[S.round-1]);const fd=({win:4,pod:2.5,pts:1,none:0,dnf:-1.5}[kind]+(hm?{win:3,pod:1.5,pts:.3,none:-1.2,dnf:-2}[kind]:0))*(1+S.tier*.25)*sc*(sp0?SP[sp0].fama:1);
@@ -1664,11 +1734,11 @@ function doRace0(opt){
   else if(kind==='pod')line='Sul podio.';
   else if(kind==='pts')line='A punti.';
   else if(kind==='none')line='Fuori dalla zona punti.';
-  else line=pick(opt&&opt.risk>=.05?['Ritiro dopo un contatto alla prima chicane.','Ritiro: sei finito nella sabbia.']:['Ritiro per un guasto all\'alimentazione.','Ritiro: perdita di pressione dell\'olio.']);
+  else line=dnfLine(me);
   if(flashAny&&!me.dnf)line+=' Un giro ispirato ha fatto la differenza.';
-  S.last={circuit:S.cal[S.round-1],kind,best,pos:me.pos,dnf:me.dnf,pts:list.reduce((a,x)=>a+x.me.pts,0),line,out:opt?opt.out:'Hai lasciato fare alla macchina.',
-    mate:mate?{n:mate.n,pos:mate.dnf?'rit.':'P'+mate.pos}:null,fx,dF,dT,q:QUALI.rows.map(x=>({n:x.n,t:x.t,g:x.g,tm:fmt(x.tm),me:x.me})),spr:list.slice(0,nr-1).map(x=>x.order.map(e=>({n:e.n,t:e.t,pos:e.pos,pts:e.pts,me:!!e.me,dnf:e.dnf,g:e.g}))),
-    rows:main.order.map(e=>({n:e.n,t:e.t,pos:e.pos,pts:e.pts,me:!!e.me,dnf:e.dnf,g:e.g})),
+  S.last={circuit:S.cal[S.round-1],kind,best,pos:me.pos,dnf:me.dnf,why:me.why?{k:me.why.k,s:me.why.s,t:me.why.t}:null,pts:list.reduce((a,x)=>a+x.me.pts,0),line,out:opt?opt.out:'Hai lasciato fare alla macchina.',
+    mate:mate?{n:mate.n,pos:mate.dnf?'rit.':'P'+mate.pos}:null,fx,dF,dT,q:QUALI.rows.map(x=>({n:x.n,t:x.t,g:x.g,tm:fmt(x.tm),me:x.me})),spr:list.slice(0,nr-1).map(x=>x.order.map(e=>({n:e.n,t:e.t,pos:e.pos,pts:e.pts,me:!!e.me,dnf:e.dnf,why:e.why?e.why.s:'',g:e.g}))),
+    rows:main.order.map(e=>({n:e.n,t:e.t,pos:e.pos,pts:e.pts,me:!!e.me,dnf:e.dnf,why:e.why?e.why.s:'',g:e.g})),
     races:list.map(x=>({pos:x.me.pos,dnf:x.me.dnf,pts:x.me.pts}))};
   S.last.champ=standings().map((x,i)=>({n:x.n,t:x.t,pos:i+1,pts:x.pts,me:x.me,dd:S.round>1?(pp[x.n]||i+1)-(i+1):0}));S.rstep=0;
   {const n=Math.max(2,main.order.length),tc=S.teams.map((t,i)=>({i,c:t.car+(i===S.teamRank?S.carBonus:0)})).sort((a,b)=>b.c-a.c),k=tc.findIndex(x=>x.i===S.teamRank),ex=2*k+1.5;
@@ -2678,7 +2748,7 @@ function radioGen(L,main,me,kind,hm){
     pod:pick(['Podio! Ottimo lavoro, godiamocelo.','Sei sul podio: gara solida, bravo.']),
     pts:pick(['Punti importanti in tasca: gara pulita.','A punti: portiamo a casa e guardiamo avanti.']),
     none:pick(['Niente punti, ma abbiamo dati utili. Ci ragioniamo.','Gara difficile: non avevamo il passo oggi.']),
-    dnf:pick(['Mi si è spento tutto… mi dispiace, ragazzi.','Mi fermo, non riesco a ripartire. Scusate.'])
+    dnf:dnfRadio(me)
   }[kind]);
   out.sort((a,b)=>a.l-b.l);
   while(out.length>6){const i=out.findIndex((x,k)=>k>0&&k<out.length-1&&x.w==='Team');out.splice(i>0?i:out.length-2,1)}
@@ -3216,7 +3286,7 @@ function actHint(){
   const w=S.wk,rc=S.rc,e=rc&&ACTS[rc.ev];
   if(!w||!e||w.tk<=0||rc.h!=null||!e.ctx)return;
   const r=e.ctx(w);if(!r)return;
-  w.tk--;const p=.55+.35*mf()/100;
+  w.tk--;const p=muP();
   rc.h=rnd()<p?r[0]:[0,1,2].filter(x=>x!==r[0])[Math.floor(rnd()*2)];
 }
 function actEnd(){
@@ -3557,7 +3627,7 @@ function podiumCard(L){
   const col=(r,k,h)=>`<div class="pdc${r.me?' me':''}">${helmetFor(r,26)}<div class="pdn">${esc(r.n)}</div><div class="pdt" style="--c:${hue(S.tier,r.t)}">${esc(TIERS[S.tier].teams[r.t])}</div><div class="pdb" style="height:${h}px"><b>${k}</b></div></div>`;
   const hero={win:['VITTORIA','h-win'],pod:['PODIO','h-pod'],dnf:['RITIRO','h-dnf'],pts:['A PUNTI','h-neu'],none:['SENZA PUNTI','h-neu']}[L.kind]||['WEEKEND','h-neu'];
   const pole=me&&me.g===1&&!me.dnf?' · Pole':'';
-  const strip=`<div class="hero ${hero[1]}"><span>${hero[0]}</span><small>${L.sim?'Simulato · ':''}${S.round}/${S.total} · ${esc(L.circuit)} · ${L.dnf?'fuori gara':'P'+L.pos}${pole}</small>${L.kind==='win'?'<i></i><i></i><i></i><i></i><i></i><i></i>':''}</div>`;
+  const strip=`<div class="hero ${hero[1]}"><span>${hero[0]}</span><small>${L.sim?'Simulato · ':''}${S.round}/${S.total} · ${esc(L.circuit)} · ${L.dnf?'fuori gara'+(L.why?' · '+esc(L.why.s):''):'P'+L.pos}${pole}</small>${L.kind==='win'?'<i></i><i></i><i></i><i></i><i></i><i></i>':''}</div>`;
   const pods=R.length>=3?`<div class="pdrow">${col(R[1],2,30)}${col(R[0],1,44)}${col(R[2],3,22)}</div>`:'';
   return `<section class="card pod hp">${strip}${pods}</section>`;
 }
@@ -3594,8 +3664,8 @@ function sumCard(L){
   const q=me(L.q),m=me(L.rows),c=me(L.champ),ld=(L.champ||[])[0],ns=(L.spr||[]).length;
   let h='';
   if(q)h+=row('Qualifica','P'+q.g,'<span class="pp2">– pt</span>'+(q.g===1?'<span>Pole</span>':''),q.g===1?'var(--yellow)':cv[kd(q.g,0)],L.q);
-  (L.spr||[]).forEach((sp,i)=>{const x=me(sp);if(!x)return;h+=row(ns>1?'Gara '+(i+1):'Sprint',x.dnf?'RIT':'P'+x.pos,(x.dnf?'':dl(x.g-x.pos))+pts(x),cv[kd(x.pos,x.dnf)],sp)});
-  if(m)h+=row(ns>1?'Gara '+(ns+1):'Gara',m.dnf?'RIT':'P'+m.pos,(m.dnf?'':dl(m.g-m.pos))+pts(m),cv[kd(m.pos,m.dnf)],L.rows);
+  (L.spr||[]).forEach((sp,i)=>{const x=me(sp);if(!x)return;h+=row(ns>1?'Gara '+(i+1):'Sprint',x.dnf?'RIT':'P'+x.pos,(x.dnf?(x.why?'<span>'+esc(x.why)+'</span>':''):dl(x.g-x.pos))+pts(x),cv[kd(x.pos,x.dnf)],sp)});
+  if(m)h+=row(ns>1?'Gara '+(ns+1):'Gara',m.dnf?'RIT':'P'+m.pos,(m.dnf?(m.why?'<span>'+esc(m.why)+'</span>':''):dl(m.g-m.pos))+pts(m),cv[kd(m.pos,m.dnf)],L.rows);
   if(c)h+=row('Campionato','P'+c.pos,`<span class="pp2">${c.pts} pt</span>${L.pts?'<span>+'+L.pts+'</span>':''}${dl(c.dd)}${c.pos>1&&ld?(ld.pts>c.pts?'<span>−'+(ld.pts-c.pts)+' dal 1°</span>':'<span>pari col 1°</span>'):'<span>leader</span>'}`,'var(--fg)',L.champ);
   const fx={...L.fx};if(L.dF)fx.fama=(fx.fama||0)+L.dF;if(L.dT)fx.team=(fx.team||0)+L.dT;
   return `<section class="card"><div>${h}</div>${chips(fx,'')}${L.med?`<div class="news"><span style="color:var(--${L.med.tone>0?'green':L.med.tone<0?'warn':'mut'})">${['▼','●','▲'][(L.med.tone||0)+1]}</span> ${esc(L.med.h)}</div>`:''}</section>${recNewCard(L.rec)}`;
@@ -3617,7 +3687,7 @@ function resultView(){
   else if(k==='c')body=champCard(L);
   else body=`<section class="card"><div class="sech">${steps[st][1]} · ${esc(L.circuit)}</div>${tower(spr[+k.slice(1)],'race',true)}</section>`;
   const bl=[];if(L.mom)bl.push(`${ico('bolt','fl')} ${esc(L.mom)}`);(S.newA||[]).forEach(x=>bl.push(`${ico('medal','fl')} <b>${esc(x)}</b>`));if(L.st)bl.unshift(`${stHead(L.st)}`);{const gl=growLine(L.gr);if(gl)bl.push(gl)}if(L.home)bl.unshift('<b>🏠 Gran premio di casa</b>');if(L.sp)bl.unshift('<b>'+SP[L.sp].e+' '+SP[L.sp].n+'</b>');if(L.eng)bl.push('🎧 Intesa con '+esc(L.eng.n)+' in crescita');rsBanner(L).forEach(x=>bl.push(x));const ban=bl.length?`<p class="sub bn">${bl.join(' &nbsp;·&nbsp; ')}</p>`:'';
-  return `<div class="cl">${ban}${tabs}${body}<div class="dock"><button class="go" data-act="next">Avanti →</button></div></div>`;
+  return `<div class="cl k-${k}${/^(q|r|s\d+)$/.test(k)?' kl':''}">${ban}${tabs}${body}<div class="dock"><button class="go" data-act="next">Avanti →</button></div></div>`;
 }
 function afterPlan(){startActs()}
 /* ---------- Azioni ---------- */
@@ -3813,7 +3883,7 @@ function rowH(r,mode){
   const val=mode==='race'?(r.dnf?'rit.':(r.pts?'+'+r.pts:'')):r.pts;
   const pos=mode==='race'&&r.dnf?'—':r.pos;const dl=mode==='race'&&r.g&&!r.dnf?r.g-r.pos:(mode==='season'&&r.dd?r.dd:0);
   const ck=mode==='season'?(r.me?' rkm':` rk" data-act="lore" data-v="${esc(r.n)}`):'';
-  return `<div class="row${r.me?' me':''}${ck}"><span class="n">${pos}</span><span class="sq" style="--c:${hue(GT!=null?GT:S.tier,r.t)}"></span><span class="nm">${esc(r.n)}<small>${esc(hudTeam(T.teams[r.t]))}</small></span><span class="pt"><small class="gp">${mode==='season'&&GAP0!=null&&GAP0>r.pts?'−'+(GAP0-r.pts):''}</small><small class="dlt${dl?(dl>0?' up2':' dn2'):''}">${dl?(dl>0?'▲'+dl:'▼'+-dl):''}</small><span class="pv">${val}</span></span></div>`;
+  return `<div class="row${r.me?' me':''}${ck}"><span class="n">${pos}</span><span class="sq" style="--c:${hue(GT!=null?GT:S.tier,r.t)}"></span><span class="nm">${esc(r.n)}<small>${esc(hudTeam(T.teams[r.t]))}${mode==='race'&&r.dnf&&r.why?' · '+esc(r.why):''}</small></span><span class="pt"><small class="gp">${mode==='season'&&GAP0!=null&&GAP0>r.pts?'−'+(GAP0-r.pts):''}</small><small class="dlt${dl?(dl>0?' up2':' dn2'):''}">${dl?(dl>0?'▲'+dl:'▼'+-dl):''}</small><span class="pv">${val}</span></span></div>`;
 }
 function tower(rows,mode,all){
   let h='<div class="tw">';GAP0=mode==='season'&&rows.length?rows[0].pts:null;
@@ -3831,7 +3901,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 19/10 · 15:22</p></div>`;
+  <p class="foot">Versione 19/10 · 19:49</p></div>`;
 }
 
 function identityView(){
@@ -4432,7 +4502,7 @@ function actView(){
   return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)} · ${ACTN[n]}</div><h1>${e.t}</h1><p>${x}</p></div>
   ${mainBanner()}${actSit()}${raceMap()}${wkLine()}${past}${rlRecap()}
   <div class="opts">${O.map((o,i)=>{const rk=o.risk>=.04?2:o.risk>=.02?1:0;return `<button class="ch" data-act="ac" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.tr?o.tr.e+' ':''}${o.t}</span><span class="od">${o.d}</span><span class="tags"><span class="tg r${rk}">Rischio ${['basso','medio','alto'][rk]}</span>${o.tr?`<span class="tg hint">${o.tr.n}</span>`:''}${rc.h===i&&!o.tr?`<span class="tg hint">${ico('bolt','fl')} Consiglio del muretto</span>`:''}</span></span></button>`}).join('')}</div>
-  ${w.tk>0&&rc.h==null&&hintOk(w,e)?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'}</button></div>`:''}
+  ${w.tk>0&&rc.h==null&&hintOk(w,e)?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'} · ${muLbl()}</button></div>`:''}
   ${simOpt()}`;
 }
 
@@ -4539,7 +4609,7 @@ function exNext(){
   w.ql=null;S.phase='quali';
 }
 function exAutoPick(w){
-  const ex=w.ex,s=ex.s,p=.02+.46*mf()/100;
+  const ex=w.ex,s=ex.s,p=muA();
   if(s===2)return 0;
   if(rnd()>=p)return Math.floor(rnd()*3);
   for(const i of [2,1,0]){if(exProb(w,i)>=.85)return i}
@@ -4574,11 +4644,11 @@ function exView(){
   const vg=q.vt[0]!==q.vt[1],tb=vg?L3[q.vt[0]+1]+' – '+L3[q.vt[1]+1]:L3[q.t+1];
   const expl=s===0?`<div class="qsl"><b>🎯 Qualifica a eliminazione.</b> Tre sessioni: in <b>Q1</b> restano fuori gli ultimi ${ex.cut} (da P${ex.k1+1}), in <b>Q2</b> altri ${ex.cut}, in <b>Q3</b> i migliori ${ex.k2} si giocano la pole. Ad ogni sessione scegli le gomme: le morbide nuove sono le più veloci, ma ogni sessione consuma un set nuovo e in gara i set finiti li avrai già usati.</div>`
     :`<div class="qsl">${s===1?`<b>Q2</b>: restano fuori gli ultimi ${ex.cut}. Sei ancora in gioco, scegli le gomme.`:'<b>Q3</b>: l\'ultima sessione decide la pole.'}${ex.pc.length?` <small>Gomme finora: ${w.tyb<0?'consumate':'risparmiate'}.</small>`:''}</div>`;
-  return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>Qualifica · Q${s+1}</h1><p>${s===0?'Con quali gomme esci per il tuo primo giro?':s===1?'Q1 superata: ora tocca a Q2.':'Sei tra i migliori: gioca la pole.'}</p></div>
+  return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>Qualifica · Q${s+1}</h1><p>${s===0?'Con quali gomme esci per il tuo primo giro?':s===1?'Q1 superata: ora tocca a Q2.':'Sei tra i migliori: gioca la pole.'}</p></div>${murBtn('exauto')}
   ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf"><div class="gauges qg">${tile('cloud','Pioggia sab.',wtQPv(w),wtQSb(w))}${tile('chart','Pista',L3[q.e+1],'evoluzione')}${tile('ovt','Traffico',tb,vg?'stima':'previsto')}${tile('bolt','Rettilinei',['Corti','Medi','Lunghi'][q.s+1],'utili per la scia')}</div></section>
   ${expl}${obCard(w)}${puCard(w)}
   <div class="opts">${O.map((o,i)=>{const p=exProb(w,i),l=exLbl(p,s);return `<button class="ch" data-act="ex" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.n}</span><span class="od">${o.d}</span><span class="tags"><span class="tg r${l[1]}">${l[0]}</span><span class="tg">${o.tg}</span></span></span></button>`}).join('')}</div>
-  <div class="btns"><button class="ghost" data-act="exauto">Lascia decidere al muretto</button></div>${simOpt()}`;
+  ${simOpt()}`;
 }
 function elimLine(s){
   const o=s.ex?s.ex.out:0;
@@ -4862,7 +4932,7 @@ function chooseQuali(i,auto){
   w.qs.vd=vd;
   if(!auto)S.mf=clamp(mf()+[1,0,0,-1][vd],0,100);
   if(auto){
-    const E=qEst(w),p=.02+.46*mf()/100,good=E.gain*q5K({o:w.ovt})>(.04+.025*(w.u||0))&&E.pGain>.4;
+    const E=qEst(w),p=muA(),good=E.gain*q5K({o:w.ovt})>(.04+.025*(w.u||0))&&E.pGain>.4;
     q5Final(w,(rnd()<p?good:rnd()<.5)?'retry':'keep');
     w.ql=null;S.phase='strat';return;
   }
@@ -4968,7 +5038,7 @@ function qsLine(s){
   return `<div class="qsl"><div><b style="color:${vd[1]}">${vd[0]}</b> · ${p.n}${ty}${ex}${s.auto?' <small>(scelta del muretto)</small>':''}</div><div>${qWhy(s)}${dg?` <b>${dg>0?'+':''}${dg} posizioni</b> rispetto alla pura velocità della vettura.`:''}</div></div>`;
 }
 function autoQ(){
-  const w=S.wk,bk=qBest(w)[0],p=.02+.46*mf()/100;
+  const w=S.wk,bk=qBest(w)[0],p=muA();
   return rnd()<p?QL.findIndex(x=>x.k===bk):Math.floor(rnd()*3);
 }
 /* ---- viste ---- */
@@ -4992,10 +5062,10 @@ function qOptsX(w,q){
 function qualiView(){
   if(isEl(S.wk)&&!S.wk.grid&&!S.wk.eq)return exView();
   const w=S.wk,q=w.q;
-  return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>La qualifica</h1><p>Scegli quando scendere in pista. Dopo il primo giro vedrai la classifica e potrai tenere il tempo o riprovare.</p></div>
+  return `<div class="ph"><div class="kick">Weekend ${S.round+1} di ${S.total} · ${esc(w.c)}</div><h1>La qualifica</h1><p>Scegli quando scendere in pista. Dopo il primo giro vedrai la classifica e potrai tenere il tempo o riprovare.</p></div>${murBtn('qauto')}
   ${spLine(w)}${fmLine(w)}${ckLine(w.c)}<section class="card brf">${q5Tiles(w,q)}</section>
   ${obCard(w)}${puCard(w)}${qOptsX(w,q)}
-  <div class="btns"><button class="ghost" data-act="qauto">Lascia decidere al muretto</button></div>${simOpt()}`;
+  ${simOpt()}`;
 }
 function q5Passed(w){
   const p=w.qs&&w.qs.kp;if(!p||!p.n)return '';
@@ -5208,7 +5278,7 @@ function rcPick(n){
   const e=pool[Math.min(k,pool.length-1)];
   rc.ev=e.id;rc.h=null;rc.wsig=null;
   if(e.id==='wx'){const t=w.wx?w.wx.rt:'keep';rc.wsig=rnd()<.72?t:['keep','stop','worse'].filter(x=>x!==t)[Math.floor(rnd()*2)]}
-  if(n===1&&S.eng&&S.eng.k==='ana'&&engTier()>=1&&e.ctx){const q=e.ctx(w);if(q)rc.h=rnd()<.8?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)]}
+  if(n===1&&S.eng&&S.eng.k==='ana'&&engTier()>=1&&e.ctx){const q=e.ctx(w);if(q)rc.h=rnd()<muPe()?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)]}
 }
 /* posizione stimata e distacchi vivi */
 function actSit(){
@@ -5439,7 +5509,7 @@ function choosePlan(i){
   S.mm=null;
 }
 function autoPlan(){
-  const w=AUTOW=mkWk(),b=bpX(w,false),p=.02+.46*mf()/100,keys=planKeys();
+  const w=AUTOW=mkWk(),b=bpX(w,false),p=muA(),keys=planKeys();
   const k=rnd()<p?b[0]:keys[Math.floor(rnd()*keys.length)],i=PL.findIndex(x=>x.k===k),pl=PL[i];
   const win=(winAvail()&&winPlan(k))?(rnd()<p?b[2]:'std'):null;
   const f=clamp(fitReal(k,w)+winReal(win,k,w),0,1.1);
@@ -6684,7 +6754,7 @@ const sgV=t=>sgOf(t).v;
 /* effetto dello stratega della mia squadra, da -1 a +1 */
 const sgZ=()=>S&&S.teams&&!S.first&&S.teams[S.teamRank]?clamp((sgV(S.teamRank)-55)/45,-1,1):0;
 /* affidabilità del consiglio del muretto */
-const hintP=()=>S&&S.teams&&S.teams[S.teamRank]?clamp(.42+.5*sgV(S.teamRank)/100,.45,.92):.72;
+const hintP=()=>S&&S.teams&&S.teams[S.teamRank]?muP():.72;
 /* cambi di stratega a inizio stagione */
 function sgSeason(){
   try{
@@ -6729,8 +6799,8 @@ function sgText(t){
 function sgHead(){
   if(!S.teams||S.first)return '';
   const t=S.teamRank,o=sgOf(t),h=hintP();
-  const eff=o.v>=70?'Ottimo: i suoi consigli sono quasi sempre quelli giusti.':o.v>=45?'Affidabile, ma non infallibile.':'Poco esperto: i consigli del muretto vanno presi con cautela.';
-  return `<p class="sgh"><b>Muretto</b> · ${esc(o.nm)} <span class="sgs">${stars(o.v)}</span> <small>${eff}</small></p>`;
+  const eff=o.v>=70?'Ottimo: se il muretto si fida di te i suoi consigli sono quasi sempre quelli giusti.':o.v>=45?'Affidabile, ma non infallibile.':'Poco esperto: i consigli del muretto vanno presi con cautela.';
+  return `<p class="sgh"><b>Muretto</b> · ${esc(o.nm)} <span class="sgs">${stars(o.v)}</span> <small>${eff} Ora i consigli sono: ${muLbl().replace('affidabilità ','')}.</small></p>`;
 }
 /* ---------------- strategie dei piloti ---------------- */
 let AUTOW=null;
@@ -6805,7 +6875,7 @@ function aiBlock(s){
 function sgCard(){
   if(!S.teams||S.first)return '';
   const own=sgOf(S.teamRank),t0=S.teamRank;
-  const eff=own.v>=70?'Con uno stratega così il muretto ci prende quasi sempre: i consigli sono affidabili e le scelte difficili si raddrizzano più spesso.':own.v>=45?'Il muretto è nella media: consiglia bene nelle gare lineari, meno quando le condizioni cambiano.':'Il muretto è in difficoltà: i consigli sbagliano più spesso e una scelta sbagliata costa di più.';
+  const eff=own.v>=70?'Con uno stratega così il muretto ci prende spesso, a patto che la sua fiducia in te e il tuo ingegnere siano buoni.':own.v>=45?'Il muretto è nella media: consiglia bene nelle gare lineari, meno quando le condizioni cambiano.':'Il muretto è in difficoltà: i consigli sbagliano più spesso e una scelta sbagliata costa di più.';
   const others=S.teams.map((tm,i)=>i).filter(i=>i!==t0).slice(0,12).map(i=>`<div class="sgr"><span>${dot(S.tier,i)}${esc(S.teams[i].name)}</span><span>${sgText(i)}</span></div>`).join('');
   return `<section class="card"><div class="sech">Capo stratega</div><div class="idtxt"><h2>${esc(own.nm)} <span class="sgs">${stars(own.v)}</span></h2><div class="sub">${esc(S.teams[t0].name)}</div></div><p class="sub">${eff}</p><div class="sech">Gli altri muretti</div><p class="sub">Li scopri gara dopo gara, guardando se azzeccano le strategie. Con l'ingegnere Analitico li leggi subito.</p>${others}</section>`;
 }
@@ -7224,7 +7294,7 @@ function rlView(){
   <div class="rlw"><div class="rlk"><b>Cosa fanno gli altri</b></div>${rows||'<p class="sub">Nessun dato dal muretto.</p>'}</div>
   ${last?'<p class="bwn">Ultimo giro utile: devi decidere adesso.</p>':''}</section>
   <div class="opts">${btn}${stay}</div>
-  ${w.tk>0&&rc.h==null&&hintOk(w,e)?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'}</button></div>`:''}
+  ${w.tk>0&&rc.h==null&&hintOk(w,e)?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'} · ${muLbl()}</button></div>`:''}
   ${simOpt()}`;
 }
 function rlAct(a){
@@ -8413,7 +8483,7 @@ function wtNeu(w){
     const k=wtNeu(w);
     rc.ev=k;rc.h=null;rc.wsig=null;w.neu=k;
     const e=ACTS[k];
-    if(S.eng&&S.eng.k==='ana'&&engTier()>=1&&e&&e.ctx){const q=e.ctx(w);if(q){rc.h=rnd()<.8?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)];rc.hp=80}}
+    if(S.eng&&S.eng.k==='ana'&&engTier()>=1&&e&&e.ctx){const q=e.ctx(w);if(q){rc.h=rnd()<muPe()?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)];rc.hp=80}}
   }catch(err){}
   if(rc&&rc.h!=null&&rc.hp==null&&n===1)rc.hp=80;
 }}
@@ -9592,7 +9662,7 @@ NX_NEW.concat(NX_CH).forEach(e=>{if(!ACTL.find(x=>x.id===e.id))ACTL.push(e);ACTS
     if(rnd()>=(id==='ch_restart'?.85:.7))return;
     const e=ACTS[id];
     rc.ev=id;rc.ch={f:rc.pk.ev,t:rc.pk.t};rc.h=null;rc.wsig=null;rc.hp=null;
-    if(n===1&&S.eng&&S.eng.k==='ana'&&engTier()>=1&&e.ctx){const q=e.ctx(w);if(q){rc.h=rnd()<.8?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)];rc.hp=80}}
+    if(n===1&&S.eng&&S.eng.k==='ana'&&engTier()>=1&&e.ctx){const q=e.ctx(w);if(q){rc.h=rnd()<muPe()?q[0]:[0,1,2].filter(x=>x!==q[0])[Math.floor(rnd()*2)];rc.hp=80}}
   }catch(err){}
 }}
 
@@ -10628,6 +10698,369 @@ const seasonMisNews=news=>{
     return h;
   };
 }
+/* ---------- Ritiri con motivo esplicito ----------
+   Ogni ritiro (tuo e dei rivali) ha una causa scelta in base a ciò che l'ha reso probabile:
+   affidabilità e power unit (guasti), costanza/stile/età (errori), rischio delle tue scelte (contatti),
+   rischio della strategia (gomme), pioggia (bagnato), weekend speciali (caldo). La scelta non consuma
+   numeri casuali: dipende da un'impronta di nome, anno e gara, così le carriere con codice restano uguali. */
+const DNFC={
+  mot:{s:'Motore',m:['il motore ti ha lasciato a piedi','perdita di pressione dell\'olio','guasto all\'alimentazione','rottura della power unit'],r:['guasto al motore','perdita d\'olio','problema alla power unit']},
+  mec:{s:'Guasto',m:['guasto al cambio','problema all\'impianto frenante','rottura della sospensione','guasto elettronico alla centralina','perdita idraulica'],r:['guasto al cambio','problema ai freni','rottura della sospensione','guasto elettronico']},
+  err:{s:'Errore',m:['sei andato lungo e sei finito nella ghiaia','testacoda in curva, non sei più ripartito','hai toccato il muro e rotto la sospensione','errore in frenata, sei finito contro le barriere'],r:['uscita di pista','testacoda','errore in frenata']},
+  ctt:{s:'Contatto',m:['contatto con un avversario, ala rotta','toccata in curva con danni troppo gravi per proseguire','sei stato centrato da chi frenava più tardi di te'],r:['contatto con un avversario','toccata in curva','incidente alla prima curva']},
+  gom:{s:'Gomme',m:['foratura, la gomma è esplosa','gomme finite e uscita di pista','graining e perdita di controllo'],r:['foratura','gomme finite']},
+  wet:{s:'Bagnato',m:['aquaplaning, sei andato dritto','uscita di pista sul bagnato','hai perso il posteriore sull\'acqua'],r:['aquaplaning','uscita di pista sul bagnato']},
+  hot:{s:'Caldo',m:['surriscaldamento, la macchina si è fermata','il caldo ha messo in crisi il raffreddamento'],r:['surriscaldamento']}
+};
+const DNFPH=['nelle prime tornate','a metà gara','nel finale'];
+const dnfH=(e,k)=>hsh(String(e.n)+'|'+(S.year||0)+'|'+(S.round||0)+'|'+(k||''));
+const dnfPickW=(W,u)=>{let t=0;const ks=Object.keys(W);ks.forEach(k=>t+=Math.max(0,W[k]));if(t<=0)return 'mec';let x=u*t;for(const k of ks){x-=Math.max(0,W[k]);if(x<0)return k}return ks[ks.length-1]};
+function dnfAssign(order,opt){
+  const sp=spOf(),wet=wxDnf();
+  order.forEach(e=>{
+    if(!e.dnf||e.why)return;
+    const u=(dnfH(e,'k')%10000)/10000,v=dnfH(e,'t'),p=dnfH(e,'p');
+    let W;
+    if(e.me){
+      W={mot:.016+puDnf(),mec:.019,
+         err:Math.max(.006,.035-S.st.costanza*.0004+STYLES[S.style].dnf+ageInfo(S.age).dnf),
+         ctt:(opt?opt.risk*RFX:0),gom:(S.sw?S.sw.risk*RFX:0),
+         wet:wet,hot:sp==='heat'?spv('dnf'):0};
+      if(sp==='storm')W.wet+=spv('dnf');
+    }else{
+      W={mot:.03,mec:.025,err:.02,ctt:.015,wet:wet,hot:sp==='heat'?spv('dnf'):0};
+      if(sp==='storm')W.wet+=spv('dnf');
+    }
+    const k=dnfPickW(W,u),c=DNFC[k],arr=e.me?c.m:c.r;
+    const t=arr[v%arr.length];
+    const ph=k==='ctt'&&p%2===0?'alla prima curva':DNFPH[p%3];
+    e.why={k,s:c.s,t,ph};
+  });
+  return order;
+}
+{
+  const _sr=simulateRace;
+  simulateRace=function(opt,table){
+    const order=_sr.apply(this,arguments);
+    try{if(!PKK&&Array.isArray(order))dnfAssign(order,opt)}catch(x){}
+    return order;
+  };
+}
+const dnfLine=me=>{
+  const w=me&&me.why;
+  if(!w)return 'Ritiro.';
+  return 'Ritiro '+w.ph+': '+w.t+'.';
+};
+const dnfRadio=me=>{
+  const w=me&&me.why;
+  if(!w)return 'Mi fermo, non riesco a ripartire. Scusate.';
+  const P=a=>a[dnfH(me,'rd')%a.length];
+  switch(w.k){
+    case 'mot':return P(['Ho perso potenza, il motore è andato… mi fermo.','Mi si è spento tutto: è il motore, ragazzi.']);
+    case 'mec':return P(['Qualcosa si è rotto, non risponde più. Mi fermo.','Problema tecnico, non riesco a ripartire. Scusate.']);
+    case 'err':return P(['Ho sbagliato io, scusatemi. Ero oltre il limite.','Errore mio: sono andato lungo. Mi dispiace.']);
+    case 'ctt':return P(['Mi hanno toccato! Ho l\'ala rotta, non posso continuare.','C\'è stato un contatto, la macchina è danneggiata. Mi fermo.']);
+    case 'gom':return P(['La gomma ha ceduto, non ho più controllo.','Gomme finite, mi sono girato. Mi fermo.']);
+    case 'wet':return P(['Ho perso la macchina sull\'acqua, ero in aquaplaning.','Troppa acqua, sono andato dritto. Scusate.']);
+    case 'hot':return P(['La temperatura è fuori scala, devo fermarmi.','Si surriscalda tutto: mi fermo.']);
+  }
+  return 'Mi fermo, non riesco a ripartire. Scusate.';
+};
+const dnfWhy=me=>me&&me.why?me.why.s:'';
+/* ---------- Muretto: l'affidabilità dei consigli dipende da fiducia, stratega e ingegnere ----------
+   Prima i consigli azzeccavano quasi sempre (≈70-90%). Ora la probabilità che il consiglio sia quello giusto
+   va da ≈35% (fiducia bassa, stratega e ingegnere deboli) a ≈88% (tutto al massimo); a metà campo è ≈58%. */
+const muP=()=>{
+  let sg=55;try{if(S&&S.teams&&!S.first&&S.teams[S.teamRank])sg=sgV(S.teamRank)}catch(e){}
+  let el=12;try{el=eng().lv}catch(e){}
+  return clamp(.30+.26*mf()/100+.20*sg/100+.14*el/100,.32,.88);
+};
+const muLbl=()=>{const p=muP();return p<.5?'affidabilità bassa':p<.7?'affidabilità media':'affidabilità alta'};
+const muPe=()=>Math.min(.9,muP()+.1);
+
+const muA=()=>clamp((muP()-.3)*.9,.02,.5);
+/* ---------- Weekend · interfaccia ----------
+   · «Lascia decidere al muretto» è una scheda subito sotto il titolo (qualifica e qualifica a eliminazione)
+   · desktop: decisioni a sinistra (scelte, piano del giro, weekend rapido), contesto a destra e fisso mentre scorri;
+     la classifica della qualifica sta a destra, le azioni a sinistra. */
+const murBtn=a=>`<button class="mur" data-act="${a}"><span class="mi">${ico('radio','fl')}</span><span class="mt"><b>Lascia decidere al muretto</b><small>Sceglie lui per te · ${muLbl()}</small></span><i aria-hidden="true">›</i></button>`;
+function wk2(){
+  if(!wideDesk())return;
+  const app=document.getElementById('app');if(!app||!S)return;
+  const pane=app.querySelector('.pane.dec');if(!pane)return;
+  let L=pane.querySelector(':scope>.dL'),R=pane.querySelector(':scope>.dR');
+  /* classifica della qualifica: azioni a sinistra, tempi a destra */
+  if(!L&&pane.classList.contains('p-qlive')){
+    const big=[...pane.querySelectorAll(':scope>section.card')].find(c=>c.querySelector('.tw,.row'));
+    if(big){
+      const ctx=pane.querySelector(':scope>.ctx');
+      L=document.createElement('div');R=document.createElement('div');L.className='dL';R.className='dR';
+      [...pane.children].forEach(c=>{if(c===ctx)return;(c===big?R:L).appendChild(c)});
+      pane.classList.add('dsk','qlv');pane.appendChild(L);pane.appendChild(R);
+    }
+  }
+  if(!L||!R)return;
+  const ph=L.querySelector(':scope>.ph');
+  const mur=pane.querySelector('.mur');
+  if(mur&&mur.parentNode!==L)L.insertBefore(mur,ph?ph.nextSibling:L.firstChild);
+  const pick=L.querySelector(':scope>.pick');
+  /* piano del giro: sotto le scelte (è una decisione). Weekend rapido e simulazione: nel contesto,
+     salvo che la colonna di destra diventi molto più lunga di quella delle scelte */
+  let ref=pick,moved=false;
+  R.querySelectorAll(':scope>.qdc').forEach(c=>{if(ref&&ref.parentNode===L)L.insertBefore(c,ref.nextSibling);else L.appendChild(c);ref=c;moved=true});
+  L.querySelectorAll(':scope>.qdc').forEach(c=>{if(c.querySelectorAll(':scope>.qty').length<2)c.classList.add('one')});
+  try{
+    const qk=R.querySelector(':scope>.qkc');
+    if(qk&&R.offsetHeight>L.offsetHeight+80){if(ref&&ref.parentNode===L)L.insertBefore(qk,ref.nextSibling);else L.appendChild(qk);ref=qk;moved=true}
+  }catch(e){}
+  if(pick&&moved){const sb=pick.querySelector(':scope>.btns');if(sb){sb.classList.add('sim');L.appendChild(sb)}}
+  /* se la colonna di destra è più lunga, le note del weekend scendono sotto le scelte */
+  try{
+    if(R.offsetHeight>L.offsetHeight+100){const n=R.querySelector(':scope>.nts');if(n)L.appendChild(n)}
+  }catch(e){}
+  /* niente colonna vuota */
+  if(!R.children.length){R.remove();pane.classList.add('nor');return}
+  /* colonna di destra fissa solo se sta nello schermo */
+  try{
+    R.classList.remove('stk');
+    const hR=R.offsetHeight,hL=L.offsetHeight;
+    if(hR>0&&hR<=window.innerHeight-36&&hL>hR+60)R.classList.add('stk');
+  }catch(e){}
+}
+{const _w=wkLayout;wkLayout=function(){const r=_w.apply(this,arguments);try{wk2()}catch(e){}return r}}
+/* ---------- Scorrimento tra le schede (telefono e tablet) ----------
+   Scorrendo a sinistra o a destra si passa alla scheda successiva o precedente: tra le sezioni in basso
+   (Pilota · Weekend · Griglia · Media · Stagioni · Classifica) e, nel riepilogo gara, tra le sue schede
+   (Riepilogo · Strategia · Qualifica · Gara · Campionato). Il gesto non parte dai bordi dello schermo
+   (lì iOS ha il suo "indietro"), né da elementi che scorrono in orizzontale (barre di schede, tabelle),
+   né quando è aperta una finestra o si scrive in un campo. */
+(function(){
+  const NAV=['panel','decide','grid','media','recap','standings'];
+  let g=null;
+  const hscroll=el=>{
+    for(let n=el;n&&n.nodeType===1&&n!==document.body;n=n.parentNode){
+      if(n.scrollWidth>n.clientWidth+3){const o=getComputedStyle(n).overflowX;if(o==='auto'||o==='scroll')return true}
+    }
+    return false;
+  };
+  const slide=dir=>{
+    try{
+      if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+      const p=document.querySelector('#app .pane');
+      if(p&&p.animate)p.animate([{transform:'translateX('+(dir*26)+'px)',opacity:.35},{transform:'none',opacity:1}],{duration:190,easing:'ease-out'});
+    }catch(e){}
+  };
+  const go=dir=>{
+    if(typeof S==='undefined'||!S||S.phase==='ending')return;
+    if(S.tab==='decide'&&S.phase==='result'){
+      const bs=[...document.querySelectorAll('.cl [data-act="rs"]')];
+      const cur=bs.findIndex(b=>b.classList.contains('on')),nx=cur+dir;
+      if(cur>=0&&nx>=0&&nx<bs.length){bs[nx].click();slide(dir);return}
+    }
+    const i=NAV.indexOf(S.tab),j=i+dir;
+    if(i<0||j<0||j>=NAV.length)return;
+    const b=document.querySelector('#app .nav [data-act="tab"][data-i="'+NAV[j]+'"]');
+    if(b){b.click();slide(dir)}
+  };
+  document.addEventListener('touchstart',e=>{
+    g=null;
+    try{
+      if(e.touches.length!==1||wideDesk()||typeof S==='undefined'||!S||S.phase==='ending')return;
+      if(document.querySelector('.sheet-bd'))return;
+      const t=e.touches[0],el=e.target;
+      if(!el||!el.closest||el.closest('input,textarea,select,[data-noswipe],.hud'))return;
+      if(!document.querySelector('#app .nav'))return;
+      const w=window.innerWidth;
+      if(t.clientX<24||t.clientX>w-24)return;
+      if(hscroll(el))return;
+      g={x:t.clientX,y:t.clientY,t:Date.now()};
+    }catch(x){g=null}
+  },{passive:true});
+  document.addEventListener('touchend',e=>{
+    const s=g;g=null;if(!s)return;
+    try{
+      const t=e.changedTouches[0],dx=t.clientX-s.x,dy=t.clientY-s.y;
+      if(Date.now()-s.t>800)return;
+      if(Math.abs(dx)<64||Math.abs(dx)<2*Math.abs(dy))return;
+      const sel=window.getSelection&&String(window.getSelection());if(sel)return;
+      go(dx<0?1:-1);
+    }catch(x){}
+  },{passive:true});
+  document.addEventListener('touchcancel',()=>{g=null},{passive:true});
+  /* la scheda attiva delle barre a scorrimento resta al centro (anche dopo un tocco) */
+  const ctr=()=>{
+    try{
+      document.querySelectorAll('#app .cl .btns, #app .subt').forEach(st=>{
+        const on=st.querySelector('.on');if(!on||st.scrollWidth<=st.clientWidth+2)return;
+        st.scrollLeft=Math.max(0,st.scrollLeft+(on.getBoundingClientRect().left-st.getBoundingClientRect().left)-(st.clientWidth-on.offsetWidth)/2);
+      });
+    }catch(e){}
+  };
+  const _up=uiPost;uiPost=function(){const r=_up.apply(this,arguments);ctr();return r};
+})();
+/* ---------- Scheda Pilota più corta ----------
+   Un riquadro in alto con ciò che conta adesso (la caratteristica più debole, la stagione, il prossimo sblocco);
+   caratteristiche, attacco/difesa e stile di guida diventano sezioni richiudibili con un riepilogo in una riga.
+   Su telefono partono chiuse (la scheda si legge in un colpo d'occhio), su desktop aperte. Lo stato si ricorda. */
+let PFO=null;
+const pfGet=()=>{if(PFO)return PFO;PFO={};try{const j=JSON.parse(localStorage.getItem('gdp_pf')||'{}');if(j&&typeof j==='object')PFO=j}catch(e){}return PFO};
+const pfOpen=k=>{const o=pfGet();return k in o?!!o[k]:wideDesk()};
+const pfSet=(k,v)=>{pfGet()[k]=v?1:0;try{localStorage.setItem('gdp_pf',JSON.stringify(PFO))}catch(e){}};
+const PFTIP={
+  talento:'cresce con qualifiche sopra le attese e con i giri ispirati',
+  ritmo:'cresce con gare sopra le attese e con i sorpassi',
+  costanza:'cresce finendo le gare senza errori né ritiri',
+  tecnica:'cresce con le scelte tecniche giuste e lo sviluppo della vettura'
+};
+function pfNow(){
+  const st=S.st,ks=['talento','ritmo','costanza','tecnica'],NM={talento:'Talento',ritmo:'Ritmo',costanza:'Costanza',tecnica:'Tecnica'};
+  let wk=ks[0];ks.forEach(k=>{if(st[k]<st[wk])wk=k});
+  const avg=ks.reduce((a,k)=>a+st[k],0)/ks.length,gap=Math.round(avg-st[wk]);
+  const rows=[];
+  rows.push(['🎯','Punto debole',`<b>${NM[wk]} ${Math.round(st[wk])}</b>${gap>=2?` · ${gap} sotto la tua media`:''}. ${PFTIP[wk][0].toUpperCase()+PFTIP[wk].slice(1)}.`]);
+  if(S.teams&&!S.first){
+    const goal=Math.min(2*S.teams.length-1,2+S.teamRank*2);
+    let now='';
+    try{if(S.round>0){const p=standings().findIndex(x=>x.me)+1;now=` · ora <b>${p}°</b> (${S.me.pts} pt)`}else now=' · stagione al via'}catch(e){}
+    rows.push(['🏁','Stagione',`Obiettivo: chiudere nei primi <b>${goal}</b>${now}.`]);
+  }
+  try{
+    const d=S.dst||{};let best=null;
+    TRT.forEach(t=>{
+      if(S.trt&&S.trt[t.k])return;
+      const c=Math.min(t.th,d[t.cnt]||0),r=c/t.th;
+      if(!best||r>best.r)best={r,c,t};
+    });
+    if(best)rows.push([best.t.e,'Prossimo sblocco',`<b>${best.t.n}</b> ${best.c}/${best.t.th} · si guadagna con ${best.t.how}.`]);
+    else rows.push(['✅','Stile di guida','Tutti i tratti sono sbloccati.']);
+  }catch(e){}
+  return `<div class="now"><div class="nowt">Cosa conta adesso</div>${rows.map(r=>`<div class="nr"><span class="ne">${r[0]}</span><span><small>${r[1]}</small>${r[2]}</span></div>`).join('')}</div>`;
+}
+function pFold(){
+  const pane=document.querySelector('#app .pane.t-panel');
+  if(!pane||(S.pt||'pro')!=='pro'||!S.st||pane.querySelector('.now'))return;
+  const cards=[...pane.querySelectorAll(':scope>.card')];
+  const idc=cards[0];if(!idc)return;
+  const srs=idc.querySelector(':scope>.srs');if(!srs)return;
+  const mk=(key,title,sum,body)=>{
+    const o=pfOpen(key),w=document.createElement('div');
+    w.className='pfs'+(o?' open':'');
+    w.innerHTML=`<button class="pfh" data-act="pf" data-v="${key}" aria-expanded="${o?'true':'false'}"><span class="pft">${title}</span><span class="pfc">${sum}</span><i></i></button><div class="pfb"></div>`;
+    const b=w.querySelector('.pfb');body.forEach(x=>b.appendChild(x));
+    return w;
+  };
+  /* riquadro "cosa conta adesso" + caratteristiche richiudibili nella scheda di identità */
+  const tail=[srs];let nx=srs.nextElementSibling;while(nx){tail.push(nx);nx=nx.nextElementSibling}
+  const st=S.st,sum=`Tal ${Math.round(st.talento)} · Rit ${Math.round(st.ritmo)} · Cos ${Math.round(st.costanza)} · Tec ${Math.round(st.tecnica)}`;
+  const sec=mk('stat','Caratteristiche',sum,tail);
+  idc.appendChild(sec);
+  sec.before(document.createRange().createContextualFragment(pfNow()));
+  /* le altre schede: titolo = tasto */
+  cards.slice(1).forEach(c=>{
+    const h=c.querySelector(':scope>.sech');if(!h)return;
+    const t=h.textContent.trim().replace(/\s+/g,' ');
+    let key,sm='';
+    if(/Attacco e difesa/i.test(t)){key='ad';const em=[...c.querySelectorAll('.sr em')].map(e=>e.textContent.trim());sm=em.length>=2?`Attacco ${em[0]} · Difesa ${em[1]}`:''}
+    else if(/Stile di guida/i.test(t)){key='sg';const em=[...c.querySelectorAll('.sr em')].map(e=>e.textContent.trim()),n=em.filter(x=>x==='✓').length;sm=`${n} ${n===1?'sbloccato':'sbloccati'} su ${em.length}`}
+    else return;
+    const kids=[...c.children].filter(x=>x!==h);
+    const w=mk(key,t,sm,kids);w.classList.add('pfc2');
+    h.remove();c.appendChild(w);
+  });
+}
+{const _a0=act0;act0=function(a,i,v){
+  if(a==='pf'){pfSet(v,!pfOpen(v));KP=true;render();return}
+  return _a0.apply(this,arguments);
+}}
+{const _up=uiPost;uiPost=function(){const r=_up.apply(this,arguments);try{pFold()}catch(e){}return r}}
+/* ---------- Valutazioni dello stratega a fine gara: testi coerenti col giudizio ----------
+   Il giudizio è relativo (rispetto alle alternative che avevi), la frase di spiegazione descriveva solo il piano scelto:
+   capitava «Strategia sbagliata» accanto a «ha retto senza problemi», o «Perfetta» accanto a «hai pagato».
+   Ora la spiegazione segue il giudizio a gara conclusa, e dice anche quale piano avrebbe reso di più (o che era comunque
+   la scelta migliore tra quelle disponibili). «Copia i rivali» è giudicata con la stessa misura degli altri piani. */
+const WNEG=/non ha pagato|hai pagato|tempo perso|costata cara|ha dato poco|rovinato i piani|ribaltato i piani|rallentare|senza grandi guadagni|non erano ideali|non era la finestra|troppo pesanti|in crisi|hanno sofferto|surriscaldate|distrutte|si sono consumate|troppo poco|perso terreno|non era quella|poteva andare meglio/;
+const WPOS=/ha pagato|ha reso|ha retto senza|hanno retto|hanno tenuto|ha dato posizioni|vincente|gomma giusta|scelta giusta|scelta più sicura|ha premiato|compromesso solido|buona scelta/;
+function whyCoh(t,k,w,s){
+  const hs=stHs(s);
+  let out=t;
+  if(k==='safe'){
+    out=out.replace(/(: )(?:una buona scelta, che hai potuto copiare|non era quella ottimale, e l'hai seguita)\./,(m,c)=>c+(hs<=1?'una buona scelta, che hai potuto copiare.':hs===2?'poteva andare meglio, ma l\'hai seguita.':'non era quella giusta, e l\'hai seguita.'));
+  }
+  const first=out.split(/(?<=[.!?])\s/)[0],isNeg=WNEG.test(first),isPos=!isNeg&&WPOS.test(first);
+  const sp=out.search(/(?<=[.!?])\s/);
+  let add='';
+  if(hs<=1&&isNeg)add=hs===0?' Era comunque la scelta migliore tra quelle che avevi.':' Era comunque una buona scelta tra quelle che avevi.';
+  else if(hs>=2&&isPos){
+    let nm='';
+    try{if(s.hind&&s.hind!==s.k){const p=plX(PL.find(x=>x.k===s.hind),s);nm=p&&p.n?p.n.split(' · ')[0]:''}}catch(e){}
+    add=nm?` Ma in queste condizioni «${nm.toLowerCase()}» avrebbe reso di più.`:(s.cfg?' Ma gli stint non erano calibrati al meglio.':' Ma i tempi della sosta non erano quelli giusti.');
+  }
+  if(add){out=sp>0?out.slice(0,sp)+add+out.slice(sp):out+add}
+  return out;
+}
+{const _y=why;why=function(k,w,s){
+  const t=_y.apply(this,arguments);
+  try{if(s&&typeof s.vd==='number'&&s.fit!=null&&typeof t==='string')return whyCoh(t,k,w,s)}catch(e){}
+  return t;
+}}
+{const _sc=stratCard;stratCard=function(L){
+  let h=_sc.apply(this,arguments);
+  try{
+    const s=L&&L.st;if(!s||typeof h!=='string')return h;
+    const pl=plX(PL.find(p=>p.k===s.k),s),mine=pl&&pl.n?pl.n.split(' · ')[0]:'';
+    if(mine){
+      const same=(pre,gen)=>h=h.replace(new RegExp('(<div class="bst">)('+pre+')(: )(?:(?!</div>)[\\s\\S])*?<b>'+mine.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'</b></div>'),(m,a,b,c)=>a+b+c+gen+'</div>');
+      if(s.best===s.k)same('Coi tuoi dati, la migliore|La migliore era',s.bw==='early'?'la stessa strategia, con la sosta anticipata':s.bw==='late'?'la stessa strategia, con la sosta ritardata':'la stessa strategia, con stint più equilibrati');
+      if(s.hind===s.k)same('A giochi fatti, la migliore era','la stessa strategia, con i tempi di sosta e gli stint messi meglio');
+    }
+  }catch(e){}
+  return h;
+}}
+/* ---------- Pioggia live: il tempismo conta ----------
+   Oltre alla qualità della mossa (gomma e giro giusti rispetto alla verità), conta quanto sei in anticipo sui rivali:
+   rientrare giusto prima degli altri vale un premio, rientrare giusto ma dopo di loro lo riduce; anticipare una mossa
+   sbagliata costa di più, aspettare prima di sbagliare costa un po' meno. Il premio è il prodotto tra anticipo (-1..1,
+   misurato sul giro di rientro mediano dei rivali, 2 finestre = massimo) e qualità della scelta (-1..1). */
+const RLT={kv:.30,kx:.32};
+function rlLead(rl){
+  const Ls=(rl.rv||[]).filter(x=>x.L!=null).map(x=>x.L).sort((a,b)=>a-b);
+  let ref=null;
+  if(Ls.length)ref=Ls[Math.floor((Ls.length-1)/2)];
+  else if(rl.opt&&rl.opt.L!=null)ref=rl.opt.L;
+  if(ref==null||rl.pit==null)return{lead:0,ref:null};
+  return{lead:clamp((ref-rl.pit)/(2*rl.st),-1,1),ref};
+}
+{const _r=rlResolve;rlResolve=function(w,rl,i,o){
+  let val=_r.apply(this,arguments);
+  try{
+    const t=rlLead(rl),q=rl.q||0;
+    rl.lead=Math.round(t.lead*100)/100;rl.ref=t.ref;
+    const relief=t.lead<0&&q<0,tv=relief?0:RLT.kv*t.lead*q,tx=relief?0:RLT.kx*t.lead*q;
+    rl.tv=Math.round(tv*100)/100;
+    if(tv||tx){
+      rl.xd=Math.round((rl.xd+tx)*100)/100;rl.val=Math.round((rl.val+tv)*100)/100;
+      if(w&&w.rlr){w.rlr.xd=rl.xd;w.rlr.lead=rl.lead;w.rlr.verdict=rlVerdict(rl)}
+      val+=tv;
+    }
+  }catch(e){}
+  return val;
+}}
+{const _v=rlVerdict;rlVerdict=function(rl){
+  let t=_v.apply(this,arguments);
+  try{
+    if(rl&&rl.pit!=null&&rl.lead!=null&&Math.abs(rl.lead)>=.25&&rl.ref!=null){
+      const n=Math.max(1,Math.round(Math.abs(rl.ref-rl.pit))),g=n===1?'1 giro':n+' giri',q=rl.q||0;
+      if(rl.lead>0)t+=q>=0?` Sei rientrato ${g} prima dei rivali: premio di tempismo.`:` Hai anticipato di ${g} la mossa sbagliata: costa di più.`;
+      else t+=q>=0?` Hai aspettato ${g} più dei rivali: il bonus si riduce.`:` Sei rientrato ${g} dopo i rivali, ormai tardi.`;
+    }
+  }catch(e){}
+  return t;
+}}
+{const _rv=rlView;rlView=function(){
+  let h=_rv.apply(this,arguments);
+  try{if(typeof h==='string')h=h.replace(/<\/section>(\s*<div class="opts">)/,'<p class="sub rlt2"><b>Tempismo</b> · rientrare con la gomma giusta prima dei rivali dà un premio extra; aspettare più di loro lo riduce, e anticipare una mossa sbagliata costa di più.</p></section>$1')}catch(e){}
+  return h;
+}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
