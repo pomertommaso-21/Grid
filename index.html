@@ -3829,7 +3829,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 19/10 · 04:21</p></div>`;
+  <p class="foot">Versione 19/10 · 11:43</p></div>`;
 }
 
 function identityView(){
@@ -10447,6 +10447,156 @@ function tabScroll(){
   });
 }
 {const _r2=render;render=function(){const r=_r2.apply(this,arguments);try{tabScroll()}catch(e){}return r}}
+/* =====================================================================
+   v12 · Quindici situazioni di gara nuove
+   Stessa scala delle situazioni già presenti: scelta aggressiva
+   (resa alta, rischio .045-.055), equilibrata (resa media, rischio
+   .01-.02), prudente (resa bassa, rischio 0). La lettura giusta vale lo
+   stesso bonus, quella sbagliata la stessa penalità. Ogni situazione
+   compare solo se il testo è vero in quel momento (posizione, distacchi,
+   gomme, pioggia, caldo, circuito, compagno, scelta precedente).
+   ===================================================================== */
+(function(){
+  const gpOf=w=>(w&&w.gp)||10;
+  const spdOf=w=>(w&&w.spd==null)?1:(w?w.spd:1);
+  const rainy=w=>!!(w&&w.rain);
+  const front=()=>{try{const p=posNow();return p.p>1&&p.a!=null&&p.a<1.3}catch(e){return false}};
+  /* scelte che non riguardano il ritmo (strategia, meteo, neutralizzazioni): non scaldano gomme e freni */
+  const NOPUSH=['wx','tyre','fuel','rain','dry','oil','gust','pen5','team','red','sc','vsc','deg','f2_sosta','f1_undercut','f1_pace','f1_pitslow','f3_limiti','x_gialle','x_cala_ritmo','x_caldo','x_graining','x_doppia_sosta'];
+  const lastPrev=()=>{
+    try{
+      const rc=S.rc,pk=rc&&rc.pk;if(!pk||pk.n!==rc.n-1)return null;
+      if(NOPUSH.includes(pk.ev)||NX_PIT.includes(pk.ev)||NX_NEU.includes(pk.ev))return null;
+      const e=ACTS[pk.ev],o=e&&e.o&&e.o[pk.i];
+      return o&&(o.ag||o.risk>=.045)?pk:null;
+    }catch(x){return null}
+  };
+  const NEW=[
+ /* ----------------------------- partenza ----------------------------- */
+ {id:'x_semaforo',a:[0],tw:[2.2,1.4,.9,1.2],wt:0.55,t:'Il semaforo si fa attendere',
+  x:"I semafori restano accesi più a lungo del solito: motore al massimo, frizione che scotta e un'intera griglia con il piede sul freno. Chi anticipa rischia la partenza anticipata, chi esita si ritrova infilato da tutte le parti.",
+  o:[{t:'Parti sul filo dello spegnimento',d:'Una frazione di secondo guadagnata, o persa.',mod:2.1,risk:.05,ag:1,out:'Sei partito sul filo dello spegnimento dei semafori, rischiando la partenza anticipata.'},
+     {t:'Parti a tempo, senza anticipare',d:'Reazione pulita e frizione sotto controllo.',mod:1.2,risk:.01,out:'Sei partito a tempo, con la frizione sotto controllo.'},
+     {t:'Frizione dolce, niente rischi',d:'Perdi qualcosa, ma sei sicuro di scattare.',mod:.5,risk:0,out:'Hai usato la frizione dolce: partenza sicura, ma senza guadagnare nulla.'}],
+  ctx:w=>gpOf(w)<=3?[1,0]:gpOf(w)>=11?[0,2]:[1,2]},
+ {id:'x_via_rettilineo',a:[0],tw:[1,1.4,1.4,2.6],wt:1.6,t:'Un lungo rettilineo al via',
+  cond:w=>spdOf(w)>=2&&gpOf(w)>=4,
+  x:w=>"La prima staccata è lontana, in fondo a un rettilineo lunghissimo: dalla scia di chi ti precede puoi guadagnare posizioni prima della curva"+(gpOf(w)>=12?", e dal fondo ci sono molte vetture da superare in un colpo solo.":", ma tutti quelli intorno a te pensano la stessa cosa."),
+  o:[{t:'Esci dalla scia e frena per ultimo',d:'Se ti va bene, salti più vetture insieme.',mod:2.2,risk:.055,ag:1,out:'Sei uscito dalla scia a metà rettilineo e hai frenato più tardi di tutti.'},
+     {t:'Resta in scia fino alla staccata',d:'Un compromesso: scia senza strafare.',mod:1.2,risk:.01,out:'Sei rimasto in scia fino alla staccata, senza forzare.'},
+     {t:'Tieni la tua linea, senza scia',d:'Ti mantieni fuori dai guai.',mod:.5,risk:0,out:'Hai tenuto la tua linea, lontano dal groviglio della scia.'}],
+  ctx:w=>gpOf(w)>=12?[0,2]:[1,2]},
+ {id:'x_asfalto_freddo',a:[0],tw:[1.2,1.5,1.4,1.5],wt:1.6,t:'Asfalto freddo',
+  cond:w=>!!(w&&w.ta<0&&!w.rain),
+  x:w=>"Con la pista a "+w.temp+"°C le gomme faticano a entrare in temperatura: il grip dei primi giri è un'incognita e basta un errore di dosaggio per finire largo.",
+  o:[{t:'Spingi dal primo giro',d:'Chi aspetta perde posizioni, ma il grip è poco.',mod:2.0,risk:.05,ag:1,out:'Hai spinto dal primo giro, con le gomme ancora fredde.'},
+     {t:'Scalda con progressione',d:'Aumenti il ritmo curva dopo curva.',mod:1.2,risk:.01,out:'Hai scaldato le gomme con progressione, curva dopo curva.'},
+     {t:'Aspetta che entrino in finestra',d:'Gomme risparmiate, qualche posizione in meno.',mod:.5,risk:0,ty:1,out:'Hai aspettato che le gomme entrassero in temperatura prima di spingere.'}],
+  ctx:()=>[1,0]},
+ /* --------------------------- metà gara ------------------------------ */
+ {id:'x_caldo',a:[1,2],tw:[.8,1.2,1.3,1.4],wt:2.0,t:'La pista scotta',
+  cond:w=>!!(w&&w.ta>0&&!w.rain),
+  x:w=>"Con la pista a "+w.temp+"°C tutto scotta: gomme, freni e motore lavorano al limite. Chi forza adesso paga il conto negli ultimi giri.",
+  o:[{t:'Spingi nonostante il caldo',d:'Il ritmo c\'è, il conto arriva dopo.',mod:1.9,risk:.045,ag:1,out:'Hai spinto nonostante il caldo, con gomme e freni sotto stress.'},
+     {t:'Dosa ritmo e temperature',d:'Alzi e abbassi il piede dove serve.',mod:1.1,risk:.01,out:'Hai dosato il ritmo per tenere sotto controllo le temperature.'},
+     {t:'Alza il piede e raffredda',d:'Perdi tempo, ma tutto torna nei limiti.',mod:.4,risk:0,ty:1,out:'Hai alzato il piede per far raffreddare gomme e freni.'}],
+  ctx:()=>{const s=nxRs();return s&&s.ratio>=.85?[2,0]:[1,2]}},
+ {id:'x_gialle',a:[1,2],tw:[1.2,1.2,1.2,1.2],wt:0.42,t:'Bandiera gialla nel settore',
+  x:"Bandiera gialla nell'ultimo settore: un'auto è ferma a bordo pista. Chi non solleva viene penalizzato, chi solleva troppo butta via un giro buono.",
+  o:[{t:'Non sollevare del tutto',d:'Il tempo è tuo, i commissari anche.',mod:2.0,risk:.05,ag:1,out:'Hai tenuto il piede giù sotto la bandiera gialla, rischiando una penalità.'},
+     {t:'Solleva il giusto e passa',d:'Rispetti la bandiera senza esagerare.',mod:1.1,risk:.01,out:'Hai sollevato il giusto sotto la bandiera gialla.'},
+     {t:'Solleva e rallenta nel settore',d:'Nessun rischio, ma perdi tempo.',mod:.4,risk:0,out:'Hai rallentato in tutto il settore sotto bandiera gialla.'}],
+  ctx:()=>[1,0]},
+ {id:'x_errore_davanti',a:[1,2],tw:[1.3,1.4,1.2,1.1],wt:2.4,t:'L\'avversario sbaglia',
+  cond:()=>front(),
+  x:()=>{const P=posNow();return (P.an||'Chi ti precede')+" ha bloccato le ruote in staccata ed è andato lungo: a "+sec(P.a)+" da te, per un attimo la traiettoria interna è libera."},
+  o:[{t:'Infilati subito all\'interno',d:'L\'occasione è adesso, ma lo spazio è poco.',mod:2.2,risk:.055,ag:1,out:'Ti sei infilato subito all\'interno, approfittando dell\'errore.'},
+     {t:'Sfrutta l\'uscita di curva',d:'Parti meglio e lo prendi sul rettilineo.',mod:1.2,risk:.015,out:'Hai sfruttato l\'uscita di curva per metterti in scia.'},
+     {t:'Resta in scia e aspetta',d:'L\'errore non si ripeterà, la scia sì.',mod:.5,risk:0,out:'Sei rimasto in scia, lasciando passare l\'occasione.'}],
+  ctx:w=>w.ovt===0?[0,2]:w.ovt===2?[1,0]:[1,2]},
+ {id:'x_duello_davanti',a:[1,2],tw:[1.3,1.3,1.2,1],wt:2.2,t:'Duello davanti a te',
+  cond:()=>front(),
+  x:()=>{const P=posNow();return "Davanti a te, a "+sec(P.a)+", due vetture si stanno battagliando ruota a ruota: rallentano a vicenda e tu sei sempre più vicino. Se si toccano, rischi di restare coinvolto."},
+  o:[{t:'Approfitta e infilati',d:'Mentre si guardano tra loro, passi.',mod:2.1,risk:.055,ag:1,out:'Ti sei infilato mentre i due si battagliavano.'},
+     {t:'Resta a distanza di sicurezza',d:'Aspetti che uno dei due ceda.',mod:1.1,risk:.01,out:'Sei rimasto a distanza di sicurezza dal duello.'},
+     {t:'Rallenta e prendi aria pulita',d:'Eviti il pericolo e le gomme respirano.',mod:.4,risk:0,ty:1,out:'Hai rallentato per prendere aria pulita, lontano dal duello.'}],
+  ctx:w=>w.ovt===0?[0,2]:[1,0]},
+ {id:'x_doppia_sosta',a:[1],tw:[0,0,2.4,3],wt:1.0,t:'Doppia sosta con il compagno',
+  cond:()=>{try{if(tyT()<1||!plvAhead())return false;const m=mateOf(),P=posNow();return !!(m&&(P.an===m.n||P.bn===m.n))}catch(e){return false}},
+  x:()=>{const m=mateOf(),P=posNow(),dav=P.an===m.n,g=dav?P.a:P.b;
+    return "Il muretto vuole fermare tutte e due le macchine nello stesso giro: "+m.n+" è "+(dav?"davanti":"dietro")+" a te"+(g!=null?", a "+sec(g)+",":"")+" e la doppia sosta costa a uno dei due qualche secondo in più ai box."},
+  o:[{t:'Rientra tu per primo',d:'Gomme nuove subito, il compagno aspetta.',mod:1.9,risk:.03,mv:3,out:'Hai chiesto di rientrare per primo, lasciando il compagno ad aspettare ai box.'},
+     {t:'Rientra come da piano',d:'Segui l\'ordine deciso dal muretto.',mod:1.3,risk:.01,out:'Sei rientrato come da piano, nell\'ordine deciso dal muretto.'},
+     {t:'Fai rientrare lui e resta fuori',d:'Rinunci alla sosta ora e guadagni aria pulita.',mod:1.0,risk:.02,fx:{team:1},mv:-2,out:'Hai lasciato rientrare il compagno, restando fuori per un altro giro.'}],
+  ctx:()=>[1,0]},
+ {id:'x_graining',a:[1],tw:[.3,1.4,1.6,1.2],wt:1.5,t:'Granulazione sull\'anteriore',
+  cond:()=>{try{const s=nxRs();return !!s&&!s.wet&&s.ratio>=.3&&s.ratio<.85}catch(e){return false}},
+  x:"Sull'anteriore sinistra compare la granulazione: la gomma si sfalda in superficie e il volante diventa leggero. A volte si ripulisce da sola, a volte peggiora.",
+  o:[{t:'Spingi finché si ripulisce',d:'Scommetti che la gomma tenga.',mod:1.9,risk:.04,ag:1,out:'Hai spinto aspettando che la granulazione si ripulisse.'},
+     {t:'Alleggerisci l\'ingresso curva',d:'Meno carico sull\'anteriore, un po\' più lento.',mod:1.2,risk:.01,ty:1,out:'Hai alleggerito l\'ingresso in curva per salvare l\'anteriore.'},
+     {t:'Allarga le traiettorie e aspetta',d:'Gomma protetta, ritmo più basso.',mod:.5,risk:0,ty:1,out:'Hai allargato le traiettorie per proteggere la gomma.'}],
+  ctx:()=>{const s=nxRs();return s&&s.ratio<.55?[0,2]:[1,0]}},
+ {id:'x_cordoli',a:[1,2],tw:[2.2,1.3,.6,.2],wt:0.38,t:'Cordoli aggressivi',
+  x:"Nel punto più lento del circuito i cordoli sono alti e taglienti: prenderli di petto fa guadagnare metri, ma la vettura salta e si scarica il retrotreno.",
+  o:[{t:'Prendi tutto il cordolo',d:'Metri guadagnati, assetto sotto stress.',mod:2.0,risk:.05,ag:1,out:'Hai preso il cordolo di petto, saltando ma guadagnando metri.'},
+     {t:'Cordolo a metà',d:'Il giusto compromesso.',mod:1.1,risk:.01,out:'Hai preso il cordolo a metà, con la vettura sotto controllo.'},
+     {t:'Resta sulla pista',d:'Non rischi di rovinare l\'assetto.',mod:.4,risk:0,out:'Sei rimasto sulla pista, senza toccare i cordoli.'}],
+  ctx:w=>spdOf(w)===0?[0,2]:[1,0]},
+ {id:'x_cala_ritmo',a:[1,2],tw:[1,1,1,1],wt:4.0,t:'Il prezzo della spinta',
+  cond:()=>!!lastPrev(),
+  x:()=>{const pk=lastPrev()||{t:'la tua scelta'};return "Dopo «"+pk.t+"» gomme e freni sono più caldi del previsto: il ritmo cala e il muretto ti chiede come vuoi proseguire."},
+  o:[{t:'Mantieni il ritmo a ogni costo',d:'Non cedi un decimo, consumando tutto.',mod:1.9,risk:.04,ag:1,out:'Hai mantenuto il ritmo a ogni costo, consumando gomme e freni.'},
+     {t:'Alleggerisci un po\'',d:'Qualche decimo in meno per respirare.',mod:1.1,risk:.01,out:'Hai alleggerito un po\' per far respirare gomme e freni.'},
+     {t:'Raffredda per qualche giro',d:'Tutto torna nei limiti, ma perdi tempo.',mod:.4,risk:0,ty:1,out:'Hai raffreddato gomme e freni per qualche giro.'}],
+  ctx:()=>{const s=nxRs();return s&&s.ratio>=.8?[2,0]:[1,0]}},
+ /* ------------------------------ finale ------------------------------ */
+ {id:'x_doppiato',a:[2],tw:[1.5,1.2,.8,.6],wt:2.0,t:'Arriva il leader',
+  cond:()=>{try{const P=posNow();return P.p>=P.N-3}catch(e){return false}},
+  x:"Il leader della gara è alle tue spalle: tra poco ti doppierà. Bandiere blu in tutti i settori: se lo ostacoli rischi una penalità, se lo lasci passare male perdi tempo prezioso.",
+  o:[{t:'Resisti ancora un giro',d:'Rischi la penalità per tenere il ritmo.',mod:1.8,risk:.045,ag:1,out:'Hai resistito un altro giro, ignorando le bandiere blu.'},
+     {t:'Lascia passare alla prossima curva',d:'Scegli tu il punto giusto.',mod:1.1,risk:.01,out:'Hai lasciato passare il leader alla curva giusta, perdendo poco.'},
+     {t:'Fatti da parte subito',d:'Nessun rischio, tempo perso.',mod:.4,risk:0,out:'Ti sei fatto da parte subito, per evitare problemi.'}],
+  ctx:()=>[1,0]},
+ {id:'x_volata',a:[2],tw:[1.2,1.4,1.3,2],wt:2.2,t:'Volata al traguardo',
+  cond:w=>{try{if(spdOf(w)<1)return false;const P=posNow();return (P.p>1&&P.a!=null&&P.a<.8)||(P.p<P.N&&P.b!=null&&P.b<.8)}catch(e){return false}},
+  x:()=>{const P=posNow(),dav=P.p>1&&P.a!=null&&P.a<.8&&(P.b==null||P.b>=.8||P.a<=P.b);
+    return "Mancano pochi giri, e "+(dav?(P.an||'chi ti precede')+" è a "+sec(P.a)+" davanti a te":(P.bn||'chi ti segue')+" è a "+sec(P.b)+" dietro di te")+": i rettilinei sono lunghi e la scia può decidere chi taglia per primo il traguardo."},
+  o:[{t:'Gioca tutto sul traguardo',d:'Un solo colpo, nel punto giusto.',mod:2.1,risk:.05,ag:1,out:'Hai giocato tutto sul rettilineo del traguardo.'},
+     {t:'Gestisci la scia con intelligenza',d:'Scegli tu quando partire o coprirti.',mod:1.2,risk:.01,out:'Hai gestito la scia con intelligenza fino al traguardo.'},
+     {t:'Non rischiare: tieni la posizione',d:'Meglio una posizione sicura.',mod:.4,risk:0,out:'Hai tenuto la posizione senza rischiare nulla.'}],
+  ctx:()=>{const P=posNow();return P.p>1&&P.a!=null&&P.a<.4?[0,2]:[1,0]}},
+ /* ------------------------------ bagnato ----------------------------- */
+ {id:'x_pozza',a:[1,2],tw:[1,1,1,1],wt:1.0,t:'Una pozza sul rettilineo',
+  cond:w=>rainy(w),
+  x:"In fondo al rettilineo l'acqua ristagna: una pozza larga attraversa la traiettoria. Tagliarla a pieno gas fa risparmiare tempo, ma può far perdere il controllo.",
+  o:[{t:'Taglia la pozza a pieno gas',d:'Tempo guadagnato, aquaplaning possibile.',mod:2.1,risk:.055,ag:1,out:'Hai tagliato la pozza a pieno gas, rischiando l\'aquaplaning.'},
+     {t:'Passa sul bordo, dove è meno profonda',d:'Un po\' più lungo, molto più sicuro.',mod:1.1,risk:.015,out:'Hai passato sul bordo della pozza, dove l\'acqua era meno profonda.'},
+     {t:'Alza il piede prima della pozza',d:'Nessun rischio, ma tempo perso.',mod:.4,risk:0,out:'Hai alzato il piede prima della pozza.'}],
+  ctx:w=>w.wx&&w.wx.ri?[2,0]:[1,0]},
+ {id:'x_spruzzi',a:[1,2],tw:[1,1,1,1],wt:4.0,t:'Gli spruzzi davanti',
+  cond:w=>rainy(w)&&front(),
+  x:()=>{const P=posNow();return "Dietro la vettura che ti precede, a "+sec(P.a)+", i suoi spruzzi ti tolgono ogni riferimento: non vedi i punti di frenata e la visiera è un muro d'acqua."},
+  o:[{t:'Esci dalla scia e attacca',d:'Aria libera e visibilità, ma devi passare.',mod:2.0,risk:.05,ag:1,out:'Sei uscito dalla scia degli spruzzi per attaccare.'},
+     {t:'Stai a distanza e cerca la linea',d:'Più visibilità, un po\' meno ritmo.',mod:1.1,risk:.01,out:'Sei rimasto a distanza, cercando la linea migliore sul bagnato.'},
+     {t:'Alza il piede e aspetta',d:'Nessun rischio, ritmo basso.',mod:.4,risk:0,out:'Hai alzato il piede e aspettato di vedere meglio.'}],
+  ctx:w=>w.ovt===2?[0,2]:[1,0]}
+  ];
+  NEW.forEach(e=>{if(!ACTL.find(x=>x.id===e.id))ACTL.push(e);ACTS[e.id]=e});
+  /* nelle gare bagnate l'atto di metà gara è sempre la decisione sulla pioggia (come per tutte le altre situazioni) */
+  NEW.forEach(e=>{
+    if(!e.a.includes(1))return;
+    const o=e.cond;
+    e.cond=function(w){return !rlForce(w)&&(!o||o.apply(this,arguments))};
+  });
+  /* presentazione e sequenze */
+  Object.assign(NX_KIND,{x_pozza:'wet',x_spruzzi:'wet',x_errore_davanti:'duel',x_duello_davanti:'duel',x_volata:'fin',
+    x_graining:'tyre',x_caldo:'tyre',x_asfalto_freddo:'tyre',x_doppia_sosta:'tyre',x_cala_ritmo:'tyre',x_gialle:'neu'});
+  ['x_semaforo','x_via_rettilineo','x_asfalto_freddo'].forEach(id=>{if(!NX_START.includes(id))NX_START.push(id)});
+  ['x_errore_davanti','x_duello_davanti','x_spruzzi'].forEach(id=>{if(!NX_RIV.includes(id))NX_RIV.push(id)});
+  ['x_doppia_sosta','x_graining'].forEach(id=>{if(!NX_PIT.includes(id))NX_PIT.push(id)});
+  NX_STANCE.x_doppia_sosta=['hai chiesto di rientrare per primo','hai seguito il piano del muretto','hai lasciato rientrare il compagno'];
+  NX_STANCE.x_graining=['hai spinto sulla granulazione','hai alleggerito l\'ingresso in curva','hai allargato le traiettorie'];
+})();
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
