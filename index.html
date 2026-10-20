@@ -1059,6 +1059,17 @@ html,body{max-width:100%;overflow-x:clip}
 /* v16 · scuro: i pulsanti dei consulti usavano un fondo bianco di riserva */
 .cn{background:var(--panel)}
 .bt .bar.tb i{background:linear-gradient(90deg,#4aa3ff,#ffb02e,#ff5a3c)}
+
+/* v17 · interfaccia essenziale */
+.esh{display:none!important}
+.essm{align-self:flex-start;margin-top:6px}
+.ess .offer .ofi{font-size:0}
+.ess .qkc .sub{font-size:0;margin:0}
+.ess .qkc .sub b{font-size:12.5px}
+.ess .qkc>.sech{display:none}
+.ess .setbox small{display:none}
+.ess .rnr{display:none}
+.ess .mdm small:nth-child(n+2){display:none}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -3377,7 +3388,7 @@ function evolveAll(){
   (S.rsch||[]).filter(x=>x.y===S.year+1).forEach(x=>S.mkt.unshift('Federazione '+(S.year+1)+': '+RULES.find(r=>r.id===x.id).t));
   [3,S.tier].filter((x,k,a)=>a.indexOf(x)===k).forEach(t=>{const r=regOf(S.year+1,t);if(r)S.mkt.unshift(TIERS[t].k+' '+(S.year+1)+': '+r[0])});
 }
-const mktView=()=>S.mkt&&S.mkt.length?`<section class="card"><div class="sech">Notizie dal paddock</div>${S.mkt.slice(0,9).map(n=>`<div class="news">${esc(n)}</div>`).join('')}</section>`:'';
+const mktView=()=>S.mkt&&S.mkt.length?`<section class="card"><div class="sech">Notizie dal paddock</div>${S.mkt.slice(0,ESS?3:9).map(n=>`<div class="news">${esc(n)}</div>`).join('')}${ESS&&S.mkt.length>3?'<button class="ghost sm" data-act="tab" data-i="media">Tutte le notizie</button>':''}</section>`:'';
 function careerBlocks(){
   const C=S.career.cat,f=C[3],tot=S.career;
   const pc=(a,b)=>b?Math.round(a/b*100)+'%':'–';
@@ -3739,6 +3750,7 @@ function act0(a,i,v){
   if(a==='cpcode'){copyTxt(S.code,'Codice copiato');return}
   if(a==='cpres'){copyTxt('Griglia di Partenza · '+(S.code?'codice '+S.code+' · ':'')+abbr(S.name)+': '+S.career.titles+' titoli, '+S.career.wins+' vittorie, '+S.career.pod+' podi\n'+resTok(),'Risultato copiato');return}
   if(a==='cmp'){let t=null;try{t=typeof prompt==='function'?prompt('Incolla il risultato del tuo amico:'):null}catch(e){}if(t){const fr=readTok(t);if(fr){S.cmp=fr;if(S.phase!=='ending')save();render()}else flash('Risultato non valido')}return}
+  if(a==='esst'){ESS=!ESS;try{localStorage.setItem('gdp_ess',ESS?'1':'0')}catch(e){}render();return}
   if(a==='vibt'){VIBON=!VIBON;try{localStorage.setItem('gdp_vib',VIBON?'1':'0')}catch(e){}if(VIBON)vib('pod');render();return}
   if(a==='heir'){const H=heirCalc();ID.sn=pick(SURN.filter(x=>x!==S.name));ID.fn='';ID.name=ID.sn;ID.num=H.num;ID.nat=H.nat;ID.style=-1;ID.heir=H;ID.code=H.code;ID.helm=S.helm?{...S.helm}:null;S=null;VIEW='identity';render();return}
   if(a==='new'){ID.heir=null;ID.code='';ID.helm=null;const fr=slotsAll().find(x=>!x.d||x.d.phase==='ending');if(!fr){askUI('Hai già 3 carriere salvate: elimina una con la X per iniziarne un\'altra.','OK',null,{info:1});return}SLOT=fr.n;VIEW='identity';render();return}
@@ -3916,7 +3928,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 20/10 · 14:52</p></div>`;
+  <p class="foot">Versione 20/10 · 18:43</p></div>`;
 }
 
 function identityView(){
@@ -3971,7 +3983,7 @@ function panelView(){
   else if(pt==='pis')body=pisteCard();
   else if(pt==='per')body=mateCard()+engCard()+sgCard()+rivCard();
   else if(pt==='tra')body=achCard();
-  else body=`<section class="card"><div class="sech">Partita</div><div class="btns"><button class="back" data-act="home">${ico('home')} Torna alla home</button><button class="ghost" data-act="restart">Ricomincia da capo</button>${bkBtns()}${thBtn()}</div><p class="sub">Difficoltà: <b>${DIFF[S.diff==null?1:S.diff][0]}</b> · la carriera si salva da sola: dalla home puoi riprenderla.</p></section>${shareCard()}${vibCard()}`;
+  else body=`<section class="card"><div class="sech">Partita</div><div class="btns"><button class="back" data-act="home">${ico('home')} Torna alla home</button><button class="ghost" data-act="restart">Ricomincia da capo</button>${bkBtns()}${thBtn()}</div><p class="sub">Difficoltà: <b>${DIFF[S.diff==null?1:S.diff][0]}</b> · la carriera si salva da sola: dalla home puoi riprenderla.</p></section>${shareCard()}${vibCard()}${essCard()}`;
   return menu+body;
 }
 
@@ -4225,7 +4237,7 @@ function recLive(){
     let bn=null,bv=-1;
     for(const n in S.kt){const v=S.kt[n][f];if(v>bv){bv=v;bn=n}}
     if(bn==null||!(bv>R.v))return;
-    const was=R.me,old=R.v;
+    const was=R.me,old=R.v,pw=R.who;
     R.v=bv;R.who=bn;R.y=S.year;R.me=false;
     const u=RKU[r[0]];
     if(u){
@@ -4234,7 +4246,7 @@ function recLive(){
       S.recLog=S.recLog||[];const l0=S.recLog[0];
       if(l0&&l0.t===r[1]&&l0.w===bn)l0.v=bv;else S.recLog.unshift({y:S.year,t:r[1],w:bn,v:bv,lost:was?1:0});
       if(S.recLog.length>14)S.recLog.length=14;
-      feedAdd('n','Albo F1',t,was?-1:0);
+      if(!(typeof ESS!=='undefined'&&ESS)||was||pw!==bn||bv%10===0)feedAdd('n','Albo F1',t,was?-1:0);
     }
   });
   return out;
@@ -11199,7 +11211,8 @@ function carUpNews(log,idx){
   const L=S.last?(S.last.upg=S.last.upg||[]):[];
   const nm=x=>TIERS[x.t].teams[x.i],K=x=>TIERS[x.t].k;
   const mine=log.find(x=>x.t===S.tier&&x.i===S.teamRank);
-  const rest=log.filter(x=>!(x.t===S.tier&&x.i===S.teamRank)&&(x.t===S.tier||(S.tier>=2&&Math.abs(x.d)>=2)));
+  const big=(typeof ESS!=='undefined'&&ESS)?2.5:0;
+  const rest=log.filter(x=>!(x.t===S.tier&&x.i===S.teamRank)&&Math.abs(x.d)>=big&&(x.t===S.tier||(S.tier>=2&&Math.abs(x.d)>=2)));
   const up=rest.filter(x=>x.d>=1.5).sort((a,b)=>b.d-a.d)[0];
   const dn=rest.filter(x=>x.d<=-1.2).sort((a,b)=>a.d-b.d)[0];
   const f=v=>(Math.round(Math.abs(v)*10)/10).toFixed(1).replace('.',',');
@@ -11237,7 +11250,7 @@ function carNews(){
     if(dn&&dn.d<=-3&&(S.cp[t][dn.i]||0)<=-.5)out.push(k+' · '+nm(dn.i)+' attraversa un periodo difficile: la vettura '+cn.y+' parte da '+r(dn.v)+' (scorsa stagione: '+r(pv[dn.i])+').');
     else if(dn&&dn.d<=-4)out.push(k+' · '+nm(dn.i)+' perde terreno: la vettura '+cn.y+' parte da '+r(dn.v)+', '+Math.round(-dn.d)+' punti sotto la scorsa stagione.');
   });
-  S.mkt.splice(0,0,...out.slice(0,4));
+  S.mkt.splice(0,0,...out.slice(0,(typeof ESS!=='undefined'&&ESS)?2:4));
 }
 /* freccia in Griglia: quanto è cambiata la vettura dall'inizio stagione */
 const carDl=t=>{
@@ -11387,6 +11400,104 @@ function rvBoost(){
     return h;
   };
 }
+/* ---------- Interfaccia essenziale ----------
+   Di base la schermata mostra solo ciò che serve per decidere adesso o per capire cosa è successo.
+   Spiegazioni sotto i numeri, note ripetute, notizie minori e liste lunghe restano a un tocco di distanza.
+   Dalla scheda Pilota → Partita si può tornare alla versione completa. Cambia solo la presentazione: il gioco è identico. */
+let ESS=(()=>{try{return localStorage.getItem('gdp_ess')!=='0'}catch(e){return true}})();
+const essCard=()=>`<section class="card"><div class="sech">Interfaccia</div><div class="btns"><button class="ghost${ESS?' on':''}" data-act="esst">${ESS?'Essenziale':'Completa'}</button></div><p class="sub">${ESS?'Mostra solo ciò che serve per decidere. Spiegazioni e dettagli minori restano a un tocco.':'Mostra tutte le spiegazioni, le note e le notizie.'}</p></section>`;
+{const _r=render;render=function(){
+  try{if(document.body&&document.body.classList)document.body.classList.toggle('ess',!!ESS)}catch(e){}
+  return _r.apply(this,arguments);
+}}
+/* caratteristiche: via la riga di spiegazione, resta la variazione di stagione */
+{const _s=srow;srow=function(label,val,cls,desc){
+  if(ESS&&desc&&/^(Talento|Ritmo|Costanza|Tecnica|Fama|Squadra|Vettura OVR)$/.test(label)){
+    const k=desc.indexOf(' · <b');desc=k>=0?desc.slice(k+3):'';
+  }
+  return _s.call(this,label,val,cls,desc);
+}}
+/* scheda pilota: "cosa conta adesso" senza la riga della stagione (l'obiettivo è già in alto) */
+{const _pf=pfNow;pfNow=function(){
+  let h=_pf.apply(this,arguments);
+  try{if(ESS&&typeof h==='string')h=h.replace(/<div class="nr"><span class="ne">🏁<\/span><span><small>Stagione<\/small>[\s\S]*?<\/span><\/div>/,'')}catch(e){}
+  return h;
+}}
+/* ---------- rifinitura del DOM dopo ogni disegno ---------- */
+const ESS_PRI=/Forma|Penalit|Danni|Previsioni|Punti doppi|Weekend speciale|Pista ostica|Maledizione|Re della|Nuovo tratto/;
+const ESS_DROP=/Gran premio di casa|Prove libere decisive|Weekend speciale|Giro secco|Prima volta|Nuovo tratto|Conosci la pista/;
+function essPost(){
+  if(!ESS)return;
+  const app=document.getElementById('app');
+  if(!app||!app.querySelector)return;
+  const pane=app.querySelector('.pane');
+  /* note del weekend: al massimo 3 chip, prima quelle che richiedono attenzione */
+  app.querySelectorAll('.nts .ntc').forEach(c=>{
+    if(c.dataset.ess)return;c.dataset.ess='1';
+    const sp=[...c.children];if(sp.length<=3)return;
+    sp.sort((a,b)=>(ESS_PRI.test(b.textContent)?1:0)-(ESS_PRI.test(a.textContent)?1:0));
+    sp.forEach(x=>c.appendChild(x));
+    const hid=sp.slice(3);hid.forEach(x=>{x.style.display='none'});
+    const m=document.createElement('span');m.textContent='+'+hid.length;c.appendChild(m);
+  });
+  /* desktop: nella colonna delle note restano solo quelle che contano */
+  if(typeof wideDesk==='function'&&wideDesk())app.querySelectorAll('.nts .nti').forEach(r=>{if(ESS_DROP.test(r.textContent)&&!ESS_PRI.test(r.textContent))r.classList.add('esh')});
+  /* spiegazione delle regole della qualifica: non serve a ogni weekend */
+  app.querySelectorAll('.qsl').forEach(q=>{if(/Tre sessioni/.test(q.textContent))q.classList.add('esh')});
+  /* Media: la scheda degli sponsor personali non serve per giocare */
+  app.querySelectorAll('.card').forEach(c=>{const h=c.querySelector(':scope>.sech');if(h&&/^Sponsor personali/.test(h.textContent.trim()))c.classList.add('esh')});
+  /* contratti: l'avviso sul regolamento una sola volta */
+  const reg=[...app.querySelectorAll('.offer .tg')].filter(t=>/Nuovo regolamento/.test(t.textContent));
+  reg.slice(1).forEach(t=>t.remove());
+  /* riga di stato sopra il riepilogo gara: solo verdetto, obiettivo e crescita */
+  app.querySelectorAll('.cl p.sub.bn').forEach(p=>{
+    if(p.dataset.ess)return;p.dataset.ess='1';
+    const parts=p.innerHTML.split('&nbsp;&nbsp;· ');
+    const keep=[];
+    parts.forEach(s=>{
+      if(ESS_DROP.test(s))return;
+      if(/Bonus risultati/.test(s)){
+        const m=/stagione (\+[\d,]+)/.exec(s);
+        if(m)keep.push('<b style="color:var(--green)">▲ Bonus risultati · stagione '+m[1]+'</b>');
+        return;
+      }
+      keep.push(s);
+    });
+    if(keep.length)p.innerHTML=keep.join('&nbsp;&nbsp;· ');else p.remove();
+  });
+  /* fine stagione: la rassegna mostra le prime 3 voci */
+  app.querySelectorAll('.card').forEach(card=>{
+    const h=card.querySelector(':scope>.sech');
+    if(!h||!/^Rassegna dell/.test(h.textContent.trim())||card.dataset.ess)return;
+    card.dataset.ess='1';
+    const it=[...card.querySelectorAll(':scope>.news')];
+    if(it.length<=3)return;
+    it.slice(3).forEach(x=>x.classList.add('esh'));
+    const b=document.createElement('button');b.className='ghost sm essm';b.type='button';b.textContent='Mostra tutto ('+it.length+')';
+    b.addEventListener('click',()=>{card.querySelectorAll('.esh').forEach(x=>x.classList.remove('esh'));b.remove()});
+    card.appendChild(b);
+  });
+  /* classifiche medie (8-12 righe) a primi 3 e dintorni, solo su telefono */
+  if(typeof wideDesk==='function'&&!wideDesk()){
+    app.querySelectorAll('.tw').forEach(tw=>{
+      if(tw.dataset.ess||tw.querySelector('.twb'))return;tw.dataset.ess='1';
+      const rows=[...tw.querySelectorAll(':scope>.row')];
+      if(rows.length<8||rows.length>12)return;
+      const me=rows.findIndex(r=>r.classList.contains('me'));
+      const keep=i=>i<3||(me>=0&&Math.abs(i-me)<=1);
+      const hid=rows.filter((r,i)=>!keep(i));if(hid.length<2)return;
+      hid.forEach(r=>r.classList.add('esh'));
+      const b=document.createElement('button');b.className='ghost sm essm';b.type='button';b.textContent='Mostra tutti ('+rows.length+')';
+      b.addEventListener('click',()=>{hid.forEach(r=>r.classList.remove('esh'));b.remove()});
+      tw.appendChild(b);
+    });
+  }
+}
+{const _u=uiPost;uiPost=function(){
+  const r=_u.apply(this,arguments);
+  try{essPost()}catch(e){}
+  return r;
+}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
