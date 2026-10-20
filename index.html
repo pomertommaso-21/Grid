@@ -1038,6 +1038,27 @@ html,body{max-width:100%;overflow-x:clip}
 .sr em .cdl.dn{color:var(--warn)}
 .offer .tg.cu{color:var(--green)}
 .offer .tg.cd{color:var(--warn)}
+
+/* v16 · briefing ripiegato: indicatori compatti al posto delle frasi */
+.brs .brc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}
+.brs .brc .bm{display:grid;grid-template-columns:1fr auto;grid-template-areas:"l l" "v g";align-items:center;gap:2px 8px;min-width:0}
+.brs .brc .bm small{grid-area:l;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.brs .brc .bm small .ic{width:12px;height:12px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8}
+.brs .brc .bm b{grid-area:v;font:700 12.5px var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.brs .brc .bm .pips,.brs .brc .bm .bar{grid-area:g;justify-self:end;margin:0}
+.brs .brc .bm .bar{width:44px;height:6px;border-radius:3px;background:var(--line)}
+.brs .brc .bm .pips i{width:11px;height:5px;font-size:0;text-decoration:none}
+.brs .brc i::after{content:none!important}
+.brs .brc .bm .bar.tb i{background:linear-gradient(90deg,#4aa3ff,#ffb02e,#ff5a3c)}
+
+/* v16 · forma come indicatore */
+.mg{display:inline-block;position:relative;width:34px;height:6px;border-radius:3px;background:linear-gradient(90deg,#e5484d,var(--line) 50%,#2eae6b);vertical-align:middle;margin-left:5px}
+.mg u{text-decoration:none;position:absolute;top:-2px;width:3px;height:10px;border-radius:2px;background:var(--fg);transform:translateX(-50%)}
+.ntc .mc.up{color:var(--green)}.ntc .mc.dn{color:var(--warn)}
+
+/* v16 · scuro: i pulsanti dei consulti usavano un fondo bianco di riserva */
+.cn{background:var(--panel)}
+.bt .bar.tb i{background:linear-gradient(90deg,#4aa3ff,#ffb02e,#ff5a3c)}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -2428,7 +2449,7 @@ function briefCard(w){
   const cons=[['wear','tyre','Ingegnere','usura gomme'],['rain','radio','Muretto','meteo'],['ovt','chart','Telemetria','sorpassi'],['sc','spy','Strateghi','safety car e rivali']];
   const rv=w.kn.sc?plX(PL.find(p=>p.k===w.rv),w):null;
   return `<section class="card brf"><div class="sech">Briefing · ${esc(w.c)}</div>
-  <div class="gauges">${tile('cloud','Pioggia',I.rain.big,I.rain.sub,`<span class="bar rb"><i style="width:${I.rain.pct}%"></i></span>`)}${tile('temp','Pista',I.temp.big,I.temp.sub)}${tile('tyre','Usura',I.wear.big,I.wear.ex?'dato certo':'stima',pipsH(I.wear.lo,I.wear.hi,false))}
+  <div class="gauges">${tile('cloud','Pioggia',I.rain.big,I.rain.sub,`<span class="bar rb"><i style="width:${I.rain.pct}%"></i></span>`)}${tile('temp','Pista',I.temp.big,I.temp.sub,`<span class="bar tb"><i style="width:${Math.max(6,Math.min(100,((parseInt(I.temp.big)||20)-8)/34*100))}%"></i></span>`)}${tile('tyre','Usura',I.wear.big,I.wear.ex?'dato certo':'stima',pipsH(I.wear.lo,I.wear.hi,false))}
   ${tile('ovt','Sorpassi',I.ovt.big,I.ovt.ex?'dato certo':I.ovt.hid?'da scoprire':'stima',pipsH(I.ovt.lo,I.ovt.hi,I.ovt.hid))}${tile('sc','Safety car',I.sc.big,I.sc.ex?'dato certo':I.sc.hid?'da scoprire':'stima',pipsH(I.sc.lo,I.sc.hi,I.sc.hid))}${tile('grid','Partenza',I.gp.big,I.gp.sub)}</div>
   ${rv?`<div class="rvl">${ico('spy','fl')} I rivali puntano su ${rv.c.map(cpb).join('')}<b>${rv.n.split(' · ')[0]}</b></div>`:''}
   <div class="cns"><div class="tk">Consulti <span>${Array.from({length:w.tk0||w.tk},(_,i)=>`<i class="${i<w.tk?'on':''}"></i>`).join('')}</span></div>${cons.map((c,i)=>`<button class="cn" data-act="cons" data-i="${i}" ${(w.kn[c[0]]||w.tk<=0)?'disabled':''}>${ico(c[1])}<span>${c[2]}<small>${w.kn[c[0]]?'ottenuto':c[3]}</small></span></button>`).join('')}</div></section>`;
@@ -3895,7 +3916,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 19/10 · 23:14</p></div>`;
+  <p class="foot">Versione 20/10 · 14:52</p></div>`;
 }
 
 function identityView(){
@@ -4343,7 +4364,7 @@ function fmLine(w){
   if(S.pen>0)h+=`<div class="rvl ckl fml">⚠️ <b>Penalità motore</b> · partirai ${S.pen} posizioni più indietro della griglia guadagnata.</div>`;
   if(S.dm)h+=`<div class="rvl ckl fml">🔧 <b>Danni da riparare</b> · −0.2 al passo in questo weekend dopo il ritiro.</div>`;
   const m=S.mo||0;
-  if(Math.abs(m)>=.3)h+=`<div class="rvl ckl fml">${m>0?'📈':'📉'} <b>Slancio ${m>0?'positivo':'negativo'}</b> · ${m>0?'+':''}${(m*.2).toFixed(1)} al passo per le ultime gare.</div>`;
+  if(Math.abs(m)>=.3)h+=`<div class="rvl ckl fml" data-mo="${m.toFixed(2)}">${m>0?'📈':'📉'} <b>Slancio ${m>0?'positivo':'negativo'}</b> · ${m>0?'+':''}${(m*.2).toFixed(1)} al passo per le ultime gare. <em class="mg"><u style="left:${Math.round(50+Math.max(-1,Math.min(1,m))*50)}%"></u></em></div>`;
   return h;
 }
 
@@ -5579,7 +5600,7 @@ function uiPost(){
     if(b.classList.contains('fold'))return;
     const tiles=[...b.querySelectorAll('.bt')];
     if(!tiles.length)return;
-    const sm=tiles.slice(0,4).map(t=>{const l=t.querySelector('.bl'),v=t.querySelector('b');return l&&v?'<span><small>'+l.textContent.trim()+'</small> '+v.textContent.trim()+'</span>':''}).join('');
+    const sm=tiles.slice(0,4).map(t=>{const l=t.querySelector('.bl'),v=t.querySelector('b');if(!l||!v)return '';const ic=l.querySelector('svg.ic'),lab=l.textContent.trim(),val=v.textContent.trim();let vis=t.querySelector('.pips,.bar');vis=vis?vis.outerHTML:'';if(!vis){const m=/(-?\d+)\s*°/.exec(val);if(m)vis='<span class="bar tb"><i style="width:'+Math.max(6,Math.min(100,(+m[1]-8)/34*100))+'%"></i></span>'}return '<span class="bm"><small>'+(ic?ic.outerHTML:'')+lab+'</small><b>'+val+'</b>'+vis+'</span>'}).join('');
     const tk=b.querySelector('.tk i.on');
     const n=b.querySelectorAll('.tk i.on').length;
     const btn=document.createElement('button');
@@ -6172,11 +6193,12 @@ function wkLayout(){
   else if(notes.length){
     const nts=document.createElement('div');nts.className='nts card'+(NTO?' open':'');
     const labs=notes.map(n=>{
+      if(n.dataset&&n.dataset.mo){const m=Math.max(-1,Math.min(1,+n.dataset.mo||0));return {h:'<span class="mc '+(m>0?'up':'dn')+'">Forma <em class="mg"><u style="left:'+Math.round(50+m*50)+'%"></u></em></span>'}}
       const bs=[...n.querySelectorAll('b')].map(b=>b.textContent.trim().replace(/[.:]$/,''));
       let t=bs.join(' · ');if(/Gara principale/.test(t))t='Gara principale';
       return t||n.textContent.trim().replace(/[.:].*$/,'');
     });
-    nts.innerHTML='<button class="ntb" data-act="nto"><span class="ntt">Note del weekend</span><span class="ntc">'+labs.map(l=>'<span>'+esc(l)+'</span>').join('')+'</span><i></i></button><div class="ntl"></div>';
+    nts.innerHTML='<button class="ntb" data-act="nto"><span class="ntt">Note del weekend</span><span class="ntc">'+labs.map(l=>l.h?l.h:'<span>'+esc(l)+'</span>').join('')+'</span><i></i></button><div class="ntl"></div>';
     const L=nts.querySelector('.ntl');
     pane.insertBefore(nts,notes[0]);
     notes.forEach(n=>{n.classList.add('nti');L.appendChild(n)});
