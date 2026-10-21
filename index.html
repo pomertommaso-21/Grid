@@ -1129,6 +1129,71 @@ html,body{max-width:100%;overflow-x:clip}
 @media(max-width:999px){
 .cpt .brs .brc .bm b{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.2}
 }
+
+/* v19 · compatto ordinato: griglia fissa, un solo stile di etichetta, margini uniformi */
+@media(max-width:999px){
+.cpt .card{padding:10px 12px}
+.cpt .ch.cmpc{display:grid;grid-template-columns:22px minmax(0,1fr);gap:11px;align-items:center;padding:8px 12px 8px 15px;min-height:50px;position:relative}
+.cpt .ch.cmpx{padding-right:12px}
+.cpt .ch.cmpc .lt{align-self:center}
+.cpt .ch.cmpc .cb{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t i" "m i" "d d";column-gap:8px;row-gap:3px;align-items:center;flex-direction:initial}
+.cpt .ch.cmpc .ot{grid-area:t;order:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14.5px;line-height:1.25}
+.cpt .ch.cmpc .omt{grid-area:m;display:flex;flex-wrap:wrap;align-items:center;gap:2px 14px;font:600 11.5px/1.3 var(--body);color:var(--mut);min-width:0}
+.cpt .ch.cmpc .inf{grid-area:i;position:relative;right:auto;top:auto;margin:0;order:0;justify-self:end;align-self:center}
+.cpt .ch.cmpc .od{grid-area:d;order:0;flex-basis:auto;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.35;color:var(--mut)}
+.cpt .ch.cmpc .od .olg{display:block;margin-top:5px;font-size:11.5px;color:var(--mut);opacity:.85}
+.cpt .ch.cmpx:not(.open) .od{display:none}
+.cpt .omt .omm{display:inline-flex;align-items:center;gap:6px;min-width:86px;color:var(--mut)}
+.cpt .omt .omm .odots{display:inline-flex;gap:3px}
+.cpt .omt .omm .odots u{display:block;width:7px;height:7px;border-radius:50%;background:var(--mut);opacity:.28;text-decoration:none}
+.cpt .omt .omm .odots u.f{background:var(--c);opacity:1}
+.cpt .omt .omm.r0{--c:var(--green)}.cpt .omt .omm.r1{--c:var(--amber)}.cpt .omt .omm.r2{--c:var(--warn)}.cpt .omt .omm.rw{--c:var(--purple)}
+.cpt .omt .otx.w1{color:var(--amber)}.cpt .omt .otx.w2{color:var(--warn)}
+.cpt .omt .otx.hi{color:var(--fg)}
+.cpt .omt .otx.ost{color:var(--amber);font-weight:700}
+.cpt .omt .osb{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+/* fascia in alto: stessi margini e titoli piccoli uniformi */
+.cpt .grp .mur,.cpt .grp .ntb,.cpt .grp .brs{padding-left:13px;padding-right:12px}
+.cpt .grp .ntb{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t i" "c i";row-gap:4px;align-items:center;padding-top:7px;padding-bottom:8px;min-height:0}
+.cpt .grp .ntt{display:block;grid-area:t;font:700 10px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.cpt .grp .ntb .ntc{grid-area:c;flex:none}
+.cpt .grp .ntb i{grid-area:i}
+.cpt .grp .brs{padding-top:7px;padding-bottom:8px}
+.cpt .brs .brc{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px 8px}
+.cpt .brs .brc .bm small{text-transform:uppercase;letter-spacing:.03em;color:var(--mut);font-weight:700}
+.cpt .brs .brc .bm b{font-size:13px}
+/* un solo stile di etichetta */
+.cpt .ntc span,.cpt .chip{font:600 11.5px/1.2 var(--body);padding:5px 9px;border-radius:999px;border:0;background:var(--soft);color:var(--fg)}
+.cpt .chip.up,.cpt .ntc .mc.up{color:var(--green)}.cpt .chip.down,.cpt .ntc .mc.dn{color:var(--warn)}
+.cpt .chip.pt{background:var(--yellow);color:var(--yellow-ink)}
+.cpt .chips.wl{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:0}
+.cpt .chips.wl .chip{display:flex;align-items:center;gap:5px;min-width:0;white-space:normal;justify-content:flex-start;border-radius:10px;padding:6px 9px}
+.cpt .chips.wl .chip.plvc{grid-column:1/-1}
+.cpt .obq{column-gap:10px}
+.cpt .obq b{font-size:14px}
+.cpt .obq em{font:600 11px/1 var(--body);padding:4px 9px}
+/* piano del giro: indicatori in colonna, senza pillole */
+.cpt .qd .btns button{padding:8px 4px;gap:3px;min-height:62px;justify-content:flex-start}
+.cpt .qd .btns .qbs{flex-direction:column;align-items:center;gap:1px;min-height:0}
+.cpt .qd .btns .qb{background:none!important;border:0!important;padding:0!important;border-radius:0;font:600 11px/1.25 var(--body)}
+.cpt .qd .btns .qb.g{color:var(--green)}.cpt .qd .btns .qb.r{color:var(--warn)}.cpt .qd .btns .qb.a{color:var(--amber)}.cpt .qd .btns .qb.n{color:var(--mut)}
+.cpt .qd .btns button.on .qb{color:var(--yellow-ink)}
+}
+@media(max-width:999px){
+.cpt .brs .brc{grid-template-columns:repeat(4,auto);justify-content:space-between;gap:3px 6px}
+.cpt .brs .brc .bm small,.cpt .brs .brc .bm b{white-space:nowrap}
+.cpt .brs .brc .bm b{overflow:visible}
+.cpt .omt .osb{font-size:12.5px;font-weight:500}
+}
+@media(max-width:999px){
+.cpt .offer .tg,.cpt .ch:not(.cmpc) .tg{font:600 11px/1.2 var(--body);padding:4px 9px;border:0;border-radius:999px;background:var(--soft);margin-left:0}
+.cpt .offer .tg.cu{color:var(--green)}.cpt .offer .tg.cd{color:var(--warn)}
+.cpt .offer .tg.hint,.cpt .ch:not(.cmpc) .tg.hint{background:var(--yellow);color:var(--yellow-ink)}
+}
+@media(max-width:999px){
+.cpt .pick .ch.cmpc .od,.cpt .ch.cmpc .od{-webkit-line-clamp:unset;overflow:visible}
+.cpt .ch.cmpx.open .od{display:block}
+}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -3987,7 +4052,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 20/10 · 20:37</p></div>`;
+  <p class="foot">Versione 21/10 · 14:14</p></div>`;
 }
 
 function identityView(){
@@ -11593,21 +11658,63 @@ function cmpPost(){
     els[0].parentNode.insertBefore(g,els[0]);
     els.forEach(e=>g.appendChild(e));
   });
-  /* opzioni: riquadri piccoli, descrizione lunga a un tocco */
+  /* opzioni: riquadri a griglia fissa. Riga 1: titolo · riga 2: indicatori allineati · "i" per i dettagli */
   app.querySelectorAll('.opts>.ch').forEach(c=>{
     if(c.dataset.cmp)return;c.dataset.cmp='1';
     if(c.dataset.act==='style'||c.classList.contains('pl')||c.classList.contains('rls'))return;
     const cb=c.querySelector(':scope>.cb');if(!cb)return;
+    const ot=cb.querySelector(':scope>.ot'),od=cb.querySelector(':scope>.od');
+    if(!ot)return;
     c.classList.add('cmpc');
-    c.querySelectorAll('.tg.hint').forEach(t=>{
-      if(t.querySelector('svg')){t.classList.add('mstar');t.setAttribute('title','Consiglio del muretto');t.setAttribute('aria-label','Consiglio del muretto')}
+    const tags=[...cb.querySelectorAll('.tags .tg')];
+    const SUB={'Scia':'Con scia','Max evoluzione':'Pista al massimo','Gomme +':'Risparmi gomme','Gara +':'Gomme nuove in gara','Gara: gomme −':'Gomme usate in gara'};
+    const LV={basso:1,bassa:1,medio:2,media:2,alto:3,alta:3};
+    const mt=document.createElement('span');mt.className='omt';
+    let meters=0;
+    const dots=(n,cl,lab)=>{
+      const m=document.createElement('span');m.className='omm '+cl;
+      const l=document.createElement('span');l.className='oml';l.textContent=lab;m.appendChild(l);
+      const d=document.createElement('span');d.className='odots';
+      for(let i=1;i<=3;i++){const u=document.createElement('u');if(i<=n)u.className='f';d.appendChild(u)}
+      m.appendChild(d);return m;
+    };
+    tags.forEach(t=>{
+      let x=t.textContent.trim();
+      const mr=/^Rischio (basso|medio|alto)$/.exec(x),mw=/^Resa (bassa|media|alta)$/.exec(x);
+      if(mr){const n=LV[mr[1]];mt.appendChild(dots(n,'r'+(n-1),'Rischio'));meters++;return}
+      if(mw){mt.appendChild(dots(LV[mw[1]],'rw','Resa'));meters++;return}
+      x=SUB[x]||x.replace(/^Di solito −([\d,]+) pos\.$/,'Di solito perdi $1 pos.');
+      const e=document.createElement('span');e.className='otx'+(t.classList.contains('r2')?' w2':t.classList.contains('r1')?' w1':t.classList.contains('hint')?' hi':'');
+      if(t.querySelector&&t.querySelector('svg')&&t.classList.contains('hint')){e.className='otx ost';e.textContent='★ Consigliato dal muretto';e.setAttribute('title','Consiglio del muretto');mt.insertBefore(e,mt.firstChild);return}
+      e.textContent=x;mt.appendChild(e);
     });
-    const d=cb.querySelector(':scope>.od');
-    if(d&&(d.textContent.trim().length>46||(cb.querySelector('.tags .tg')&&d.textContent.trim().length>0))){
+    const full=od?od.textContent.trim():'';
+    let needInf=false;
+    if(!tags.length&&full){
+      let sub=full;
+      if(full.length>46){const m=/^[^:.;—]+/.exec(full);sub=(m?m[0]:full).trim();if(sub.length>46)sub=sub.slice(0,44).trim()+'…';needInf=true}
+      const e=document.createElement('span');e.className='osb';e.textContent=sub;mt.appendChild(e);
+    }else if(full)needInf=true;
+    if(meters&&od){const lg=document.createElement('small');lg.className='olg';lg.textContent='Rischio: quanto è probabile un errore o un contatto. Resa: quante posizioni puoi guadagnare.';od.appendChild(lg)}
+    cb.textContent='';
+    cb.appendChild(ot);
+    if(mt.childNodes.length)cb.appendChild(mt);
+    if(needInf){
       c.classList.add('cmpx');
       const x=document.createElement('span');x.className='inf';x.setAttribute('role','button');x.setAttribute('aria-label','Dettagli');x.textContent='i';
       cb.appendChild(x);
+      if(od)cb.appendChild(od);
     }
+  });
+  /* etichette della situazione di gara: parole chiare (usura gomme, sorpassi) */
+  app.querySelectorAll('.chips.wl .chip').forEach(ch=>{
+    if(ch.dataset.cmp)return;ch.dataset.cmp='1';
+    if(!ch.querySelector('svg'))return;
+    const tn=[...ch.childNodes].reverse().find(n=>n.nodeType===3&&n.textContent.trim());
+    if(!tn)return;
+    const x=tn.textContent.trim(),lw=x.charAt(0).toLowerCase()+x.slice(1);
+    if(/^(Bassa|Media|Alta)(\s*[–-]|$)/.test(x))tn.textContent=' Usura '+lw;
+    else if(/^(Difficili|Medi|Facili)(\s*[–-]|$)/.test(x))tn.textContent=' Sorpassi '+lw;
   });
   /* azioni rare: "Simula il resto della stagione" e "Weekend rapido" si trovano in Scheda Pilota → Partita */
   app.querySelectorAll('.pane.dec [data-act=auto]').forEach(b=>{(b.closest('.btns')||b).classList.add('esh')});
