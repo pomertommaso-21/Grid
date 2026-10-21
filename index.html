@@ -1202,6 +1202,25 @@ html,body{max-width:100%;overflow-x:clip}
 .cpt .card.rnc.fld .rnt{top:50%;transform:translateY(-50%);right:12px}
 .cpt .card.rnc.fld.open .rnt{top:1px;transform:none}
 }
+
+/* v20 · Gara (Compatto): scheda "situazione" ordinata */
+@media(max-width:999px){
+.cpt .sitc{display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px}
+.cpt .sprg{display:flex;justify-content:space-between;align-items:baseline;font:600 12px/1.2 var(--body);color:var(--mut);font-variant-numeric:tabular-nums}
+.cpt .sprg b{color:var(--fg);font-weight:800}
+.cpt .sbar{display:block;height:5px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:-2px}
+.cpt .sbar u{display:block;height:100%;border-radius:999px;background:var(--yellow);text-decoration:none}
+.cpt .sgr{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:6px}
+.cpt .sc{display:flex;flex-direction:column;gap:2px;min-width:0;background:var(--soft);border-radius:10px;padding:7px 9px}
+.cpt .sc small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.cpt .sc b{font:800 16px/1.15 var(--display);letter-spacing:-.02em;overflow-wrap:anywhere}
+.cpt .sc em{font:500 11px/1.25 var(--body);font-style:normal;color:var(--mut)}
+.cpt .sc.pos b{font-size:21px;line-height:1.05}
+.cpt .sc.pos.up b{color:var(--green)}.cpt .sc.pos.down b{color:var(--warn)}
+.cpt .sc.mid b{color:var(--amber)}.cpt .sc.bad b{color:var(--warn)}.cpt .sc.wet b{color:#2f6fdd}
+.cpt .sxt{display:flex;flex-wrap:wrap;gap:5px}
+.cpt .sxt .chip{display:inline-flex;width:auto;border-radius:999px;padding:4px 9px}
+}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -4049,7 +4068,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 21/10 · 17:51</p></div>`;
+  <p class="foot">Versione 21/10 · 19:15</p></div>`;
 }
 
 function identityView(){
@@ -11802,6 +11821,64 @@ function briefCard(w){
   ${tile('ovt','Sorpassi',I.ovt.big,sb(I.ovt),pipsH(I.ovt.lo,I.ovt.hi,I.ovt.hid))}${tile('sc','Safety car',I.sc.big,sb(I.sc),pipsH(I.sc.lo,I.sc.hi,I.sc.hid))}${tile('grid','Partenza',I.gp.big,I.gp.sub)}</div>
   ${rv?`<div class="rvl">${ico('spy','fl')} I rivali puntano su ${rv.c.map(cpb).join('')}<b>${rv.n.split(' · ')[0]}</b></div>`:''}</section>`;
 }
+/* ---------- Gara (Compatto): situazione in una scheda ordinata ----------
+   Prima: sette etichette grigie uguali. Ora: barra atto/giro, tre colonne etichettate (Posizione · Gomme · Pista),
+   il resto (distacchi, sosta…) resta sotto come etichette. Solo presentazione. */
+function sitPost(){
+  if(typeof CMP==='undefined'||!CMP)return;
+  if(typeof wideDesk==='function'&&wideDesk())return;
+  const app=document.getElementById('app');
+  if(!app||!app.querySelectorAll)return;
+  app.querySelectorAll('.chips.wl').forEach(box=>{
+    if(box.dataset.sit)return;
+    const chips=[...box.querySelectorAll(':scope>.chip')];
+    if(!chips.some(c=>c.classList.contains('pt')))return;
+    box.dataset.sit='1';
+    const tx=c=>(c.textContent||'').replace(/\s+/g,' ').trim();
+    let at=null,lap=null,st=null,nw=null,ty=null,wx=null,pc=null;const ex=[];let nwCls='';
+    chips.forEach(c=>{
+      const t=tx(c);let m;
+      if(!c.classList.contains('plvc')){
+        if((m=/^Atto (\d+) di (\d+)/.exec(t))){at=[+m[1],+m[2]];return}
+        if((m=/^Giro ~?(\d+) di (\d+)/.exec(t))){lap=[+m[1],+m[2],/~/.test(t)];return}
+        if((m=/^Partenza P(\d+)/.exec(t))){st=+m[1];return}
+        if((m=/^Ora P(\d+)/.exec(t))){nw=+m[1];nwCls=c.classList.contains('up')?'up':c.classList.contains('down')?'down':'';return}
+        if(c.querySelector('svg')&&/^Gomme/.test(t)){ty=t;return}
+        if(/^(Asciutto|Pista umida|Pioggia)/.test(t)){wx=t;return}
+        if(/^(Ritmo stabile|In crescita|In difficoltà)$/.test(t)){pc=t;return}
+      }
+      ex.push(c);
+    });
+    if(!at||nw==null||!ty){return}
+    const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+    const el=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e};
+    const card=el('div','sitc sit');
+    /* barra di avanzamento */
+    const frac=lap?Math.min(1,lap[0]/lap[1]):Math.min(1,(at[0]-1)/at[1]);
+    const pr=el('div','sprg',`<span><b>Atto ${at[0]}</b> di ${at[1]}</span>${lap?`<span>Giro ${lap[2]?'~':''}${lap[0]} / ${lap[1]}</span>`:''}`);
+    const bar=el('i','sbar');const fl=el('u');fl.style.width=Math.round(frac*100)+'%';bar.appendChild(fl);
+    card.appendChild(pr);card.appendChild(bar);
+    /* colonne */
+    const g=el('div','sgr');
+    const arrow=nwCls==='up'?'▲ ':nwCls==='down'?'▼ ':'';
+    g.appendChild(el('div','sc pos '+nwCls,`<small>Posizione</small><b>${arrow}P${nw}</b><em>${st!=null?(st===nw?'come in partenza':'partito P'+st):'ora'}</em>`));
+    const tt=ty.replace(/^Gomme\s*/,'').split(/\s*·\s*/);
+    const tv=cap(tt[0]||'');
+    const tcl=/limite|finite/.test(tv.toLowerCase())?' bad':/gestire/.test(tv.toLowerCase())?' mid':'';
+    g.appendChild(el('div','sc'+tcl,`<small>Gomme</small><b>${tv}</b><em>${tt[1]||'stato attuale'}</em>`));
+    const wcl=/Pioggia|umida/.test(wx||'')?' wet':'';
+    g.appendChild(el('div','sc'+wcl,`<small>Pista</small><b>${wx?cap(wx.replace(/^Pioggia /,'Pioggia ')):'—'}</b><em>${pc?pc.toLowerCase():'ritmo'}</em>`));
+    card.appendChild(g);
+    /* distacchi, sosta ecc. */
+    if(ex.length){const x=el('div','sxt');ex.forEach(c=>x.appendChild(c));card.appendChild(x)}
+    box.parentNode.replaceChild(card,box);
+  });
+}
+{const _u=uiPost;uiPost=function(){
+  const r=_u.apply(this,arguments);
+  try{sitPost()}catch(e){}
+  return r;
+}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
