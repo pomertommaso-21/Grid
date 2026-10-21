@@ -1221,11 +1221,30 @@ html,body{max-width:100%;overflow-x:clip}
 .cpt .sxt{display:flex;flex-wrap:wrap;gap:5px}
 .cpt .sxt .chip{display:inline-flex;width:auto;border-radius:999px;padding:4px 9px}
 }
+
+/* v21 · Gara (Compatto): condizioni in quattro riquadri, scelte passate nella scheda, circuito in fondo */
+@media(max-width:999px){
+.cpt .cnd{order:7;display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.cpt .sgr.c4{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.cpt .sgr.c4 .sc b{font-size:14px}
+.cpt .sgr.c4 .sc{padding:7px 8px}
+.cpt .pane.dec>.rmc{order:10}
+.cpt .rmc .rmh>span{display:none}
+.cpt .spst{display:flex;flex-direction:column;gap:5px}
+.cpt .spst small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.cpt .spst .chips{display:flex;flex-wrap:wrap;gap:5px;margin:0}
+.cpt .sc.pos em{line-height:1.3}
+}
+
+@media(max-width:999px){.cpt .sgr.c4{grid-template-columns:.8fr .8fr .9fr 1.5fr}.cpt .sgr.c4 .sc b{white-space:nowrap}}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
 .ch:active,.go:active,.nv:active,.link:active,.offer:active,.back:active,.ghost:active{transform:scale(.97)}
 :root{padding-top:0!important}body{padding-top:0}.hud{top:0;padding-top:calc(env(safe-area-inset-top,0px) + 6px)}
+/* iOS 26 sfuma la fascia alta a schermo intero: l'interfaccia parte piu' in basso, fuori dalla sfumatura */
+:root{--topgap:30px}
+@media (display-mode:standalone){.hud{padding-top:calc(env(safe-area-inset-top,0px) + 6px + var(--topgap))}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -4068,7 +4087,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 21/10 · 19:15</p></div>`;
+  <p class="foot">Versione 21/10 · 21:52</p></div>`;
 }
 
 function identityView(){
@@ -11832,10 +11851,10 @@ function sitPost(){
   app.querySelectorAll('.chips.wl').forEach(box=>{
     if(box.dataset.sit)return;
     const chips=[...box.querySelectorAll(':scope>.chip')];
-    if(!chips.some(c=>c.classList.contains('pt')))return;
+    if(!chips.some(c=>/^Atto \d/.test((c.textContent||'').trim())))return;
     box.dataset.sit='1';
     const tx=c=>(c.textContent||'').replace(/\s+/g,' ').trim();
-    let at=null,lap=null,st=null,nw=null,ty=null,wx=null,pc=null;const ex=[];let nwCls='';
+    let at=null,lap=null,st=null,nw=null,ty=null,wx=null,pc=null,dl=null;const ex=[];let nwCls='';
     chips.forEach(c=>{
       const t=tx(c);let m;
       if(!c.classList.contains('plvc')){
@@ -11843,9 +11862,10 @@ function sitPost(){
         if((m=/^Giro ~?(\d+) di (\d+)/.exec(t))){lap=[+m[1],+m[2],/~/.test(t)];return}
         if((m=/^Partenza P(\d+)/.exec(t))){st=+m[1];return}
         if((m=/^Ora P(\d+)/.exec(t))){nw=+m[1];nwCls=c.classList.contains('up')?'up':c.classList.contains('down')?'down':'';return}
+        if(/rispetto a prima$/.test(t)){dl=t.replace(/^[▲▼]\s*/,'');return}
         if(c.querySelector('svg')&&/^Gomme/.test(t)){ty=t;return}
         if(/^(Asciutto|Pista umida|Pioggia)/.test(t)){wx=t;return}
-        if(/^(Ritmo stabile|In crescita|In difficoltà)$/.test(t)){pc=t;return}
+        if(/^(Ritmo (stabile|in crescita|in difficoltà)|In crescita|In difficoltà)$/.test(t)){pc=t;return}
       }
       ex.push(c);
     });
@@ -11861,7 +11881,7 @@ function sitPost(){
     /* colonne */
     const g=el('div','sgr');
     const arrow=nwCls==='up'?'▲ ':nwCls==='down'?'▼ ':'';
-    g.appendChild(el('div','sc pos '+nwCls,`<small>Posizione</small><b>${arrow}P${nw}</b><em>${st!=null?(st===nw?'come in partenza':'partito P'+st):'ora'}</em>`));
+    g.appendChild(el('div','sc pos '+nwCls,`<small>Posizione</small><b>${arrow}P${nw}</b><em>${st!=null?(st===nw?'come in partenza':'partito P'+st):'ora'}${dl?'<br>'+dl:''}</em>`));
     const tt=ty.replace(/^Gomme\s*/,'').split(/\s*·\s*/);
     const tv=cap(tt[0]||'');
     const tcl=/limite|finite/.test(tv.toLowerCase())?' bad':/gestire/.test(tv.toLowerCase())?' mid':'';
@@ -11871,6 +11891,36 @@ function sitPost(){
     card.appendChild(g);
     /* distacchi, sosta ecc. */
     if(ex.length){const x=el('div','sxt');ex.forEach(c=>x.appendChild(c));card.appendChild(x)}
+    /* le tue scelte precedenti: nella stessa scheda */
+    const pane=box.parentNode;
+    const past=[...pane.querySelectorAll(':scope>.chips:not(.wl)')].find(x=>x.querySelector('.chip'));
+    if(past){const wrap=el('div','spst');wrap.appendChild(el('small','', 'Le tue scelte'));wrap.appendChild(past);card.appendChild(wrap)}
+    pane.replaceChild(card,box);
+  });
+  /* condizioni: pioggia, pista, usura, sorpassi in quattro riquadri */
+  app.querySelectorAll('.chips.wl').forEach(box=>{
+    if(box.dataset.sit)return;
+    const chips=[...box.querySelectorAll(':scope>.chip')];
+    if(!chips.length||chips.some(c=>/^Atto \d/.test((c.textContent||'').trim())))return;
+    const tx=c=>(c.textContent||'').replace(/\s+/g,' ').trim();
+    let rn=null,tp=null,us=null,so=null;const ex=[];
+    chips.forEach(c=>{
+      const t=tx(c);
+      if(!rn&&/^(Pioggia\s*)?\d+\s*%$/.test(t)){rn=t.replace(/^Pioggia\s*/,'');return}
+      if(!tp&&/^\d+\s*°C$/.test(t)){tp=t;return}
+      if(!us&&/^Usura /.test(t)){us=t.replace(/^Usura\s*/,'');return}
+      if(!so&&/^Sorpassi /.test(t)){so=t.replace(/^Sorpassi\s*/,'').replace(/\s+-\s+/g,' – ');return}
+      ex.push(c);
+    });
+    if(rn==null||tp==null||us==null||so==null)return;
+    box.dataset.sit='1';
+    const cap=x=>x.charAt(0).toUpperCase()+x.slice(1);
+    const card=document.createElement('div');card.className='cnd';
+    const g=document.createElement('div');g.className='sgr c4';
+    [['Pioggia',rn],['Pista',tp],['Usura',cap(us)],['Sorpassi',cap(so)]].forEach(a=>{
+      const d=document.createElement('div');d.className='sc';d.innerHTML='<small>'+a[0]+'</small><b>'+a[1]+'</b>';g.appendChild(d)});
+    card.appendChild(g);
+    if(ex.length){const x=document.createElement('div');x.className='sxt';ex.forEach(c=>x.appendChild(c));card.insertBefore(x,g)}
     box.parentNode.replaceChild(card,box);
   });
 }
