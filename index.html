@@ -1996,10 +1996,10 @@ function seasonEnd(){
   const OV={talento:bQ,ritmo:bR,costanza:bR*.5,tecnica:(bQ+bR)*.3};
   if(!S.sd)seasonBase();
   const gm=S.sgm,gtag=S.sgtag||'',RM=1-LAM;
-  const surge=rnd()<.09?pick(Object.keys(S.st)):null;
+  const surge=rnd()<.09?pick(Object.keys(S.st)):null;S._gwhy=[];if(pos>S.rivals.length*.6)S._gwhy.push(aR<-.05?'sei nel fondo della classifica e in gara hai reso sotto la vettura':'sei nel fondo della classifica (penalità ridotta: hai reso sopra la vettura)');else if(aR<-.05)S._gwhy.push('in gara hai reso sotto la vettura');if(S.age>32)S._gwhy.push('pesano gli anni');
   Object.keys(S.st).forEach(k=>{
     let d=RM*(S.sd[k]+(OV[k]||0))+gauss()*1.4*RM;
-    if(S.dev&&d>=0)d+=S.dev;if(pos>S.rivals.length*.6)d-=1.5;if(rnd()<.2)d-=2.5;
+    if(S.dev&&d>=0)d+=S.dev;if(pos>S.rivals.length*.6)d-=(aR<-.05?1.5:.6);if(rnd()<.2)d-=2.5;
     if(S.style===1&&k==='tecnica'&&d>=0)d+=1;
     if(k===surge)d+=3+rnd()*2;
     S.st[k]=clamp(S.st[k]+(d>0?d*gm*gf(S.st[k])*gAdj():d),1,99);
@@ -4087,7 +4087,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 21/10 · 21:52</p></div>`;
+  <p class="foot">Versione 22/10 · 13:05</p></div>`;
 }
 
 function identityView(){
@@ -10684,7 +10684,7 @@ function gtagFix(t,gain,age){
   else if(net>=3)main='';
   else if(net>-2)main='Stagione di stallo: la crescita si ferma';
   else main=age>32?'Stagione in calo: pesano gli anni':'Stagione in calo: i risultati hanno frenato la crescita';
-  return [main].concat(net>0?surge:[]).filter(Boolean).join(' · ');
+  return [main].concat(net>0?surge:[]).concat(net<=0&&S&&S._gwhy&&S._gwhy.length?['Perché: '+S._gwhy.join('; ')]:[]).filter(Boolean).join(' · ');
 }
 /* ---------- Prove libere: la nota ha un titolo (il riepilogo a chip non deve mai tagliare una frase a metà) ---------- */
 function fpmHtml(m){
