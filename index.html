@@ -1257,6 +1257,221 @@ html,body{max-width:100%;overflow-x:clip}
 .home .brand .wm,.home .brand h1{color:#fff!important}
 .home .wm::after{content:"";display:block;margin-top:12px;width:116px;height:11px;background:radial-gradient(circle at 5.5px 5.5px,#ff3b30 4.6px,transparent 5.2px) 0 0/23.2px 11px repeat-x}
 .home .link .pos{border-radius:8px 8px 8px 2px;transform:skewX(-6deg);box-shadow:0 3px 0 #b8941d}
+
+/* v24 · Desktop: schede e opzioni compatte come sul telefono */
+@media(min-width:1000px){
+.cpt .opts{gap:6px}
+.cpt .ch.cmpc{padding:7px 9px;gap:9px;align-items:center;border-width:1px;border-radius:9px;box-shadow:none}
+.cpt .ch.cmpc .lt{width:22px;height:22px;font-size:12px;border-radius:5px}
+.cpt .ch.cmpc .cb{flex-direction:row;flex-wrap:wrap;align-items:center;gap:3px 7px}
+.cpt .ch.cmpc .ot{order:1;font-size:14.5px}
+.cpt .ch.cmpc .tags{display:contents}
+.cpt .ch.cmpc .tg{order:3;font-size:10.5px;padding:1px 7px;line-height:1.35}
+.cpt .ch.cmpc .tags .tg:not(.mur):nth-child(n+4){display:none}
+.cpt .ch.cmpc .tg.mstar{order:2;font-size:0;padding:2px 5px;gap:0}
+.cpt .ch.cmpc .tg.mstar svg{width:12px;height:12px}
+.cpt .ch.cmpc .od{order:5;flex-basis:100%;font-size:12px;line-height:1.3;margin-top:1px}
+.cpt .ch.cmpx:not(.open) .od{display:none}
+.cpt .ch.cmpc .inf{order:4;margin-left:auto;position:relative;flex:none;width:20px;height:20px;border-radius:50%;border:1px solid var(--line);color:var(--mut);font:italic 700 11px/18px Georgia,serif;text-align:center}
+.cpt .ch.cmpc .inf::before{content:"";position:absolute;inset:-10px}
+.cpt .ch.cmpc.open .inf{background:var(--yellow);border-color:var(--yellow);color:var(--yellow-ink)}
+.cpt .ch.cmpc{position:relative}
+.cpt .ch.cmpx{padding-right:36px}
+.cpt .ch.cmpc .inf{position:absolute;right:9px;top:50%;margin:-10px 0 0 0}
+.cpt .chips.sit .chip,.cpt .chips.wl .chip{font-size:11px;padding:2px 8px;line-height:1.35}
+.cpt .chips.wl{gap:4px}
+.cpt .ch.cmpc{display:grid;grid-template-columns:22px minmax(0,1fr);gap:11px;align-items:center;padding:8px 12px 8px 15px;min-height:50px;position:relative}
+.cpt .ch.cmpx{padding-right:12px}
+.cpt .ch.cmpc .lt{align-self:center}
+.cpt .ch.cmpc .cb{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t i" "m i" "d d";column-gap:8px;row-gap:3px;align-items:center;flex-direction:initial}
+.cpt .ch.cmpc .ot{grid-area:t;order:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14.5px;line-height:1.25}
+.cpt .ch.cmpc .omt{grid-area:m;display:flex;flex-wrap:wrap;align-items:center;gap:2px 14px;font:600 11.5px/1.3 var(--body);color:var(--mut);min-width:0}
+.cpt .ch.cmpc .inf{grid-area:i;position:relative;right:auto;top:auto;margin:0;order:0;justify-self:end;align-self:center}
+.cpt .ch.cmpc .od{grid-area:d;order:0;flex-basis:auto;margin-top:6px;padding-top:6px;border-top:1px solid var(--line);font-size:12.5px;line-height:1.35;color:var(--mut)}
+.cpt .ch.cmpc .od .olg{display:block;margin-top:5px;font-size:11.5px;color:var(--mut);opacity:.85}
+.cpt .ch.cmpx:not(.open) .od{display:none}
+.cpt .omt .omm{display:inline-flex;align-items:center;gap:6px;min-width:86px;color:var(--mut)}
+.cpt .omt .omm .odots{display:inline-flex;gap:3px}
+.cpt .omt .omm .odots u{display:block;width:7px;height:7px;border-radius:50%;background:var(--mut);opacity:.28;text-decoration:none}
+.cpt .omt .omm .odots u.f{background:var(--c);opacity:1}
+.cpt .omt .omm.r0{--c:var(--green)}.cpt .omt .omm.r1{--c:var(--amber)}.cpt .omt .omm.r2{--c:var(--warn)}.cpt .omt .omm.rw{--c:var(--purple)}
+.cpt .omt .otx.w1{color:var(--amber)}.cpt .omt .otx.w2{color:var(--warn)}
+.cpt .omt .otx.hi{color:var(--fg)}
+.cpt .omt .otx.ost{color:var(--amber);font-weight:700}
+.cpt .omt .osb{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.cpt .ntc span,.cpt .chip{font:600 11.5px/1.2 var(--body);padding:5px 9px;border-radius:999px;border:0;background:var(--soft);color:var(--fg)}
+.cpt .chip.up,.cpt .ntc .mc.up{color:var(--green)}.cpt .chip.down,.cpt .ntc .mc.dn{color:var(--warn)}
+.cpt .chip.pt{background:var(--yellow);color:var(--yellow-ink)}
+.cpt .chips.wl{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:0}
+.cpt .chips.wl .chip{display:flex;align-items:center;gap:5px;min-width:0;white-space:normal;justify-content:flex-start;border-radius:10px;padding:6px 9px}
+.cpt .chips.wl .chip.plvc{grid-column:1/-1}
+.cpt .qd .btns button{padding:8px 4px;gap:3px;min-height:62px;justify-content:flex-start}
+.cpt .qd .btns .qbs{flex-direction:column;align-items:center;gap:1px;min-height:0}
+.cpt .qd .btns .qb{background:none!important;border:0!important;padding:0!important;border-radius:0;font:600 11px/1.25 var(--body)}
+.cpt .qd .btns .qb.g{color:var(--green)}.cpt .qd .btns .qb.r{color:var(--warn)}.cpt .qd .btns .qb.a{color:var(--amber)}.cpt .qd .btns .qb.n{color:var(--mut)}
+.cpt .qd .btns button.on .qb{color:var(--yellow-ink)}
+.cpt .omt .osb{font-size:12.5px;font-weight:500}
+.cpt .offer .tg,.cpt .ch:not(.cmpc) .tg{font:600 11px/1.2 var(--body);padding:4px 9px;border:0;border-radius:999px;background:var(--soft);margin-left:0}
+.cpt .offer .tg.cu{color:var(--green)}.cpt .offer .tg.cd{color:var(--warn)}
+.cpt .offer .tg.hint,.cpt .ch:not(.cmpc) .tg.hint{background:var(--yellow);color:var(--yellow-ink)}
+.cpt .pick .ch.cmpc .od,.cpt .ch.cmpc .od{-webkit-line-clamp:unset;overflow:visible}
+.cpt .ch.cmpx.open .od{display:block}
+.cpt .sitc{display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px 12px}
+.cpt .sprg{display:flex;justify-content:space-between;align-items:baseline;font:600 12px/1.2 var(--body);color:var(--mut);font-variant-numeric:tabular-nums}
+.cpt .sprg b{color:var(--fg);font-weight:800}
+.cpt .sbar{display:block;height:5px;border-radius:999px;background:var(--soft);overflow:hidden;margin-top:-2px}
+.cpt .sbar u{display:block;height:100%;border-radius:999px;background:var(--yellow);text-decoration:none}
+.cpt .sgr{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:6px}
+.cpt .sc{display:flex;flex-direction:column;gap:2px;min-width:0;background:var(--soft);border-radius:10px;padding:7px 9px}
+.cpt .sc small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.cpt .sc b{font:800 16px/1.15 var(--display);letter-spacing:-.02em;overflow-wrap:anywhere}
+.cpt .sc em{font:500 11px/1.25 var(--body);font-style:normal;color:var(--mut)}
+.cpt .sc.pos b{font-size:21px;line-height:1.05}
+.cpt .sc.pos.up b{color:var(--green)}.cpt .sc.pos.down b{color:var(--warn)}
+.cpt .sc.mid b{color:var(--amber)}.cpt .sc.bad b{color:var(--warn)}.cpt .sc.wet b{color:#2f6fdd}
+.cpt .sxt{display:flex;flex-wrap:wrap;gap:5px}
+.cpt .sxt .chip{display:inline-flex;width:auto;border-radius:999px;padding:4px 9px}
+.cpt .cnd{order:7;display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.cpt .sgr.c4{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.cpt .sgr.c4 .sc b{font-size:14px}
+.cpt .sgr.c4 .sc{padding:7px 8px}
+.cpt .spst{display:flex;flex-direction:column;gap:5px}
+.cpt .spst small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.cpt .spst .chips{display:flex;flex-wrap:wrap;gap:5px;margin:0}
+.cpt .sc.pos em{line-height:1.3}
+.cpt .sgr.c4{grid-template-columns:.8fr .8fr .9fr 1.5fr}.cpt .sgr.c4 .sc b{white-space:nowrap}
+.cpt .whc{padding:10px 12px}
+.cpt .wr{display:grid;grid-template-columns:78px 1fr auto;gap:8px;align-items:baseline;padding:7px 0;border-top:1px solid var(--line)}
+.cpt .wr:first-of-type{border-top:0}
+.cpt .wr small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.cpt .wr span{font:500 13.5px/1.3 var(--body)}
+.cpt .wr b{font:800 14px var(--display)}.cpt .wr b.u{color:var(--green)}.cpt .wr b.d{color:var(--warn)}
+.cpt .ch.cmpc .od .olg{display:none}
+}
+@media(min-width:1000px){
+body.cpt:not(.dtight) .ch.cmpc .inf{display:none}
+body.cpt:not(.dtight) .ch.cmpx:not(.open) .od{display:block}
+}
+@media(min-width:1000px){
+.cpt .ch.cmpc{min-height:0;padding:9px 14px 9px 15px}
+.cpt .ch.cmpc .od{border-top:0;margin-top:0;padding-top:0}
+.cpt .ch.cmpc .ot{white-space:normal}
+.cpt .sgr.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cpt .chips.wl{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cpt .whc{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 18px;padding:10px 14px}
+.cpt .whc .sech{grid-column:1/-1;margin-bottom:4px}
+.cpt .wr{grid-template-columns:1fr auto;grid-template-areas:"l d" "t t";align-items:baseline;gap:3px 8px;border-top:0;padding:4px 0 6px;border-left:1px solid var(--line);padding-left:12px}
+.cpt .wr:first-of-type{border-left:0;padding-left:0}
+.cpt .wr small{grid-area:l}.cpt .wr b{grid-area:d}.cpt .wr span{grid-area:t}
+}
+
+/* v25 · Desktop: Muretto live in due colonne; tabelle più strette sugli schermi bassi */
+@media(min-width:1000px){
+.rlc{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;padding:10px 14px}
+.rlc>.sech,.rlc>.rlt,.rlc>.rlt2,.rlc>.bwn{grid-column:1/-1}
+.rlc>.rlw:last-of-type{grid-column:2;grid-row:3/span 2;align-self:start}
+.rlc .rlr{padding:3px 0}
+.rlc .rlt{margin:0 0 6px}
+}
+@media(min-width:1000px){
+body.dtight .pane.dsk>.dL,body.dtight .pane.dsk>.dR{gap:8px}
+body.dtight .pane.dsk{row-gap:8px}
+body.dtight .pane .card{padding-top:8px;padding-bottom:8px}
+body.dtight .pane .tw .row{padding-top:3px;padding-bottom:3px}
+.pane.dsk.qlv .tw .row{min-height:0}
+.cpt .ch.cmpc{padding-top:7px;padding-bottom:7px}
+.rlc .rlw{padding:5px 0 2px}
+}
+
+@media(min-width:1000px){
+.pane.dsk>.dR>.sitc{order:-5}
+.pane.dsk>.dR>.sitc .sgr{grid-template-columns:1.15fr 1fr 1fr}
+.pane.dsk>.dR>.sitc .sc b{font-size:15px}
+.pane.dsk>.dR>.sitc .sc.pos b{font-size:20px}
+.pane.dsk>.dR>.sitc .sc em{font-size:10.5px}
+}
+
+@media(min-width:1000px){
+body.dtight2 .pane .kbh{display:none}
+body.dtight2 .pane.dsk>.dL,body.dtight2 .pane.dsk>.dR{gap:6px}
+body.dtight2 .cpt .ch.cmpc,body.dtight2.cpt .ch.cmpc{padding-top:5px;padding-bottom:5px}
+body.dtight2 .pane .ph{padding-bottom:0}
+body.dtight2 .pane .ph p{margin-top:2px}
+body.dtight2 .rlc .rlw p{font-size:12.5px;line-height:1.3}
+body.dtight2 .rlc .rlt2{font-size:11.5px}
+body.dtight2 .pane .card{padding-top:6px;padding-bottom:6px}
+}
+@media(min-width:1000px){
+body.dtight2 .pane.p-strat .bpt{display:none}
+body.dtight2 .pane.p-strat .bst2{gap:6px;padding-top:8px;padding-bottom:8px}
+body.dtight2 .pane.p-strat .bld{gap:8px}
+body.dtight2 .pane.p-strat .bsm{margin:0}
+body.dtight .pane.p-strat{padding-bottom:70px}
+}
+@media(min-width:1000px){
+.pane.t-grid{max-width:1180px}
+.pane.t-grid .srs{display:grid!important;grid-template-columns:1fr 1fr;column-gap:36px;align-items:start}
+}
+
+/* v26 · Mappa pista più leggibile */
+.rmt0{stroke:var(--mut);opacity:.55;stroke-width:5}
+.rmt{stroke:#465065;stroke-width:3.4;opacity:1}
+.rmt2{fill:none;stroke:#fff;stroke-width:.35;stroke-dasharray:1.1 1.5;opacity:.5;stroke-linejoin:round}
+.rmsf rect.k{fill:#111}.rmsf rect.w{fill:#fff}
+.rd{stroke:#fff;stroke-width:.6}
+.rd.me{stroke:#fff;stroke-width:1.4}
+.rml{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:center;font:600 10.5px/1.2 var(--body);color:var(--mut);padding:2px 0 4px}
+.rml span{display:inline-flex;align-items:center;gap:5px}
+.rml i{width:8px;height:8px;border-radius:50%;background:var(--neutral);border:1px solid #fff;box-sizing:border-box}
+.rml i.ld{background:var(--amber)}.rml i.ah{background:var(--warn)}.rml i.bh{background:#4d8dff}
+@media(min-width:1000px){
+.rmap{max-height:168px}
+.rmc{padding:8px 14px 4px}
+}
+@media(max-width:999px){.rml{display:none}}
+@media(min-width:1000px){
+.pane.dsk>.dL>.rmc .rmap{max-height:205px}
+body.dtight .pane.dsk>.dL>.rmc .rmap{max-height:150px}
+body.dtight2 .pane.dsk>.dL>.rmc .rmap{max-height:120px}
+}
+
+/* v27 · Strategie in gara: spinta, duello, revisione */
+.spc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:9px 12px;display:flex;flex-direction:column;gap:6px}
+.spc .spr{display:flex;align-items:center;gap:10px}
+.spc .spr small,.duc>small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.spc .spr b{font:800 15px/1 var(--display);margin-left:auto}
+.spc .spp{display:flex;gap:5px;flex:1;max-width:210px}
+.spc .spp i{flex:1;height:9px;border-radius:3px;background:var(--soft);transform:skewX(-14deg)}
+.spc .spp i.f{background:var(--yellow)}.spc .spp i.u{background:var(--mut);opacity:.4}
+.spc .spn{margin:0;font:500 11.5px/1.35 var(--body);color:var(--mut)}
+.duc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:9px 12px;display:flex;flex-direction:column;gap:7px}
+.duc .dug{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+.duc .dp{background:var(--soft);border-radius:10px;padding:7px 9px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.duc .dp b{font:800 14px/1.15 var(--display)}.duc .dp em{font:500 11px/1.25 var(--body);font-style:normal;color:var(--mut)}
+.duc .dp.me{outline:2px solid var(--yellow)}
+.duc .dvs{font:800 12px var(--display);color:var(--mut)}
+.spk{display:inline-flex;align-items:center;font:700 11px/1 var(--body);padding:3px 8px;border-radius:999px}
+.spk.c{background:var(--yellow);color:var(--yellow-ink)}.spk.z{background:var(--soft);color:var(--mut)}
+.spk.r{background:var(--soft);color:var(--green)}.spk.x{background:var(--warn);color:#fff}
+.rvw{display:flex;flex-direction:column;gap:4px;border-left:3px solid var(--yellow)}
+.rvw .rr{display:grid;grid-template-columns:50px 1fr auto;gap:8px;align-items:baseline;padding:6px 0;border-top:1px solid var(--line)}
+.rvw .rr:first-of-type{border-top:0}
+.rvw .rr small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.rvw .rr span{font:500 13px/1.3 var(--body)}.rvw .rr span b{font-weight:700}
+.rvw .rr span u{text-decoration:none;display:block;color:var(--mut);font-size:11.5px}
+.rvw .rr i{font:800 11.5px/1 var(--display);font-style:normal;padding:4px 9px;border-radius:999px;background:var(--soft)}
+.rvw .rr i.ok{color:var(--green)}.rvw .rr i.ko{color:var(--warn)}
+@media(min-width:1000px){
+.rvw{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 18px}
+.rvw .sech{grid-column:1/-1;margin-bottom:4px}
+.rvw .rr{grid-template-columns:1fr auto;grid-template-areas:"l p" "t t";border-top:0;border-left:1px solid var(--line);padding:4px 0 6px 12px}
+.rvw .rr:first-of-type{border-left:0;padding-left:0}
+.rvw .rr small{grid-area:l}.rvw .rr i{grid-area:p}.rvw .rr span{grid-area:t}
+.pane.dsk>.dR>.spc,.pane.dsk>.dR>.duc{order:-4}
+}
+@media(max-width:999px){.spc .spn{display:none}.spc[data-first] .spn{display:block}}
+/* v28 ordine mobile spinta/duello */
+.pane.dec>.spc{order:2}.pane.dec>.duc{order:7}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -1265,6 +1480,7 @@ input{-webkit-user-select:text;user-select:text;font-size:16px!important}
 /* iOS 26 sfuma la fascia alta a schermo intero: l'interfaccia parte piu' in basso, fuori dalla sfumatura */
 :root{--topgap:30px}
 @media (display-mode:standalone){.hud{padding-top:calc(env(safe-area-inset-top,0px) + 6px + var(--topgap))}}
+@media (display-mode:standalone){.wrap:not(:has(.hud)){padding-top:calc(env(safe-area-inset-top,0px) + var(--topgap) + 26px)}}
 </style>
 
 <div class="wrap" id="app"></div>
@@ -4107,7 +4323,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 22/10 · 15:37</p></div>`;
+  <p class="foot">Versione 22/10 · 22:07</p></div>`;
 }
 
 function identityView(){
@@ -11701,7 +11917,6 @@ function essPost(){
    azioni rare (simula) spostate in Scheda Pilota → Partita. Solo presentazione: il gioco è identico. */
 function cmpPost(){
   if(typeof CMP==='undefined'||!CMP)return;
-  if(typeof wideDesk==='function'&&wideDesk())return;
   const app=document.getElementById('app');
   if(!app||!app.querySelectorAll)return;
   /* muretto + note + meteo in un unico blocco */
@@ -11775,7 +11990,7 @@ function cmpPost(){
   app.querySelectorAll('.card.rnc.fld').forEach(c=>{
     if(c.dataset.cmp)return;c.dataset.cmp='1';
     try{
-      if(S&&S.wk&&S.wk.rno==null){S.wk.rno=0;c.classList.remove('open');const b=c.querySelector('.rnt');if(b)b.setAttribute('aria-expanded','false')}
+      if(!(typeof wideDesk==='function'&&wideDesk())&&S&&S.wk&&S.wk.rno==null){S.wk.rno=0;c.classList.remove('open');const b=c.querySelector('.rnt');if(b)b.setAttribute('aria-expanded','false')}
     }catch(e){}
   });
   /* azioni rare: "Simula il resto della stagione" e "Weekend rapido" si trovano in Scheda Pilota → Partita */
@@ -11865,7 +12080,6 @@ function briefCard(w){
    il resto (distacchi, sosta…) resta sotto come etichette. Solo presentazione. */
 function sitPost(){
   if(typeof CMP==='undefined'||!CMP)return;
-  if(typeof wideDesk==='function'&&wideDesk())return;
   const app=document.getElementById('app');
   if(!app||!app.querySelectorAll)return;
   app.querySelectorAll('.chips.wl').forEach(box=>{
@@ -11913,9 +12127,17 @@ function sitPost(){
     if(ex.length){const x=el('div','sxt');ex.forEach(c=>x.appendChild(c));card.appendChild(x)}
     /* le tue scelte precedenti: nella stessa scheda */
     const pane=box.parentNode;
-    const past=[...pane.querySelectorAll(':scope>.chips:not(.wl)')].find(x=>x.querySelector('.chip'));
+    const root=box.closest('.pane')||pane;
+    const past=[...root.querySelectorAll('.chips:not(.wl)')].find(x=>x.parentNode!==card&&!x.closest('.sitc')&&x.querySelector('.chip'));
     if(past){const wrap=el('div','spst');wrap.appendChild(el('small','', 'Le tue scelte'));wrap.appendChild(past);card.appendChild(wrap)}
     pane.replaceChild(card,box);
+    /* desktop: la situazione va nella colonna di destra, le scelte salgono in alto a sinistra */
+    try{
+      if(typeof wideDesk==='function'&&wideDesk()){
+        const R=card.closest('.pane')&&card.closest('.pane').querySelector(':scope>.dR');
+        if(R&&card.parentNode!==R){R.insertBefore(card,R.firstChild)}
+      }
+    }catch(e){}
   });
   /* condizioni: pioggia, pista, usura, sorpassi in quattro riquadri */
   app.querySelectorAll('.chips.wl').forEach(box=>{
@@ -11949,10 +12171,85 @@ function sitPost(){
   try{sitPost()}catch(e){}
   return r;
 }}
+
+/* desktop: se la schermata non entra nell'altezza, restringo gli spazi e le descrizioni passano dietro la "i" */
+function fitDesk(){
+  try{
+    const b=document.body;if(!b||!b.classList)return;
+    if(typeof wideDesk!=='function'||!wideDesk()){b.classList.remove('dtight');return}
+    b.classList.remove('dtight','dtight2');
+    const de=document.documentElement;
+    if(de.scrollHeight>window.innerHeight+2){
+      b.classList.add('dtight');
+      if(de.scrollHeight>window.innerHeight+2)b.classList.add('dtight2');
+    }
+  }catch(e){}
+}
+{const _u=uiPost;uiPost=function(){
+  const r=_u.apply(this,arguments);
+  fitDesk();
+  return r;
+}}
+try{window.addEventListener('resize',()=>{fitDesk()})}catch(e){}
+
+/* mappa pista: asfalto con bordo, linea di mezzeria, traguardo a scacchi e legenda dei puntini */
+function rmPost(){
+  try{
+    document.querySelectorAll('.rmc svg.rmap').forEach(sv=>{
+      if(sv.dataset.rp)return;
+      const t=sv.querySelector('.rmt');if(!t||!t.getTotalLength)return;
+      sv.dataset.rp='1';
+      const NS='http://www.w3.org/2000/svg';
+      const c=document.createElementNS(NS,'path');c.setAttribute('d',t.getAttribute('d'));c.setAttribute('class','rmt2');
+      t.parentNode.insertBefore(c,t.nextSibling);
+      try{
+        const L=t.getTotalLength(),p0=t.getPointAtLength(0),p1=t.getPointAtLength(Math.min(3,L/20));
+        const ang=Math.atan2(p1.y-p0.y,p1.x-p0.x)*180/Math.PI;
+        const g=document.createElementNS(NS,'g');g.setAttribute('class','rmsf');g.setAttribute('transform','translate('+p0.x.toFixed(2)+' '+p0.y.toFixed(2)+') rotate('+(ang+90).toFixed(1)+')');
+        [[-2.4,-.8,1],[-.8,-.8,0],[.8,-.8,1],[-2.4,.8,0],[-.8,.8,1],[.8,.8,0]].forEach(a=>{const r=document.createElementNS(NS,'rect');r.setAttribute('x',a[0]);r.setAttribute('y',a[1]);r.setAttribute('width',1.6);r.setAttribute('height',1.6);r.setAttribute('class',a[2]?'k':'w');g.appendChild(r)});
+        c.parentNode.insertBefore(g,c.nextSibling);
+      }catch(e){}
+      const me=sv.querySelector('.rd.me');const col=me&&me.style&&me.style.fill||'#ffd23a';
+      const lg=document.createElement('div');lg.className='rml';
+      lg.innerHTML='<span><i style="background:'+col+'"></i>Tu</span><span><i class="ah"></i>Davanti</span><span><i class="bh"></i>Dietro</span><span><i class="ld"></i>Leader</span>';
+      sv.parentNode.appendChild(lg);
+    });
+  }catch(e){}
+}
+/* desktop: la mappa sta in fondo alla colonna delle scelte (colonna sinistra), non in mezzo al contesto */
+function rmPlace(){
+  try{
+    if(typeof wideDesk!=='function'||!wideDesk())return;
+    const m=document.querySelector('.pane.dsk .rmc');if(!m)return;
+    const pane=m.closest('.pane'),L=pane.querySelector(':scope>.dL');
+    if(!L||m.parentNode===L||pane.querySelector('.rlc'))return;
+    L.appendChild(m);
+  }catch(e){}
+}
+/* desktop: in gara la colonna di destra parte alla stessa altezza delle scelte (sotto il titolo), se non diventa più alta */
+function alignR(){
+  try{
+    const R=document.querySelector('.pane.dsk>.dR');
+    if(R)R.style.marginTop='';
+    if(typeof wideDesk!=='function'||!wideDesk()||!R)return;
+    const pane=R.parentNode,L=pane.querySelector(':scope>.dL');
+    if(!L||!R.querySelector(':scope>.sitc'))return;
+    const pick=L.querySelector(':scope>.pick,:scope>.opts');
+    if(!pick)return;
+    const off=pick.getBoundingClientRect().top-R.getBoundingClientRect().top;
+    const room=L.offsetHeight-R.offsetHeight;
+    const v=Math.floor(Math.min(off,room));
+    if(v>8)R.style.marginTop=v+'px';
+  }catch(e){}
+}
+{const _u=uiPost;uiPost=function(){
+  const r=_u.apply(this,arguments);
+  rmPost();rmPlace();alignR();fitDesk();
+  return r;
+}}
 /* ---------- Risultato di gara (Compatto): momento, perché, cronaca ---------- */
 function resPost(){
   if(typeof CMP==='undefined'||!CMP)return;
-  if(typeof wideDesk==='function'&&wideDesk())return;
   const app=document.getElementById('app');if(!app||!app.querySelector)return;
   const cl=app.querySelector('.pane.p-result .cl,.cl.k-m');
   if(!cl||cl.dataset.res||!S||!S.last)return;
@@ -11986,6 +12283,141 @@ function resPost(){
   try{resPost()}catch(e){}
   return r;
 }}
+/* ---------- Strategie in gara: spinta (budget), duello con un rivale vero, revisione a fine gara ----------
+   · Spinta: 4 punti da spartire nei tre atti. Le scelte all'attacco ne consumano (−2/−1), quelle di gestione ne ridanno 1.
+     Se la spinta non basta, la parte "scelta" dell'effetto cala e il rischio sale. Il contesto giusto vale sempre.
+   · Duello: l'auto che ti precede (dal modello di gara) diventa un avversario con nome, distacco e gomme.
+   · Revisione: dopo la gara, per ogni atto: cosa hai scelto, cosa era più indicato, quanta spinta è servita. */
+const SPMAX=4;
+const spCost=o=>o.tr?1:(o.ag||o.risk>=.045)?2:o.risk>=.025?1:o.ty?-1:0;
+const spLeft=rc=>{let s=SPMAX;((rc&&rc.lg)||[]).forEach(l=>{s=clamp(s-(l.sp||0),0,SPMAX)});return s};
+{const _ao=actOpts;actOpts=function(e,n){
+  const O=_ao.apply(this,arguments);
+  try{
+    const rc=S&&S.rc;if(!rc||!O)return O;
+    const have=spLeft(rc);
+    O.forEach(o=>{
+      if(o.spc!=null)return;
+      const c=spCost(o);o.spc=c;
+      const df=Math.max(0,c-have);
+      if(df>0){o.spd=df;o.mod=o.mod*(1-.35*df);o.risk=o.risk+.012*df}
+    });
+  }catch(x){}
+  return O;
+}}
+{const _ap=actPick;actPick=function(i){
+  try{
+    const rc=S&&S.rc,e=rc&&ACTS[rc.ev];
+    if(e){
+      const O=actOpts(e,rc.n),o=O&&O[i];
+      if(o){
+        const r=e.ctx?e.ctx(S.wk):null,bi=r?r[0]:null;
+        const pk={sp:o.spc||0,df:o.spd||0,bi,bt:(bi!=null&&O[bi])?O[bi].t:null};
+        const lg=rc.lg;
+        lg.push=function(x){Object.assign(x,pk);delete lg.push;return Array.prototype.push.call(lg,x)};
+      }
+    }
+  }catch(x){}
+  return _ap.apply(this,arguments);
+}}
+{const _dr=doRace;doRace=function(opt){
+  const rc=S.rc,lg=rc&&rc.lg&&rc.lg.length?rc.lg.map(l=>({...l})):null;
+  const r=_dr.apply(this,arguments);
+  try{if(lg&&S.last)S.last.rv=lg}catch(x){}
+  return r;
+}}
+
+/* ---------- Duello con il rivale davanti ---------- */
+const TYL5=['fresche','buone','da gestire','al limite','finite'];
+const DUS=['ha già fatto la sosta e ha gomme nuove','è sulle tue stesse gomme','non ha ancora fatto la sosta e le sue gomme sono più usate'];
+const tyIdx=()=>{const w=S.wk,rc=S.rc;return clamp(Math.round(w.u*.8+rc.n*.7-rc.ty*.9),0,4)};
+function duelData(){
+  const rc=S&&S.rc,w=S&&S.wk,pg=rc&&rc.pg&&rc.pg[rc.n];
+  if(!pg||!pg.an)return null;
+  if(rc.du&&rc.du.k===rc.n)return rc.du;
+  const est=(rc.pe&&rc.pe[rc.n])||w.gp||10;
+  rc.du={k:rc.n,n:pg.an,gap:pg.a,st:hsh(pg.an+'|'+S.year+'|'+S.round)%3,pos:Math.max(1,est-1),me:est,ty:tyIdx()};
+  return rc.du;
+}
+const DUEL={id:'rduel',a:[1],t:'Duello in pista',wt:3,
+  cond:()=>{const w=S.wk;let wet=false;try{wet=!!(w&&(w.rain||(w.sur&&rlC0me(w)==='D')))}catch(x){}return !wet&&!!(S.rc&&S.rc.pg&&S.rc.pg[S.rc.n]&&S.rc.pg[S.rc.n].an)},
+  x:()=>{const d=duelData();return d?`${esc(d.n)} è davanti a te, a ${sec(d.gap)}: ${DUS[d.st]}. Tu hai le gomme ${TYL5[d.ty]}.`:'Hai un avversario davanti: decidi come affrontarlo.'},
+  o:[{t:'Rispondi subito',d:'Anticipi la mossa: gomme nuove e passo per ripassarlo.',mod:1.1,risk:.03,out:'Hai risposto subito al rivale e lo hai ripassato col passo.'},
+     {t:'Resta fuori e aspetta',d:'Tieni il ritmo e punti a un finale in aria pulita.',mod:.6,risk:.01,ty:1,out:'Hai tenuto il ritmo e aspettato il momento giusto.'},
+     {t:'Attaccalo in pista',d:'Lo attacchi mentre è ancora vicino.',mod:1.5,risk:.05,ag:1,out:'Hai attaccato il rivale in pista, senza aspettare.'}],
+  ctx:w=>{
+    const d=duelData();if(!d)return null;
+    const worn=d.ty>=2,ov=w.ovt==null?1:w.ovt;
+    if(d.st===0)return worn?[0,1]:[1,2];
+    if(d.st===1)return ov===2?[2,1]:ov===0?[1,2]:[0,1];
+    return worn?[1,0]:[2,1];
+  }};
+ACTL.push(DUEL);ACTS.rduel=DUEL;
+
+/* ---------- Interfaccia: scheda spinta, chip di costo, scheda duello ---------- */
+function racePost2(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||!S.rc||S.phase!=='act')return;
+    const rc=S.rc,e=ACTS[rc.ev];if(!e)return;
+    const anchor=app.querySelector('.sitc')||[...app.querySelectorAll('.chips.wl')].find(b=>/Atto \d/.test(b.textContent));
+    if(!anchor||anchor.dataset.sp2)return;
+    anchor.dataset.sp2='1';
+    const left=spLeft(rc),used=SPMAX-left;
+    const ce=(t,c,h)=>{const d=document.createElement(t);if(c)d.className=c;if(h!=null)d.innerHTML=h;return d};
+    const pips=Array.from({length:SPMAX},(_,i)=>`<i class="${i<left?'f':'u'}"></i>`).join('');
+    const note=rc.n===0?`Hai ${SPMAX} punti di spinta per i tre atti. Le scelte all'attacco ne consumano, quelle di gestione ne ridanno uno. Se finiscono, le mosse forti rendono meno.`
+      :left===0?'Spinta esaurita: le scelte all\'attacco rendono meno e rischiano di più.'
+      :`Finora hai speso ${used} ${used===1?'punto':'punti'}: te ${left===1?'resta':'restano'} ${left} per ${rc.n===1?'gli atti 2 e 3':'l\'ultimo atto'}.`;
+    const card=ce('div','spc',`<div class="spr"><small>Spinta</small><span class="spp">${pips}</span><b>${left} su ${SPMAX}</b></div><p class="spn">${note}</p>`);
+    if(rc.n===0)card.setAttribute('data-first','');
+    anchor.parentNode.insertBefore(card,anchor.nextSibling);
+    let ref=card;
+    const du=rc.ev==='rduel'?duelData():null;
+    if(du){
+      const dc=ce('div','duc',`<small>Duello · davanti a te</small><div class="dug"><div class="dp me"><b>Tu</b><em>P${du.me} · gomme ${TYL5[du.ty]}</em></div><span class="dvs">VS</span><div class="dp"><b>${esc(du.n)}</b><em>P${du.pos} · ${sec(du.gap)} davanti · ${DUS[du.st]}</em></div></div>`);
+      card.parentNode.insertBefore(dc,card.nextSibling);ref=dc;
+    }
+    /* chip di costo nelle opzioni */
+    const O=actOpts(e,rc.n);
+    app.querySelectorAll('.opts>.ch[data-act=ac]').forEach(ch=>{
+      if(ch.dataset.spc)return;ch.dataset.spc='1';
+      const o=O[+ch.dataset.i];if(!o||o.spc==null)return;
+      const c=o.spc;
+      const t=o.spd?'Spinta insufficiente':c>0?'Spinta −'+c:c<0?'Spinta +'+(-c):'Spinta 0';
+      const cls=o.spd?'x':c>0?'c':c<0?'r':'z';
+      const host=ch.querySelector('.omt')||ch.querySelector('.tags')||ch.querySelector('.cb');
+      if(host)host.appendChild(ce('span','spk '+cls,t));
+    });
+  }catch(x){}
+}
+{const _u=uiPost;uiPost=function(){
+  const r=_u.apply(this,arguments);
+  racePost2();revPost();
+  try{if(typeof fitDesk==='function')fitDesk()}catch(x){}
+  return r;
+}}
+
+/* ---------- Revisione della gara (risultato) ---------- */
+function revPost(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||!S.last||!S.last.rv||!S.last.rv.length)return;
+    const cl=app.querySelector('.pane.p-result .cl,.cl.k-m');
+    if(!cl||cl.dataset.rev||!cl.querySelector('.ses'))return;
+    cl.dataset.rev='1';
+    const esc2=x=>String(x==null?'':x).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    const rows=S.last.rv.map(l=>{
+      const sub=[l.g>0?'Era la scelta più indicata.':(l.bt?`La più indicata era “${esc2(l.bt)}”.`:'')];
+      if(l.df>0)sub.push('Spinta insufficiente: effetto ridotto.');
+      else if(l.sp>0)sub.push(`Spinta −${l.sp}.`);else if(l.sp<0)sub.push('Spinta +1.');
+      const pill=l.g>0?['ok','Giusta']:l.g<0?['ko','Sconsigliata']:['','Neutra'];
+      return `<div class="rr"><small>Atto ${l.a+1}</small><span><b>${esc2(l.e)}</b> · ${esc2(l.t)}<u>${sub.filter(Boolean).join(' ')}</u></span><i class="${pill[0]}">${pill[1]}</i></div>`;
+    }).join('');
+    const card=document.createElement('section');card.className='card rvw';
+    card.innerHTML='<div class="sech">Revisione della gara</div>'+rows;
+    const wh=cl.querySelector(':scope>.whc'),dock=cl.querySelector(':scope>.dock');
+    cl.insertBefore(card,wh||dock||null);
+  }catch(x){}
+}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
