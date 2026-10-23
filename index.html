@@ -1557,6 +1557,19 @@ body.cpt .pane.p-quali .ch.cmpx:not(.open) .od{display:none}
 .qpp button.on .qb{background:rgba(255,255,255,.7)}
 .qpp button.on .qb.n{background:transparent}
 .qpp{align-items:stretch}.qpp button{justify-content:flex-start;height:auto}
+/* v33 F1: prove libere e classifica live compatte, confronto dei caratteri a scomparsa */
+@media(min-width:1000px){
+body.cpt .pane.p-fp .ch.cmpc .inf,body.cpt .pane.p-qlive .ch.cmpc .inf{display:flex}
+body.cpt .pane.p-fp .ch.cmpx:not(.open) .od,body.cpt .pane.p-qlive .ch.cmpx:not(.open) .od{display:none}
+}
+.pk .pkd>summary{cursor:pointer;list-style:none;font:700 11.5px var(--body);color:var(--mut);display:flex;justify-content:space-between;padding:2px 0}
+.pk .pkd>summary::-webkit-details-marker{display:none}
+.pk .pkd>summary::after{content:'›';font-size:15px}
+.pk .pkd[open]>summary::after{content:'⌄'}
+.pk .pkd>*:not(summary){margin-top:8px}
+.pk .pkd>.sc2{padding-left:86px;padding-right:38px}
+.qpd.qpr>.card.rnc{border:0;box-shadow:none;background:none;padding:0}
+.qpd.qpr>.card.rnc::before{display:none}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -4408,7 +4421,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 23/10 · 15:13</p></div>`;
+  <p class="foot">Versione 23/10 · 17:31</p></div>`;
 }
 
 function identityView(){
@@ -12812,7 +12825,7 @@ function stratPost(){
         const outP=Math.round((1-pr[2].out)*100);
         ob=`<div class="ob"><b>${esc(sel?sel.t:'Vai a punti')}.</b> <em>${P[0][0]} ${q[0]} volte su 100, ${P[1][0].toLowerCase()} ${q[1]}, ${P[2][0].toLowerCase()} ${q[2]}${o0.k!=='pts'?'':''}. Con il piano audace ${outP>=15?'1 volta su '+Math.max(2,Math.round(100/Math.max(1,outP)))+' chiudi fuori dai punti':'il rischio di restare fuori dai punti resta basso'}.</em></div>`;
       }
-      prof=`<div class="pr">${btns}</div><div class="rg">${rows}</div><div class="sc2"><span>−${half}</span><span>0</span><span>+${half}</span></div>${ob}`;
+      prof=`<div class="pr">${btns}</div>${ob}<details class="pkd"><summary>Confronto dei tre caratteri</summary><div class="rg">${rows}</div><div class="sc2"><span>−${half}</span><span>0</span><span>+${half}</span></div></details>`;
     }
     const kn=w.kn||{},ninfo=(kn.wear?1:0)+(kn.ovt?1:0)+(kn.rain?1:0)+(kn.sc?1:0);
     const rel=ninfo>=3?'alta':ninfo>=1?'media':'bassa';
@@ -12950,7 +12963,7 @@ function qpHtml(w){
 function qpPost(){
   try{
     const app=document.getElementById('app');if(!app||!S||!S.wk)return;
-    const pane=app.querySelector('.pane.p-quali');if(!pane)return;
+    const pane=app.querySelector('.pane.p-quali,.pane.p-strat');if(!pane)return;
     const qdc=pane.querySelector('.qdc');
     if(qdc&&!qdc.dataset.qp&&qdc.querySelectorAll('.qty.qd').length>=3){
       qdc.dataset.qp='1';qdc.classList.add('qpc');if(QPO)qdc.classList.add('qpo');
@@ -12964,11 +12977,27 @@ function qpPost(){
       const els=[...R.children].filter(c=>c.classList.contains('nts')||/^\s*Motore/i.test(((c.querySelector('.sech,.ntt')||{}).textContent||'').trim()));
       if(els.length){
         const d=document.createElement('details');d.className='card qpd';
-        d.innerHTML='<summary>Note del weekend e motore</summary>';
+        d.innerHTML='<summary>'+(els.some(e=>!e.classList.contains('nts'))?'Note del weekend e motore':'Note del weekend')+'</summary>';
         els.forEach(e=>d.appendChild(e));R.appendChild(d);
       }
     }
+    /* piano di gara (desktop): «Pioggia e gomme» a scomparsa se la pioggia è improbabile */
+    if(pane.classList.contains('p-strat')&&typeof wideDesk==='function'&&wideDesk()&&R){
+      const c=R.querySelector(':scope>.card.rnc');
+      if(c){
+        const m=/Pioggia\s+(\d+)%/.exec(c.textContent||''),pct=m?+m[1]:100;
+        if(pct<40){
+          const d=document.createElement('details');d.className='card qpd qpr';
+          d.innerHTML='<summary>Pioggia e gomme · '+pct+'%</summary>';
+          R.insertBefore(d,c);d.appendChild(c);
+        }
+      }
+    }
   }catch(x){}
+}
+/* la scheda «Note del weekend» vuota non si mostra */
+function emptyNotes(){
+  try{document.querySelectorAll('.pane.dsk>.dR>.nts').forEach(n=>{{const it=n.querySelectorAll('.nti');if(it.length&&![...it].some(e=>!e.classList.contains('esh')))n.style.display='none'}})}catch(x){}
 }
 try{document.addEventListener('click',e=>{
   const t=e.target&&e.target.closest&&e.target.closest('[data-qp],[data-qpm]');
@@ -12983,7 +13012,7 @@ try{document.addEventListener('click',e=>{
 },true)}catch(e){}
 {const _u=uiPost;uiPost=function(){
   const r=_u.apply(this,arguments);
-  try{qpPost();if(typeof alignR==='function')alignR();if(typeof fitDesk==='function')fitDesk();if(typeof alignR==='function')alignR()}catch(x){}
+  try{qpPost();emptyNotes();if(typeof alignR==='function')alignR();if(typeof fitDesk==='function')fitDesk();if(typeof alignR==='function')alignR()}catch(x){}
   return r;
 }}
 render();
