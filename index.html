@@ -1534,6 +1534,29 @@ body.dtight2 .pane.dsk>.dL>.rmc .rmap{max-height:120px}
 @media(min-width:1000px){.pk .g{grid-template-columns:repeat(4,1fr)}}
 /* v31 timeline: etichette atti sotto il marcatore */
 .plc .tl{height:46px}.plc .tl .at{top:34px}.plc .tl .now{z-index:2}
+/* v32 qualifica semplice */
+.pane.p-quali .ph p{display:none}
+body.cpt .pane.p-quali .ch.cmpc .inf{display:flex}
+body.cpt .pane.p-quali .ch.cmpx:not(.open) .od{display:none}
+.qdc.qpc:not(.qpo)>.qty.qd,.qdc.qpc:not(.qpo)>.qdt,.qdc.qpc:not(.qpo)>.sub{display:none}
+.qpw .qpi{margin:0 0 8px;font:500 12.5px/1.35 var(--body);color:var(--mut)}
+.qpp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.qpp button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:12px;text-align:center}
+.qpp button b{font:800 14px var(--display)}
+.qpp .qbs{display:flex;flex-direction:column;align-items:center;gap:2px}
+.qpm{display:flex;justify-content:space-between;align-items:center;margin:8px 0 2px;font:600 12.5px var(--body);color:var(--mut)}
+.qpm u{cursor:pointer;color:var(--fg)}
+.qdc.qpo .qpm{margin-bottom:10px}
+.pane.dsk>.dR>.qpd{order:9;padding:10px 14px}
+.qpd>summary{cursor:pointer;font:700 12.5px var(--body);list-style:none;display:flex;justify-content:space-between}
+.qpd>summary::-webkit-details-marker{display:none}
+.qpd>summary::after{content:'›';font-size:16px}
+.qpd[open]>summary::after{content:'⌄'}
+.qpd>*:not(summary){margin-top:10px}
+.qdc>.qpw{grid-column:1/-1;width:100%;min-width:0}
+.qpp button.on .qb{background:rgba(255,255,255,.7)}
+.qpp button.on .qb.n{background:transparent}
+.qpp{align-items:stretch}.qpp button{justify-content:flex-start;height:auto}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -4385,7 +4408,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 23/10 · 14:27</p></div>`;
+  <p class="foot">Versione 23/10 · 15:13</p></div>`;
 }
 
 function identityView(){
@@ -12879,6 +12902,88 @@ try{window.addEventListener('resize',()=>{alignR()})}catch(e){}
       rc.mod=m0+dm*.4;l.d=Math.round(l.d*.4*100)/100;
     }
   }catch(x){}
+  return r;
+}}
+/* =====================================================================
+   v6 · B · Qualifica più semplice (solo interfaccia, regole invariate)
+   - F2/F1: i 4-5 gruppi del piano del giro diventano tre preset
+     (Prudente · Equilibrato · Aggressivo); «Personalizza» riapre i controlli veri
+   - le gomme (scelte A/B/C) stanno sopra il piano, descrizioni dietro la «i»
+   - desktop: note del weekend e motore dietro una riga espandibile
+   ===================================================================== */
+let QPO=false;
+const QPP={
+  safe:{ap:'safe',tow:'alt',mp:'eco',lc:'std',ers:'dist'},
+  std:{ap:'std',tow:'alt',mp:'std',lc:'std',ers:'dist'},
+  push:{ap:'push',tow:'me',mp:'max',lc:'short',ers:'all'}
+};
+const QPN={safe:'Prudente',std:'Equilibrato',push:'Aggressivo'};
+function qpEff(w,pre){
+  const cur=qdGet(w),old={...cur};
+  let pos=0,e=0,pu=0;
+  try{
+    qdKeys().forEach(k=>{if(pre[k])cur[k]=pre[k]});
+    if(exPlOn(w)){const pl=exPlan(w,w.ex.s);pos=qdP(pl.pace/EXK);e=pl.e;pu=pl.pu}
+    else{const r=qdSum(w,'late');pos=qdP(r.p);e=r.e;pu=r.pu}
+  }catch(x){}
+  finally{qdKeys().forEach(k=>{cur[k]=old[k]})}
+  return{pos,e,pu};
+}
+function qpMatch(w){
+  const d=qdGet(w),ks=qdKeys();
+  for(const n in QPP){if(ks.every(k=>d[k]===QPP[n][k]))return n}
+  return null;
+}
+function qpHtml(w){
+  const ks=qdKeys(),on=qpMatch(w);
+  const nm=ks.map(k=>QDO[k].n.toLowerCase());
+  const intro='Un\'impostazione unica per '+nm.slice(0,-1).join(', ')+' e '+nm[nm.length-1]+'.';
+  const btn=n=>{
+    const r=qpEff(w,QPP[n]),t=[];
+    if(Math.abs(r.pos)>=.1)t.push(qdPill(qdSg(r.pos)+' pos.',r.pos>0?'g':'r'));
+    if(r.e>0)t.push(qdPill('errore '+Math.round(r.e*100)+'%','r'));
+    if(r.pu)t.push(qdPill('usura '+(r.pu>0?'+':'−')+Math.abs(r.pu),r.pu>0?'a':'g'));
+    return `<button class="ghost${on===n?' on':''}" data-qp="${n}"><b>${QPN[n]}</b><span class="qbs">${t.length?t.join(''):'<span class="qb n">base</span>'}</span></button>`;
+  };
+  return `<div class="qpw"><p class="qpi">${intro}</p><div class="qpp">${btn('safe')}${btn('std')}${btn('push')}</div><div class="qpm"><span>${on?'':'Impostazione personalizzata'}</span><u data-qpm="1">${QPO?'Nascondi i dettagli ‹':'Personalizza i '+ks.length+' dettagli ›'}</u></div></div>`;
+}
+function qpPost(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||!S.wk)return;
+    const pane=app.querySelector('.pane.p-quali');if(!pane)return;
+    const qdc=pane.querySelector('.qdc');
+    if(qdc&&!qdc.dataset.qp&&qdc.querySelectorAll('.qty.qd').length>=3){
+      qdc.dataset.qp='1';qdc.classList.add('qpc');if(QPO)qdc.classList.add('qpo');
+      const h=qdc.querySelector('.sech');
+      if(h){h.textContent=h.textContent.replace(/^(Il )?[Pp]iano del giro/,'Come spingi?');h.insertAdjacentHTML('afterend',qpHtml(S.wk))}
+      const wrap=qdc.closest('.qdw')||qdc,pick=pane.querySelector('.pick');
+      if(pick&&wrap.parentNode===pick){const t=pick.querySelector('.kbh')||pick.querySelector('.opts');if(t)t.after(wrap)}
+    }
+    const R=pane.querySelector('.dR');
+    if(R&&!R.querySelector('.qpd')){
+      const els=[...R.children].filter(c=>c.classList.contains('nts')||/^\s*Motore/i.test(((c.querySelector('.sech,.ntt')||{}).textContent||'').trim()));
+      if(els.length){
+        const d=document.createElement('details');d.className='card qpd';
+        d.innerHTML='<summary>Note del weekend e motore</summary>';
+        els.forEach(e=>d.appendChild(e));R.appendChild(d);
+      }
+    }
+  }catch(x){}
+}
+try{document.addEventListener('click',e=>{
+  const t=e.target&&e.target.closest&&e.target.closest('[data-qp],[data-qpm]');
+  if(!t)return;
+  e.stopImmediatePropagation();e.preventDefault();
+  try{
+    const w=S&&S.wk;
+    if(t.dataset.qpm){QPO=!QPO}
+    else if(w&&QPP[t.dataset.qp]){const d=qdGet(w);qdKeys().forEach(k=>{d[k]=QPP[t.dataset.qp][k]});KP=true}
+    save();render();
+  }catch(x){}
+},true)}catch(e){}
+{const _u=uiPost;uiPost=function(){
+  const r=_u.apply(this,arguments);
+  try{qpPost();if(typeof alignR==='function')alignR();if(typeof fitDesk==='function')fitDesk();if(typeof alignR==='function')alignR()}catch(x){}
   return r;
 }}
 render();
