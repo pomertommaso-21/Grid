@@ -1476,6 +1476,64 @@ body.dtight2 .pane.dsk>.dL>.rmc .rmap{max-height:120px}
 @media(min-width:1000px){.pane.p-result>.cl>.card.pod{align-self:stretch;display:flex;flex-direction:column}.pane.p-result>.cl>.card.pod .pdrow{flex:1;align-items:flex-end}}
 @media(min-width:1000px){.pane.p-result>.cl.k-m>.card:nth-of-type(n+3){grid-column:1/-1}}
 @media(min-width:1000px){.pane.p-result>.cl.k-m>.card:nth-of-type(2){align-self:stretch}}
+/* v30 strategia 2: scheda piano in gara, stima live, carattere del piano */
+.plc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.plc .plh{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.plc .plh small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.plc .tok{display:inline-flex;align-items:center;gap:6px;font:800 11px var(--body);background:var(--yellow);color:var(--yellow-ink);border-radius:999px;padding:4px 9px}
+.plc .tok i{width:9px;height:9px;border-radius:50%;background:var(--yellow-ink)}
+.plc .tok.off{background:var(--soft);color:var(--mut)}.plc .tok.off i{opacity:.4}
+.plc .tl{position:relative;height:40px;margin:2px 4px 0}
+.plc .tl .ln{position:absolute;left:0;right:0;top:16px;height:8px;border-radius:4px;background:var(--soft)}
+.plc .tl .sg{position:absolute;top:16px;height:8px}
+.plc .tl .sg:first-of-type{border-radius:4px 0 0 4px}
+.plc .tl .pit{position:absolute;top:9px;width:3px;height:22px;border-radius:2px;background:var(--fg,#0b1224);margin-left:-1px}
+.plc .tl .pit b{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font:800 9px var(--body)}
+.plc .tl .now{position:absolute;top:12px;width:14px;height:14px;border-radius:50%;background:var(--yellow);border:2px solid var(--fg,#0b1224);transform:translateX(-50%)}
+.plc .tl .at{position:absolute;top:30px;font:700 9px var(--body);color:var(--mut);transform:translateX(-50%);white-space:nowrap}
+.plc .tl .at.on{color:var(--fg);font-weight:800}
+.plc .plx{margin:0;font:500 12px/1.4 var(--body)}.plc .plx em{font-style:normal;color:var(--green);font-weight:700}
+.pane.dec>.plc{order:2}
+.pane.dsk>.dR>.plc{order:-3}
+.pk{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--yellow);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:9px;margin:10px 0}
+.pk .h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pk .h small,.pk .cf>small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.pk .h em{font:600 10.5px var(--body);font-style:normal;color:var(--mut)}
+.pk .g{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
+.pk .m{display:flex;flex-direction:column;gap:3px}
+.pk .m span{font:600 11.5px var(--body);display:flex;justify-content:space-between;gap:6px}
+.pk .m span b{font:800 11.5px var(--display);text-align:right}
+.pk .m i{display:block;height:7px;border-radius:3px;background:var(--soft);position:relative;overflow:hidden}
+.pk .m i u{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--green)}
+.pk .m i u.a{background:var(--amber,#d99a00)}.pk .m i u.r{background:var(--warn,#d92d20)}
+.pk .ef{display:flex;flex-direction:column;gap:5px;background:var(--soft);border-radius:10px;padding:8px 10px}
+.pk .ef .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font:700 12px var(--body)}
+.pk .ef .t b{font:800 15px var(--display);white-space:nowrap}
+.pk .sc{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,#e5848455,#e8c36a55 50%,#6fbf8a66)}
+.pk .sc .band{position:absolute;top:0;bottom:0;background:rgba(15,25,50,.22);border-radius:5px}
+.pk .sc .mk{position:absolute;top:-3px;width:4px;height:16px;border-radius:2px;background:var(--fg,#0b1224);margin-left:-2px}
+.pk .sc2{display:flex;justify-content:space-between;font:600 10px var(--body);color:var(--mut)}
+.pk .alt{display:flex;gap:6px;flex-wrap:wrap}
+.pk .alt span{font:700 11px var(--body);padding:4px 9px;border-radius:999px;background:var(--soft)}
+.pk .alt span.p{color:var(--green)}.pk .alt span.n{color:var(--warn)}
+.pk .cf{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:9px}
+.pk .pr{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pk .pr button{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:8px 6px;display:flex;flex-direction:column;gap:2px;align-items:center;font:700 12px var(--body);color:var(--fg);cursor:pointer}
+.pk .pr button small{font:500 10.5px var(--body);color:var(--mut)}
+.pk .pr button.on{background:#0f1a38;color:#fff;border-color:#0f1a38}.pk .pr button.on small{color:#c9d3ee}
+.pk .rg{display:flex;flex-direction:column;gap:6px;background:var(--soft);border-radius:10px;padding:8px 10px}
+.pk .rg .row{display:grid;grid-template-columns:78px 1fr 30px;align-items:center;gap:8px;font:600 11px var(--body)}
+.pk .rg .row b{font:800 11px var(--display);text-align:right}
+.pk .rg .bar{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,#e5848433,#e8c36a33 50%,#6fbf8a44)}
+.pk .rg .bar u{position:absolute;top:1px;bottom:1px;border-radius:4px;background:rgba(15,26,56,.28)}
+.pk .rg .bar i{position:absolute;top:-2px;width:3px;height:14px;border-radius:2px;background:var(--fg,#0b1224);margin-left:-1px}
+.pk .rg .row.sel .bar u{background:var(--yellow);outline:1px solid var(--fg,#0b1224)}
+.pk .cf>.sc2{padding-left:86px;padding-right:38px}
+.pk .ob{font:600 12px/1.4 var(--body)}.pk .ob b{font-weight:800}.pk .ob em{font-style:normal;color:var(--mut);font-weight:500}
+.pk .nt{font:500 11.5px/1.35 var(--body);color:var(--mut);margin:0}
+@media(min-width:1000px){.pk .g{grid-template-columns:repeat(4,1fr)}}
+/* v31 timeline: etichette atti sotto il marcatore */
+.plc .tl{height:46px}.plc .tl .at{top:34px}.plc .tl .now{z-index:2}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -4327,7 +4385,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 23/10 · 02:10</p></div>`;
+  <p class="foot">Versione 23/10 · 14:27</p></div>`;
 }
 
 function identityView(){
@@ -10137,7 +10195,6 @@ const PLV_MAP={
 const PLV_OKK=['one','two','under','over','soft'];
 let PLV_K=.5,PLV_M=-.5;                   /* quanto pesa il cambio di piano, e correzione di taratura */
 const PLV_DBG={n:0,sum:0,sum2:0};
-function plvOn(){try{const s=S.sw,w=S.wk;if(w&&w.rain)return false;const rl=S.rc&&S.rc.rl;if(rl&&rl.v===2&&rl.done&&!rl.stay)return false;return !!(s&&w&&!s.auto&&PLV_OKK.includes(s.k)&&(S.tier|0)>=2)}catch(e){return false}}
 const plvBase=()=>{const s=S.sw;return cp3(s.cfg&&s.cfg.c?s.cfg:tyPre(s.k))};
 const plvCur=()=>{const rc=S.rc;return rc&&rc.pl?rc.pl.cur:plvBase()};
 const plvLap=n=>{const T=tyLaps();return [1,Math.max(2,Math.round(T*.45)),Math.round(T*.85)][n]||1};
@@ -12231,21 +12288,6 @@ function rmPlace(){
   }catch(e){}
 }
 /* desktop: in gara la colonna di destra parte alla stessa altezza delle scelte (sotto il titolo), se non diventa più alta */
-function alignR(){
-  try{
-    const R=document.querySelector('.pane.dsk>.dR');
-    if(R)R.style.marginTop='';
-    if(typeof wideDesk!=='function'||!wideDesk()||!R)return;
-    const pane=R.parentNode,L=pane.querySelector(':scope>.dL');
-    if(!L||!R.querySelector(':scope>.sitc'))return;
-    const pick=L.querySelector(':scope>.pick,:scope>.opts');
-    if(!pick)return;
-    const off=pick.getBoundingClientRect().top-R.getBoundingClientRect().top;
-    const room=L.offsetHeight-R.offsetHeight;
-    const v=Math.floor(Math.min(off,room));
-    if(v>8)R.style.marginTop=v+'px';
-  }catch(e){}
-}
 {const _u=uiPost;uiPost=function(){
   const r=_u.apply(this,arguments);
   rmPost();rmPlace();alignR();fitDesk();
@@ -12316,7 +12358,7 @@ const spLeft=rc=>{let s=SPMAX;((rc&&rc.lg)||[]).forEach(l=>{s=clamp(s-(l.sp||0),
       const O=actOpts(e,rc.n),o=O&&O[i];
       if(o){
         const r=e.ctx?e.ctx(S.wk):null,bi=r?r[0]:null;
-        const pk={sp:o.spc||0,df:o.spd||0,bi,bt:(bi!=null&&O[bi])?O[bi].t:null};
+        const pk={sp:o.spc||0,df:o.spd||0,bi,bt:(bi!=null&&O[bi])?O[bi].t:null,pb:rc.pbm?1:0};rc.pbm=null;
         const lg=rc.lg;
         lg.push=function(x){Object.assign(x,pk);delete lg.push;return Array.prototype.push.call(lg,x)};
       }
@@ -12426,6 +12468,7 @@ function revPost(){
     const esc2=x=>String(x==null?'':x).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
     const rows=S.last.rv.map(l=>{
       const sub=[l.g>0?'Era la scelta più indicata.':(l.bt?`La più indicata era “${esc2(l.bt)}”.`:'')];
+      if(l.pb)sub.push('Piano B usato.');
       if(l.df>0)sub.push('Spinta insufficiente: effetto ridotto.');
       else if(l.sp>0)sub.push(`Spinta −${l.sp}.`);else if(l.sp<0)sub.push('Spinta +1.');
       const pill=l.g>0?['ok','Giusta']:l.g<0?['ko','Sconsigliata']:['','Neutra'];
@@ -12437,6 +12480,407 @@ function revPost(){
     cl.insertBefore(card,wh||dock||null);
   }catch(x){}
 }
+/* ---------- Strategia 2 ----------
+   · Effetto del piano più incisivo e ricentrato (SK = amplificazione, SOFF = compensazione di bilancio)
+   · Piano in gara: scheda con stint, sosta prevista, gomme; il piano cambia davvero (rsNow lo legge)
+   · Piano B: 1 gettone a gara per cambiare il piano (rientra ora / due soste) nelle finestre box
+   · Schermata piano: "Cosa ti aspetta" con stima in posizioni e forbice + carattere del piano
+   · Dopo la gara: riga Strategia nel "Perché" con l'effetto in posizioni */
+const SK=1,SOFF=0,PPV=.3;
+const posTxt=n=>{const r=Math.round(n);return r>=1?'+'+r+(r===1?' posizione':' posizioni'):r<=-1?'−'+(-r)+(r===-1?' posizione':' posizioni'):'in linea'};
+const posShort=n=>{const r=Math.round(n);return r>0?'+'+r:r<0?'−'+(-r):'0'};
+
+/* ---- scala dell'effetto del piano: una sola volta per conferma ---- */
+let _inPB=false;
+{const _cb=choosePlanB;choosePlanB=function(){
+  _inPB=true;
+  let r;try{r=_cb.apply(this,arguments)}finally{_inPB=false}
+  try{plScale(S.sw)}catch(x){}
+  return r;
+}}
+{const _cp=choosePlan;choosePlan=function(){
+  const r=_cp.apply(this,arguments);
+  if(!_inPB){try{plScale(S.sw)}catch(x){}}
+  return r;
+}}
+{const _au=autoPlan;autoPlan=function(){
+  const r=_au.apply(this,arguments);
+  try{plScale(r)}catch(x){}
+  return r;
+}}
+function plScale(s){
+  if(!s||s.v==null||s.sk)return;
+  /* riferimenti per la revisione: piano medio e migliore del weekend (valori reali, stessa scala) */
+  try{
+    const w=S.wk,ks=planKeys(),tb=mf()>=70?.5:mf()<=30?-.5:0;
+    const vs=ks.map(k=>{const useW=winAvail()&&winPlan(k);const ws=useW?WINS:[null];let b=-99;ws.forEach(win=>{const fr=clamp(fitReal(k,w)+winReal(win,k,w),0,1.1);b=Math.max(b,(fr-PCV)*KD())});return b}).sort((a,b)=>b-a);
+    s.vb=Math.round((vs[0]*SK+SOFF)*10)/10;
+    s.vm=Math.round((vs[Math.floor(vs.length/2)]*SK+SOFF)*10)/10;
+  }catch(x){}
+  s.v=Math.round((s.v*SK+SOFF)*10)/10;
+  s.sk=1;
+}
+
+/* ---------- stato del piano durante la gara (usa il piano vivo del gioco: rc.pl) ---------- */
+/* il piano vivo ora vale in tutte le categorie */
+function plvOn(){try{const s=S.sw,w=S.wk;if(w&&w.rain)return false;const rl=S.rc&&S.rc.rl;if(rl&&rl.v===2&&rl.done&&!rl.stay)return false;return !!(s&&w&&!s.auto&&PLV_OKK.includes(s.k))}catch(e){return false}}
+const tkLeft=rc=>Math.max(0,1-(((rc&&rc.pl&&rc.pl.log)||[]).length));
+function pbState(){
+  if(!plvOn())return null;
+  const rs=nxRs();if(!rs)return null;
+  const cfg=plvCur(),e=cfg.e||[],T=rs.T,lap=plvLap(rs.n),t=tyT();
+  const j=e.filter(x=>x<lap).length,next=j<e.length?e[j]:null;
+  return{rs,cfg,T,lap,t,next,ratio:rs.ratio,ratioE:rs.ratioE,age:rs.age,stops:e.length,canAdd:e.length<TY.stops[t][1],mn:TY.min[t],n:rs.n};
+}
+const pbChg=(spec,n)=>{try{return !!(spec&&spec.length&&plvOn()&&plvRev(S.wk,plvCur(),spec,plvLap(n)).changed)}catch(x){return false}};
+/* le scelte dell'evento Piano B: B = rientra ora, C = sosta in più (o allunga se non è più possibile) */
+function pbSpec(i,n){
+  if(i===1){let st=null;try{st=pbState()}catch(x){}return(st&&st.next==null)?['extra']:['now']}
+  if(i===2){let st=null;try{st=pbState()}catch(x){}if(st&&st.next==null)return['late',1];return pbChg(['extra'],n)?['extra']:['late',1]}
+  return[];
+}
+Object.defineProperty(PLV_MAP,'pb',{enumerable:true,configurable:true,get(){
+  const rc=S.rc,k=rc&&rc.pk,n=(k&&k.ev==='pb'&&!k.pd)?k.n:(rc?rc.n:1);
+  return[[],pbSpec(1,n),pbSpec(2,n)];
+}});
+{const _ao=actOpts;actOpts=function(e,n){
+  const O=_ao.apply(this,arguments);
+  try{
+    const rc=S&&S.rc;if(!rc||!O||!e)return O;
+    if(e.id==='pb')pbOptsFix(O,n);
+    const map=PLV_MAP[e.id];if(!map||!plvOn())return O;
+    const tk=tkLeft(rc);
+    O.forEach((o,i)=>{
+      if(o.pbd!=null||o.tr)return;
+      if(!pbChg(map[i],n))return;
+      o.pbc=1;
+      if(tk<1){o.pbd=1;o.mod=o.mod*.65;o.risk=o.risk+.012}else o.pbd=0;
+    });
+  }catch(x){}
+  return O;
+}}
+{const _ap=actPick;actPick=function(i){
+  try{
+    const rc=S&&S.rc,e=rc&&ACTS[rc.ev];
+    if(e){const O=actOpts(e,rc.n),o=O&&O[i];if(o&&o.pbc)rc.pbm=1}
+  }catch(x){}
+  return _ap.apply(this,arguments);
+}}
+
+/* ---------- evento: finestra box (Piano B) ---------- */
+const PBX=[
+ {t:'Tieni il piano',d:'Resti sul programma di gara: la sosta resta dov\'era prevista.',mod:.9,risk:.01,out:'Hai tenuto il piano gara.'},
+ {t:'Rientra ora',d:'Anticipi i box: gomme nuove adesso, aria pulita dopo.',mod:1.1,risk:.02,out:'Hai anticipato la sosta.'},
+ {t:'Aggiungi una sosta',d:'Box adesso e una sosta in più: gomme fresche per attaccare nel finale.',mod:1.25,risk:.035,out:'Hai cambiato piano: una sosta in più.'}];
+function pbOptsFix(O,n){
+  const o1=O[1],o2=O[2];
+  if(o2&&!o2.pbn){
+    o2.pbn=1;
+    if(!pbChg(['extra'],n)){
+      if(pbChg(['late',1],n)){o2.t='Allunga fino al traguardo';o2.d='Spingi la sosta più in là: giochi tutto sulla tenuta delle gomme.';o2.mod=1.05;o2.risk=.03;o2.ty=1;o2.out='Hai allungato lo stint.'}
+      else{o2.t='Resta in pista';o2.d='Non c\'è più margine per altre soste.';o2.mod=1.0;o2.risk=.02;o2.out='Sei rimasto in pista.'}
+    }
+  }
+  if(o1&&!o1.pbn){o1.pbn=1;let st=null;try{st=pbState()}catch(x){}if(st&&st.next==null&&pbChg(['extra'],n)){o1.t='Fermati ai box';o1.d='Non avevi soste in programma: ne fai una adesso per gomme fresche.';o1.mod=1.15;o1.risk=.025;o1.out='Hai aggiunto una sosta.'}else if(!pbChg(['now'],n)){o1.d='La sosta è già al momento giusto: non cambia nulla.';o1.mod=Math.min(o1.mod,.9)}}
+}
+const PB_EV={id:'pb',a:[1,2],t:'Finestra box · Piano B',
+  cond:w=>{
+    if(!S.sw||w.rain||w.sur)return false;
+    const s=pbState();if(!s)return false;
+    if(s.n===1&&s.next!=null&&Math.abs(s.next-s.lap)<=Math.max(4,Math.round(s.T*.2)))return true;
+    if(s.ratio>=.9&&(s.next!=null||(s.canAdd&&pbChg(['extra'],s.n))))return true;
+    return false;
+  },
+  wt:w=>{const s=pbState();if(!s)return 0;let v=(s.n===1&&s.next!=null&&Math.abs(s.next-s.lap)<=Math.max(3,Math.round(s.T*.15)))?16:2;if(s.ratio>=.95)v+=6;return v},
+  x:()=>{
+    const s=pbState();if(!s)return 'La finestra dei box è aperta.';
+    const g=rsWord(s.ratioE),tk=tkLeft(S.rc);
+    const a=s.next!=null?`Sei al giro ${s.lap}: la sosta è prevista al giro ${s.next}.`:`Sei al giro ${s.lap}: non hai altre soste in programma.`;
+    return `${a} Gomme ${g}${s.age!=null?' ('+s.age+' giri)':''}. ${tk>0?'Puoi cambiare piano usando il gettone del Piano B.':'Il gettone del Piano B è già stato usato: cambiare ancora costa di più.'}`;
+  },
+  o:PBX,
+  ctx:w=>{
+    const s=pbState();if(!s)return[1,2];
+    const r=s.ratio,ov=w.ovt==null?1:w.ovt,two=pbChg(['extra'],s.n),near=s.next!=null&&s.next-s.lap<=Math.max(2,Math.round(s.T*.1));
+    if(r>=.95)return[1,0];
+    if(r>=.8)return near?[1,2]:[0,1];
+    if(r>=.6)return(ov===2&&two)?[2,1]:[0,2];
+    return ov===0?[0,1]:[0,2];
+  }};
+ACTL.push(PB_EV);ACTS.pb=PB_EV;
+
+/* ---------- scheda del piano in gara ---------- */
+const CPC={S:'#e0242c',M:'#f4c20d',H:'#d9dde6',I:'#1fa34a',W:'#2563eb'};
+function planPost(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||!S.rc||S.phase!=='act')return;
+    const rc=S.rc;if(app.querySelector('.plc'))return;
+    const st=pbState();if(!st)return;
+    const anchor=app.querySelector('.spc')||app.querySelector('.sitc');if(!anchor)return;
+    const {cfg,T,lap}=st,e=cfg.e||[],bounds=[0,...e,T];
+    const pc=v=>(v/T*100).toFixed(1);
+    const segs=cfg.c.map((c,j)=>`<i class="sg" style="left:${pc(bounds[j])}%;width:${pc(bounds[j+1]-bounds[j])}%;background:${CPC[c]||'#999'}"></i>`).join('');
+    const pits=e.map(x=>`<i class="pit" style="left:${pc(x)}%"><b>${x}</b></i>`).join('');
+    const ats=[1,Math.max(2,Math.round(T*.45)),Math.round(T*.85)].map((x,i)=>`<span class="at${rc.n===i?' on':''}" style="left:${pc(Math.min(x,T))}%">Atto ${i+1}</span>`).join('');
+    const nm=e.length===0?'nessuna sosta':e.length===1?'una sosta':e.length+' soste';
+    const tk=tkLeft(rc),rev=rc.pl&&rc.pl.log.length;
+    let line;
+    if(st.next!=null){const d=st.next-lap;line=`<b>Prossima sosta al giro ${st.next}</b> · ${d<=0?'adesso':d===1?'tra 1 giro':'tra '+d+' giri'}.`}
+    else line='<b>Nessun\'altra sosta in programma.</b>';
+    line+=` Gomme ${rsWord(st.ratioE)}${st.age!=null?' ('+st.age+' giri)':''}.`;
+    if(rev)line+=` <em>Piano B attivo: ${esc(plvTxt(rc.pl.init))} → ${esc(plvTxt(cfg))}.</em>`;
+    const card=document.createElement('div');card.className='plc';
+    card.innerHTML=`<div class="plh"><small>Il tuo piano · ${nm}</small><span class="tok${tk?'':' off'}"><i></i>${tk?'Piano B · 1 gettone':'Gettone usato'}</span></div><div class="tl"><i class="ln"></i>${segs}${pits}<i class="now" style="left:${pc(Math.min(lap,T))}%"></i>${ats}</div><p class="plx">${line}</p>`;
+    anchor.parentNode.insertBefore(card,anchor.nextSibling);
+    app.querySelectorAll('.chip.plvc').forEach(x=>x.remove());
+  }catch(x){}
+}
+/* chip del gettone sulle opzioni che cambiano il piano */
+function pbChips(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||!S.rc||S.phase!=='act')return;
+    const rc=S.rc,e=ACTS[rc.ev];if(!e)return;
+    const O=actOpts(e,rc.n);
+    app.querySelectorAll('.opts>.ch[data-act=ac]').forEach(ch=>{
+      if(ch.dataset.pbk)return;ch.dataset.pbk='1';
+      const o=O[+ch.dataset.i];if(!o||!o.pbc)return;
+      const host=ch.querySelector('.omt')||ch.querySelector('.tags')||ch.querySelector('.cb');if(!host)return;
+      const sp=document.createElement('span');
+      sp.className='spk '+(o.pbd?'x':'c');sp.textContent=o.pbd?'Gettone esaurito':'Piano B · gettone';
+      host.appendChild(sp);
+    });
+  }catch(x){}
+}
+
+/* ---------- schermata del piano: stima live ---------- */
+function fitSpread(k,w){
+  const d=S.diff==null?1:S.diff,kn=w.kn;
+  const W=kn.wear?[w.wear]:w.vw,O=kn.ovt?[w.ovt]:(d===2&&!(w.wd&&w.wd.ovt===1))?[0,1,2]:w.vo,SS=kn.sc?[w.sck]:(d===2&&!(w.wd&&w.wd.sc===1))?[0,1,2]:w.vs;
+  const s=SS.reduce((a,i)=>a+SCP[i],0)/SS.length,pr=w.rp/100,pm=w.rp<60?.5:0;
+  const priI=[[0,1-(w.rp>=70?.5:w.rp>=45?.35:.22)],[1,w.rp>=70?.5:w.rp>=45?.35:.22]],priT=[['keep',.52],['stop',.22],['worse',.26]];
+  let R=[];
+  if(kn.rain){
+    if(!w.rain)R=[[false,false,1,0,'keep']];
+    else if(w.mixed)R=[[true,true,1,0,'stop']];
+    else{const ri=w.wx?w.wx.ri:0;const T=w.wxh?priT.map(x=>[x[0],x[0]===w.wxh?.7:.15]):priT;T.forEach(t=>R.push([true,false,t[1],ri,t[0]]))}
+  }else{
+    R.push([false,false,1-pr,0,'keep']);
+    priI.forEach(i=>priT.forEach(t=>R.push([true,false,pr*(1-pm)*i[1]*t[1],i[0],t[0]])));
+    R.push([true,true,pr*pm,0,'stop']);
+  }
+  const pts=[];
+  for(const wr of W)for(const ov of O)for(const [rn,mx,p,ri,rt] of R){
+    if(p<=0)continue;
+    pts.push([planFit(k,{rain:rn,mixed:mx,wear:wr,ta:w.ta,ovt:ov,gp:w.gp,N:w.N,s,rv:w.rv,rvk:kn.rv?w.rv:null,ri,rt}),p/(W.length*O.length)]);
+  }
+  pts.sort((a,b)=>a[0]-b[0]);
+  const tot=pts.reduce((a,x)=>a+x[1],0)||1;let c=0,lo=pts[0][0],hi=pts[pts.length-1][0],mean=0;
+  pts.forEach(x=>{mean+=x[0]*x[1]/tot});
+  for(const x of pts){c+=x[1]/tot;if(c>=.1){lo=x[0];break}}
+  c=0;for(const x of pts){c+=x[1]/tot;if(c>=.9){hi=x[0];break}}
+  return{mean,lo,hi};
+}
+/* valutazione di una configurazione (non tocca lo stato) */
+function planEval(w,b){
+  b=b||bInit(w);
+  let k,win,fe,dE=0,rk,sts=null,cfg=null;
+  if(b.m==='b'){
+    cfg=cp3(b);const kk=tyKey(cfg);k=kk.k;win=kk.win;dE=tyDelta(w,cfg,false);
+    fe=clamp(fitEV(k,w)+winEVNW(win,w)+dE,0,1.1);
+    sts=bStints(w,cfg);
+  }else{
+    k=b.m;win=(winAvail()&&winPlan(k))?(w.win||'std'):null;
+    fe=clamp(fitEV(k,w)+winEV(win,k,w),0,1.1);
+  }
+  const sp=fitSpread(k,w);
+  const sh=(sp.mean===0?0:0);
+  rk=({soft:.02,under:.01,inter:w.rain?0:.03,wet:w.rain?0:.04,one:0,two:0,over:0,safe:0})[k]||0;
+  if(fe<.3)rk+=.02;
+  const spreadF=(sp.hi-sp.lo)/2;
+  return{k,win,fe,rk,sts,cfg,spread:spreadF,lo:fe-(sp.mean-sp.lo)+0,hi:fe+(sp.hi-sp.mean)};
+}
+function planRef(w){
+  /* piano medio fra quelli disponibili (stessa informazione del giocatore) */
+  const ks=planKeys().filter(k=>k!=='safe'),vs=ks.map(k=>{const useW=winAvail()&&winPlan(k);return clamp(fitEV(k,w)+(useW?0:0),0,1.1)}).sort((a,b)=>a-b);
+  return vs[Math.floor(vs.length/2)];
+}
+const fe2pos=(fe,ref)=>(fe-ref)*KD()*SK*PPV;
+function planAlts(w,cur,ref){
+  const out=[],b0=bInit(w);
+  if(b0.m!=='b')return out;
+  const t=tyT(),sv=JSON.stringify(w.b);
+  const tryIt=(label,fn)=>{
+    try{w.b=JSON.parse(sv);fn();if(tyOk(w.b).length)return;const ev=planEval(w,w.b);out.push({label,d:fe2pos(ev.fe,ref)-fe2pos(cur.fe,ref)})}catch(x){}finally{w.b=JSON.parse(sv)}
+  };
+  const n=b0.c.length-1;
+  if(n+1<=TY.stops[t][1])tryIt(n+1===1?'Con 1 sosta':'Con '+(n+1)+' soste',()=>bStops(w,n+1));
+  if(n-1>=TY.stops[t][0])tryIt(n-1===0?'Senza soste':'Con '+(n-1)+(n-1===1?' sosta':' soste'),()=>bStops(w,n-1));
+  TY.cps[t].filter(c=>c!==b0.c[0]).forEach(c=>tryIt('Gomme '+(TYN[c]||c)+' al via',()=>bCompoundSet(w,0,c)));
+  return out;
+}
+const lvPass=g=>g>=.8?'Ottimo':g>=.55?'Buono':g>=.3?'Discreto':'Debole';
+const lvRisk=r=>r<.012?'Basso':r<.03?'Medio':'Alto';
+function planProfiles(w,ref){
+  const ks=planKeys().filter(k=>k!=='safe'&&!isRn(k));
+  if(w.rain)planKeys().filter(isRn).forEach(k=>ks.push(k));
+  const L=ks.map(k=>{const win=(winAvail()&&winPlan(k))?'std':null;const fe=clamp(fitEV(k,w)+(win?winEV(win,k,w):0),0,1.1);const sp=fitSpread(k,w);return{k,fe,s:(sp.hi-sp.lo)/2,lo:fe-(sp.mean-sp.lo),hi:fe+(sp.hi-sp.mean)}});
+  if(L.length<3)return null;
+  L.sort((a,b)=>a.s-b.s);
+  const n=L.length,g=[L.slice(0,Math.ceil(n/3)),L.slice(Math.ceil(n/3),Math.ceil(2*n/3)),L.slice(Math.ceil(2*n/3))];
+  const best=a=>a.reduce((m,x)=>(!m||x.fe>m.fe)?x:m,null);
+  return[['Prudente','meno rischi',best(g[0])],['Equilibrato','la via di mezzo',best(g[1])||best(g[0])],['Audace','tutto o niente',best(g[2])||best(g[1])]];
+}
+function obPx(o,w,shift,sd){
+  const N=mkN(),ef=clamp(obEf(w)-shift,1,N),dn=.09,g=w&&w.gpx?w.gp:Math.round(ef);
+  const lt=n=>nCdf((n+.5-ef)/sd)*(1-dn);
+  switch(o.k){
+    case 'top':return lt(o.n);case 'pod':return lt(3);case 'win':return lt(1);case 'pts':return lt(10);
+    case 'rim':{const need=Math.min(o.n,Math.max(0,g-1));return lt(g-need)}
+  }
+  return null;
+}
+function stratPost(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||S.phase!=='strat'||!S.wk)return;
+    if(app.querySelector('.pk'))return;
+    const bt=[...app.querySelectorAll('button')].find(x=>/Conferma la strategia/.test(x.textContent));if(!bt)return;
+    const dock=bt.parentNode,w=S.wk,b=bInit(w);
+    const ev=planEval(w,b),ref=planRef(w);
+    const pos=fe2pos(ev.fe,ref),band=(ev.hi-ev.lo)/2*KD()*SK*PPV;
+    const ks=planKeys().filter(k=>k!=='safe'),fes=ks.map(k=>clamp(fitEV(k,w),0,1.1)),mn=Math.min(...fes),mx=Math.max(...fes);
+    const g=mx>mn?(ev.fe-mn)/(mx-mn):.5;
+    const t=tyT();
+    let tyW=50,tyL='—';
+    if(ev.sts){const st=Math.max(...ev.sts.map(s=>s.st));tyW=[40,78,100][st];tyL=STN[st]==='Gestita'?'Gestite':STN[st]==='Al limite'?'Al limite':'Oltre il limite'}
+    const stops=ev.cfg?ev.cfg.c.length-1:null;
+    const pitL=stops==null?'—':stops===0?'Nessuna sosta':stops===1?'1 sosta':stops+' soste';
+    const pitW=stops==null?50:100-stops*28;
+    const rl=lvRisk(ev.rk);
+    const half=6;/* scala della barra: ±6 posizioni */
+    const X=v=>(50+clamp(v,-half,half)/half*50).toFixed(1);
+    const bar=(l,v,w2,c)=>`<div class="m"><span>${l}<b>${v}</b></span><i><u${c?' class="'+c+'"':''} style="width:${Math.max(6,Math.min(100,w2))}%"></u></i></div>`;
+    /* alternative rapide */
+    let alts='';
+    if(b.m==='b'){
+      const A=planAlts(w,ev,ref).sort((a,b)=>b.d-a.d);
+      const up=A.find(x=>x.d>=.5),dn=[...A].reverse().find(x=>x.d<=-.5);
+      if(up)alts+=`<span class="p">${up.label}: ${posTxt(up.d)}</span>`;
+      if(dn)alts+=`<span class="n">${dn.label}: ${posTxt(dn.d)}</span>`;
+    }
+    /* carattere del piano */
+    let prof='';
+    const P=planProfiles(w,ref);
+    const sel=w.ob&&w.ob.sel>=0?w.ob.o[w.ob.sel]:null;
+    const o0=sel||{k:'pts'};
+    const sdBase=OBS;
+    if(P){
+      const cur=P.reduce((m,x,i)=>(m<0||Math.abs(x[2].fe-ev.fe)<Math.abs(P[m][2].fe-ev.fe))?i:m,-1);
+      const act=(b.m==='b'&&b.pk)?P.findIndex(x=>x[2].k===b.pk):-1;
+      const on=act>=0?act:cur;
+      const btns=P.map((x,i)=>`<button type="button" data-pf="${x[2].k}" class="${i===on?'on':''}"><span>${x[0]}</span><small>${x[1]}</small></button>`).join('');
+      const rows=P.map((x,i)=>{
+        const p=fe2pos(x[2].fe,ref),lo=fe2pos(x[2].lo,ref),hi=fe2pos(x[2].hi,ref);
+        return `<div class="row${i===on?' sel':''}"><span>${x[0]}</span><div class="bar"><u style="left:${X(lo)}%;width:${Math.max(3,X(hi)-X(lo)).toFixed(1)}%"></u><i style="left:${X(p)}%"></i></div><b>${posShort(p)}</b></div>`;
+      }).join('');
+      let ob='';
+      const pr=P.map(x=>{const p=fe2pos(x[2].fe,ref),sdp=Math.sqrt(sdBase*sdBase+Math.pow((x[2].hi-x[2].lo)/2*KD()*SK*PPV/1.28,2));return{p:obPx(o0,w,p,sdp),out:obPx({k:'pts'},w,p,sdp)}});
+      if(pr[0].p!=null){
+        const q=pr.map(x=>Math.round(x.p*100));
+        const outP=Math.round((1-pr[2].out)*100);
+        ob=`<div class="ob"><b>${esc(sel?sel.t:'Vai a punti')}.</b> <em>${P[0][0]} ${q[0]} volte su 100, ${P[1][0].toLowerCase()} ${q[1]}, ${P[2][0].toLowerCase()} ${q[2]}${o0.k!=='pts'?'':''}. Con il piano audace ${outP>=15?'1 volta su '+Math.max(2,Math.round(100/Math.max(1,outP)))+' chiudi fuori dai punti':'il rischio di restare fuori dai punti resta basso'}.</em></div>`;
+      }
+      prof=`<div class="pr">${btns}</div><div class="rg">${rows}</div><div class="sc2"><span>−${half}</span><span>0</span><span>+${half}</span></div>${ob}`;
+    }
+    const kn=w.kn||{},ninfo=(kn.wear?1:0)+(kn.ovt?1:0)+(kn.rain?1:0)+(kn.sc?1:0);
+    const rel=ninfo>=3?'alta':ninfo>=1?'media':'bassa';
+    const card=document.createElement('div');card.className='pk';
+    card.innerHTML=`<div class="h"><small>Cosa ti aspetta con questo piano</small><em>affidabilità ${rel}</em></div>
+<div class="g">${bar('Passo di gara',lvPass(g),g*100,g<.3?'r':g<.55?'a':'')}${bar('Gomme a fine gara',tyL,tyW,tyW>=100?'r':tyW>=70?'a':'')}${bar('Tempo ai box',pitL,pitW,'')}${bar('Rischio',rl,rl==='Basso'?25:rl==='Medio'?55:85,rl==='Alto'?'r':rl==='Medio'?'a':'')}</div>
+<div class="ef"><div class="t"><span>Effetto sull'arrivo (rispetto a un piano medio)</span><b>${posTxt(pos)}</b></div>
+<div class="sc"><div class="band" style="left:${X(pos-band)}%;width:${Math.max(4,X(pos+band)-X(pos-band)).toFixed(1)}%"></div><div class="mk" style="left:${X(pos)}%"></div></div>
+<div class="sc2"><span>−${half}</span><span>0</span><span>+${half}</span></div></div>
+${alts?`<div class="alt">${alts}</div>`:''}
+${prof?`<div class="cf"><small>Carattere del piano</small>${prof}</div>`:''}
+<p class="nt">Cambia soste, mescole e guida e la stima si aggiorna subito. Più dati hai (prove libere, meteo, muretto), più la forbice si stringe.</p>`;
+    dock.parentNode.insertBefore(card,dock);
+  }catch(x){}
+}
+if(!window.__pfBound){
+  window.__pfBound=1;
+  document.addEventListener('click',ev=>{
+    try{
+      const b=ev.target.closest&&ev.target.closest('[data-pf]');if(!b)return;
+      ev.preventDefault();ev.stopPropagation();
+      if(S&&S.wk&&bAct('bpre',0,b.dataset.pf)){}
+    }catch(x){}
+  },true);
+}
+
+/* ---------- riga "Strategia" nel Perché ---------- */
+{const _dr=doRace;doRace=function(opt){
+  const s=S.sw;
+  const snap=s?{k:s.k,v:s.v,vm:s.vm,vb:s.vb,best:s.best,vd:s.vd,pbn:s.pbn||0,st:(s.cfg?s.cfg.c.length-1:null),c:(s.cfg?s.cfg.c.slice():null)}:null;
+  const r=_dr.apply(this,arguments);
+  try{if(snap&&S.last)S.last.sp2=snap}catch(x){}
+  return r;
+}}
+function stratRowHtml(L){
+  const q=L&&L.sp2;if(!q||q.v==null)return '';
+  const vm=q.vm!=null?q.vm:q.v,pos=(q.v-vm)*PPV;
+  const pk=PL.find(p=>p.k===q.k),nm=pk?plV(pk).n.split(' · ')[0]:'Piano';
+  const vd=q.vd!=null?({Perfetta:'perfetto',Buona:'buono',Discutibile:'discutibile',Sbagliata:'sbagliato'})[VD[q.vd][0]]||VD[q.vd][0].toLowerCase():'';
+  const bestN=q.best&&q.best!==q.k?(()=>{const bp=PL.find(p=>p.k===q.best);return bp?plV(bp).n.split(' · ')[0]:''})():'';
+  let t=`${esc(nm)}: piano <b>${esc(vd)}</b>.`;
+  if(q.vb!=null&&q.vb-q.v>=1.5&&bestN)t+=` Il migliore era «${esc(bestN)}».`;
+  if(q.pbn)t+=' Hai usato il Piano B.';
+  const n=Math.round(pos);
+  return `<div class="wr"><small>Strategia</small><span>${t}</span>${n!==0?`<b class="${n>0?'u':'d'}">${n>0?'+':'−'}${Math.abs(n)}</b>`:''}</div>`;
+}
+function whyRow(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||!S.last||!S.last.sp2)return;
+    const wh=app.querySelector('.whc');if(!wh||wh.dataset.strat)return;
+    wh.dataset.strat='1';
+    const sech=wh.querySelector('.sech');if(!sech)return;
+    const h=stratRowHtml(S.last);if(!h)return;
+    sech.insertAdjacentHTML('afterend',h);
+  }catch(x){}
+}
+{const _u=uiPost;uiPost=function(){
+  const r=_u.apply(this,arguments);
+  planPost();pbChips();stratPost();whyRow();alignR();
+  try{if(typeof fitDesk==='function')fitDesk();alignR();if(typeof podFill==='function')podFill()}catch(x){}
+  return r;
+}}
+
+/* desktop: in tutte le schermate del weekend la colonna di destra parte alla stessa altezza della prima scelta a sinistra */
+function alignR(){
+  try{
+    const R=document.querySelector('.pane.dsk>.dR');
+    if(R)R.style.marginTop='';
+    if(typeof wideDesk!=='function'||!wideDesk()||!R)return;
+    const pane=R.parentNode,L=pane.querySelector(':scope>.dL');if(!L||!R.children.length)return;
+    const first=[...L.children].find(c=>!c.classList.contains('ph')&&c.offsetHeight>0);if(!first)return;
+    const off=Math.round(first.getBoundingClientRect().top-R.getBoundingClientRect().top);
+    if(off<=8)return;
+    const bottom=R.getBoundingClientRect().top+off+R.offsetHeight;
+    if(bottom<=window.innerHeight+120||bottom<=L.getBoundingClientRect().bottom+60)R.style.marginTop=off+'px';
+  }catch(e){}
+}
+try{window.addEventListener('resize',()=>{alignR()})}catch(e){}
+
+/* il piano vivo ora vale in tutte le categorie: in F4/F3 il suo effetto è ridotto (equilibrio carriera) */
+{const _pa=plvApply;plvApply=function(){
+  const rc=S&&S.rc,m0=rc&&rc.mod,n0=(rc&&rc.pl&&rc.pl.log)?rc.pl.log.length:0;
+  const r=_pa.apply(this,arguments);
+  try{
+    if(rc&&(S.tier|0)<2&&rc.pl&&rc.pl.log.length>n0){
+      const l=rc.pl.log[rc.pl.log.length-1],dm=rc.mod-m0;
+      rc.mod=m0+dm*.4;l.d=Math.round(l.d*.4*100)/100;
+    }
+  }catch(x){}
+  return r;
+}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
