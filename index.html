@@ -1536,7 +1536,7 @@ body.dtight2 .pane.dsk>.dL>.rmc .rmap{max-height:120px}
 .plc .tl{height:46px}.plc .tl .at{top:34px}.plc .tl .now{z-index:2}
 /* v32 qualifica semplice */
 .pane.p-quali .ph p{display:none}
-body.cpt .pane.p-quali .ch.cmpc .inf{display:flex}
+body.cpt .pane.p-quali .ch.cmpc .inf{display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
 body.cpt .pane.p-quali .ch.cmpx:not(.open) .od{display:none}
 .qdc.qpc:not(.qpo)>.qty.qd,.qdc.qpc:not(.qpo)>.qdt,.qdc.qpc:not(.qpo)>.sub{display:none}
 .qpw .qpi{margin:0 0 8px;font:500 12.5px/1.35 var(--body);color:var(--mut)}
@@ -1559,7 +1559,7 @@ body.cpt .pane.p-quali .ch.cmpx:not(.open) .od{display:none}
 .qpp{align-items:stretch}.qpp button{justify-content:flex-start;height:auto}
 /* v33 F1: prove libere e classifica live compatte, confronto dei caratteri a scomparsa */
 @media(min-width:1000px){
-body.cpt .pane.p-fp .ch.cmpc .inf,body.cpt .pane.p-qlive .ch.cmpc .inf{display:flex}
+body.cpt .pane.p-fp .ch.cmpc .inf,body.cpt .pane.p-qlive .ch.cmpc .inf{display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
 body.cpt .pane.p-fp .ch.cmpx:not(.open) .od,body.cpt .pane.p-qlive .ch.cmpx:not(.open) .od{display:none}
 }
 .pk .pkd>summary{cursor:pointer;list-style:none;font:700 11.5px var(--body);color:var(--mut);display:flex;justify-content:space-between;padding:2px 0}
@@ -1621,6 +1621,41 @@ body.cpt .pane.p-fp .ch.cmpx:not(.open) .od,body.cpt .pane.p-qlive .ch.cmpx:not(
 .gsc.on{background:var(--yellow);color:var(--yellow-ink)}.gsc.on b{color:var(--yellow-ink)}
 .gsc.hf b{color:var(--amber)}
 .ph .trkl{margin-top:4px;font-size:12px;line-height:1.4;color:var(--mut)}
+
+/* v36 · la "i" sta sempre al centro del suo cerchio */
+.cpt .ch.cmpc .inf{display:flex;align-items:center;justify-content:center;line-height:1;padding:0;box-sizing:border-box;font-size:12px}
+
+/* v37 · niente testo fuori dai riquadri */
+.cpt .sgr.c4{display:flex;gap:5px}
+.cpt .sgr.c4 .sc{flex:1 1 auto;min-width:0;padding:7px 7px}
+.cpt .sgr.c4 .sc b{white-space:normal;font-size:13.5px;line-height:1.15}
+.cpt .sgr.c4 .sc small{white-space:nowrap}
+.hero small{overflow-wrap:anywhere;min-width:0}
+.hero{min-width:0}
+@media(max-width:360px){.pfh .pfc{font-size:11px}.pfh{gap:6px}}
+.hero small,.cl .hero small{white-space:normal;text-overflow:clip;overflow:visible}
+@media(max-width:360px){.hero small{font-size:11.5px}}
+
+/* v38 · weekend più leggeri */
+.stoff{display:none!important}
+.stsel{display:flex;gap:6px;margin:0 0 8px}
+.stsel button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;border:1.5px solid var(--line);background:var(--panel);color:var(--fg);border-radius:12px;padding:6px 4px;font-family:var(--body);cursor:pointer}
+.stsel .sk{display:flex;align-items:center;gap:5px}.stsel .sk b{font:800 15px var(--display)}.stsel .sk .cp{margin:0}
+.stsel small{font:600 10.5px var(--body);color:var(--mut);white-space:nowrap}
+.stsel button.on{background:var(--btn-bg);border-color:var(--btn-bg);color:var(--btn-fg,#fff)}.stsel button.on small{color:inherit;opacity:.8}
+.pk .cf .cfh{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:9px 0 3px;margin-top:6px;font-family:var(--body);color:var(--fg);text-align:left;cursor:pointer}
+.pk .cf .cfh span{font:700 11px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.pk .cf .cfh b{margin-left:auto;font:800 13px var(--body)}
+.pk .cf .cfh i{flex:none;width:8px;height:8px;border-right:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s}
+.pk .cf .cfh.open i{transform:rotate(-135deg) translate(-2px,-2px)}
+.pk .cf>small{display:none}
+.pk .cf:not(.cfo)>.pr,.pk .cf:not(.cfo)>.ob,.pk .cf:not(.cfo)>.pkd{display:none}
+.grp .brf>.nts.mrg{border:0;box-shadow:none;border-top:1px solid var(--line);border-radius:0;background:none;margin:0}
+.grp .brf:not(.open)>.nts.mrg{display:none}
+.grp .brf>.nts.mrg .ntb{display:none}
+.grp .brf>.nts.mrg .ntl{display:block;padding:6px 10px 8px}
+@media(min-width:700px){.stsel button{flex:0 1 130px}}
+.cpt .card.bld>.bsm{margin:2px 0;font-size:12px;line-height:1.35;color:var(--mut)}.cpt .card.bld>.bsm b{color:var(--fg)}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -4442,7 +4477,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 24/10 · 01:21</p></div>`;
+  <p class="foot">Versione 24/10 · 15:48</p></div>`;
 }
 
 function identityView(){
@@ -13472,6 +13507,55 @@ function gsCard(){
   <p class="sub">${n===GSL.length?'Hai completato il Grande Slam.':'Ogni pista ha il suo carattere: vincere nei templi della F1 vale un posto nella storia.'}</p></section>`;
 }
 {const _p=pisteCard;pisteCard=function(){return gsCard()+_p.apply(this,arguments)}}
+/* e7a · schermate weekend più leggere: un solo stint alla volta, carattere del piano a richiesta,
+   note+condizioni in un'unica riga, meno testo ripetuto nelle qualifiche */
+let SIX=0,SIK='',CFO=false;
+{const _a0=act0;act0=function(a,i,v){
+  if(a==='bsi'){SIX=+v||0;KP=true;render();return}
+  if(a==='cfo'){CFO=!CFO;KP=true;render();return}
+  return _a0.apply(this,arguments);
+}}
+function e7Strat(){
+  const b=document.querySelector('.card.bld');if(!b)return;
+  const st=[...b.querySelectorAll(':scope>.bst2')],n=st.length;
+  const key=[S.tier,S.year,S.round].join('|');if(key!==SIK){SIK=key;SIX=0;CFO=false}
+  if(n>=2){
+    if(SIX>=n)SIX=n-1;
+    const btn=st.map((s,i)=>{
+      const dot=(s.querySelector('.bcs.on i.cp')||{outerHTML:''}).outerHTML;
+      const lp=((s.querySelector('.bsl small')||{}).textContent||'').replace(/[()]/g,'');
+      return `<button type="button" data-act="bsi" data-v="${i}" class="${i===SIX?'on':''}" aria-label="Stint ${i+1}"><span class="sk">${dot}<b>${i+1}</b></span><small>giri ${lp}</small></button>`;
+    }).join('');
+    const sel=document.createElement('div');sel.className='stsel';sel.setAttribute('role','group');sel.setAttribute('aria-label','Stint');sel.innerHTML=btn;
+    b.insertBefore(sel,st[0]);
+    st.forEach((s,i)=>{if(i!==SIX)s.classList.add('stoff')});
+  }
+  const bsm=[...b.querySelectorAll(':scope>.bsm')];
+  if(bsm.length>1)bsm.forEach(p=>{if(/^Equivale/.test(p.textContent.trim()))p.classList.add('stoff')});
+  const cf=b.querySelector('.pk .cf');
+  if(cf){
+    const on=cf.querySelector('.pr button.on span'),nm=on?on.textContent:'';
+    const h=document.createElement('button');h.type='button';h.className='cfh'+(CFO?' open':'');h.setAttribute('data-act','cfo');
+    h.innerHTML=`<span>Carattere del piano</span><b>${nm}</b><i></i>`;
+    cf.insertBefore(h,cf.firstChild);
+    cf.classList.toggle('cfo',CFO);
+  }
+  const nt=b.querySelector('.pk>.nt');if(nt)nt.classList.add('stoff');
+}
+function e7Quali(){
+  const p=document.querySelector('.pane.p-quali');if(!p)return;
+  const qpi=p.querySelector('.qpi');if(qpi)qpi.classList.add('stoff');
+  const dg=p.querySelector('.qdg b');if(dg)dg.classList.add('stoff');
+  const qdt=p.querySelector('.qdt');if(qdt&&/nessun bonus/.test(qdt.textContent))qdt.classList.add('stoff');
+  if(!(typeof wideDesk==='function'&&wideDesk())){
+    const g=p.querySelector('.grp'),n=g&&g.querySelector(':scope>.nts'),f=g&&g.querySelector(':scope>.brf');
+    if(n&&f&&!f.contains(n)){n.classList.add('open','mrg');f.appendChild(n)}
+  }
+}
+{const _up=uiPost;uiPost=function(){
+  const r=_up.apply(this,arguments);
+  try{e7Strat();e7Quali();if(typeof wideDesk==='function'&&wideDesk()){try{fitDesk();alignR()}catch(e){}}}catch(e){}
+  return r}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
