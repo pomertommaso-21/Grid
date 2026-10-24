@@ -1570,6 +1570,57 @@ body.cpt .pane.p-fp .ch.cmpx:not(.open) .od,body.cpt .pane.p-qlive .ch.cmpx:not(
 .pk .pkd>.sc2{padding-left:86px;padding-right:38px}
 .qpd.qpr>.card.rnc{border:0;box-shadow:none;background:none;padding:0}
 .qpd.qpr>.card.rnc::before{display:none}
+/* v34 · Media a 3 schede */
+.mdt{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;overflow:visible!important;padding-bottom:0}
+.mdt .ghost{position:relative;padding:10px 6px;font-size:13px;text-align:center;border-radius:10px;white-space:nowrap}
+.mdt .nvd{position:absolute;top:6px;right:10px}
+.mdre{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:10px;padding-top:9px;border-top:1px dashed var(--line)}
+.mdre small{font:700 10.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-right:2px}
+.mdmore{margin-top:8px;align-self:auto}
+.sech.sm{font-size:10.5px;margin:12px 0 2px;opacity:.85}
+.acc{border-top:1px solid var(--line);margin-top:8px}
+.card>.acc:first-child{border-top:0;margin-top:0}
+.acch{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;background:none;border:0;padding:8px 0;font-family:var(--body);color:var(--fg);text-align:left;cursor:pointer}
+.acct{flex:none;font:700 11px var(--body);letter-spacing:.08em;text-transform:uppercase}
+.accs{flex:1;min-width:0;font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.acc.open .accs{display:none}.acc.open .acch{margin-left:0}
+.acc.open .acch .chev{margin-left:auto}
+.accb{padding:0 0 4px}
+.chev{flex:none;width:8px;height:8px;border-right:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s;margin:0 3px 0 2px}
+.acc.open .chev,.ppr.open .chev{transform:rotate(-135deg) translate(-2px,-2px)}
+.ppr{border-top:1px solid var(--line)}.ppr:first-of-type{border-top:0}
+.pph{display:grid;grid-template-columns:32px minmax(0,1fr) auto 14px;gap:10px;align-items:center;width:100%;min-height:48px;background:none;border:0;padding:8px 0;text-align:left;color:var(--fg);font-family:var(--body);cursor:pointer}
+.ppn b{display:block;font:700 13.5px var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ppn small{display:block;font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ppv{display:flex;flex-direction:column;gap:3px;align-items:flex-end;min-width:92px}
+.ppv small{font:600 11px var(--body);color:var(--mut)}
+.ppv .bar{display:block;width:92px;height:5px}
+.ppv.hot .bar i{background:var(--warn)}
+.ppb{padding:0 0 10px 42px;font-size:12.5px;color:var(--mut);line-height:1.45}.ppb p{margin:0 0 4px}
+.ppb .mdm{margin-top:4px}
+.ppr .mdm small{display:block}
+.rup{padding:9px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.4}
+.rup:first-of-type{border-top:0;padding-top:2px}
+.rup>small{display:block;color:var(--mut);font-size:11.5px}
+.rst{display:flex;align-items:center;margin-top:8px;font:700 10.5px var(--body);letter-spacing:.02em}
+.rst .s{display:flex;align-items:center;gap:5px;color:var(--mut);white-space:nowrap}
+.rst .s::before{content:"";width:10px;height:10px;border-radius:50%;border:2px solid var(--line);box-sizing:border-box;flex:none}
+.rst .s.on{color:var(--fg)}.rst .s.on::before{background:var(--fg);border-color:var(--fg)}
+.rst .s.g{color:var(--green)}.rst .s.g::before{background:var(--green);border-color:var(--green)}
+.rst .s.r{color:var(--warn)}.rst .s.r::before{background:var(--warn);border-color:var(--warn)}
+.rst .s.a{color:var(--amber)}.rst .s.a::before{border-color:var(--amber)}
+.rst .l{flex:1;height:2px;background:var(--line);margin:0 6px;min-width:8px}.rst .l.on{background:var(--fg)}
+.fls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:4px 0 2px}.fls .pf.tot{grid-column:1/-1}
+.card>.fls+svg{margin-top:6px}
+@media(min-width:1000px){.mdt{grid-template-columns:repeat(3,170px);justify-content:start}}
+/* v35 · piste con carattere + Grande Slam */
+.trkp{display:block;margin-top:3px;font-size:11.5px;line-height:1.4;color:var(--mut)}.trkp b{color:var(--fg);font-weight:600}
+.gsg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:4px 0 8px}
+.gsc{display:flex;align-items:center;gap:6px;padding:7px 9px;border-radius:10px;background:var(--soft);font:600 12px var(--body);color:var(--mut)}
+.gsc b{font-size:13px;color:var(--mut)}
+.gsc.on{background:var(--yellow);color:var(--yellow-ink)}.gsc.on b{color:var(--yellow-ink)}
+.gsc.hf b{color:var(--amber)}
+.ph .trkl{margin-top:4px;font-size:12px;line-height:1.4;color:var(--mut)}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -2844,7 +2895,7 @@ const PL=[
  {k:'safe',n:'Copia i rivali',c:['M','H'],d:'Segui la strategia dei team davanti a te.'}];
 const VD=[['Perfetta','var(--purple)'],['Buona','var(--green)'],['Discutibile','var(--amber)'],['Sbagliata','var(--warn)']];
 const LT7='ABCDEFG';
-const circ=n=>{const h=hsh(String(n)+'c');return{w:h%3,o:(h>>>3)%3,s:(h>>>6)%3,k:(h>>>9)%3}};
+const circ=n=>{const h=hsh(String(n)+'c'),o={w:h%3,o:(h>>>3)%3,s:(h>>>6)%3,k:(h>>>9)%3};return TRKC(n,o)};
 const mf=()=>S.mf==null?50:S.mf;
 let PCV=.72;
 let KD=()=>[6,8,10][S.diff==null?1:S.diff];
@@ -2862,7 +2913,7 @@ const bestPlan=w=>bpX(w,false);
 const bestReal=w=>bpX(w,true);
 function mkWk(){
   const d=S.diff==null?1:S.diff,name=S.cal[S.round],c=circ(name);
-  const r0=rnd(),rp=Math.round((r0<.55?rnd()*25:r0<.85?25+rnd()*30:55+rnd()*35)/5)*5;
+  const r0=rnd(),rp=TRKRP(name,Math.round((r0<.55?rnd()*25:r0<.85?25+rnd()*30:55+rnd()*35)/5)*5);
   const rain=rnd()*100<rp,mixed=rain&&rp<60&&rnd()<.5;
   const temp=Math.round(17+rnd()*25),ta=temp<=24?-1:temp>=34?1:0,u=clamp(c.w+1+ta,0,4);
   const scp=SCP[c.k],sc=rnd()<scp,N=S.teams.length*2;
@@ -4043,36 +4094,6 @@ function sparkSvg(a){
   const pts=a.map((v,i)=>(i*st).toFixed(1)+','+(H-2-(mx>mn?(v-mn)/(mx-mn):.5)*(H-6)).toFixed(1)).join(' ');
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="var(--yellow)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
 }
-function mediaView(){
-  if(!S.jr||!S.feed.length)return '<p class="empty">Il mondo dei media si accende con la prima gara.</p>';
-  ensureJr();
-  const col=k=>k>0?'green':k<0?'warn':'mut',mt=S.mt||'ov';
-  const tabs=`<div class="btns">${mdTabs().map(x=>`<button class="ghost${mt===x[0]?' on':''}" data-act="mt" data-i="${x[0]}">${x[1]}</button>`).join('')}</div>`;
-  const heat=S.riv?rivLv():0,wx=.4+heat/500,wy=.1+Math.min(.2,S.career.wins/150),wi=Math.max(.1,1-wx-wy);
-  const pf=[['X',wx],['Instagram',wi],['YouTube',wy]].map(p=>`<div class="pf"><b>${fk(S.fol*p[1])}</b><span>${p[0]}</span></div>`).join('');
-  const fh=S.fh||[],tr=fh.length>1?fh[fh.length-1]-fh[fh.length-2]:0;
-  const tl=v=>v>=62?'Ti adora':v>=45?'Neutrale':v>=32?'Scettico':'Ti attacca';
-  let body='';
-  if(mt==='ov'){
-    const top=S.feed.find(x=>x.s==='n'&&!/^Mercato|^Sponsor/.test(x.h));
-    const jc=JR.map(j=>{const v=Math.round(S.jr[j.id]);return `<div class="jr"><div class="sr"><span class="lb">${j.n}<small>${mdOut(j)} · ${j.st}</small></span><em>${v}</em><div class="bar"><i style="width:${v}%"></i></div></div><div class="sub" style="margin-top:-3px">${tl(v)} · ${j.d}</div>${mdMemTxt(j)}</div>`}).join('');
-    const nx=SPN.find(s=>!(S.spn||[]).includes(s[1]));
-    body=poCard()+crCard()+`<section class="card"><div class="sech">Immagine pubblica</div><div class="srs">${srow('Stampa',S.med,'','come ti raccontano')}${srow('Social',S.soc,'','coinvolgimento dei tifosi')}</div>
-    <div class="pfs"><div class="pf tot"><b>${fk(S.fol)}</b><span>follower ${tr?`<em class="${tr>0?'up2':'dn2'}">${tr>0?'▲':'▼'}${fk(Math.abs(tr))}</em>`:''}</span></div>${pf}</div>${sparkSvg(fh)}</section>
-    ${top?`<section class="card fp"><div class="sech">Prima pagina</div><div class="hl" style="color:var(--${col(top.k)})">${['▼','●','▲'][top.k+1]}</div><h2 class="stq">${esc(top.t)}</h2><small class="sub">${esc(top.h)} · ${wkTxt(top.w)}</small></section>`:''}
-    <section class="card"><div class="sech">Sponsor personali</div>${(S.spn||[]).length?`<div class="chips">${S.spn.map(x=>`<span class="chip pt">${esc(x)}</span>`).join('')}</div>`:'<p class="sub">Ancora nessuno sponsor personale.</p>'}${nx?`<p class="sub">Prossimo marchio a ${fk(nx[0])} follower.</p>`:''}</section>
-    <section class="card"><div class="sech">Giornalisti</div>${jc}</section>`;
-  }else if(mt==='nw'){
-    const nf=S.nf||'all',F={all:()=>true,pr:x=>!/^Mercato|^Paddock|^Sponsor/.test(x.h),pd:x=>/^Paddock|^Sponsor/.test(x.h),mk:x=>/^Mercato/.test(x.h)};
-    const items=S.feed.filter(x=>x.s==='n'&&F[nf](x)).slice(0,18).map(x=>`<div class="news"><span style="color:var(--${col(x.k)})">${['▼','●','▲'][x.k+1]}</span> <b>${esc(x.t)}</b><br><small>${esc(x.h)} · ${wkTxt(x.w)}</small></div>`).join('')||'<p class="sub">Niente di nuovo.</p>';
-    body=`<section class="card"><div class="sech">Ultime notizie</div><div class="btns">${[['all','Tutte'],['pr','Stampa'],['pd','Paddock'],['mk','Mercato']].map(x=>`<button class="ghost sm${nf===x[0]?' on':''}" data-act="nf" data-i="${x[0]}">${x[1]}</button>`).join('')}</div>${items}</section>`;
-  }else if(mt==='so'){
-    const av=h=>`<span class="av" style="--c:${['#5a7bd8','#d86a5a','#4eb58a','#c28ad8','#d8a85a'][hsh(h)%5]}">${esc(String(h).replace(/^@/,'').charAt(0).toUpperCase())}</span>`;
-    const po=S.feed.filter(x=>x.s==='s').slice(0,16).map(x=>`<div class="post">${av(x.h)}<div><b>${esc(x.h)}</b> <small>· ${wkTxt(x.w)}</small><div class="pt2">${esc(x.t)}</div>${x.l?`<small class="eng">❤ ${x.l} K · 💬 ${Math.round(x.l*.9+3)} · ↻ ${Math.round(x.l*.5+1)}</small>`:''}</div></div>`).join('')||'<p class="sub">Ancora nessun post.</p>';
-    body=poCard()+`<section class="card"><div class="sech">In tendenza</div><div class="chips">${(S.tags||[S.tag]).filter(x=>x).map(x=>`<span class="chip">${esc(x)}</span>`).join('')||'<span class="sub">Nulla per ora.</span>'}</div></section><section class="card"><div class="sech">Feed</div>${po}</section>`;
-  }else if(mt==='cr')body=crView();else if(mt==='pu')body=puView();else if(mt==='ar')body=arView();else body=mercatoCard();
-  return tabs+body;
-}
 const IMGF="'Bricolage Grotesque','Segoe UI',system-ui,sans-serif";
 let CI='';
 function storyLines(){
@@ -4421,7 +4442,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 23/10 · 17:31</p></div>`;
+  <p class="foot">Versione 24/10 · 01:21</p></div>`;
 }
 
 function identityView(){
@@ -8549,10 +8570,6 @@ function mdTurn2(F,lead,lj){
   crDetect(F);ruGen(F);mdPostGen(F);cfGen(F,lead,lj);mdWorld(F,lead,lj);
 }
 /* ---------------- viste ---------------- */
-function mdDot(){
-  const m=S&&S.md;if(!m)return false;
-  return !!((m.po&&m.po.d==null)||(m.cr&&m.cr.st===0));
-}
 function poCard(){
   const m=S&&S.md,p=m&&m.po;if(!p)return '';
   if(p.d==null)return `<section class="card mdpo"><div class="sech">Cosa pubblichi? <small>dopo ${esc(p.c)}</small></div>${POS[p.cls].map((o,i)=>`<button class="ch" data-act="mdpo" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.l} <em class="tg">${o.t}</em></span><span class="od">${o.x?'«'+esc(o.x)+'»':'Nessun post: lasci parlare la pista.'}</span></span></button>`).join('')}<small class="sub">Puoi anche ignorarlo: il post scade alla prossima gara.</small></section>`;
@@ -13015,6 +13032,446 @@ try{document.addEventListener('click',e=>{
   try{qpPost();emptyNotes();if(typeof alignR==='function')alignR();if(typeof fitDesk==='function')fitDesk();if(typeof alignR==='function')alignR()}catch(x){}
   return r;
 }}
+/* =====================================================================
+   e6c · Media a 3 schede: Oggi · Pubblico · Paddock
+   Solo interfaccia: nessun numero di gioco cambia.
+   - Oggi: prima pagina + "cosa è cambiato" dopo il weekend, notizie con filtri, storico richiudibile
+   - Pubblico: immagine, follower, opinione, social (ultimi 5, senza doppioni)
+   - Paddock: voci su di te come percorso, mercato, persone con rapporto e ricordi
+   - Pallino rosso solo per cose che richiedono una risposta o una voce nuova su di te
+   ===================================================================== */
+const MDT=[['ov','Oggi'],['pu','Pubblico'],['mk','Paddock']];
+const MTMAP={ov:'ov',cr:'ov',nw:'ov',ar:'ov',pu:'pu',so:'pu',mk:'mk'};
+const mtN=()=>MTMAP[S.mt||'ov']||'ov';
+const MO={},MX={nw:0,so:0,ru:0,sto:0};
+const MDKL={me:'Il tuo weekend',win:'La vittoria',mover:'La rimonta',fall:'Il crollo',dnf:'Il ritiro',rain:'Il bagnato',strat:'Il muretto',title:'Il campionato',mate:'In casa',riv:'La rivalità'};
+const mdCol=k=>k>0?'green':k<0?'warn':'mut';
+const mdAr=k=>['▼','●','▲'][k+1];
+{const _a0=act0;act0=function(a,i,v){
+  if(a==='mo'){MO[v]=!MO[v];KP=true;render();return}
+  if(a==='mx'){MX[v]=(MX[v]||0)+1;KP=true;render();return}
+  return _a0.apply(this,arguments);
+}}
+/* istantanea prima di ogni gara: serve a mostrare cosa è cambiato dopo il weekend */
+{const _dr=doRace;doRace=function(){
+  let p=null;
+  try{p={med:S.med,soc:S.soc,fama:S.fama,fol:S.fol,team:S.team,mf:mf()}}catch(e){}
+  const r=_dr.apply(this,arguments);
+  try{if(p&&S&&S.last&&!S.last.sim)S.mpre=p}catch(e){}
+  return r;
+}}
+/* voci su di te: pallino solo quando c'è una novità */
+{const _e=mdEnsure;mdEnsure=function(){
+  const m=_e.apply(this,arguments);
+  if(m.rus===undefined)m.rus=(m.ru&&m.ru[0])?(m.ru[0].id+'|'+m.ru[0].st):'';
+  return m;
+}}
+function mdDotO(){const m=S&&S.md;return !!(m&&((m.po&&m.po.d==null)||(m.cr&&m.cr.st===0)))}
+function mdDotP(){const m=S&&S.md;if(!m||!m.ru||!m.ru.length||m.rus===undefined)return false;const r=m.ru[0];return m.rus!==r.id+'|'+r.st}
+function mdDot(){return mdDotO()||mdDotP()}
+const mdAv=(n,c)=>`<span class="av" style="--c:${c||['#5a7bd8','#d86a5a','#4eb58a','#c28ad8','#d8a85a'][hsh(String(n))%5]}">${esc(String(n).replace(/^[@\s]+/,'').charAt(0).toUpperCase())}</span>`;
+const mdShow=(k,n,tot,lbl)=>tot>n?`<button class="ghost sm mdmore" data-act="mx" data-v="${k}">${lbl||'Mostra altri'}</button>`:'';
+/* accordion semplice: titolo + riassunto, corpo solo se aperto */
+function mdAcc(k,title,sum,body){
+  const o=!!MO[k];
+  return `<div class="acc${o?' open':''}"><button class="acch" data-act="mo" data-v="${k}" aria-expanded="${o}"><span class="acct">${title}</span><span class="accs">${sum||''}</span><i class="chev"></i></button>${o?`<div class="accb">${body}</div>`:''}</div>`;
+}
+/* ---------------- cosa è cambiato dopo il weekend ---------------- */
+function mdReact(){
+  const p=S&&S.mpre;if(!p)return '';
+  const r=v=>Math.round(v),it=[],sg=n=>(n>0?'+':'−')+Math.abs(n);
+  if(r(S.med)!==r(p.med))it.push([S.med>p.med,'Stampa '+r(p.med)+'→'+r(S.med)]);
+  const df=r(S.fama)-r(p.fama);if(df)it.push([df>0,'Fama '+sg(df)]);
+  const dfo=S.fol-p.fol;if(Math.abs(dfo)>=1)it.push([dfo>0,'Follower '+(dfo>0?'+':'−')+fk(Math.abs(dfo))]);
+  const dt=r(S.team)-r(p.team);if(dt)it.push([dt>0,'Squadra '+sg(dt)]);
+  const dm=r(mf())-r(p.mf);if(Math.abs(dm)>=2)it.push([dm>0,'Fiducia muretto '+sg(dm)]);
+  if(!it.length)return '';
+  return `<div class="mdre"><small>Dopo il weekend</small>${it.map(x=>`<span class="chip ${x[0]?'up':'down'}">${x[1]}</span>`).join('')}</div>`;
+}
+/* ---------------- Oggi ---------------- */
+function ovView(){
+  const m=mdEnsure(),C=m.last;
+  let lead='';
+  if(C&&C.lead){
+    lead=`<section class="card fp mdlead"><div class="sech">Prima pagina · ${esc(C.c)} <small>weekend ${C.w}</small></div><div class="mdk">${MDKL[C.lead.k]||''}</div><h2 class="stq">${esc(C.lead.h)}</h2><p class="mdx">${esc(C.lead.x)}</p><small class="sub">${esc(C.lead.o)} · ${esc(C.lead.n)}</small>${mdReact()}</section>`;
+  }else{
+    const top=S.feed.find(x=>x.s==='n'&&!/^Mercato|^Sponsor/.test(x.h));
+    lead=top?`<section class="card fp"><div class="sech">Prima pagina</div><h2 class="stq">${esc(top.t)}</h2><small class="sub">${esc(top.h)} · ${wkTxt(top.w)}</small></section>`:'';
+  }
+  let oth='';
+  if(C){
+    const rows=(C.ras||[]).concat(C.pad||[]),row=r=>`<div class="mdr"><span class="mdo">${esc(r.o)}</span><div class="mdb"><b><span style="color:var(--${mdCol(r.tone)})">${mdAr(r.tone)}</span> ${esc(r.h)}</b><small>${esc(r.x)}</small></div></div>`;
+    if(rows.length)oth=`<section class="card">${mdAcc('oth','Come l\'hanno raccontata',rows.length+' testate',rows.map(row).join(''))}</section>`;
+  }
+  /* notizie con filtri */
+  const PDX=/^Paddock|^Sponsor|^Team|^Muretto|^Ingegnere|^Traguardo/,nf=S.nf||'all',F={all:()=>true,pr:x=>!/^Mercato/.test(x.h)&&!PDX.test(x.h),pd:x=>PDX.test(x.h),mk:x=>/^Mercato/.test(x.h)};
+  const all=S.feed.filter(x=>x.s==='n'&&(F[nf]||F.all)(x)).slice(0,24),n=6+6*(MX.nw||0);
+  const items=all.slice(0,n).map(x=>`<div class="news"><span style="color:var(--${mdCol(x.k)})">${mdAr(x.k)}</span> <b>${esc(x.t)}</b><br><small>${esc(x.h)} · ${wkTxt(x.w)}</small></div>`).join('')||'<p class="sub">Niente di nuovo.</p>';
+  const nws=`<section class="card"><div class="sech">Ultime notizie</div><div class="btns">${[['all','Tutte'],['pr','Stampa'],['pd','Paddock'],['mk','Mercato']].map(x=>`<button class="ghost sm${nf===x[0]?' on':''}" data-act="nf" data-i="${x[0]}">${x[1]}</button>`).join('')}</div>${items}${mdShow('nw',n,all.length)}</section>`;
+  /* storico: rassegne dell'anno + storie che restano, senza doppioni */
+  const A=(m.aw||[]).slice().reverse();
+  const seen=new Set(),st=[];
+  (m.hist||[]).concat((m.ar||[]).slice().reverse()).forEach(h=>{const k=String(h.h);if(seen.has(k))return;seen.add(k);st.push(h)});
+  const sn=6+6*(MX.sto||0);
+  let sb='';
+  sb+=A.slice(0,3).map(a=>`<div class="sech sm">Rassegna ${a.y} · ${esc(TIERS[a.tier].k)} <small>${a.pos}° posto</small></div>${a.items.map(x=>`<div class="news"><b>${esc(x.t)}</b> · ${esc(x.h)}</div>`).join('')}`).join('');
+  if(st.length)sb+=`<div class="sech sm">Le storie che restano</div>`+st.slice(0,sn).map(h=>`<div class="news"><b>${esc(h.h)}</b><br><small>${esc(h.o||'')}${h.o?' · ':''}${esc(h.c||'')} · ${h.y}</small></div>`).join('')+mdShow('sto',sn,st.length);
+  const sto=sb?`<section class="card">${mdAcc('sto','Storico',(A.length?A.length+(A.length===1?' rassegna':' rassegne'):'')+(A.length&&st.length?' · ':'')+(st.length?st.length+' storie':''),sb)}</section>`:'';
+  return poCard()+crCard()+lead+oth+nws+sto;
+}
+/* ---------------- Pubblico ---------------- */
+function soPosts(){
+  const seen=new Set(),out=[];
+  for(const x of S.feed){
+    if(x.s!=='s')continue;
+    const k=String(x.t).toLowerCase().replace(/[^a-zà-ÿ0-9]/g,'').slice(0,26);
+    if(seen.has(k))continue;seen.add(k);out.push(x);
+  }
+  return out;
+}
+function puView2(){
+  const m=mdEnsure(),pe=mdPersona(),cc=S.nat?flag(S.nat):'';
+  const heat=S.riv?rivLv():0,wx=.4+heat/500,wy=.1+Math.min(.2,S.career.wins/150),wi=Math.max(.1,1-wx-wy);
+  const pf=[['X',wx],['Instagram',wi],['YouTube',wy]].map(p=>`<div class="pf"><b>${fk(S.fol*p[1])}</b><span>${p[0]}</span></div>`).join('');
+  const fh=S.fh||[],tr=fh.length>1?fh[fh.length-1]-fh[fh.length-2]:0;
+  const nx=SPN.find(s=>!(S.spn||[]).includes(s[1]));
+  const sp=(S.spn||[]).length?`<div class="chips">${S.spn.map(x=>`<span class="chip pt">${esc(x)}</span>`).join('')}</div>`:'';
+  const aus=MDAU.map(x=>srow(x[1],m.au[x[0]],'',{fan:'chi ti segue sempre',neu:'chi guarda la gara',det:'chi ti critica'}[x[0]])).join('');
+  const brs=MDB.map(x=>srow(x[1],m.br[x[0]])).join('');
+  const co=srow('In patria '+cc,m.co.h,'','il tuo paese')+srow('All\'estero',m.co.a,'','il resto del mondo');
+  const more=mdAcc('mar','Marchio e mondo','5 tratti · patria e estero',`<div class="srs">${brs}</div><div class="sech sm">Nel mondo</div><div class="srs">${co}</div>${m.cfh||(m.ch||[]).length?`<p class="sub">${m.cfh?'Conferenze stampa tenute: '+m.cfh+'. ':''}${(m.ch||[]).length?'Crisi attraversate: '+m.ch.length+'.':''}</p>`:''}`);
+  const ps=soPosts(),n=5+5*(MX.so||0);
+  const po=ps.slice(0,n).map(x=>`<div class="post">${mdAv(x.h)}<div><b>${esc(x.h)}</b> <small>· ${wkTxt(x.w)}</small><div class="pt2">${esc(x.t)}</div>${x.l?`<small class="eng">❤ ${x.l} K · 💬 ${Math.round(x.l*.9+3)} · ↻ ${Math.round(x.l*.5+1)}</small>`:''}</div></div>`).join('')||'<p class="sub">Ancora nessun post.</p>';
+  const tags=(S.tags||[S.tag]).filter(x=>x);
+  return `<section class="card fp"><div class="sech">Immagine pubblica</div><h2 class="stq">${esc(pe.t)}</h2><p class="mdx">${esc(pe.x)}</p><div class="srs">${srow('Stampa',S.med,'','come ti raccontano')}${srow('Social',S.soc,'','coinvolgimento dei tifosi')}</div></section>
+  <section class="card"><div class="sech">Follower</div><div class="fls"><div class="pf tot"><b>${fk(S.fol)}</b><span>follower ${tr?`<em class="${tr>0?'up2':'dn2'}">${tr>0?'▲':'▼'}${fk(Math.abs(tr))}</em>`:''}</span></div>${pf}</div>${sparkSvg(fh)}${sp}${nx?`<p class="sub">Prossimo marchio a ${fk(nx[0])} follower.</p>`:''}</section>
+  <section class="card"><div class="sech">Opinione pubblica</div><div class="srs">${aus}</div>${(m.ah||[]).length>1?sparkSvg(m.ah):''}${more}</section>
+  <section class="card"><div class="sech">Social</div>${tags.length?`<div class="chips">${tags.map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div>`:''}${po}${mdShow('so',n,ps.length)}</section>`;
+}
+/* ---------------- Paddock ---------------- */
+const PDN=['R. Marchetti','H. Lindqvist','J. Carvalho','S. Okonkwo','D. Rinaldi','A. Brenner','T. Haldane','M. Castellanos','V. Orlov','L. Moreau','E. Varga','P. Delgado'];
+const tpName=()=>PDN[hsh('tp|'+(S.teamName||'')+'|'+Math.floor((S.year||2027)/4))%PDN.length];
+const pdLbl=(v,a)=>{for(const x of a)if(v>=x[0])return x[1];return a[a.length-1][1]};
+function pdMem(k,nm,n){return (S.pdm||[]).filter(x=>x.p===k&&(!x.n||!nm||x.n===nm)).slice(-(n||2)).reverse()}
+function pdRow(o){
+  const k=o.k,open=!!MO[k];
+  const mem=(o.mem||[]).map(x=>`<small class="${x.v>0?'pos':x.v<0?'neg':''}">${x.v>0?'▲':x.v<0?'▼':'●'} ${esc(x.t)} <em>${x.y}</em></small>`).join('');
+  return `<div class="ppr${open?' open':''}"><button class="pph" data-act="mo" data-v="${k}" aria-expanded="${open}">${mdAv(o.t,o.c)}<span class="ppn"><b>${esc(o.t)}</b><small>${esc(o.s)}</small></span><span class="ppv${o.hot?' hot':''}"><small>${esc(o.l)}</small><span class="bar"><i style="width:${clamp(Math.round(o.v),0,100)}%"></i></span></span><i class="chev"></i></button>${open?`<div class="ppb">${o.eff?`<p>${o.eff}</p>`:''}${mem?`<div class="mdm">${mem}</div>`:''}${o.x||''}</div>`:''}</div>`;
+}
+function pdPeople(){
+  const L=[];
+  try{
+    const e=eng(),T=engT(),t=engTier();
+    L.push({k:'p_eng',c:'#4a8bd8',t:e.n,s:'Ingegnere di pista · '+T.n,v:e.lv,l:['Ci si studia','Affiatati','Sintonia totale'][t],
+      eff:`${{ana:'Ti svela usura e sorpassi.',str:'Rende più affidabile il consiglio del muretto.',met:'Legge pioggia, safety car e rivali.',mot:'Tiene alta la forma e riduce gli errori.'}[e.k]} ${t===0?'Si attiva a intesa 25.':t===1?'Potenziato a intesa 60.':'Al massimo.'} Più intesa, più passo e consigli più giusti. Con te dal ${e.y} · ${e.r} gare.`,mem:pdMem('eng',e.n)});
+  }catch(e){}
+  try{
+    if(S.teams&&!S.first&&S.teams[S.teamRank]){
+      const o=sgOf(S.teamRank),v=mf();
+      L.push({k:'p_mur',c:'#d8a85a',t:o.nm,s:'Capo stratega · muretto',v,l:pdLbl(v,[[65,'Si fida di te'],[45,'Collaborativo'],[30,'Diffidente'],[0,'Non ti ascolta']]),
+        eff:`Affidabilità dei consigli: ${Math.round(muP()*100)}% (${muLbl().replace('affidabilità ','')}). ${v>=65?'Si fida: ti concede un gettone di consulto in più.':v<=30?'Non si fida: ti toglie un gettone di consulto.':'Dipende dalle tue scelte in gara: letture giuste alzano la fiducia, quelle sbagliate la fanno scendere.'}`,mem:pdMem('mur')});
+    }
+  }catch(e){}
+  try{
+    if(S.teamName){
+      const v=S.team;
+      L.push({k:'p_tp',c:'#7b6ad8',t:tpName(),s:'Capo squadra · '+S.teamName,v,l:pdLbl(v,[[70,'Punta su di te'],[55,'Ti stima'],[40,'Neutrale'],[0,'Freddo']]),
+        eff:'Più ti stima, più la macchina rende per te e migliori sono le offerte di contratto.',mem:pdMem('tp',tpName())});
+    }
+  }catch(e){}
+  try{
+    const m=mateOf();
+    if(m){
+      const v=Math.round((S.hh&&S.hh[m.n])||0),dv=(S.md&&S.md.dv)||[],h=(S.oh&&S.oh[m.n])||null;
+      const ex=[];
+      if(dv.length)ex.push('Derby recenti: '+dv.filter(x=>x).length+' vinti su '+dv.length+'.');
+      if(h&&(h.ob+h.cp+h.ig+h.rf+h.fv+h.ac)>0)ex.push('Ordini di scuderia: '+(h.ob+h.cp+h.ac)+' rispettati, '+(h.ig+h.rf)+' rifiutati o ignorati.');
+      L.push({k:'p_mate',c:'#4eb58a',t:m.n,s:'Compagno di squadra',v,hot:1,l:pdLbl(v,[[60,'Rivali in casa'],[35,'Clima teso'],[15,'Corretto'],[0,'Sereno']]),
+        eff:(ex.join(' ')||'Ancora nessun episodio: il clima in box dipende da derby e ordini di scuderia.')+' Più sale la tensione, più il box è nervoso.',mem:pdMem('mate',m.n)});
+    }
+  }catch(e){}
+  try{
+    if(S.riv){
+      const v=rivLv(),w=S.riv.w||0,l=S.riv.l||0,ch=(S.riv.ch||[]).slice(-2).reverse().map(x=>({t:x.t,v:x.k,y:x.y}));
+      L.push({k:'p_riv',c:'#d86a5a',t:S.riv.n,s:'Rivale',v,hot:1,l:pdLbl(v,[[60,'Guerra aperta'],[35,'Duello sentito'],[0,'Si accende']]),
+        eff:`Duelli diretti ${w}–${l}. I rivali pesano su follower e notizie.`,mem:pdMem('riv',S.riv.n).concat(ch).slice(0,2)});
+    }
+  }catch(e){}
+  return L;
+}
+function jrRows(){
+  const tl=v=>v>=62?'Ti adora':v>=45?'Neutrale':v>=32?'Scettico':'Ti attacca';
+  return JR.map(j=>{
+    const v=Math.round(S.jr[j.id]),k='j_'+j.id,o=!!MO[k];
+    return `<div class="ppr${o?' open':''}"><button class="pph" data-act="mo" data-v="${k}" aria-expanded="${o}">${mdAv(j.n)}<span class="ppn"><b>${esc(j.n)}</b><small>${esc(mdOut(j))} · ${esc(j.st)}</small></span><span class="ppv"><small>${tl(v)}</small><span class="bar"><i style="width:${v}%"></i></span></span><i class="chev"></i></button>${o?`<div class="ppb"><p>${esc(j.d)}</p>${mdMemTxt(j)}</div>`:''}</div>`;
+  }).join('');
+}
+function mkView(){
+  const m=mdEnsure(),R=m.ru||[];
+  const LB={open:['In corso','a'],wait:['Non ancora','a'],true:['Confermata','g'],early:['In anticipo','g'],false:['Smentita','r']};
+  const path=r=>{
+    const l=LB[r.st]||LB.open,fin=r.st==='true'||r.st==='early'||r.st==='false';
+    return `<div class="rup"><small>${r.y} · ${esc(r.src)}</small><div>${esc(r.t)}</div><div class="rst"><span class="s on">Voce</span><span class="l${r.st!=='open'?' on':''}"></span><span class="s ${r.st==='open'?'':'on'}">Offerte${r.st==='open'?' a fine stagione':''}</span><span class="l${fin?' on':''}"></span><span class="s ${fin?l[1]+' on':l[1]==='a'&&r.st==='wait'?'a':''}">${fin?l[0]:r.st==='wait'?'Non ancora':'Esito'}</span></div></div>`;
+  };
+  const n=2+3*(MX.ru||0);
+  const fut=R.length?R.slice(0,n).map(path).join('')+mdShow('ru',n,R.length)+'<p class="sub">Le voci si chiariscono con le offerte di fine stagione: alcune erano vere, altre premature, altre no.</p>':'<p class="sub">Le voci su di te arrivano a metà stagione: chi ti segue lo scopri qui, e a fine anno vedi se era vero.</p>';
+  const RM=(S.rum||[]).slice(0,8);
+  const mk=RM.length?mdAcc('rum','Mercato piloti',RM.length+' voci',RM.map(r=>`<div class="news"><small>${r.y} · ${wkTxt(r.w)}</small><br>${esc(r.t)}</div>`).join('')):'';
+  const P=pdPeople();
+  return `<section class="card"><div class="sech">Il tuo futuro</div>${fut}${mk}</section>
+  <section class="card"><div class="sech">Le persone</div>${P.map(pdRow).join('')}${mdAcc('stampa','Stampa','5 giornalisti',jrRows())}</section>`;
+}
+function mediaView(){
+  if(!S.jr||!S.feed.length)return '<p class="empty">Il mondo dei media si accende con la prima gara.</p>';
+  ensureJr();
+  const mt=mtN(),dots={ov:mdDotO(),pu:false,mk:mdDotP()};
+  let body;
+  try{body=mt==='pu'?puView2():mt==='mk'?mkView():ovView()}catch(e){body='<p class="sub">Non riesco a mostrare questa scheda.</p>'}
+  if(mt==='mk'){try{const m=mdEnsure(),r=(m.ru||[])[0];if(r)m.rus=r.id+'|'+r.st}catch(e){}}
+  const tabs=`<div class="btns mdt">${MDT.map(x=>`<button class="ghost${mt===x[0]?' on':''}" data-act="mt" data-i="${x[0]}">${x[1]}${dots[x[0]]&&mt!==x[0]?'<i class="nvd"></i>':''}</button>`).join('')}</div>`;
+  return tabs+body;
+}
+/* =====================================================================
+   e6d · Il paddock: persone con memoria
+   Registro dei rapporti (muretto, capo squadra, ingegnere, compagno, rivale):
+   - ogni weekend annota i cambiamenti importanti (ricordi che compaiono nel Paddock e nel riepilogo gara)
+   - eventi nuovi che fanno crescere o incrinare i rapporti (effetti piccoli)
+   - nessun nuovo valore nascosto: i rapporti sono quelli che già pesano nel gioco
+   ===================================================================== */
+function pdAdd(p,t,v,c,n){
+  S.pdm=S.pdm||[];
+  S.pdm.push({p,y:S.year,w:S.round,t,v:v||0,c:c||null,n:n||null});
+  if(S.pdm.length>60)S.pdm.splice(0,S.pdm.length-60);
+}
+function pdTurn(F){
+  try{
+    if(!F||(F.L&&F.L.sim))return;
+    const c=F.c||'',mt=(typeof mateOf==='function')?mateOf():null;
+    const cur={mf:mf(),team:S.team,tn:S.teamName,en:S.eng?S.eng.n:null,mn:mt?mt.n:null,hm:mt?((S.hh&&S.hh[mt.n])||0):0,rn:S.riv?S.riv.n:null,hr:S.riv?rivLv():0};
+    const p=S.pdv;S.pdv=cur;
+    if(!p||p.tn!==cur.tn)return;
+    const tp=tpName(),sg=(()=>{try{return sgOf(S.teamRank).nm}catch(e){return null}})();
+    const dm=cur.mf-p.mf;
+    if(dm>=4)pdAdd('mur','Ha apprezzato le tue scelte a '+c+': la fiducia sale.',1,c,sg);
+    else if(dm<=-4)pdAdd('mur','Dopo '+c+' non era convinto delle tue scelte: la fiducia cala.',-1,c,sg);
+    if(p.mf<65&&cur.mf>=65)feedAdd('n','Muretto','Il muretto ora si fida di te: i suoi consigli arrivano con più convinzione.',1);
+    else if(p.mf>30&&cur.mf<=30)feedAdd('n','Muretto','Il muretto ha perso fiducia in te: in box si parla di scelte discutibili.',-1);
+    const dt=cur.team-p.team;
+    if(dt>=1.2)pdAdd('tp','Dopo '+c+' la squadra crede di più in te.',1,c,tp);
+    else if(dt<=-1.2)pdAdd('tp','Dopo '+c+' in squadra c\'è più scetticismo.',-1,c,tp);
+    if(p.team<70&&cur.team>=70)feedAdd('n','Team · '+S.teamName,tp+': «Con '+abbr(S.name)+' vogliamo costruire il futuro della squadra.»',1);
+    else if(p.team>40&&cur.team<=40)feedAdd('n','Team · '+S.teamName,tp+' non nasconde i dubbi: «Servono più risultati.»',-1);
+    if(cur.mn&&cur.mn===p.mn){
+      const dh=cur.hm-p.hm;
+      if(dh>=6)pdAdd('mate','La tensione con '+cur.mn+' sale dopo '+c+'.',-1,c,cur.mn);
+      else if(dh<=-6)pdAdd('mate','Il clima con '+cur.mn+' si distende dopo '+c+'.',1,c,cur.mn);
+    }
+    if(cur.rn&&cur.rn===p.rn){
+      const dh=cur.hr-p.hr;
+      if(dh>=6)pdAdd('riv','La rivalità con '+cur.rn+' si accende a '+c+'.',-1,c,cur.rn);
+      else if(dh<=-6)pdAdd('riv','Con '+cur.rn+' il clima si raffredda dopo '+c+'.',1,c,cur.rn);
+    }
+    const L=F.L;
+    if(L&&L.eng&&cur.en)pdAdd('eng',(L.eng.t===1?'Dopo '+c+' vi capite meglio: si lavora bene insieme.':'Dopo '+c+' vi capite ormai al volo.'),1,c,cur.en);
+    if(L&&L.ord&&L.ord.txt&&cur.mn)pdAdd('mate',L.ord.txt,L.ord.tr>0?1:L.ord.tr<0?-1:0,c,cur.mn);
+  }catch(e){}
+}
+{const _t2=mdTurn2;mdTurn2=function(F,lead,lj){
+  const r=_t2.apply(this,arguments);
+  pdTurn(F);
+  return r;
+}}
+/* ricordi degli eventi: chi tocca il rapporto con una persona lo registra */
+const PDEV={eng:'eng',radio:'eng',n_radio:'eng',n_boss:'tp'};
+function pdEvAfter(e,o){
+  if(!e||!o)return;
+  const fx=o.fx||{},sgn=n=>n>0?1:n<0?-1:0,txt='«'+e.t.replace(/\{m\}/g,'il compagno').replace(/\{r\}/g,'il rivale')+'»: hai scelto «'+o.t+'».';
+  let note='';
+  if(o.en){
+    const g=eng(),ln=g.n.split(' ').pop();
+    g.lv=clamp(g.lv+o.en,0,100);
+    note+=' '+(o.en>0?'L\'intesa con '+ln+' cresce.':'L\'intesa con '+ln+' cala.');
+    pdAdd('eng',txt,sgn(o.en),null,g.n);
+  }
+  if(o.mu){
+    S.mf=clamp(mf()+o.mu,0,100);
+    note+=' '+(o.mu>0?'La fiducia del muretto sale.':'La fiducia del muretto scende.');
+    let sg=null;try{sg=sgOf(S.teamRank).nm}catch(x){}
+    pdAdd('mur',txt,sgn(o.mu),null,sg);
+  }
+  if(note&&S.ev)S.ev.out+=note;
+  if(!o.en&&PDEV[e.id]==='eng'){try{pdAdd('eng',txt,sgn(fx.team||0),null,eng().n)}catch(x){}}
+  if(PDEV[e.id]==='tp'||(fx.team&&Math.abs(fx.team)>=3&&!e.mate&&!e.riv))pdAdd('tp',txt,sgn(fx.team||0),null,tpName());
+  if(e.mate){const m=mateOf();if(m)pdAdd('mate',txt,-sgn(o.mv||0),null,m.n)}
+  if(e.riv&&S.riv)pdAdd('riv',txt,-sgn(o.rv||0),null,S.riv.n);
+}
+{const _a=act0;act0=function(a,i,v){
+  if(a==='ev'){
+    let e=null,o=null;
+    try{e=evOf();o=e&&e.o?e.o[+i]:null}catch(x){}
+    const r=_a.apply(this,arguments);
+    try{pdEvAfter(e,o)}catch(x){}
+    return r;
+  }
+  return _a.apply(this,arguments);
+}}
+/* eventi nuovi: effetti piccoli, come quelli già presenti */
+EVENTS.push(
+{id:'pd_eng1',t:'Il debrief infinito',x:'L\'ingegnere vuole riguardare con te i dati dell\'ultima gara, giro per giro. Sono già le otto di sera.',c:()=>S.round>=1,o:[
+ {t:'Resta fino a notte',d:'Ti costa energie, ti dà intesa.',fx:{tecnica:2,costanza:-1},en:6,out:'Esci stanco ma con le idee chiare: l\'ingegnere ti conosce meglio.'},
+ {t:'Concedi un\'ora',d:'Un compromesso.',fx:{tecnica:1},en:2,out:'Un\'ora ben spesa: lui prende appunti, tu torni in hotel.'},
+ {t:'Rimanda a domani',d:'Hai bisogno di riposo.',fx:{costanza:2},en:-4,out:'Il giorno dopo i dati sono freddi e lui è meno entusiasta.'}]},
+{id:'pd_eng2',t:'Un\'idea fuori dagli schemi',x:'L\'ingegnere propone una modifica insolita all\'assetto, basata su un\'intuizione. Ti fidi?',c:()=>{try{return S.round>=1&&eng().lv>=35}catch(e){return false}},o:[
+ {t:'Fidati di lui',d:'Se ci prende, è oro.',fx:{ritmo:3},ch:.65,en:3,out:'Funziona: il giro viene da solo.',alt:{fx:{ritmo:-1,costanza:-1},out:'Non funziona, ma lui apprezza la fiducia.'}},
+ {t:'Chiedi di provarla nelle libere',d:'Prudenza.',fx:{tecnica:1,ritmo:1},en:1,out:'La provate con calma: qualcosa di buono c\'è.'},
+ {t:'Resta sull\'assetto classico',d:'Nessun rischio.',fx:{costanza:2},en:-2,out:'Tiri dritto: lui annuisce, ma ci resta un po\' male.'}]},
+{id:'pd_mur1',t:'Il muretto vuole un tuo parere',x:'Il capo stratega ti chiede come preferisci affrontare le prossime gare: prudenza o aggressività?',c:()=>!!(S.teams&&!S.first&&S.round>=1),o:[
+ {t:'Fidati del muretto',d:'Decidono loro.',fx:{costanza:1},mu:4,out:'Il capo stratega apprezza: ora ti ascolta con più attenzione.'},
+ {t:'Chiedi un piano su misura',d:'Un confronto.',fx:{tecnica:1},mu:1,out:'Costruite insieme una linea: nessuno vince, nessuno perde.'},
+ {t:'Imponi il tuo stile',d:'Il pilota sei tu.',fx:{ritmo:2},mu:-5,out:'Ti prendi la scena: il muretto incassa e se lo ricorda.'}]},
+{id:'pd_tp2',t:'Il capo squadra punta su di te',x:'Ti propone di diventare uno dei volti della scuderia nelle campagne dell\'anno.',tmin:1,c:()=>S.team>=62,o:[
+ {t:'Accetta con entusiasmo',d:'Visibilità, ma tempo in meno.',fx:{fama:3,team:2,costanza:-1},out:'Sei ovunque: il capo squadra è soddisfatto, tu un po\' meno riposato.'},
+ {t:'Accetta, ma poche uscite',d:'Equilibrio.',fx:{fama:1,team:1},out:'Un paio di servizi fotografici e si torna al lavoro.'},
+ {t:'Rifiuta: pensi alla pista',d:'Concentrazione.',fx:{costanza:2,team:-1},out:'Il capo squadra capisce, ma si aspettava più collaborazione.'}]}
+);
+/* nel riepilogo gara: una riga sui rapporti del weekend */
+function pdWhy(){
+  try{
+    const c=[...document.querySelectorAll('#app .pane .card.whc')][0];
+    if(!c||c.querySelector('.wr.pdw'))return;
+    const lines=(S.pdm||[]).filter(x=>x.y===S.year&&x.w===S.round).slice(-2);
+    if(!lines.length)return;
+    const lb={mur:'Muretto',tp:'Capo squadra',eng:'Ingegnere',mate:'Compagno',riv:'Rivale'};
+    lines.forEach(x=>{
+      const d=document.createElement('div');d.className='wr pdw';
+      d.innerHTML=`<small>${lb[x.p]||'Paddock'}</small><span>${esc(x.t)}</span>${x.v?`<b class="${x.v>0?'u':'d'}">${x.v>0?'▲':'▼'}</b>`:''}`;
+      c.appendChild(d);
+    });
+  }catch(e){}
+}
+{const _up=uiPost;uiPost=function(){const r=_up.apply(this,arguments);try{pdWhy()}catch(e){}return r}}
+/* =====================================================================
+   e6e · Piste con carattere + Grande Slam
+   - ogni circuito ha un'identità (usura, sorpassi, velocità, safety car, tendenza alla pioggia)
+     al posto del valore casuale: stesse medie per categoria, quindi stesso equilibrio
+   - una frase di carattere nella riga «pista» del weekend; il suggerimento pratico compare
+     solo quando la pista è ben conosciuta (non svela ciò che il gioco nasconde)
+   - collezione «Grande Slam»: vittorie in F1 sulle piste leggendarie + traguardi
+   ===================================================================== */
+/* [usura, sorpassi (0 difficili..2 facili), velocità, safety car, pioggia ±pt, carattere, consiglio] */
+const TRK={
+ 'Misano':[2,1,1,1,0,'Veloce e fluida, sull\'Adriatico: il caldo di fine estate mette in crisi le gomme.','Con il caldo il degrado sale in fretta: pensa alle soste.'],
+ 'Vallelunga':[1,2,0,0,0,'Corta e tecnica, alle porte di Roma: si sbaglia poco e si sorpassa in staccata.','Il traffico si rompe in frenata: la rimonta è possibile.'],
+ 'Monza':[0,2,2,1,0,'Il Tempio della velocità: lunghi rettilinei, scia e tifosi a bordo pista.','Si sorpassa in scia: qui la scia col compagno in qualifica vale molto.'],
+ 'Mugello':[2,1,1,1,0,'Un saliscendi velocissimo tra le colline toscane: curve che non perdonano.','Gomme sotto stress nelle curve veloci.'],
+ 'Imola':[1,0,1,1,0,'Vecchia scuola: stretta, senza vie di fuga, dove sorpassare è un lusso.','Sorpassare è raro: la qualifica conta.'],
+ 'Melbourne':[0,1,1,1,0,'Parco cittadino con muri vicini: gare spesso nervose e gomme poco stressate.','Le gomme durano: una sosta può bastare.'],
+ 'Sakhir':[2,2,1,1,-5,'Deserto, luci e asfalto abrasivo: tanto degrado e tanti sorpassi.','Degrado alto ma sorpassi facili: attacca con gomme fresche.'],
+ 'Monte Carlo':[0,0,0,2,0,'Il tracciato più stretto del mondo: muri a un palmo e storia a ogni curva.','Sorpassare è quasi impossibile: la qualifica vale metà gara.'],
+ 'Barcellona':[2,1,1,1,0,'Il banco di prova delle vetture: curve lunghe e gomme sempre al limite.','Le gomme vanno gestite: occhio al degrado.'],
+ 'Spielberg':[1,2,1,1,0,'Un giro breve in mezzo alle montagne: tre rettilinei, tante scie.','Si sorpassa spesso: partire indietro non è una condanna.'],
+ 'Silverstone':[2,2,2,1,5,'La culla della F1: curve velocissime, vento e un meteo da indovinare.','Le curve veloci consumano le gomme e il meteo può cambiare.'],
+ 'Spa-Francorchamps':[1,2,2,2,15,'La pista più amata dai piloti: Eau Rouge, Ardenne e pioggia che arriva dal nulla.','Il bagnato è di casa: tieni pronto un piano per la pioggia.'],
+ 'Budapest':[1,0,0,1,0,'Un go-kart gigante: stretta, calda e con pochissimi punti per sorpassare.','Sorpassi difficili: la partenza e la qualifica pesano.'],
+ 'Madrid':[1,0,0,1,0,'Circuito nuovo e misto: poche certezze, dati ancora da raccogliere.','Pochi dati: studia la pista prima di scegliere.'],
+ 'Jeddah':[0,1,2,2,-10,'Un muro dopo l\'altro a oltre 250 all\'ora: safety car quasi di casa.','Safety car frequente: una strategia flessibile paga.'],
+ 'Baku':[0,2,2,2,-5,'Rettilineo infinito e vicoli medievali: scia, caos e safety car.','Scia e caos: tutto può succedere negli ultimi giri.'],
+ 'Lusail':[2,1,1,1,-10,'Curve veloci e cordoli abrasivi sotto il sole del Golfo.','Le gomme soffrono: gestiscile fin dall\'inizio.'],
+ 'Yas Marina':[0,1,1,1,-10,'La gara al tramonto: asfalto liscio e luci che si accendono a metà.','Gomme tranquille: conta la posizione in pista.'],
+ 'Shanghai':[1,2,1,0,5,'Lunghi rettilinei e una curva infinita: strategia e rimonte.','Si sorpassa bene: la rimonta è alla portata.'],
+ 'Suzuka':[2,0,1,1,10,'Il leggendario tracciato a otto: veloce, tecnico e amatissimo dai piloti.','Il meteo cambia in fretta e sorpassare è raro.'],
+ 'Miami':[1,1,1,1,5,'Un autodromo costruito tra i parcheggi: caldo, afa e un po\' di imprevisto.','Il caldo mette alla prova le gomme.'],
+ 'Montréal':[0,2,1,2,5,'Muri e chicane vicino al fiume: sorpassi in frenata e safety car di frequente.','Sorpassi in frenata e safety car: tieni aperte le opzioni.'],
+ 'Zandvoort':[1,0,1,1,5,'Curve sopraelevate nelle dune: tra le piste più spettacolari ma difficili per sorpassare.','Sorpassare è difficile: la qualifica pesa.'],
+ 'Singapore':[1,0,0,2,5,'Notte, afa e muri: il giro più lungo e faticoso, con la safety car in agguato.','Safety car frequente e sorpassi rari: pensa al momento giusto.'],
+ 'Austin':[1,2,1,1,0,'Saliscendi e curve ispirate ai grandi circuiti: tante linee per attaccare.','Molte linee per sorpassare.'],
+ 'Città del Messico':[0,1,2,0,0,'L\'aria rarefatta dell\'altitudine: motori in sofferenza e un rettilineo lunghissimo.','L\'altitudine penalizza raffreddamento e motore.'],
+ 'Interlagos':[1,2,1,2,15,'Antiorario, saliscendi e finali che non si dimenticano.','Pioggia e safety car cambiano spesso la gara.'],
+ 'Las Vegas':[0,2,2,1,-10,'Lunghe rette di notte, con il freddo: scia e gomme che faticano a scaldarsi.','Con il freddo le gomme faticano a scaldarsi.'],
+ 'Portimão':[1,2,1,1,0,'Un otto-volante di saliscendi in Algarve: curve cieche e sorpassi in fondo al rettilineo.','Si sorpassa in fondo al rettilineo.'],
+ 'Le Castellet':[1,1,1,0,0,'Asfalto colorato e vie di fuga infinite: un circuito da test, senza muri.','Poche safety car: le vie di fuga perdonano.'],
+ 'Hockenheim':[1,2,2,1,5,'Il vecchio stadio tedesco tra gli alberi: rettilinei e tribune piene.','Sorpassi facili in fondo ai rettilinei.'],
+ 'Istanbul':[2,1,1,1,0,'La curva 8 è leggenda: lunga, veloce e crudele con le gomme.','La curva 8 consuma le gomme anteriori.'],
+ 'Kyalami':[1,1,2,1,0,'In quota, in Sudafrica: un tracciato vecchia scuola che premia i coraggiosi.','L\'altitudine riduce il raffreddamento.'],
+ 'Buenos Aires':[1,1,0,1,0,'Autodromo-stadio: tanti tornanti e un pubblico che non smette di cantare.','Giro tecnico: pochi sorpassi facili.'],
+ 'Sepang':[2,2,1,1,10,'Caldo tropicale e temporali improvvisi: il bagnato arriva in un attimo.','Il meteo cambia in pochi minuti.'],
+ 'Nürburgring':[1,1,1,2,10,'L\'Eifel e il suo meteo: quattro stagioni in un giro.','Il meteo cambia: tieni aperto un piano B.'],
+ 'Hanoi':[0,1,1,2,0,'Una pista cittadina nuova: rettilineo e curve secche tra i palazzi.','Circuito cittadino: safety car frequente.'],
+ 'Zolder':[1,0,0,1,5,'Stretta e vecchio stile, nel cuore del Belgio: piccola, tecnica e molto amata.','Sorpassi rari: la qualifica conta.']
+};
+function TRKC(n,o){const t=TRK[n];return t?{w:t[0],o:t[1],s:t[2],k:t[3]}:o}
+function TRKRP(n,rp){const t=TRK[n];if(!t||!t[4])return rp;return Math.max(0,Math.min(90,rp+t[4]))}
+/* carattere della pista: una riga all'inizio del weekend; il consiglio pratico solo a pista ben conosciuta */
+function trkCar(name){
+  const t=TRK[name];if(!t)return '';
+  const full=(typeof ckLv==='function'&&ckLv(name)>=3)||(S&&S.diff===0);
+  return full?`<small class="trkp">🏁 <b>${t[6]}</b></small>`:'';
+}
+{const _c=ckLine;ckLine=function(name){
+  const h=_c.apply(this,arguments),c=trkCar(name);
+  if(!c)return h;
+  const i=h.indexOf('</div>');
+  return i<0?h:h.slice(0,i)+'<br>'+c+h.slice(i);
+}}
+function trkHead(){
+  try{
+    const ph=document.querySelector('#app .pane.dec .ph');
+    if(!ph||ph.querySelector('.trkl')||!S||!S.wk)return;
+    const w=S.wk,t=TRK[w.c];if(!t)return;
+    if(!(S.phase==='fp'||(S.phase==='quali'&&w.fmt!=='fp')))return;
+    const d=document.createElement('div');d.className='trkl';d.textContent='🏁 '+t[5];
+    ph.appendChild(d);
+    try{fitDesk();alignR()}catch(e){}
+  }catch(e){}
+}
+{const _up=uiPost;uiPost=function(){const r=_up.apply(this,arguments);try{trkHead()}catch(e){}return r}}
+/* ---------------- Grande Slam ---------------- */
+const GSL=['Monte Carlo','Spa-Francorchamps','Monza','Silverstone','Suzuka','Interlagos'];
+const GSN={'Monte Carlo':'Monaco','Spa-Francorchamps':'Spa','Monza':'Monza','Silverstone':'Silverstone','Suzuka':'Suzuka','Interlagos':'Interlagos'};
+const gsW=n=>{const c=S&&S.cx&&S.cx['3|'+n];return c?c.w||0:0};
+const gsAny=n=>{const c=S&&S.cs&&S.cs[n];return c?c.w||0:0};
+const gsCnt=a=>a.filter(n=>gsW(n)>0).length;
+const gsF1=()=>[...new Set(TIERS[3].cal)];
+const gsRain=()=>(S&&S.gs&&S.gs.rw)||0;
+const gsWorld=()=>S&&S.cs?Object.keys(S.cs).filter(k=>S.cs[k].w>0).length:0;
+ACH.push(
+ ['gs_mc','Re di Monaco: vinci a Monte Carlo in F1',s=>gsW('Monte Carlo')>0],
+ ['gs_3','I tre templi: vinci a Monte Carlo, Spa e Monza in F1',s=>gsCnt(['Monte Carlo','Spa-Francorchamps','Monza'])===3],
+ ['gs_slam','Grande Slam: vinci in F1 su tutte e sei le piste leggendarie',s=>gsCnt(GSL)===GSL.length],
+ ['gs_rain','Maestro della pioggia: tre vittorie sul bagnato',s=>gsRain()>=3],
+ ['gs_world','Giro del mondo: vinci su dieci piste diverse',s=>gsWorld()>=10],
+ ['gs_all','Il giro completo: vinci in F1 su ogni pista del calendario',s=>gsF1().every(n=>gsW(n)>0)]
+);
+/* vittorie sul bagnato e primo successo sulle piste leggendarie */
+function gsTurn(F){
+  try{
+    if(!F||!F.me)return;
+    S.gs=S.gs||{rw:0,fv:{}};
+    if(F.kind==='win'){
+      if(F.w&&F.w.rain)S.gs.rw=(S.gs.rw||0)+1;
+      const c=F.c;
+      if(GSL.includes(c)&&!S.gs.fv[c]){
+        S.gs.fv[c]=S.tier;
+        const T=TIERS[S.tier].k;
+        feedAdd('n','Paddock','Prima vittoria a '+c+' in '+T+': '+(S.tier===3?'il Grande Slam si avvicina ('+(gsCnt(GSL)||1)+' su '+GSL.length+').':'una pista che entra per sempre nel tuo libro dei ricordi.'),1);
+      }
+    }
+  }catch(e){}
+}
+{const _t2=mdTurn2;mdTurn2=function(F,lead,lj){
+  const r=_t2.apply(this,arguments);
+  gsTurn(F);
+  return r;
+}}
+function gsCard(){
+  const n=gsCnt(GSL),all=gsF1(),na=all.filter(x=>gsW(x)>0).length;
+  const chips=GSL.map(c=>{const w=gsW(c),a=gsAny(c);return `<span class="gsc${w?' on':a?' hf':''}" title="${esc(c)}"><b>${w?'✓':a?'●':'○'}</b>${esc(GSN[c])}${w>1?' ×'+w:''}</span>`}).join('');
+  const row=(l,v,m,d)=>`<div class="sr"><span class="lb">${l}${d?`<small>${d}</small>`:''}</span><em>${Math.min(v,m)}/${m}</em><div class="bar car"><i style="width:${Math.min(100,Math.round(v/m*100))}%"></i></div></div>`;
+  return `<section class="card gsk"><div class="sech">Grande Slam <small>vittorie in F1</small></div><div class="gsg">${chips}</div>
+  <div class="srs">${row('Grande Slam',n,GSL.length,'le sei piste leggendarie')}${row('Maestro della pioggia',gsRain(),3,'vittorie sul bagnato')}${row('Giro del mondo',gsWorld(),10,'piste diverse vinte')}${row('Il giro completo',na,all.length,'ogni pista della F1')}</div>
+  <p class="sub">${n===GSL.length?'Hai completato il Grande Slam.':'Ogni pista ha il suo carattere: vincere nei templi della F1 vale un posto nella storia.'}</p></section>`;
+}
+{const _p=pisteCard;pisteCard=function(){return gsCard()+_p.apply(this,arguments)}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
