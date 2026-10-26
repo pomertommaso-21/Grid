@@ -1656,6 +1656,51 @@ body.cpt .pane.p-fp .ch.cmpx:not(.open) .od,body.cpt .pane.p-qlive .ch.cmpx:not(
 .grp .brf>.nts.mrg .ntl{display:block;padding:6px 10px 8px}
 @media(min-width:700px){.stsel button{flex:0 1 130px}}
 .cpt .card.bld>.bsm{margin:2px 0;font-size:12px;line-height:1.35;color:var(--mut)}.cpt .card.bld>.bsm b{color:var(--fg)}
+
+/* v39 · filosofia di guida + momento chiave */
+.kfo,.kmo{align-items:start}
+.kfo .cb,.kmo .cb{display:flex;flex-direction:column;gap:3px;min-width:0}
+.kfo .ot,.kmo .ot{font-weight:800}
+.kfo .kft,.kmo .kft{display:flex;flex-wrap:wrap;gap:4px}
+.kfo .kmd,.kmo .kmd{font-size:12.5px;color:var(--mut);line-height:1.35}
+.kfo.on{outline:2px solid var(--yellow,#ffd23a);outline-offset:-2px;background:var(--panel)}
+.kfa{font:700 10.5px var(--body);color:var(--amber,#b97d00);margin-left:4px;white-space:nowrap}
+.kfc .kfn{font-size:12px;margin:8px 0 0}
+.kmc{border-left:4px solid #e0242c}
+.kmc .kms{color:#e0242c}
+.kmtm{display:flex;align-items:center;gap:10px;margin:6px 0 8px}
+.kmbar{flex:1;height:8px;background:var(--soft);border-radius:6px;overflow:hidden}
+.kmbar i{display:block;height:100%;width:100%;background:#e0242c;border-radius:6px}
+.kmt{font:800 18px var(--display);min-width:34px;text-align:right}
+.kmo:active{transform:scale(.99)}
+.kmh{border-left:4px solid #e0242c;padding-left:10px}
+.kmh .kick{color:#e0242c}
+.kmn{text-align:center;font-size:12px;margin:8px 0}
+/* v40 · pagella del weekend, regola di pista, duello, revisione a scomparsa */
+.wsm{border-left:3px solid var(--yellow)}
+.wsg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+.wst{display:flex;flex-direction:column;gap:3px;background:var(--soft);border-radius:12px;padding:9px 10px 10px;min-width:0}
+.wst small{font:700 9.5px/1 var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.wst b{font:800 15px/1.15 var(--display);overflow-wrap:anywhere}
+.wst u{text-decoration:none;font:500 11.5px/1.3 var(--body);color:var(--mut)}
+.wst i{font:800 11.5px/1 var(--display);font-style:normal;margin-top:4px;align-self:flex-start;padding:4px 9px;border-radius:999px;background:var(--panel);border:1px solid var(--line)}
+.wst i.ok{color:var(--green);background:var(--good-bg);border-color:transparent}.wst i.ko{color:var(--warn)}
+.wst:last-child:nth-child(odd){grid-column:1/-1}
+@media(min-width:1000px){.wsg{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.wst:last-child:nth-child(odd){grid-column:auto}}
+.rvc>.sech{margin:0;padding:0;border:0}
+.rvh{appearance:none;border:0;background:none;padding:0;margin:0;width:100%;display:flex;align-items:center;gap:8px;text-align:left;cursor:pointer;color:inherit;font:700 11px/1.2 var(--body);letter-spacing:.07em;text-transform:uppercase}
+.rvh em{margin-left:auto;font:500 12px var(--body);font-style:normal;letter-spacing:0;text-transform:none;color:var(--mut)}
+.rvh i{width:8px;height:8px;border-right:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s;flex:0 0 auto}
+.rvc.open .rvh i{transform:rotate(225deg) translate(-2px,-2px)}
+.rvh:focus-visible{outline:2px solid var(--yellow);outline-offset:4px;border-radius:6px}
+.rvc:not(.open)>.rr{display:none}.rvc:not(.open){gap:0}
+.crl{margin-top:6px;font:500 12.5px/1.4 var(--body);color:var(--fg);background:var(--soft);border-left:3px solid var(--yellow);border-radius:8px;padding:7px 10px}
+.crl b{font-weight:800;display:block;font-size:13px}
+.crl .crt{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.crl .qb{font:700 10.5px/1 var(--body);padding:3px 8px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--mut)}
+.dus{margin:0;display:flex;flex-wrap:wrap;gap:5px;align-items:center;font:500 11.5px/1.3 var(--body);color:var(--mut)}
+.dus .qb{font:700 10.5px/1 var(--body);padding:3px 8px;border-radius:999px;background:var(--soft);border:1px solid var(--line);color:var(--mut)}
+.duc .dus{padding:0 2px}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -4477,7 +4522,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 24/10 · 15:48</p></div>`;
+  <p class="foot">Versione 26/10 · 11:16</p></div>`;
 }
 
 function identityView(){
@@ -13556,6 +13601,448 @@ function e7Quali(){
   const r=_up.apply(this,arguments);
   try{e7Strat();e7Quali();if(typeof wideDesk==='function'&&wideDesk()){try{fitDesk();alignR()}catch(e){}}}catch(e){}
   return r}}
+/* =====================================================================
+   e7b · Filosofia di guida (a fine stagione) + Momento chiave (una scelta a tempo per gara)
+   - la filosofia vale per tutta la stagione e ritocca le scelte di gara e la qualifica
+     (bonus e malus bilanciati: chi non sceglie resta «Equilibrato», senza modifiche)
+   - il momento chiave è una scelta in più dopo i tre atti: esito a probabilità, centrato su zero
+     per chi tira a caso; chi legge bene la situazione guadagna, chi sbaglia perde
+   ===================================================================== */
+const FIL={
+  att:{e:'⚔️',n:'Attaccante',d:'Sorpassi più incisivi, meno margine d\'errore.',tg:[['g','+12% resa sugli attacchi'],['r','+10% rischio'],['r','−10% gestione']]},
+  str:{e:'🧠',n:'Stratega',d:'Gomme che durano e muretto più preciso.',tg:[['g','gestione +10%'],['g','consigli più affidabili'],['r','−8% attacchi']]},
+  qua:{e:'⏱️',n:'Qualificatore',d:'Il giro secco è la tua arma, la gara lunga meno.',tg:[['g','+0,25 in qualifica'],['g','partenze +10%'],['r','gomme gara −5%']]},
+  eq:{e:'⚖️',n:'Equilibrato',d:'Nessun bonus e nessun malus: guidi come sei.',tg:[['n','base']]}
+};
+const FILK=['att','str','qua','eq'];
+const filOf=()=>(S&&FIL[S.fil])?S.fil:'eq';
+function filAdvise(){
+  const d=(S&&S.dst)||{},a=(d.a||0)/60,t=((d.t||0)+(d.c||0)/3)/60,q=(d.q||0)/10;
+  let b='eq',v=.5;
+  [['att',a],['str',t],['qua',q]].forEach(x=>{if(x[1]>v){v=x[1];b=x[0]}});
+  return b;
+}
+/* --- effetto sulle scelte di gara --- */
+{const _ao=actOpts;actOpts=function(e,n){
+  const O=_ao.apply(this,arguments);
+  const f=filOf();
+  if(f==='eq'||!O||(e&&e.km))return O;
+  return O.map(o=>{
+    if(o.tr||typeof o.mod!=='number')return o;
+    const x={...o},agg=x.ag||x.risk>=.045,gst=!agg&&(x.ty||x.risk<=.01);
+    if(f==='att'){if(agg){x.mod*=1.12;x.risk*=1.1}else if(gst)x.mod*=.9}
+    else if(f==='str'){if(x.ty)x.mod*=1.1;else if(agg)x.mod*=.92}
+    else if(f==='qua'){if(n===0)x.mod*=1.1;if(x.ty)x.mod*=.95}
+    return x;
+  });
+}}
+/* --- qualificatore: piccolo vantaggio sul giro secco --- */
+{const _cq=chooseQuali;chooseQuali=function(i,auto){
+  try{const w=S.wk;if(w&&filOf()==='qua'&&!w.fq1){w.fq1=1;w.fpq=(w.fpq||0)+.25}}catch(e){}
+  return _cq.apply(this,arguments);
+}}
+/* --- stratega: il consiglio del muretto sbaglia meno --- */
+{const _ah=actHint;actHint=function(){
+  const rc=S.rc,e=rc&&ACTS[rc.ev],before=rc&&rc.h;
+  const r=_ah.apply(this,arguments);
+  try{
+    if(filOf()==='str'&&rc&&e&&e.ctx&&before==null&&rc.h!=null){
+      const best=e.ctx(S.wk);if(best&&rc.h!==best[0]&&rnd()<.3)rc.h=best[0];
+    }
+  }catch(err){}
+  return r;
+}}
+/* --- scheda di fine stagione --- */
+function filCard(){
+  const cur=filOf(),adv=filAdvise();
+  const tg=F=>F.tg.map(x=>`<span class="qb ${x[0]}">${x[1]}</span>`).join('');
+  const rows=FILK.map((k,i)=>{const F=FIL[k];
+    return `<button type="button" class="ch kfo${cur===k?' on':''}" data-cmp="1" data-act="fil" data-v="${k}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${F.e} ${F.n}${adv===k&&k!=='eq'?' <small class="kfa">★ ti somiglia</small>':''}</span><span class="kmd">${F.d}</span><span class="omt kft">${tg(F)}</span></span></button>`}).join('');
+  return `<section class="card rgc kfc"><div class="sech">Filosofia di guida · ${S.year+1}</div><p class="sub">Come vuoi correre la prossima stagione? Vale per tutto l'anno e potrai cambiarla a fine stagione.</p><div class="opts">${rows}</div><p class="sub kfn">I tratti già guadagnati restano: la filosofia li potenzia.</p></section>`;
+}
+/* --- momento chiave --- */
+ACTN[3]='Momento chiave';
+const KB=.15;
+const KME=[
+ {id:'k_sc',t:'Safety car in pista',x:'Il gruppo si compatta e il box ti chiama: hai pochi secondi per decidere.',fr:.62,
+  wt:w=>.8+2*(w.scp||.3)+(w.sc?1.2:0),
+  o:[{t:'Rientri ai box',d:'Gomme nuove, ma rischi il traffico in uscita.',p:.55,up:1.7,dn:1.2,risk:.01,ty:1,tg:[['g','gomme nuove'],['r','rischio traffico']],okT:'Hai approfittato della safety car: gomme nuove e posizioni guadagnate.',koT:'Sei uscito dai box in mezzo al traffico e hai perso tempo.'},
+     {t:'Resti fuori',d:'Tieni la pista, ma le gomme soffrono.',p:.5,up:1.2,dn:1.2,risk:0,tg:[['g','tieni la posizione'],['r','gomme al limite']],okT:'Sei rimasto fuori e hai guadagnato posizioni sugli altri rientrati.',koT:'Le gomme vecchie ti hanno fatto pagare la scelta alla ripartenza.'},
+     {t:'Chiedi al muretto',d:'Segui il consiglio: meno rischio, meno resa.',mur:1,up:.7,dn:.7,risk:0,tg:[['g','sicuro'],['n','dipende dalla fiducia']],okT:'Il muretto ci aveva visto giusto.',koT:'Il consiglio del muretto stavolta non ha pagato.'}],
+  ctx:w=>w.u>=3?[0,1]:w.u<=1?[1,2]:[2,0]},
+ {id:'k_rn',t:'La pioggia cambia tutto',x:'Le prime gocce arrivano sul rettilineo: slick o intermedie? Il tempo stringe.',fr:.55,
+  wt:w=>(w.rain||w.mixed)?1.8:0,
+  o:[{t:'Box per le intermedie',d:'Il momento giusto vale molto, quello sbagliato costa caro.',p:.55,up:2.0,dn:1.6,risk:.01,ty:1,tg:[['g','gomme giuste'],['r','box al momento sbagliato']],okT:'Sei rientrato al momento giusto: le intermedie hanno fatto la differenza.',koT:'Hai cambiato troppo presto: la pista era ancora quasi asciutta.'},
+     {t:'Resti con le slick',d:'Scommetti che sia solo un passaggio.',p:.45,up:1.8,dn:1.8,risk:.03,ag:1,tg:[['g','nessuna sosta'],['r','rischio uscita']],okT:'La pioggia è passata e sei rimasto in testa al gruppo.',koT:'La pioggia è rimasta: sei andato lungo e hai perso posizioni.'},
+     {t:'Chiedi al muretto',d:'Segui il radar del box.',mur:1,up:.8,dn:.8,risk:0,tg:[['g','sicuro'],['n','dipende dalla fiducia']],okT:'Il radar del muretto ci aveva preso.',koT:'Il muretto ha letto male il meteo.'}],
+  ctx:w=>(w.rain&&!w.mixed)?[0,2]:[1,2]},
+ {id:'k_dl',t:'Il duello decisivo',x:w=>(S.riv&&rivHere()?S.riv.n:'Chi ti sta davanti')+' è a pochi decimi: hai una sola occasione per attaccare.',fr:.7,
+  wt:w=>(S.riv&&rivHere())?2:.7,
+  o:[{t:'Attacco all\'esterno',d:'Il sorpasso che vale la gara.',p:.45,up:2.2,dn:1.6,risk:.045,ag:1,rv:8,tg:[['g','grande resa'],['r','rischio contatto']],okT:'Hai attaccato all\'esterno e sei passato.',koT:'L\'attacco all\'esterno non è riuscito: hai perso posizioni.'},
+     {t:'Preparo l\'ultimo giro',d:'Aspetti l\'errore e colpisci dopo.',p:.55,up:1.4,dn:.8,risk:.015,rv:3,tg:[['g','resa media'],['n','rischio basso']],okT:'Hai preparato il colpo e sei passato all\'ultimo giro.',koT:'L\'occasione non è arrivata.'},
+     {t:'Ti difendi e basta',d:'Non rischi niente, ma non passi.',p:.6,up:.9,dn:.5,risk:0,ty:1,rv:-4,tg:[['g','sicuro'],['n','resa bassa']],okT:'Hai difeso la posizione senza strappi.',koT:'Ti sei difeso, ma hai perso ritmo.'}],
+  ctx:w=>w.ovt===2?[0,1]:w.ovt===0?[2,1]:[1,0]},
+ {id:'k_lp',t:'Ultimo giro',x:'Il box ti dice cosa c\'è in gioco: una scelta sola, poi la bandiera a scacchi.',fr:1,
+  wt:w=>.8,
+  o:[{t:'Tutto sul giro',d:'Spingi al massimo fino alla fine.',p:.45,up:1.9,dn:1.5,risk:.04,ag:1,tg:[['g','resa alta'],['r','rischio errore']],okT:'Hai dato tutto e hai guadagnato sul traguardo.',koT:'Hai spinto troppo e hai perso tempo.'},
+     {t:'Controlla il ritmo',d:'Una via di mezzo.',p:.55,up:1.0,dn:.6,risk:.01,tg:[['g','equilibrio'],['n','rischio basso']],okT:'Hai controllato il ritmo e portato a casa qualcosa in più.',koT:'Il ritmo non bastava per migliorare.'},
+     {t:'Porta a casa la posizione',d:'Gomme e macchina in sicurezza.',p:.65,up:.6,dn:.3,risk:0,ty:1,tg:[['g','sicuro'],['n','resa bassa']],okT:'Hai portato a casa la posizione in sicurezza.',koT:'Nel finale hai perso qualcosa.'}],
+  ctx:w=>w.u>=3?[2,1]:w.u<=1?[0,1]:[1,0]}
+];
+KME.forEach(e=>{e.a=[];e.km=1;e.o.forEach(o=>{o.mod=0;if(o.risk==null)o.risk=0});ACTS[e.id]=e});
+const kmOn=()=>{try{return localStorage.getItem('gdp_kmt')!=='0'}catch(e){return true}};
+const kmSecs=10;
+function kmPickEv(){
+  const w=S.wk;if(!w)return null;
+  const H=S.kmH||[];
+  const ws=KME.map(e=>{let v=e.wt?e.wt(w):1;if(H.slice(-2).includes(e.id))v*=.3;return Math.max(0,v)});
+  const tot=ws.reduce((a,b)=>a+b,0);if(tot<=0)return null;
+  let r=rnd()*tot,k=0;for(;k<KME.length;k++){r-=ws[k];if(r<=0)break}
+  return KME[Math.min(k,KME.length-1)];
+}
+const _kmAE=actEnd;
+actEnd=function(){
+  const rc=S.rc;
+  try{
+    if(rc&&!rc.kd&&!rc.km){
+      const k=kmPickEv();
+      if(k){rc.kd=1;rc.km=1;rc.ev=k.id;rc.n=3;rc.h=null;save();render();return}
+    }
+  }catch(e){}
+  return _kmAE.apply(this,arguments);
+};
+function kmPick(i){
+  const rc=S.rc,w=S.wk,e=rc&&ACTS[rc.ev];
+  if(!rc||!rc.km||!e)return;
+  const o=e.o[i];if(!o)return;
+  const r=e.ctx?e.ctx(w):null;let dp=0,g=0;
+  if(r){if(i===r[0]){dp=.15;g=1}else if(i===r[1]){dp=0}else{dp=-.1;g=-1}}
+  let p;
+  if(o.mur){p=clamp(typeof muP==='function'?muP():.55,.3,.9);g=0}
+  else p=clamp(o.p+dp,.15,.85);
+  const good=rnd()<p;
+  const v=(good?o.up:-o.dn)-KB;
+  rc.mod+=v;rc.tr+=v;rc.risk+=(o.risk||0)*RK*.5;
+  if(o.ag){rc.ag++;dstInc('a')}
+  if(o.ty){rc.ty++;dstInc('t')}
+  if(g>0){rc.g++;dstInc('c')}
+  if(g<0)rc.b+=1;
+  if(o.rv&&S.riv&&S.hh&&rivHere())S.hh[S.riv.n]=clamp((S.hh[S.riv.n]||0)+o.rv,0,100);
+  rc.lg.push({a:3,e:e.t,t:o.t,g:good?1:-1,s:good?o.okT:o.koT});
+  S.kmH=(S.kmH||[]).concat(rc.ev).slice(-3);
+  rc.km=0;rc.h=null;
+  _kmAE();
+}
+{const _a0=act0;act0=function(a,i,v){
+  if(a==='km'||(a==='ac'&&S&&S.rc&&S.rc.km)){kmPick(+i);return}
+  if(a==='fil'){if(FIL[v]){S.fil=v;save();KP=true;render()}return}
+  if(a==='kmt'){try{localStorage.setItem('gdp_kmt',kmOn()?'0':'1')}catch(e){}KP=true;render();return}
+  return _a0.apply(this,arguments);
+}}
+function kmView(){
+  const w=S.wk,rc=S.rc,e=ACTS[rc.ev],x=typeof e.x==='function'?e.x(w):e.x;
+  let sit='',wl='';
+  rc.n=2;try{sit=actSit();wl=wkLine()}catch(err){}rc.n=3;
+  sit=sit.replace(/Ultimo atto:[^<]*/,'');wl=wl.replace(/Ultimo atto:[^<]*/,'');
+  let lap='';
+  try{const s=rsNow();if(s&&s.T)lap='giro '+Math.max(2,Math.round(s.T*(e.fr||.7)))+' di '+s.T}catch(err){}
+  const past=rc.lg.length?`<div class="chips">${rc.lg.map(l=>`<span class="chip ${l.g>0?'up':l.g<0?'down':''}">${ACTN[l.a]}: ${esc(l.t)}</span>`).join('')}</div>`:'';
+  const tm=kmOn()?`<div class="kmtm"><div class="kmbar"><i style="width:100%"></i></div><b class="kmt">${kmSecs}″</b></div>`:'';
+  const O=e.o;
+  const opts=O.map((o,i)=>`<button type="button" class="ch kmo" data-cmp="1" data-act="km" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.t}${rc.h===i?' <small class="kfa">★ consiglio del muretto</small>':''}</span><span class="omt kft">${o.tg.map(t=>`<span class="qb ${t[0]}">${t[1]}</span>`).join('')}</span><span class="kmd">${o.d}</span></span></button>`).join('');
+  const hint=(e.ctx&&rc.h==null&&w.tk>0)?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'} · ${muLbl()}</button></div>`:'';
+  return `<div class="ph evh k-neu kmh"><div class="kick">Weekend ${S.round+1} di ${S.total} · Momento chiave${lap?' · '+lap.replace(' di ','/'):''}</div><h1>${e.t}</h1><p>${x}</p>${tm}</div>
+  ${sit}${wl}${past}
+  <div class="opts">${opts}</div><p class="sub kmn">${kmOn()?'Una sola chiamata decisiva per gara. Se il tempo scade, sceglie il muretto per te.':'Una sola chiamata decisiva per gara.'}</p>${hint}`;
+}
+{const _av=actView;actView=function(){
+  try{if(S&&S.rc&&S.rc.km&&ACTS[S.rc.ev]&&ACTS[S.rc.ev].km)return kmView()}catch(e){console&&console.log&&0}
+  return _av.apply(this,arguments);
+}}
+/* --- timer + carta della filosofia + interruttore del tempo (DOM) --- */
+let kmTm=null;
+function kmStop(){if(kmTm){clearInterval(kmTm);kmTm=null}}
+function kmStart(){
+  kmStop();
+  if(typeof document==='undefined'||typeof document.querySelector!=='function')return;
+  if(!(S&&S.phase==='act'&&S.rc&&S.rc.km&&kmOn()))return;
+  const bar=document.querySelector('.kmbar i'),tx=document.querySelector('.kmt');
+  if(!bar||!tx)return;
+  const t0=Date.now(),T=kmSecs*1000,key=S.year+'|'+S.round;
+  kmTm=setInterval(()=>{
+    const live=document.querySelector('.kmbar i');
+    if(!live||!(S&&S.phase==='act'&&S.rc&&S.rc.km&&key===S.year+'|'+S.round)){kmStop();return}
+    if(document.hidden){return}
+    const el=Date.now()-t0,left=Math.max(0,T-el);
+    live.style.width=(left/T*100)+'%';
+    const t=document.querySelector('.kmt');if(t)t.textContent=Math.ceil(left/1000)+'″';
+    if(left<=0){kmStop();act('km',2)}
+  },100);
+}
+function filPost(){
+  if(!(S&&S.phase==='seasonEnd'))return;
+  const p=document.querySelector('.pane');if(!p||p.querySelector('.kfc'))return;
+  const html=filCard();
+  const cards=[...p.querySelectorAll('.card')];
+  const rg=cards.find(c=>c.classList.contains('rgc'));
+  if(rg){rg.insertAdjacentHTML('afterend',html);return}
+  const gr=cards.find(c=>/Crescita della stagione/i.test(c.textContent));
+  if(gr){gr.insertAdjacentHTML('beforebegin',html);return}
+  if(cards.length)cards[cards.length-1].insertAdjacentHTML('afterend',html);
+}
+function kmPost(){
+  if(!(S&&S.phase==='act'&&S.rc&&S.rc.km))return;
+  const p=document.querySelector('.pane');if(!p)return;
+  const sp=p.querySelector('.spc');if(sp)sp.style.display='none';
+  const st=p.querySelector('.sitc');
+  if(st){const el=[...st.querySelectorAll('*')].find(e=>e.textContent.trim()==='Atto 3 di 3');if(el)el.innerHTML='<b>Momento chiave</b>'}
+}
+function kmRev(){
+  document.querySelectorAll('.rr>small').forEach(x=>{if(x.textContent.trim()==='Atto 4')x.textContent='Chiave'});
+}
+function kmSetPost(){
+  const cards=[...document.querySelectorAll('.card')];
+  const c=cards.find(x=>{const s=x.querySelector('.sech');return s&&/^Interfaccia$/.test(s.textContent.trim())});
+  if(!c||c.querySelector('[data-act="kmt"]'))return;
+  c.insertAdjacentHTML('beforeend',`<div class="btns"><button class="ghost${kmOn()?' on':''}" data-act="kmt">Momento chiave a tempo: ${kmOn()?'acceso':'spento'}</button></div><p class="sub">Una scelta decisiva per gara con un conto alla rovescia di ${kmSecs} secondi. Spegnilo per decidere senza fretta.</p>`);
+}
+{const _up=uiPost;uiPost=function(){
+  const r=_up.apply(this,arguments);
+  try{filPost();kmSetPost();kmPost();kmRev();kmStart();if(typeof wideDesk==='function'&&wideDesk()&&S&&S.rc&&S.rc.km){try{fitDesk();alignR()}catch(e){}}}catch(e){}
+  return r;
+}}
+/* scheda Pilota → Stile di guida: filosofia attuale */
+{const _tc=traitCard;traitCard=function(){
+  let h=_tc.apply(this,arguments);
+  try{const F=FIL[filOf()];h=h.replace('<div class="srs">',`<div class="srs"><div class="sr"><span class="lb">${F.e} Filosofia: ${F.n}<small>${F.d}</small></span></div>`)}catch(e){}
+  return h;
+}}
+/* =====================================================================
+   e7c · Rivali con identità · regole di pista · riepilogo del weekend ·
+         difficoltà adattiva leggera
+   (il backup/ripristino della carriera esiste già: «Backup carriere»)
+   ===================================================================== */
+
+/* ---------- testa a testa con i rivali ---------- */
+const h2hOf=n=>(S&&S.h2h&&S.h2h[n])||{w:0,l:0};
+function h2hAdd(n,win){S.h2h=S.h2h||{};const r=S.h2h[n]||(S.h2h[n]={w:0,l:0});if(win)r.w++;else r.l++;}
+
+/* nel duello conta anche come difende l'avversario */
+{const _ap=actPick;actPick=function(i){
+  try{
+    const rc=S.rc;
+    if(rc&&rc.ev==='rduel'){
+      const e=ACTS.rduel,du=duelData(),o=actOpts(e,rc.n)[i];
+      if(du){
+        rc.dun=du.n;
+        if(o&&o.ag&&o.mod>=1.5){
+          const df=drvStyle(du.n).df,ov=ovtOf(S.wk);
+          rc.xd=(rc.xd||0)-clamp((df-50)/50,-.6,.9)*.35*(ov===0?1.2:ov===2?.85:1);
+        }
+      }
+    }
+  }catch(err){}
+  return _ap.apply(this,arguments);
+}}
+
+/* ---------- regole di pista ---------- */
+const CRU={'Monte Carlo':'gri','Budapest':'gri','Imola':'gri',
+  'Jeddah':'sc','Baku':'sc','Singapore':'sc',
+  'Suzuka':'pil','Spa-Francorchamps':'pil','Silverstone':'pil',
+  'Monza':'mot','Las Vegas':'mot','Spielberg':'mot'};
+const CRT={
+  gri:{n:'La griglia pesa di più',d:'Sorpassare è quasi impossibile: dove parti conta molto più del solito.',tg:['qualifica decisiva','rimonta più difficile']},
+  sc:{n:'Safety car di casa',d:'Muri vicini e caos: qui la safety car arriva più spesso del solito.',tg:['safety car più probabile']},
+  pil:{n:'Pista da piloti',d:'Il talento fa la differenza: chi è più forte della concorrenza guadagna, chi lo è meno soffre.',tg:['conta il pilota']},
+  mot:{n:'Pista da motore',d:'Lunghi rettilinei: una vettura forte guadagna di più, una debole perde terreno.',tg:['conta la vettura']}
+};
+const crK=n=>CRU[n]||null;
+const crOf=n=>CRT[CRU[n]]||null;
+/* griglia che pesa di più (seconda passata, a 0,6) */
+{const _gi=gridInertia;gridInertia=function(E){
+  _gi.apply(this,arguments);
+  try{
+    if(S.wk&&crK(S.wk.c)==='gri'){
+      const sv=GW3.slice();
+      for(let i=0;i<GW3.length;i++)GW3[i]*=.6;
+      try{_gi.apply(this,arguments)}finally{for(let i=0;i<GW3.length;i++)GW3[i]=sv[i]}
+    }
+  }catch(e){}
+}}
+/* safety car più frequente (solo per questo weekend) */
+{const _mk=mkWk;mkWk=function(){
+  let k=-1,sv=0;
+  try{const nm=S.cal[S.round];if(crK(nm)==='sc'){k=circ(nm).k;sv=SCP[k];SCP[k]=Math.min(.8,sv+.12)}}catch(e){k=-1}
+  try{return _mk.apply(this,arguments)}
+  finally{if(k>=0)SCP[k]=sv}
+}}
+/* effetto di talento / vettura sulla gara (in unità di prestazione: ±0,5 ≈ ±⅓ di posizione) */
+function ruleMod(){
+  try{
+    const k=crK(S.cal&&S.cal[S.round]);
+    if(k==='pil'){
+      const rv=S.rivals||[],av=rv.length?rv.reduce((a,r)=>a+r.skill,0)/rv.length:rating(S);
+      return clamp((rating(S)-av)/20,-1,1)*.5;
+    }
+    if(k==='mot')return clamp((.5-carQ())*2,-1,1)*.45;
+  }catch(e){}
+  return 0;
+}
+
+/* ---------- difficoltà adattiva leggera ---------- */
+const adOn=()=>{try{return localStorage.getItem('gdp_ad')!=='0'}catch(e){return true}};
+function adForm(){
+  const h=(S&&S.adh)||[];
+  if(h.length<4)return 0;
+  const a=h.slice(-5);return a.reduce((x,y)=>x+y,0)/a.length;
+}
+/* massimo ≈ ⅓ di posizione a gara: nessuna etichetta, nessun avviso */
+const adBias=()=>adOn()?clamp(-adForm()*.12,-.5,.5):0;
+function adRecord(me){
+  try{
+    if(S.adt!==S.tier){S.adt=S.tier;S.adh=[]}
+    if(!me||me.dnf)return;
+    const tc=S.teams.map((t,i)=>({i,c:t.car+(i===S.teamRank?S.carBonus:0)})).sort((a,b)=>b.c-a.c),k=tc.findIndex(x=>x.i===S.teamRank),ex=2*k+1.5;
+    S.adh=(S.adh||[]).concat(clamp(Math.round((ex-me.pos)*10)/10,-8,8)).slice(-8);
+  }catch(e){}
+}
+
+/* ---------- gara: regole + adattiva + testa a testa ---------- */
+let ADX=0;
+{const _tb=trkB;trkB=function(){
+  return _tb.apply(this,arguments)+ADX;
+}}
+{const _dr=doRace;doRace=function(opt){
+  const rc=S.rc,dun=(rc&&rc.dun)||null;
+  try{ADX=ruleMod()+adBias()}catch(e){ADX=0}
+  let r;
+  try{r=_dr.apply(this,arguments)}finally{ADX=0}
+  try{
+    const L=S.last,rows=L&&L.rows;
+    if(rows){
+      const me=rows.find(x=>x.me);
+      if(me){
+        adRecord(me);
+        const names=new Set(),m=mateOf();
+        if(m)names.add(m.n);
+        if(S.riv&&rivHere())names.add(S.riv.n);
+        if(dun)names.add(dun);
+        L.h2=[];
+        names.forEach(n=>{
+          const o=rows.find(x=>x.n===n);if(!o)return;
+          const win=me.dnf?false:(o.dnf?true:me.pos<o.pos);
+          h2hAdd(n,win);
+          L.h2.push({n,win,d:n===dun?1:0,r:(S.riv&&S.riv.n===n)?1:0,m:(m&&m.n===n)?1:0});
+        });
+        L.cr=crK(L.circuit);
+      }
+    }
+  }catch(e){}
+  return r;
+}}
+
+/* ---------- riepilogo del weekend ---------- */
+let RVO=false;
+{const _a0=act0;act0=function(a,i,v){
+  if(a==='adt'){try{localStorage.setItem('gdp_ad',adOn()?'0':'1')}catch(e){}KP=true;render();return}
+  if(a==='rvo'){RVO=!RVO;KP=true;render();return}
+  return _a0.apply(this,arguments);
+}};
+const wsCl=['ok','ok','','ko'];
+function wsRows(){
+  const L=S.last,rows=[];
+  if(!L||!L.rows)return rows;
+  const me=L.rows.find(x=>x.me);
+  const tc=S.teams.map((t,i)=>({i,c:t.car+(i===S.teamRank?S.carBonus:0)})).sort((a,b)=>b.c-a.c),k=tc.findIndex(x=>x.i===S.teamRank),ex=Math.round(2*k+1.5);
+  const qs=L.qs;
+  if(qs&&qs.vd!=null&&me&&me.g){
+    const d=ex-me.g;
+    rows.push({l:'Qualifica',t:'Partenza P'+me.g,u:d>=1?`${d} ${d===1?'posizione meglio':'posizioni meglio'} delle attese`:d<=-1?`${-d} ${d===-1?'posizione peggio':'posizioni peggio'} delle attese`:'in linea con le attese',p:VD[qs.vd][0],c:wsCl[qs.vd]});
+  }
+  const st=L.st;
+  if(st&&st.vd!=null){
+    const nm=k=>{try{const p=PL.find(x=>x.k===k);return p?p.n.split(' · ')[0]:''}catch(e){return ''}};
+    const pn=nm(st.k),bn=nm(st.best);
+    rows.push({l:'Strategia',t:pn||'Piano di gara',u:(st.best&&st.best!==st.k&&bn)?`Il migliore era «${bn}»`:'',p:VD[st.vd][0],c:wsCl[st.vd]});
+  }
+  const rv=L.rv||[];
+  if(rv.length){
+    const ok=rv.filter(x=>x.g>0).length,ko=rv.filter(x=>x.g<0).length;
+    const tone=ko>=2?3:ok===rv.length?0:(ok*2>=rv.length&&ko===0)?1:2;
+    rows.push({l:'Gara',t:`${ok} ${ok===1?'scelta indicata':'scelte indicate'} su ${rv.length}`,u:ko?`${ko} ${ko===1?'sconsigliata':'sconsigliate'}`:'',p:VD[tone][0],c:wsCl[tone]});
+  }
+  (L.h2||[]).filter(x=>x.d||x.r).forEach(x=>{
+    const h=h2hOf(x.n);
+    rows.push({l:x.r?'Rivale':'Duello',t:x.n,u:`${x.win?'Lo hai battuto':'Ti ha battuto'} · testa a testa ${h.w}–${h.l}`,p:x.win?'Vinto':'Perso',c:x.win?'ok':'ko'});
+  });
+  return rows;
+}
+function wsPost(){
+  try{
+    const app=document.getElementById('app');if(!app||!S||!S.last||S.phase!=='result')return;
+    const cl=app.querySelector('.pane.p-result .cl,.cl.k-m');
+    if(!cl||cl.querySelector(':scope>.wsm'))return;
+    const cards=[...cl.querySelectorAll(':scope>.card')];
+    const hero=cl.querySelector(':scope>.card.pod');if(!hero)return;
+    const anchor=cards[1]||hero;
+    const rows=wsRows();
+    if(rows.length>=2){
+      const sec=document.createElement('section');sec.className='card wsm';
+      sec.innerHTML=`<div class="sech">Le tue scelte del weekend</div><div class="wsg">${rows.map(r=>`<div class="wst ${r.c}"><small>${r.l}</small><b>${esc(r.t)}</b>${r.u?`<u>${esc(r.u)}</u>`:''}<i class="${r.c}">${r.p}</i></div>`).join('')}</div>`;
+      anchor.insertAdjacentElement('afterend',sec);
+    }
+    /* la revisione dettagliata resta a un tocco */
+    const rv=cl.querySelector(':scope>.rvw');
+    if(rv&&!rv.dataset.f){
+      rv.dataset.f='1';rv.classList.add('rvc');if(RVO)rv.classList.add('open');
+      const sh=rv.querySelector('.sech');
+      if(sh){
+        const L=S.last.rv||[],ok=L.filter(x=>x.g>0).length;
+        sh.innerHTML=`<button type="button" class="rvh" data-act="rvo" aria-expanded="${RVO}"><span>Revisione della gara</span><em>${ok} su ${L.length} indicate</em><i></i></button>`;
+      }
+    }
+    try{if(wideDesk()){fitDesk();alignR()}}catch(e){}
+  }catch(e){}
+}
+
+/* ---------- regola di pista, scheda duello, impostazioni ---------- */
+function crPost(){
+  try{
+    const ph=document.querySelector('#app .pane.dec .ph');
+    if(!ph||!S||!S.wk||ph.querySelector('.crl'))return;
+    if(!(S.phase==='fp'||(S.phase==='quali'&&S.wk.fmt!=='fp')))return;
+    const c=crOf(S.wk.c);if(!c)return;
+    const d=document.createElement('div');d.className='crl';
+    d.innerHTML=`<b>⚑ ${c.n}</b> ${c.d}<span class="crt">${c.tg.map(t=>`<span class="qb n">${t}</span>`).join('')}</span>`;
+    const tl=ph.querySelector('.trkl');
+    if(tl)tl.insertAdjacentElement('afterend',d);else ph.appendChild(d);
+    try{if(wideDesk()){fitDesk();alignR()}}catch(e){}
+  }catch(e){}
+}
+function duPost(){
+  try{
+    const dc=document.querySelector('#app .duc');
+    if(!dc||dc.querySelector('.dus')||!S||!S.rc||S.rc.ev!=='rduel')return;
+    const du=duelData();if(!du)return;
+    const s=drvStyle(du.n),h=h2hOf(du.n);
+    const lab=s.df>=62?'difende duro: attaccarlo rende meno':s.df<=42?'si lascia passare: attaccarlo rende di più':s.at>=62?'attacca forte':'stile equilibrato';
+    const p=document.createElement('p');p.className='dus';
+    p.innerHTML=`<span class="qb n">Attacco ${s.at}</span><span class="qb n">Difesa ${s.df}</span><span>${lab}${(h.w||h.l)?` · testa a testa ${h.w}–${h.l}`:''}</span>`;
+    dc.appendChild(p);
+  }catch(e){}
+}
+function adSetPost(){
+  const cards=[...document.querySelectorAll('.card')];
+  const c=cards.find(x=>{const s=x.querySelector('.sech');return s&&/^Interfaccia$/.test(s.textContent.trim())});
+  if(!c||c.querySelector('[data-act="adt"]'))return;
+  const ad=adOn();
+  c.insertAdjacentHTML('beforeend',`<div class="btns"><button class="ghost${ad?' on':''}" data-act="adt">Difficoltà adattiva: ${ad?'accesa':'spenta'}</button></div><p class="sub">Dopo alcune gare molto sopra o sotto le attese, il gioco ritocca di pochissimo il ritmo (meno di mezza posizione a gara). Spegnila per giocare sempre alla stessa difficoltà.</p>`);
+}
+{const _up=uiPost;uiPost=function(){
+  const r=_up.apply(this,arguments);
+  try{adSetPost();wsPost();crPost();duPost()}catch(e){}
+  return r;
+}}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
