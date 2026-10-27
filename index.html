@@ -1734,6 +1734,11 @@ body.cpt .pane.p-fp .ch.cmpx:not(.open) .od,body.cpt .pane.p-qlive .ch.cmpx:not(
 .pmb:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
 .pmn{margin:0}
 @media(min-width:1000px){.pmk{max-width:640px}}
+/* e7f · infortuni */
+.seg.inj{background:repeating-linear-gradient(135deg,var(--warn) 0 2px,transparent 2px 4px)}
+.legend i.ijl{background:repeating-linear-gradient(135deg,var(--warn) 0 2px,transparent 2px 4px)}
+.hud .ijh{color:var(--warn);font-weight:700}
+.card.ijn .news b{font-weight:700}
 html{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 input{-webkit-user-select:text;user-select:text;font-size:16px!important}
@@ -4555,7 +4560,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 26/10 · 18:54</p></div>`;
+  <p class="foot">Versione 27/10 · 02:16</p></div>`;
 }
 
 function identityView(){
@@ -13725,14 +13730,6 @@ const KME=[
 KME.forEach(e=>{e.a=[];e.km=1;e.o.forEach(o=>{o.mod=0;if(o.risk==null)o.risk=0});ACTS[e.id]=e});
 const kmOn=()=>{try{return localStorage.getItem('gdp_kmt')!=='0'}catch(e){return true}};
 const kmSecs=10;
-function kmPickEv(){
-  const w=S.wk;if(!w)return null;
-  const H=S.kmH||[];
-  const ws=KME.map(e=>{let v=e.wt?e.wt(w):1;if(H.slice(-2).includes(e.id))v*=.3;return Math.max(0,v)});
-  const tot=ws.reduce((a,b)=>a+b,0);if(tot<=0)return null;
-  let r=rnd()*tot,k=0;for(;k<KME.length;k++){r-=ws[k];if(r<=0)break}
-  return KME[Math.min(k,KME.length-1)];
-}
 const _kmAE=actEnd;
 actEnd=function(){
   const rc=S.rc;
@@ -13744,50 +13741,12 @@ actEnd=function(){
   }catch(e){}
   return _kmAE.apply(this,arguments);
 };
-function kmPick(i){
-  const rc=S.rc,w=S.wk,e=rc&&ACTS[rc.ev];
-  if(!rc||!rc.km||!e)return;
-  const o=e.o[i];if(!o)return;
-  const r=e.ctx?e.ctx(w):null;let dp=0,g=0;
-  if(r){if(i===r[0]){dp=.15;g=1}else if(i===r[1]){dp=0}else{dp=-.1;g=-1}}
-  let p;
-  if(o.mur){p=clamp(typeof muP==='function'?muP():.55,.3,.9);g=0}
-  else p=clamp(o.p+dp,.15,.85);
-  const good=rnd()<p;
-  const v=(good?o.up:-o.dn)-KB;
-  rc.mod+=v;rc.tr+=v;rc.risk+=(o.risk||0)*RK*.5;
-  if(o.ag){rc.ag++;dstInc('a')}
-  if(o.ty){rc.ty++;dstInc('t')}
-  if(g>0){rc.g++;dstInc('c')}
-  if(g<0)rc.b+=1;
-  if(o.rv&&S.riv&&S.hh&&rivHere())S.hh[S.riv.n]=clamp((S.hh[S.riv.n]||0)+o.rv,0,100);
-  rc.lg.push({a:3,e:e.t,t:o.t,g:good?1:-1,s:good?o.okT:o.koT});
-  S.kmH=(S.kmH||[]).concat(rc.ev).slice(-3);
-  rc.km=0;rc.h=null;
-  _kmAE();
-}
 {const _a0=act0;act0=function(a,i,v){
   if(a==='km'||(a==='ac'&&S&&S.rc&&S.rc.km)){kmPick(+i);return}
   if(a==='fil'){if(FIL[v]){S.fil=v;save();KP=true;render()}return}
   if(a==='kmt'){try{localStorage.setItem('gdp_kmt',kmOn()?'0':'1')}catch(e){}KP=true;render();return}
   return _a0.apply(this,arguments);
 }}
-function kmView(){
-  const w=S.wk,rc=S.rc,e=ACTS[rc.ev],x=typeof e.x==='function'?e.x(w):e.x;
-  let sit='',wl='';
-  rc.n=2;try{sit=actSit();wl=wkLine()}catch(err){}rc.n=3;
-  sit=sit.replace(/Ultimo atto:[^<]*/,'');wl=wl.replace(/Ultimo atto:[^<]*/,'');
-  let lap='';
-  try{const s=rsNow();if(s&&s.T)lap='giro '+Math.max(2,Math.round(s.T*(e.fr||.7)))+' di '+s.T}catch(err){}
-  const past=rc.lg.length?`<div class="chips">${rc.lg.map(l=>`<span class="chip ${l.g>0?'up':l.g<0?'down':''}">${ACTN[l.a]}: ${esc(l.t)}</span>`).join('')}</div>`:'';
-  const tm=kmOn()?`<div class="kmtm"><div class="kmbar"><i style="width:100%"></i></div><b class="kmt">${kmSecs}″</b></div>`:'';
-  const O=e.o;
-  const opts=O.map((o,i)=>`<button type="button" class="ch kmo" data-cmp="1" data-act="km" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.t}${rc.h===i?' <small class="kfa">★ consiglio del muretto</small>':''}</span><span class="omt kft">${o.tg.map(t=>`<span class="qb ${t[0]}">${t[1]}</span>`).join('')}</span><span class="kmd">${o.d}</span></span></button>`).join('');
-  const hint=(e.ctx&&rc.h==null&&w.tk>0)?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'} · ${muLbl()}</button></div>`:'';
-  return `<div class="ph evh k-neu kmh"><div class="kick">Weekend ${S.round+1} di ${S.total} · Momento chiave${lap?' · '+lap.replace(' di ','/'):''}</div><h1>${e.t}</h1><p>${x}</p>${tm}</div>
-  ${sit}${wl}${past}
-  <div class="opts">${opts}</div><p class="sub kmn">${kmOn()?'Una sola chiamata decisiva per gara. Se il tempo scade, sceglie il muretto per te.':'Una sola chiamata decisiva per gara.'}</p>${hint}`;
-}
 {const _av=actView;actView=function(){
   try{if(S&&S.rc&&S.rc.km&&ACTS[S.rc.ev]&&ACTS[S.rc.ev].km)return kmView()}catch(e){console&&console.log&&0}
   return _av.apply(this,arguments);
@@ -13795,23 +13754,6 @@ function kmView(){
 /* --- timer + carta della filosofia + interruttore del tempo (DOM) --- */
 let kmTm=null;
 function kmStop(){if(kmTm){clearInterval(kmTm);kmTm=null}}
-function kmStart(){
-  kmStop();
-  if(typeof document==='undefined'||typeof document.querySelector!=='function')return;
-  if(!(S&&S.phase==='act'&&S.rc&&S.rc.km&&kmOn()))return;
-  const bar=document.querySelector('.kmbar i'),tx=document.querySelector('.kmt');
-  if(!bar||!tx)return;
-  const t0=Date.now(),T=kmSecs*1000,key=S.year+'|'+S.round;
-  kmTm=setInterval(()=>{
-    const live=document.querySelector('.kmbar i');
-    if(!live||!(S&&S.phase==='act'&&S.rc&&S.rc.km&&key===S.year+'|'+S.round)){kmStop();return}
-    if(document.hidden){return}
-    const el=Date.now()-t0,left=Math.max(0,T-el);
-    live.style.width=(left/T*100)+'%';
-    const t=document.querySelector('.kmt');if(t)t.textContent=Math.ceil(left/1000)+'″';
-    if(left<=0){kmStop();act('km',2)}
-  },100);
-}
 function filPost(){
   if(!(S&&S.phase==='seasonEnd'))return;
   const p=document.querySelector('.pane');if(!p||p.querySelector('.kfc'))return;
@@ -14484,6 +14426,876 @@ ACTL.forEach(e=>{
     }
   }catch(x){}
   return h;
+}}
+/* =====================================================================
+   e7f · Infortuni
+   · si nascono solo dagli incidenti in gara (errore, contatto, bagnato, gomme)
+   · visita medica: tre strade per il recupero (tempi, rischio, preparazione)
+   · i weekend di stop si saltano davvero: in pista guida un sostituto
+   · anche compagno e rivali si fanno male e lasciano il posto a un sostituto
+   · chiamata d'emergenza: un weekend in una categoria superiore, con un possibile contratto
+   ===================================================================== */
+
+const IJC=['err','ctt','wet','gom'];
+const IJRC=['Errore','Contatto','Bagnato','Gomme'];
+const IJL={
+ 1:['contusione alla spalla','distorsione alla caviglia','colpo di frusta','lieve trauma cranico'],
+ 2:['costola incrinata','distorsione al polso','lesione muscolare alla schiena'],
+ 3:['frattura al polso','lesione ai legamenti del ginocchio','frattura alla clavicola'],
+ 4:['frattura alla clavicola con intervento','frattura alla gamba','frattura vertebrale stabile']
+};
+const IJWHY=['una brutta influenza','un problema alla schiena','una distorsione rimediata in allenamento','un intervento d\'urgenza'];
+const ijCap=s=>String(s).charAt(0).toUpperCase()+String(s).slice(1);
+const ijS=()=>{if(!S)return null;if(!S.ij)S.ij={m:null,pend:0,bn:{},gn:[],pv:0,cl:0,clT:0,cnt:0,sk:0,co:null,call:null,cont:null};return S.ij};
+const ijU=k=>(hsh(String(S.name)+'|ij|'+k+'|'+S.year+'|'+S.tier+'|'+S.round)%10000)/10000;
+const ijOn=()=>{const I=S&&S.ij;return !!(I&&I.m&&I.m.w>0)};
+const ijTeam=(tier,t)=>TIERS[tier].teams[t]||'';
+var IJERR=[];
+const ijE=(w,e)=>{try{IJERR.push(w+': '+String(e&&e.stack||e).slice(0,400))}catch(x){}};
+
+/* ---------- gli eventi casuali dell'infortunio non servono più ---------- */
+try{EVENTS.forEach(e=>{if(e.id==='inj'||e.id==='hurt')e.c=()=>false})}catch(e){}
+
+/* ---------- la classifica mostra anche chi è fermo e i sostituti che hanno corso ---------- */
+{const _st=standings;standings=function(){
+  const a=_st.apply(this,arguments);
+  try{
+    const I=S&&S.ij;
+    if(I&&(Object.keys(I.bn).length||I.gn.length)){
+      Object.values(I.bn).forEach(b=>a.push({n:b.r.n,t:b.r.t,pts:b.r.pts,w:b.r.w,me:false}));
+      I.gn.forEach(g=>a.push({n:g.n,t:g.t,pts:g.pts,w:g.w,me:false}));
+      a.sort((x,y)=>y.pts-x.pts||y.w-x.w||x.n.localeCompare(y.n));
+    }
+  }catch(e){}
+  return a;
+}}
+
+/* ---------- sostituti ---------- */
+function ijMkSub(t,sk){
+  const d=mkD(S.tier,t,19+hsh(String(S.year)+'|'+S.round+'|'+t+'|sub')%4,clamp(sk,44,95));
+  return{n:d.n,t,skill:d.o,age:d.a,pts:0,w:0,sub:1};
+}
+function ijBench(r,w,txt){
+  const I=ijS(),k=S.rivals.indexOf(r);if(k<0)return null;
+  const sub=ijMkSub(r.t,r.skill-4);
+  S.rivals[k]=sub;
+  I.bn[r.n]={r:{...r},w,w0:w,txt,sub:sub.n,y:S.year};
+  return sub;
+}
+function ijBack(n){
+  const I=ijS(),b=I.bn[n];if(!b)return;
+  const k=S.rivals.findIndex(x=>x.n===b.sub);
+  if(k>=0){const s=S.rivals[k];I.gn.push({n:s.n,t:s.t,pts:s.pts,w:s.w});S.rivals[k]=b.r}
+  else S.rivals.push(b.r);
+  delete I.bn[n];
+}
+function ijMySub(){
+  const I=ijS(),m=I.m;
+  let s=m&&m.sub?S.rivals.find(x=>x.n===m.sub):null;
+  if(!s){s=ijMkSub(S.teamRank,Math.max(46,rating(S)-5));S.rivals.push(s);if(m)m.sub=s.n}
+  return s;
+}
+function ijMyBack(){
+  const I=ijS(),m=I.m;if(!m||!m.sub)return;
+  const k=S.rivals.findIndex(x=>x.n===m.sub);
+  if(k>=0){const s=S.rivals[k];I.gn.push({n:s.n,t:s.t,pts:s.pts,w:s.w});S.rivals.splice(k,1)}
+  m.sub=null;
+}
+
+/* ---------- il tuo stato: fermo o no ---------- */
+function ijOut(){
+  const I=ijS(),m=I&&I.m;if(!m||S.first||!S.teams)return false;
+  if(m.w>0)return true;
+  if(m.early&&!m.chk){
+    m.chk=1;
+    if(ijU('rel')<.2){
+      m.w=2;m.rel=1;
+      feedAdd('n','Paddock',abbr(S.name)+': il rientro anticipato non regge, ricaduta. Altri 2 weekend ai box.',-1);
+      return true;
+    }
+    const cur=S.sm&&S.sm.left>0?S.sm:{mod:0,left:0};
+    S.sm={mod:Math.round((cur.mod-1)*10)/10,left:Math.max(2,cur.left)};
+    feedAdd('n','Paddock',abbr(S.name)+' torna in pista in anticipo: non è ancora al meglio.',0);
+  }
+  ijMyBack();I.m=null;return false;
+}
+
+/* ---------- corsa senza di te ---------- */
+function ijSim(table){
+  const m0={pts:S.me.pts,wins:S.me.wins,pod:S.me.pod,dnf:S.me.dnf};
+  const order=simulateRace(null,table);
+  S.me.pts=m0.pts;S.me.wins=m0.wins;S.me.pod=m0.pod;S.me.dnf=m0.dnf;
+  order.forEach(e=>{if(!e.me&&e.r){e.r.pts-=e.pts;if(e.pos===1)e.r.w--}});
+  const rest=order.filter(e=>!e.me);
+  rest.forEach((e,i)=>{e.pos=i+1;e.pts=(!e.dnf&&i<table.length)?table[i]:0;if(e.r){e.r.pts+=e.pts;if(e.pos===1)e.r.w++}});
+  return rest;
+}
+function ijSkipRace(kind){
+  const I=ijS(),T=TIERS[S.tier],nr=T.races+sprX(),c=S.cal[S.round];
+  QUALI={};const pp={};standings().forEach((x,i)=>{pp[x.n]=i+1});
+  let sub;
+  if(kind==='call'){sub=ijMkSub(S.teamRank,Math.max(46,rating(S)-5));S.rivals.push(sub)}
+  else sub=ijMySub();
+  const list=[];
+  for(let i=0;i<nr;i++){RFX=(i===nr-1)?1:.3;NZX=null;list.push(ijSim(ptsTab(i!==nr-1)))}
+  RFX=1;NZX=null;
+  const main=list[nr-1];
+  S.round++;
+  shSim(1);
+  if(S.round===Math.round(S.total*.35)||S.round===Math.round(S.total*.7))genRumors();
+  S.strip.push('inj');
+  if(kind==='inj'){S.fama=clamp(S.fama-.5,0,100)}
+  const mk=e=>({n:e.n,t:e.t,pos:e.pos,pts:e.pts,me:false,dnf:e.dnf,why:e.why?e.why.s:'',g:e.g});
+  S.last={ij:kind,circuit:c,kind:'none',best:'none',pos:0,dnf:false,why:null,pts:0,line:'',out:'',mate:null,fx:{},dF:0,dT:0,q:[],
+    spr:list.slice(0,nr-1).map(o=>o.map(mk)),rows:main.map(mk),races:[],sub:sub?sub.n:''};
+  S.last.champ=standings().map((x,i)=>({n:x.n,t:x.t,pos:i+1,pts:x.pts,me:x.me,dd:S.round>1?(pp[x.n]||i+1)-(i+1):0}));
+  S.rstep=0;
+  S.frm=S.frm||{};
+  main.forEach(e=>{const a=S.frm[e.n]||(S.frm[e.n]=[]);a.push(e.dnf?'R':e.pos);if(a.length>5)a.shift()});
+  try{rvGrow(main)}catch(e){}
+  if(kind==='call'){
+    const k=S.rivals.findIndex(x=>x.n===sub.n);
+    if(k>=0){const s=S.rivals[k];I.gn.push({n:s.n,t:s.t,pts:s.pts,w:s.w});S.rivals.splice(k,1)}
+    S.last.champ=standings().map((x,i)=>({n:x.n,t:x.t,pos:i+1,pts:x.pts,me:x.me,dd:S.round>1?(pp[x.n]||i+1)-(i+1):0}));
+  }else{
+    const m=I.m;
+    if(m){
+      m.w--;I.sk++;
+      if(m.w<=0){
+        ijMyBack();
+        S.last.back=1;
+        if(!m.early)I.m=null;
+        feedAdd('n','Paddock',abbr(S.name)+' è guarito: torna in pista al prossimo weekend.',1);
+      }
+      S.last.left=Math.max(0,m.w);
+    }
+  }
+  return S.last;
+}
+
+/* ---------- prima o dopo ogni corsa ---------- */
+{const _dr=doRace;doRace=function(opt){
+  let L;
+  try{
+    if(S&&S.teams&&!S.first&&ijOut()){
+      L=S.code?seedRun(S.code,'i'+S.year+'.'+S.tier+'.'+S.round,()=>ijSkipRace('inj')):ijSkipRace('inj');
+      ijAfter(L);
+      return L;
+    }
+  }catch(e){ijE('skip',e)}
+  L=_dr.apply(this,arguments);
+  try{ijAfter(L)}catch(e){ijE('after',e)}
+  return L;
+}}
+function ijAfter(L){
+  const I=ijS();if(!I||!L)return;
+  L.ijr=L.ijr||[];
+  Object.keys(I.bn).forEach(n=>{
+    const b=I.bn[n];b.w--;
+    if(b.w<=0){ijBack(n);feedAdd('n','Paddock',n+' è guarito e torna in pista.',0)}
+  });
+  if(!L.ij&&I.pv>0)I.pv--;
+  ijRollRivals(L);
+  if(!L.ij)ijRollMe(L);
+}
+function ijRollMe(L){
+  const I=ijS();
+  if(I.m||!L||!L.dnf||!L.why||!IJC.includes(L.why.k)||S.round>=S.total)return;
+  const tf=[.5,.7,1,1.15][S.tier]||1;
+  const p=.34*tf*(I.pv>0?.6:1)*(S.age>=34?1.15:1);
+  if(ijU('p')>=p)return;
+  const u=ijU('w');let w=u<.42?1:u<.72?2:u<.9?3:4;
+  if(S.age>=34&&w<4&&ijU('a')<.5)w++;
+  const rem=S.total-S.round;
+  w=Math.max(1,Math.min(w,[1,2,3,3][S.tier],rem));
+  const arr=IJL[w],txt=arr[hsh(String(S.name)+'|ijt|'+S.year+'|'+S.round)%arr.length];
+  I.m={w,w0:w,txt,at:S.round,c:S.cal[S.round-1],k:L.why.k,early:0,chk:0,sub:null};
+  I.cnt++;
+  L.ijr.unshift('<b>Infortunio:</b> '+esc(txt)+'. Stop previsto: '+w+' weekend.');
+  feedAdd('n','Paddock',abbr(S.name)+' si infortuna a '+S.cal[S.round-1]+': '+txt+'. Stop previsto: '+w+' weekend.',-1);
+  if(S.auto)ijApply(0);else I.pend=1;
+}
+function ijRollRivals(L){
+  const I=ijS();
+  if(!L||!L.rows||S.round>=S.total)return;
+  const rem=S.total-S.round;
+  L.rows.forEach(e=>{
+    if(e.me||!e.dnf||!IJRC.includes(e.why)||Object.keys(I.bn).length>=3)return;
+    const r=S.rivals.find(x=>x.n===e.n);if(!r||r.sub)return;
+    if((hsh(e.n+'|ijr|'+S.year+'|'+S.round)%10000)/10000>=.07)return;
+    const v=(hsh(e.n+'|ijw|'+S.year+'|'+S.round)%100)/100;
+    const w=Math.max(1,Math.min(v<.55?1:v<.85?2:3,rem));
+    const arr=IJL[w],txt=arr[hsh(e.n+'|ijt|'+S.round)%arr.length];
+    const mate=r===mateOf();
+    const sub=ijBench(r,w,txt);if(!sub)return;
+    const tm=ijTeam(S.tier,r.t);
+    L.ijr.push((mate?'<b>Il tuo compagno '+esc(e.n)+'</b>':'<b>'+esc(e.n)+'</b> ('+esc(tm)+')')+' si infortuna: '+esc(txt)+'. Salta '+w+(w===1?' weekend':' weekend')+', al suo posto '+esc(sub.n)+'.');
+    feedAdd('n','Paddock',(mate?'Il compagno di '+abbr(S.name)+', ':'')+e.n+' ('+tm+') si infortuna: '+txt+'. Fuori '+w+' weekend, al suo posto '+sub.n+'.',0);
+  });
+}
+
+/* ---------- visita medica ---------- */
+function ijApply(i){
+  const I=ijS(),m=I.m;
+  if(m){
+    m.dec=i;
+    if(i===1){m.w=Math.max(0,m.w-1);m.early=1}
+    else if(i===2){m.w=Math.min(m.w+1,Math.max(1,S.total-S.round));I.pv=10;S.st.costanza=clamp(S.st.costanza+1.2,1,99)}
+  }
+  I.pend=0;
+}
+function ijMed(i){
+  const I=ijS(),c=I.cont;
+  S.tab='decide';
+  ijApply(i);I.cont=null;
+  if(c==='step'){enterStep();return}
+  S.phase='result';
+  act0('next');
+}
+function ijMedView(I){
+  const m=I.m,rem=S.total-S.round,st=standings(),pos=st.findIndex(x=>x.me)+1,w=m.w;
+  const tg=a=>a.map(t=>`<span class="qb ${t[0]}">${t[1]}</span>`).join('');
+  const O=[
+   {t:'Segui le cure',d:'Rientro pulito, senza rischi: i medici decidono i tempi.',tg:[['g','Rientro sicuro'],['n','Stop '+w]]},
+   {t:'Rientra prima del previsto',d:w>1?'Salti un weekend in meno, ma torni non al meglio e puoi ricadere.':'Corri già al prossimo weekend, ma non al meglio e puoi ricadere.',tg:[['r','Rischio ricaduta'],['a','Stop '+Math.max(0,w-1)]]},
+   {t:'Recupero completo',d:'Un weekend in più ai box, ma torni più forte e più protetto.',tg:[['g','Meno infortuni'],['a','Stop '+Math.min(w+1,Math.max(1,rem))]]}
+  ];
+  const opts=O.map((o,i)=>`<button type="button" class="ch kmo" data-cmp="1" data-act="ijd" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.t}</span><span class="omt kft">${tg(o.tg)}</span><span class="kmd">${o.d}</span></span></button>`).join('');
+  const ctx=`<section class="card"><div class="sech">La tua stagione</div><div class="dl"><div><b>${pos}°</b><span>In classifica</span></div><div><b>${S.me.pts}</b><span>Punti</span></div><div><b>${rem}</b><span>Weekend rimasti</span></div></div><p class="sub">In tua assenza correrà un sostituto della squadra: ogni weekend saltato pesa sul campionato.</p></section>`;
+  return `<div class="ph evh k-neu kmh"><div class="kick">Visita medica · Weekend ${m.at} di ${S.total}</div><h1>${esc(ijCap(m.txt))}</h1><p>Dopo l'incidente di ${esc(m.c)} i medici ti fermano per ${w} weekend.</p></div>
+  ${ctx}<div class="opts">${opts}</div>`;
+}
+
+/* ---------- chiamata d'emergenza ---------- */
+function ijCallTry(){
+  const I=ijS();
+  if(S.tier>=3||S.first||I.cl>=1||I.clT>=4||ijOn()||S.auto||S.round<2||S.round>S.total-2)return false;
+  const st=standings(),pos=st.findIndex(x=>x.me)+1;
+  if(pos<1||pos>Math.ceil(st.length/3))return false;
+  if(ijU('call')>=.10)return false;
+  const t1=S.tier+1,nt=TIERS[t1].teams.length,ti=nt-1-(hsh(String(S.name)+'|ijct|'+S.year+'|'+S.round)%3);
+  const pl=(S.pool&&S.pool[t1]||[]).filter(d=>d.t===ti);
+  const drv=pl.length?pl[hsh(S.name+'|ijcd|'+S.year)%pl.length].n:'il titolare';
+  I.call={tier:t1,t:ti,drv,why:IJWHY[hsh(S.name+'|ijcw|'+S.year+'|'+S.round)%IJWHY.length],c:S.cal[S.round],at:S.round};
+  S.phase='ijc';save();render();
+  return true;
+}
+function ijG(k){return(((hsh(String(S.name)+'|'+k+'|a|'+S.year+'|'+S.round)%1000)+(hsh(String(S.name)+'|'+k+'|b|'+S.year+'|'+S.round)%1000)+(hsh(String(S.name)+'|'+k+'|c|'+S.year+'|'+S.round)%1000))/1000-1.5)*2}
+function ijCarOf(t1,t){
+  try{const c=S.sh&&S.sh.T&&S.sh.T[t1]&&S.sh.T[t1].car;if(c&&c[t]!=null)return c[t]}catch(e){}
+  return TIERS[t1].base+(4.5-t)*1.9;
+}
+function ijCallRes(c,ap){
+  const T1=TIERS[c.tier],n=T1.teams.length*2;
+  const field=(S.pool&&S.pool[c.tier]||[]).filter(d=>d.n!==c.drv);
+  const my=.55*rating(S)+.45*ijCarOf(c.tier,c.t)-1.5+ijG('cg')*5.6*(ap===0?1.25:.8);
+  let ahead=0;
+  field.forEach(d=>{
+    const pf=.55*d.o+.45*ijCarOf(c.tier,d.t)+ijG('cf'+d.n)*4.4;
+    if(pf>my&&(hsh(d.n+'|ijdn|'+S.year+'|'+S.round)%100)/100>=.07)ahead++;
+  });
+  const dnf=ijU('cd')<(ap===0?.16:.06);
+  const pos=clamp(ahead+1,1,n);
+  const team=ijTeam(c.tier,c.t),nm=TIERS[c.tier].n;
+  let d=0,h,p,lines=[];
+  if(dnf){
+    d=-1;
+    const why=['un errore in frenata alla prima curva','un contatto al via','un guasto alla power unit'][hsh(S.name+'|ijcx|'+S.year)%3];
+    h='Ritiro con '+team;p='Il weekend in '+nm+' finisce presto: '+why+'.';
+    lines.push('Una macchina che non conosci e un solo weekend per farti notare: oggi è andata male.');
+  }else{
+    d=pos<=3?7:pos<=10?4:pos<=16?1.5:.5;
+    h='P'+pos+' in '+nm+' con '+team;
+    p=pos<=3?'Un podio che nessuno si aspettava: il paddock parla di te.':pos<=10?'Chiudi a punti con una macchina che non è tua: bel risultato.':pos<=16?'Gara onesta in mezzo al gruppo, senza errori.':'Una gara di esperienza: porti la macchina al traguardo.';
+    lines.push(pos<=10?'Il team ha notato il tuo passo.':'Per ora resta soprattutto un\'esperienza da ricordare.');
+  }
+  let co=null;
+  if(!dnf&&pos<=10&&ijU('cc')<(pos<=6?.85:.5)){
+    co={tier:c.tier,rank:c.t,note:'Dopo la chiamata d\'emergenza'};
+    lines.push(team+' vuole parlarti del futuro: potrebbe arrivare un\'offerta a fine stagione.');
+  }
+  const f0=Math.round(S.fama);S.fama=clamp(S.fama+d,0,100);
+  const dF=Math.round(S.fama)-f0;
+  return{pos,dnf,h,p,lines,co,fx:dF?{fama:dF}:{},team,tier:nm};
+}
+function ijCallPick(i){
+  const I=ijS(),c=I.call;
+  S.tab='decide';
+  if(!c){enterStep();return}
+  I.call=null;I.cl++;
+  if(i===2){enterStep();return}
+  I.clT++;
+  const r=ijCallRes(c,i);
+  if(r.co)I.co=r.co;
+  const L=ijSkipRace('call');
+  L.call=r;L.sim=0;L.fx=r.fx;
+  feedAdd('n','Paddock',abbr(S.name)+' chiamato d\'urgenza da '+r.team+' in '+r.tier+': '+(r.dnf?'ritiro.':'chiude P'+r.pos+'.'),r.dnf?-1:r.pos<=10?1:0);
+  ijAfter(L);
+  S.phase='result';save();render();
+}
+function ijCallView(I){
+  const c=I.call,T1=TIERS[c.tier],team=ijTeam(c.tier,c.t),mine=S.teamName;
+  const tg=a=>a.map(t=>`<span class="qb ${t[0]}">${t[1]}</span>`).join('');
+  const O=[
+   {t:'Accetta e punta tutto',d:'Una sola occasione: o ti fai notare o rischi il ritiro.',tg:[['r','Rischio alto'],['g','Più fama']]},
+   {t:'Accetta, ma con prudenza',d:'Porti la macchina al traguardo e lasci un buon ricordo.',tg:[['a','Rischio medio'],['g','Fama']]},
+   {t:'Resta con la tua squadra',d:'Rifiuti: oggi conta il tuo campionato.',tg:[['n','Nessun rischio']]}
+  ];
+  const opts=O.map((o,i)=>`<button type="button" class="ch kmo" data-cmp="1" data-act="ijc" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.t}</span><span class="omt kft">${tg(o.tg)}</span><span class="kmd">${o.d}</span></span></button>`).join('');
+  const st=standings(),pos=st.findIndex(x=>x.me)+1,rem=S.total-S.round;
+  const ctx=`<section class="card"><div class="sech">La tua stagione</div><div class="dl"><div><b>${pos}°</b><span>In classifica</span></div><div><b>${S.me.pts}</b><span>Punti</span></div><div><b>${rem}</b><span>Weekend rimasti</span></div></div><p class="sub">Se accetti salti il weekend con ${esc(mine)}: un sostituto prenderà i punti della squadra e la classifica non ti aspetta.</p></section>`;
+  return `<div class="ph evh k-neu kmh"><div class="kick">Chiamata d'emergenza · Weekend ${S.round+1} di ${S.total}</div><h1>${esc(team)} ti vuole</h1><p>${esc(c.drv)} è fuori per ${esc(c.why)}. Ti cercano per il weekend di ${esc(c.c)} in ${esc(T1.n)}: il calendario coincide con il tuo.</p></div>
+  ${ctx}<div class="opts">${opts}</div>`;
+}
+
+/* ---------- schermate ---------- */
+{const _dv=decideView;decideView=function(){
+  const h=_dv.apply(this,arguments);
+  try{
+    const I=S&&S.ij;
+    if(S&&S.phase==='ijm'&&I&&I.m)return h+ijMedView(I);
+    if(S&&S.phase==='ijc'&&I&&I.call)return h+ijCallView(I);
+  }catch(e){}
+  return h;
+}}
+function ijResView(L){
+  const I=ijS(),T=TIERS[S.tier];
+  let head,body;
+  const win=(L.rows||[]).find(x=>!x.dnf);
+  const vin=win?`<div class="news">Vince <b>${esc(win.n)}</b> (${esc(ijTeam(S.tier,win.t))}).</div>`:'';
+  if(L.ij==='call'){
+    const r=L.call;
+    head=`<div class="ph"><div class="kick">Chiamata d'emergenza · ${esc(L.circuit)}</div><h1>${esc(r.h)}</h1><p>${esc(r.p)}</p></div>`;
+    body=`<section class="card"><div class="sech">Il tuo weekend</div>${r.lines.map(x=>`<div class="news">${esc(x)}</div>`).join('')}${chips(r.fx||{})}<div class="news">Con ${esc(S.teamName)} ha corso ${esc(L.sub)}: il tuo weekend in ${esc(T.k)} è saltato.</div></section>`;
+  }else{
+    const left=L.left||0;
+    head=`<div class="ph"><div class="kick">${esc(L.circuit)} · Weekend ${S.round} di ${S.total}</div><h1>Weekend saltato</h1><p>${L.back?'Hai finito il periodo di stop: dal prossimo weekend sei di nuovo in pista.':'Sei fermo per infortunio'+(left?': ancora '+left+' weekend di stop.':'.')}</p></div>`;
+    body=`<section class="card"><div class="sech">Senza di te</div><div class="news">Per ${esc(S.teamName)} guida <b>${esc(L.sub)}</b>.</div>${vin}${(L.ijr||[]).map(x=>`<div class="news">${x}</div>`).join('')}</section>`;
+  }
+  return `<div class="cl k-m">${head}${body}${champCard(L)}<div class="dock"><button class="go" data-act="next">Avanti →</button></div></div>`;
+}
+{const _rv=resultView;resultView=function(){
+  const L=S.last;
+  try{if(L&&L.ij)return ijResView(L)}catch(e){}
+  let h=_rv.apply(this,arguments);
+  try{
+    if(L&&L.ijr&&L.ijr.length&&h.indexOf('class="cl k-m')>=0){
+      const c=`<section class="card ijn"><div class="sech">Infortuni</div>${L.ijr.map(x=>`<div class="news">${x}</div>`).join('')}</section>`;
+      let k=-1;for(let j=0;j<2;j++){k=h.indexOf('</section>',k+1);if(k<0)break}
+      if(k>=0)h=h.slice(0,k+10)+c+h.slice(k+10);else h=h.replace('<div class="dock">',()=>c+'<div class="dock">');
+    }
+  }catch(e){}
+  return h;
+}}
+
+/* ---------- azioni ---------- */
+{const _a0=act0;act0=function(a,i,v){
+  const ph=S&&S.phase;
+  if(ph==='ijm'&&(a==='ijd'||a==='next')){ijMed(a==='ijd'?+i:0);return}
+  if(ph==='ijc'&&(a==='ijc'||a==='next')){ijCallPick(a==='ijc'?+i:2);return}
+  if(a==='next'&&ph==='result'&&S.ij&&S.ij.pend&&S.ij.m){S.ij.cont='next';S.phase='ijm';S.tab='decide';save();render();return}
+  return _a0.apply(this,arguments);
+}}
+{const _es=enterStep;enterStep=function(){
+  const I=S&&ijS();
+  if(I&&S.steps){
+    if(I.pend){
+      if(S.round>=S.total||!I.m){I.pend=0;I.m=null}
+      else{I.cont='step';S.phase='ijm';save();render();return}
+    }
+    const st=S.steps[S.step];
+    if(st&&st.k==='race'&&S.teams&&!S.first){
+      if(ijOut()){const L=doRace(null);L.sim=0;S.phase='result';save();render();return}
+      if(ijCallTry())return;
+    }
+  }
+  return _es.apply(this,arguments);
+}}
+
+/* ---------- stagione: l'inverno guarisce tutto ---------- */
+{const _ns=newSeason;newSeason=function(){
+  const r=_ns.apply(this,arguments);
+  try{const I=ijS();I.m=null;I.pend=0;I.bn={};I.gn=[];I.cl=0;I.sk=0;I.co=null;I.call=null;I.cont=null}catch(e){}
+  return r;
+}}
+{const _ss=seasonStory;seasonStory=function(){
+  const o=_ss.apply(this,arguments);
+  try{const I=S.ij;if(I&&I.sk>0&&o&&o.lines)o.lines.push('Un infortunio ti ha tenuto fuori per '+I.sk+' weekend.')}catch(e){}
+  return o;
+}}
+{const _mo=makeOffers;makeOffers=function(){
+  const L=_mo.apply(this,arguments);
+  try{
+    const I=S.ij,c=I&&I.co;
+    if(c&&Array.isArray(L)&&!S.first&&c.tier>S.tier&&!L.some(o=>o.tier===c.tier&&o.rank===c.rank)){
+      L.splice(L.some(o=>o.ct)?1:0,0,{tier:c.tier,rank:c.rank,note:c.note});
+      if(L.length>4)L.length=4;
+    }
+  }catch(e){}
+  return L;
+}}
+
+/* ---------- interfaccia: striscia, HUD, scheda pilota ---------- */
+{const _sv=stripView;stripView=function(cp){
+  let h=_sv.apply(this,arguments);
+  try{if(!cp&&S.strip&&S.strip.includes('inj'))h=h.replace(/<\/div>\s*$/,()=>'<span><i class="ijl"></i>assente</span></div>')}catch(e){}
+  return h;
+}}
+{const _hv=hudView;hudView=function(){
+  let h=_hv.apply(this,arguments);
+  try{if(ijOn())h=h.replace(/(<span class="h1"><b>[^<]*<\/b><small>[^<]*)(<\/small>)/,(m,a,b)=>a+' · <span class="ijh">infortunio</span>'+b)}catch(e){}
+  return h;
+}}
+{const _ar=ageRow;ageRow=function(){
+  let h=_ar.apply(this,arguments);
+  try{
+    const I=S.ij;
+    if(I&&I.m&&I.m.w>0)h+=`<div class="sr"><span class="lb">Condizione<small>${esc(ijCap(I.m.txt))} · ancora ${I.m.w} weekend</small></span><em>${I.m.w}</em><div class="bar"><i style="width:${Math.round(clamp(I.m.w/Math.max(1,I.m.w0+1),0,1)*100)}%;background:var(--warn)"></i></div></div>`;
+    else if(I&&I.pv>0)h+=`<div class="sr"><span class="lb">Condizione<small>preparazione fisica: meno rischio di infortuni</small></span><em>OK</em><div class="bar"><i style="width:${Math.min(100,I.pv*10)}%"></i></div></div>`;
+  }catch(e){}
+  return h;
+}}
+{const _pn=pfNow;pfNow=function(){
+  let h=_pn.apply(this,arguments);
+  try{
+    const I=S.ij;
+    if(I&&I.m&&I.m.w>0){
+      const r=`<div class="nr"><span class="ne">🩹</span><span><small>Infortunio</small><b>${esc(ijCap(I.m.txt))}</b> · ancora ${I.m.w} weekend: in pista guida un sostituto.</span></div>`;
+      h=h.replace('<div class="nowt">Cosa conta adesso</div>',()=>'<div class="nowt">Cosa conta adesso</div>'+r);
+    }
+  }catch(e){}
+  return h;
+}}
+/* la scheda degli infortuni sta subito sotto il riepilogo della gara */
+function ijPost(){
+  if(typeof document==='undefined'||typeof document.querySelector!=='function')return;
+  const n=document.querySelector('.cl>.ijn');if(!n)return;
+  const sum=[...document.querySelectorAll('.cl>section.card')].find(x=>!x.classList.contains('hp')&&!x.classList.contains('ijn'));
+  if(sum&&sum.nextElementSibling!==n)sum.after(n);
+}
+{const _up=uiPost;uiPost=function(){const r=_up.apply(this,arguments);try{ijPost()}catch(e){}return r}}
+/* =====================================================================
+   e7g · Momento chiave: tante situazioni, legate a ciò che succede davvero
+   · 12 situazioni invece di 4: attacco, difesa, ultimo giro con la posta in gioco, gomme finite,
+     problema tecnico, ordine di squadra, titolo, varco davanti, energia, penalità,
+     bilancio della gara (posizioni guadagnate o perse), gara in solitaria
+   · la safety car e il meteo restano agli atti di metà gara (che li forzano sempre): qui non si ripetono
+   · ogni situazione compare solo se la gara la rende vera (attacco solo se hai qualcuno davanti, …)
+     e il testo nomina rivali, distacchi e giri
+   · opzioni diverse per situazione, non sempre «attacco / via di mezzo / prudente»
+   · circa 2 gare su 3, mai due volte di fila lo stesso tipo, niente doppioni con gli atti precedenti
+   · i vecchi salvataggi con un momento chiave a metà si leggono come prima
+   ===================================================================== */
+
+var KMERR=[];
+const kmE=(w,e)=>{try{KMERR.push(w+': '+String(e&&e.stack||e).slice(0,300))}catch(x){}};
+const kmForce=()=>{try{return localStorage.getItem('gdp_kmf')==='1'}catch(e){return false}};
+const kmU=tag=>(hsh(String(S.name)+'|km|'+S.year+'|'+S.tier+'|'+S.round+'|'+tag)%10000)/10000;
+const kmVar=(tag,n)=>hsh(String(S.name)+'|kv|'+S.year+'|'+S.tier+'|'+S.round+'|'+tag)%n;
+const kmCap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+/* giri alla fine nel punto della gara in cui cade il momento */
+const kmL=(c,fr)=>Math.max(0,c.T-Math.round(c.T*fr));
+const kmLp=L=>L<=0?'nell\'ultimo giro':L===1?'a un giro dalla fine':'a '+L+' giri dalla fine';
+const kmMk=L=>L<=0?'È l\'ultimo giro':L===1?'Manca un giro':'Mancano '+L+' giri';
+const kmTg=(a,b)=>[a,b];
+
+/* ---------- il contesto della gara, fotografato quando scatta il momento ---------- */
+function kmCx(){
+  const rc=S.rc,w=S.wk;if(!rc||!w)return null;
+  const n0=rc.n;let P,R=null;
+  rc.n=2;
+  try{
+    try{rc.pe=rc.pe||{};if(rc.nz){const q=peekPos(2);if(q)rc.pe[2]=q}}catch(e){kmE('peek',e)}
+    P=posNow();
+    try{R=rsNow()}catch(e){R=null}
+  }finally{rc.n=n0}
+  const m=(typeof mateOf==='function')?mateOf():null;
+  const rv=(S.riv&&typeof rivHere==='function'&&rivHere())?S.riv.n:null;
+  let ti=null,st=null,mePts=0,matePts=0;
+  try{
+    st=standings();
+    const mi=st.findIndex(x=>x.me);
+    if(mi>=0)mePts=st[mi].pts;
+    if(m){const q=st.find(x=>x.n===m.n);if(q)matePts=q.pts}
+    const t0=(typeof nxTitle==='function')?nxTitle():null;
+    if(t0){
+      const rem=S.total-S.round;
+      let gap=t0.gap,other=null;
+      if(t0.pos===1&&st[1]){gap=st[0].pts-st[1].pts;other=st[1].n}
+      else other=st[0].n;
+      ti={pos:t0.pos,gap,rem,other};
+    }
+  }catch(e){kmE('cx-st',e)}
+  const ratio0=R&&R.ratio!=null?R.ratio:null;
+  /* chi ha attaccato molto consuma di più, chi ha gestito consuma meno */
+  const ratio=ratio0==null?null:ratio0+.05*((rc.ag||0)-(rc.ty||0));
+  return{
+    p:P.p,N:P.N,a:P.a,b:P.b,an:P.an,bn:P.bn,gp:w.gp||null,
+    T:LAPS[S.tier|0]||30,tier:S.tier|0,
+    wet:!!w.rain,mix:!!w.mixed,rt:(w.wx&&w.wx.rt)||'',sc:!!w.sc,scp:w.scp==null?.35:w.scp,
+    u:w.u==null?2:w.u,ovt:w.ovt==null?1:w.ovt,
+    ratio,left:R?R.left:null,
+    mt:m?m.n:null,mA:!!(m&&P.an===m.n),mB:!!(m&&P.bn===m.n),
+    rv,rA:!!(rv&&P.an===rv),rB:!!(rv&&P.bn===rv),
+    ag:rc.ag||0,ty:rc.ty||0,
+    ti,mePts,matePts
+  };
+}
+
+/* ---------- la posta in gioco nell'ultimo giro ---------- */
+function kmStake(c){
+  const P=c.p,pz=PTS.length,A=c.a,B=c.b;
+  const na=c.an?esc(c.an):'',nb=c.bn?esc(c.bn):'';
+  if(P===1&&B!=null&&B<=3&&nb)return{k:'win',d:'def',x:`Sei in testa con ${sec(B)} su ${nb}: un giro, una sola chiamata, poi la bandiera a scacchi.`};
+  if(P===2&&A!=null&&A<=2&&na)return{k:'win2',d:'att',x:`${na} è in testa a ${sec(A)}: hai un giro per giocarti la vittoria.`};
+  if(P===3&&B!=null&&B<=1.6&&nb)return{k:'pod',d:'def',x:`Sei sul podio, ma ${nb} è a ${sec(B)}: un giro per non perderlo.`};
+  if(P===4&&A!=null&&A<=2&&na)return{k:'pod2',d:'att',x:`Il podio è lì, a ${sec(A)}: ${na} è davanti e questo è l'ultimo giro.`};
+  if(P===pz&&B!=null&&B<=1.6&&nb)return{k:'pt',d:'def',x:`Sei P${P}, l'ultimo posto che vale punti: ${nb} è a ${sec(B)} e te li toglierebbe.`};
+  if(P===pz+1&&A!=null&&A<=2&&na)return{k:'pt2',d:'att',x:`Sei P${P}, fuori dai punti per un soffio: ${na} è a ${sec(A)}.`};
+  if(c.rA&&A!=null&&A<=2&&na)return{k:'riv',d:'att',x:`${na}, il tuo rivale, è davanti a ${sec(A)}: un giro per batterlo.`};
+  if(c.rB&&B!=null&&B<=1.6&&nb)return{k:'riv',d:'def',x:`${nb}, il tuo rivale, è a ${sec(B)} dietro di te: un giro per tenerlo lì.`};
+  return null;
+}
+
+/* ---------- le situazioni ---------- */
+/* o(t,d,p,up,dn,risk,tag1,tag2,okT,koT,extra) */
+const kmO=(t,d,p,up,dn,risk,g1,g2,okT,koT,x)=>Object.assign({t,d,p,up,dn,risk,tg:[g1,g2],okT,koT},x||{});
+const kmMur=(okT,koT)=>({t:'Chiedi al muretto',d:'Segui il consiglio: meno rischio, meno resa.',mur:1,up:.7,dn:.7,risk:0,tg:[['g','sicuro'],['n','dipende dalla fiducia']],okT,koT});
+
+const KM2=[
+ /* 4 · all'attacco di chi ti precede */
+ {id:'m_at',t:'All\'attacco',th:['fatt','duel','friv','n_sotto_pressione','f2_drs','x_volata','x_duello_davanti'],fr:.84,
+  ok:c=>c.p>1&&c.a!=null&&c.a<=1.6&&!!c.an&&!c.mA,
+  wt:c=>2.0+(c.rA?1.4:0),
+  mk:c=>{
+    const L=kmL(c,.84),na=esc(c.an);
+    return{
+      x:`${na}${c.rA?', il tuo rivale,':''} è davanti a ${sec(c.a)}, ${kmLp(L)}. ${c.ovt===0?'Qui sorpassare è difficilissimo: se':c.ovt===2?'Il tracciato aiuta i sorpassi: se':'Se'} non provi adesso, la gara finisce così.${c.wet?' Sul bagnato ogni errore costa il doppio.':''}`,
+      o:[kmO('Attacco al limite','Staccata profonda: o la va o la spacca.',.45,2.2,1.6,.045,['g','grande resa'],['r','rischio contatto'],`Hai attaccato ${na} in staccata e sei passato.`,`L'attacco su ${na} non è riuscito: hai perso terreno.`,{ag:1,rv:c.rA?8:0}),
+         kmO('Costruisci l\'attacco','Scia e pressione: colpisci quando esita.',.55,1.4,.8,.015,['g','resa media'],['n','rischio basso'],`Hai tenuto la pressione su ${na} e sei passato quando ha esitato.`,`${na} non ha sbagliato: l'occasione non è arrivata.`,{rv:c.rA?3:0}),
+         kmO('Resti a contatto','Non rischi: ti accontenti della posizione.',.65,.7,.4,0,['g','sicuro'],['n','resa bassa'],'Hai tenuto il ritmo senza rischiare nulla.','Nel finale hai perso qualcosa.',{ty:1})],
+      cx:(c.ratio!=null&&c.ratio>=1)?[2,1]:(c.ovt===2||c.a<=.7)?[0,1]:c.ovt===0?[2,1]:[1,0],
+      df:2};
+  }},
+ /* 5 · sotto attacco di chi ti segue */
+ {id:'m_df',t:'Sotto attacco',th:['fdef','frivb','n_sotto_pressione','rduel','f2_drs'],fr:.86,
+  ok:c=>c.p<c.N&&c.b!=null&&c.b<=1.2&&!!c.bn&&!c.mB,
+  wt:c=>2.0+(c.rB?1.4:0),
+  mk:c=>{
+    const L=kmL(c,.86),nb=esc(c.bn);
+    return{
+      x:`${nb}${c.rB?', il tuo rivale,':''} è a ${sec(c.b)} e ti sta riprendendo. ${kmMk(L)}: ${c.tier>=1?'con l\'ala mobile aperta sul rettilineo non ti basterà il ritmo.':'una curva sbagliata e ti passa.'}${c.wet?' Sul bagnato una frenata lunga basta.':''}`,
+      o:[kmO('Difesa dura','Chiudi la porta in staccata: efficace, ma rischi il contatto.',.5,1.6,1.3,.035,['g','tieni la posizione'],['r','rischio contatto'],`Hai chiuso la porta a ${nb} e tenuto la posizione.`,`${nb} è passato nonostante la difesa.`,{ag:1,rv:c.rB?8:0}),
+         kmO('Una difesa pulita','Una sola mossa, ben piazzata, poi pensi al ritmo.',.6,1.0,.7,.01,['g','equilibrio'],['n','rischio basso'],`Hai difeso in modo pulito e ${nb} non è riuscito a passare.`,`La difesa pulita non è bastata: ${nb} è passato.`),
+         kmO('Lascialo passare e riprendilo','Rinunci alla posizione, ma conservi gomme e scia.',.4,1.5,.8,0,['g','gomme integre'],['r','perdi la posizione'],`Hai lasciato passare ${nb} e lo hai ripreso nel finale.`,`Hai lasciato passare ${nb} e non sei più riuscito a riprenderlo.`,{ty:1,rv:c.rB?-2:0})],
+      cx:(c.ratio!=null&&c.ratio>=.95)?[2,1]:c.ovt===0?[0,1]:c.ovt===2?[1,2]:[1,0],
+      df:1};
+  }},
+ /* 6 · l'ultimo giro, solo se c'è qualcosa in palio */
+ {id:'m_lp',t:'Ultimo giro',th:['fgap','flead','x_volata','n_finale_titolo'],fr:1,
+  ok:c=>!!kmStake(c)||kmForce(),
+  wt:c=>{const s=kmStake(c);return s?(['win','win2','pod','pod2'].includes(s.k)?2.6:1.8):.8},
+  mk:c=>{
+    const s=kmStake(c)||{k:'gen',d:'def',x:'Un giro alla bandiera a scacchi: il box vuole sapere come lo affronti.'};
+    const wornOut=c.ratio!=null&&c.ratio>=1;
+    if(s.d==='att')return{
+      x:s.x+' Il box ti chiede cosa vuoi fare.',
+      o:[kmO('Tutto sul giro','Spingi al massimo fino alla bandiera.',.45,1.9,1.5,.04,['g','resa alta'],['r','rischio errore'],'Hai dato tutto e hai guadagnato sul traguardo.','Hai spinto troppo e hai perso tempo.',{ag:1}),
+         kmO('Controlla il ritmo','Aspetti l\'errore e colpisci sul traguardo.',.55,1.0,.6,.01,['g','equilibrio'],['n','rischio basso'],'Hai controllato il ritmo e portato a casa qualcosa in più.','Il ritmo non bastava per migliorare.'),
+         kmO('Porta a casa la posizione','Gomme e macchina in sicurezza.',.65,.6,.3,0,['g','sicuro'],['n','resa bassa'],'Hai portato a casa la posizione in sicurezza.','Nel finale hai perso qualcosa.',{ty:1})],
+      cx:wornOut?[2,1]:(c.ratio!=null&&c.ratio<.85)?[0,1]:[1,0],df:2};
+    return{
+      x:s.x+' Il box ti chiede cosa vuoi fare.',
+      o:[kmO('Chiudi ogni porta','Difesa a oltranza, senza guardare le gomme.',.5,1.6,1.4,.035,['g','tieni la posizione'],['r','rischio contatto'],'Hai chiuso ogni porta fino alla bandiera a scacchi.','Hai difeso al limite e sei stato superato.',{ag:1}),
+         kmO('Difesa pulita','Una linea sola, ritmo costante.',.6,1.0,.6,.01,['g','equilibrio'],['n','rischio basso'],'Hai difeso con ordine fino alla fine.','La difesa pulita non ha retto fino alla bandiera.'),
+         kmO('Gestisci il margine','Meno rischi: ti fidi di ciò che hai.',.65,.6,.4,0,['g','sicuro'],['n','resa bassa'],'Hai gestito il margine e tagliato il traguardo in sicurezza.','Il margine non bastava: ti hanno ripreso sul traguardo.',{ty:1})],
+      cx:wornOut?[2,1]:[1,0],df:2};
+  }},
+ /* 7 · gomme finite a pochi giri dalla fine */
+ {id:'m_ty',t:'Gomme al limite',th:['deg','tyre','f3_gomme','x_graining','x_cala_ritmo','f2_sosta','f1_undercut','pb','ch_gomme'],fr:.86,
+  ok:c=>c.ratio!=null&&(c.ratio>=.78||(c.ratio>=.68&&c.u>=3)),
+  wt:c=>2.2+(c.ratio>=1.05?.8:0),
+  mk:c=>{
+    const L=kmL(c,.86),gm=rsWord(c.ratio),short=L<=3;
+    return{
+      x:`Le gomme sono ${gm} e ${kmMk(L).toLowerCase()}. ${c.left>0?'Nel piano ti resta ancora una sosta':'Non hai altre soste in programma'}: il box aspetta la tua chiamata.`,
+      o:[kmO('Box ora',short?'Pochi giri per ripagare la sosta: perdi posizioni quasi certe.':'Gomme fresche e ritmo ritrovato, ma rientri nel traffico.',.5,1.5,1.5,.01,['g','gomme nuove'],['r','perdi posizione ai box'],'La sosta ha ripagato: ritmo ritrovato e posizioni recuperate.','Hai perso troppo ai box e non hai recuperato.',{ty:1}),
+         kmO('Stringi i denti','Gestisci fino alla fine e speri nella tenuta.',.45,1.4,1.8,.02,['g','nessuna sosta'],['r','rischio crollo'],'Le gomme hanno tenuto fino alla bandiera a scacchi.','Le gomme sono crollate negli ultimi giri.',{ty:1}),
+         kmMur('Il muretto ci aveva visto giusto.','Il consiglio del muretto stavolta non ha pagato.')],
+      cx:L<=3?[1,2]:L>=8?[0,2]:[2,0],df:2};
+  }},
+ /* 8 · un problema tecnico (quattro varianti) */
+ {id:'m_tc',t:'Un problema tecnico',th:['f1_freni','oil','f1_batt','red'],fr:.9,
+  ok:c=>kmU('tcg')<.18,
+  wt:c=>[.8,.9,1,1.1][c.tier],
+  mk:c=>{
+    const v=kmVar('tc',4);
+    const T=[
+      [c.tier>=3?'Calo di potenza':'Il motore perde colpi',`${c.tier>=3?'La power unit':'Il motore'} perde potenza in uscita di curva: l'ingegnere propone una mappatura più conservativa.`],
+      ['Freni sotto stress','La temperatura dei freni anteriori sale oltre i limiti: se insisti rischi di sbagliare la frenata.'],
+      ['Vibrazione dall\'anteriore','Senti una vibrazione dall\'anteriore sinistra: un\'ala danneggiata o una gomma con un flat spot. Il box vuole una decisione.'],
+      ['Il cambio fa le bizze','Il cambio salta una marcia in scalata: il box teme un problema idraulico.']
+    ][v];
+    return{
+      t:T[0],x:T[1],
+      o:[kmO('Spingi lo stesso','Mantieni il ritmo e speri che regga.',.4,2.0,1.6,.05,['g','mantieni il ritmo'],['r','rischio ritiro'],'Hai tenuto il ritmo e il problema non ti ha fermato.','Il problema è peggiorato e hai perso terreno.',{ag:1}),
+         kmO('Gestisci il problema','Cambi mappatura e guidi attorno al guasto: perdi qualche decimo.',.6,.9,.6,.01,['g','sicuro'],['n','perdi qualche decimo'],'Hai gestito il problema e portato la macchina al traguardo.','Gestire non è bastato: il problema ti è costato tempo.',{ty:1}),
+         kmMur('L\'ingegnere aveva ragione.','Il consiglio dell\'ingegnere non ha pagato.')],
+      cx:(c.a!=null&&c.a<1&&c.p>3)?[0,1]:[1,2],df:1};
+  }},
+ /* 9 · ordine di squadra (il compagno è lì accanto) */
+ {id:'m_to',t:'Ordine di squadra',th:['team','n_mate_dietro','ch_mate','ch_muretto','x_doppia_sosta','n_start_mate'],fr:.87,
+  ok:c=>c.tier>=1&&!!c.mt&&((c.mA&&c.a!=null&&c.a<=2)||(c.mB&&c.b!=null&&c.b<=2)),
+  wt:c=>1.8,
+  mk:c=>{
+    const mt=esc(c.mt),lead=c.mePts>=c.matePts;
+    if(c.mB)return{
+      x:`Il tuo compagno ${mt} ha un ritmo migliore del tuo ed è a ${sec(c.b)}: il muretto ti chiede via radio di lasciarlo passare, per provare ad andare a prendere chi sta davanti.`,
+      o:[kmO('Lo lasci passare','Gioco di squadra: cedi la posizione e il muretto se lo ricorda.',.3,1.0,1.0,0,['g','rapporto col team'],['r','perdi una posizione'],`Hai lasciato passare ${mt}: il team ha apprezzato.`,'Hai ceduto la posizione senza ottenere nulla in cambio.',{fx:{team:1.5}}),
+         kmO('Rifiuti e difendi','Tieni la posizione, ma il muretto non la prende bene.',.5,1.4,1.3,.02,['g','tieni la posizione'],['r','tensione col team'],`Hai respinto l'ordine e tenuto la posizione su ${mt}.`,`Hai rifiutato l'ordine e ${mt} è passato comunque.`,{ag:1,fx:{team:-1.2}}),
+         kmO('Chiedi un giro','Prendi tempo: il muretto accetta, ma una volta sola.',.55,.9,.8,0,['n','compromesso'],['n','una volta sola'],`Hai preso tempo e ${mt} non è riuscito a passare.`,`Il tempo è scaduto e ${mt} è passato.`,{fx:{team:.3}})],
+      cx:lead?[1,2]:[0,2],df:0};
+    return{
+      x:`Il tuo compagno ${mt} è davanti a ${sec(c.a)} e il tuo ritmo è migliore: via radio puoi chiedere al muretto di farti passare, ma l'ordine di squadra non è scontato.`,
+      o:[kmO('Chiedi lo scambio','Via radio: «Sono più veloce». Il muretto decide.',.5,1.6,.9,0,['g','se accettano passi subito'],['r','tensione se rifiutano'],`Il muretto ha chiesto a ${mt} di farti strada.`,`Il muretto ha detto no: sei rimasto dietro a ${mt}.`,{fx:{team:-.4}}),
+         kmO('Lo attacchi in pista','Niente favori: te la giochi con il compagno.',.45,1.9,1.6,.04,['g','grande resa'],['r','rischio contatto'],`Hai attaccato ${mt} in pista e sei passato.`,`Il duello con ${mt} ti è costato tempo.`,{ag:1,fx:{team:-1.0}}),
+         kmO('Resti dietro','Rispetti l\'ordine: punti sicuri per il team.',.7,.4,.3,0,['g','rapporto col team'],['n','resa bassa'],`Hai rispettato l'ordine del team, restando dietro a ${mt}.`,'Restare dietro ti è costato un po\' di ritmo.',{ty:1,fx:{team:.8}})],
+      cx:c.mePts>c.matePts?[0,1]:[2,1],df:2};
+  }},
+ /* 10 · il campionato passa da qui */
+ {id:'m_ti',t:'Il campionato in gioco',th:['n_finale_titolo','flead','x_volata','fgap'],fr:.93,
+  ok:c=>!!c.ti&&c.ti.rem<=4&&c.ti.gap<=PTS[0]*c.ti.rem*.9,
+  wt:c=>2.4+(c.ti.rem<=2?1.6:0),
+  mk:c=>{
+    const t=c.ti,oth=esc(t.other||'');
+    const rem=t.rem===1?'È l\'ultima gara della stagione':`Mancano ${t.rem} gare, questa compresa`;
+    const x=t.pos===1
+      ?`Sei in testa al campionato con ${t.gap} punti su ${oth}. ${rem}: oggi un errore pesa il doppio.`
+      :`Sei ${t.pos}° nel campionato, a ${t.gap} punti da ${oth}. ${rem}: oggi ogni posizione conta.`;
+    const need=t.gap>PTS[0]*Math.max(1,t.rem-1)*.7;
+    return{
+      x,
+      o:[kmO('Vai a prenderlo',t.pos===1?'A tutta, per chiudere i conti.':'Serve il risultato pieno: rischi tutto.',.45,2.1,1.8,.04,['g','punti pesanti'],['r','rischio errore'],'Hai spinto fino all\'ultimo e il risultato pesa sul campionato.','Hai rischiato troppo e il campionato si complica.',{ag:1}),
+         kmO('Gara intelligente','Punti sicuri, niente colpi di testa.',.6,1.1,.6,.01,['g','equilibrio'],['n','rischio basso'],'Hai gestito con testa e portato a casa punti preziosi.','La prudenza non è bastata: hai perso punti.',{ty:1}),
+         kmMur('Il muretto ci aveva visto giusto.','Il consiglio del muretto stavolta non ha pagato.')],
+      cx:t.pos===1?[1,2]:need?[0,1]:[1,0],df:1};
+  }},
+ /* 11 · un varco davanti (chi ti precede sbaglia) */
+ {id:'m_va',t:'Si apre un varco',th:['x_errore_davanti','n_incidente_davanti','x_gialle','x_duello_davanti'],fr:.83,
+  ok:c=>c.p>1&&c.a!=null&&c.a<=2&&!!c.an&&!c.mA,
+  wt:c=>1.2,
+  mk:c=>{
+    const na=esc(c.an),v=kmVar('va',3);
+    const X=[
+      `${na} va lungo alla staccata e perde ritmo: davanti a te si apre una porta.`,
+      `${na} blocca l'anteriore e scarica fumo dalle gomme: la traiettoria interna è libera.`,
+      `${na} sbaglia l'uscita di curva e ti lascia spazio: hai una frazione di secondo per decidere.`
+    ][v]+(c.wet?' Con la pista bagnata il varco può chiudersi in un attimo.':'');
+    return{
+      x:X,
+      o:[kmO('Infilati subito','Sfrutti l\'errore all\'istante: il varco può richiudersi.',.5,2.0,1.5,.04,['g','guadagni posizione'],['r','rischio contatto'],`Ti sei infilato subito e hai superato ${na}.`,'Il varco si è chiuso: hai perso tempo.',{ag:1}),
+         kmO('Passa in uscita','Più pulito: aspetti l\'uscita di curva e usi la scia.',.6,1.2,.7,.01,['g','resa media'],['n','rischio basso'],'Sei passato in uscita di curva, senza rischi.',`${na} si è ripreso e non sei passato.`),
+         kmO('Alza il piede','Bandiere gialle nel settore: non rischi una penalità.',.65,.5,.3,0,['g','sicuro'],['n','resa bassa'],'Hai evitato rischi e penalità.','Hai perso l\'occasione.',{ty:1})],
+      cx:c.ovt===0?[0,1]:[1,0],df:2};
+  }},
+ /* 12 · energia della batteria (solo F1) */
+ {id:'m_en',t:'L\'energia che resta',th:['f1_batt','f2_drs','f1_giroveloce'],fr:.88,
+  ok:c=>c.tier===3&&((c.a!=null&&c.a<=2)||(c.b!=null&&c.b<=1.5)),
+  wt:c=>1.4,
+  mk:c=>{
+    const L=kmL(c,.88),atk=c.a!=null&&c.a<=2,def=c.b!=null&&c.b<=1.5;
+    const x=`Hai ancora energia nella batteria: puoi scaricarla ${atk?'per attaccare '+esc(c.an):'sul rettilineo'}${def?' oppure tenerla per difenderti da '+esc(c.bn):''}. ${kmMk(L)}.`;
+    return{
+      x,
+      o:[kmO('Tutto in attacco','Scarichi la batteria per superare: poi resti scoperto.',.5,1.8,1.3,.015,['g','resa alta'],['r','poi resti scoperto'],'Hai scaricato la batteria nel momento giusto e guadagnato terreno.','Hai scaricato troppo presto e sei rimasto senza energia.',{ag:1}),
+         kmO('Tieni una riserva','Un po\' per attaccare e un po\' per difenderti.',.6,1.0,.6,.005,['g','equilibrio'],['n','rischio basso'],'Hai dosato l\'energia e l\'hai avuta quando serviva.','L\'energia di riserva non è bastata per cambiare la gara.'),
+         kmMur('Il piano del box ha funzionato.','Il piano del box non ha pagato.')],
+      cx:atk&&c.a<=1.5?[0,1]:[1,2],df:2};
+  }},
+ /* 14 · hai guadagnato o perso posizioni rispetto alla griglia */
+ {id:'m_rm',t:'Il bilancio della gara',th:['n_retrovie','ch_att','ch_cons','n_pole','flead','x_cala_ritmo'],fr:.85,
+  ok:c=>c.gp!=null&&Math.abs(c.gp-c.p)>=2,
+  wt:c=>.35+.1*Math.min(4,Math.abs(c.gp-c.p)-2),
+  mk:c=>{
+    const d=c.gp-c.p,n=Math.abs(d),L=kmL(c,.85),pz=PTS.length;
+    if(d>0)return{
+      t:'Una gara in rimonta',
+      x:`Sei partito P${c.gp} e ora sei P${c.p}: ${n===1?'una posizione':n+' posizioni'} guadagnate. ${kmMk(L)} e le gomme chiedono il conto: spingi ancora o consolidi?`,
+      o:[kmO('Continua a spingere','Il ritmo c\'è: provi a guadagnare ancora, a spese delle gomme.',.5,1.7,1.3,.03,['g','resa alta'],['r','gomme sotto stress'],'Hai continuato a spingere e guadagnato ancora terreno.','Hai spinto troppo e le gomme hanno presentato il conto.',{ag:1}),
+         kmO('Consolida','Tieni il ritmo e proteggi ciò che hai guadagnato.',.6,1.0,.6,.01,['g','equilibrio'],['n','rischio basso'],'Hai consolidato il risultato senza sbavature.','Hai consolidato, ma qualcuno ti ha ripreso.',{ty:1}),
+         kmMur('Il muretto ci aveva visto giusto.','Il consiglio del muretto stavolta non ha pagato.')],
+      cx:(c.ratio!=null&&c.ratio>=.85)?[1,2]:[0,1],df:1};
+    return{
+      t:'Posizioni perse',
+      x:`Sei partito P${c.gp} e ora sei P${c.p}: ${n===1?'una posizione':n+' posizioni'} in meno. ${kmMk(L)}: serve una reazione o ti accontenti di salvare il possibile?`,
+      o:[kmO('Reagisci con un attacco','Servono posizioni: ti prendi qualche rischio.',.45,1.9,1.5,.04,['g','grande resa'],['r','rischio contatto'],'La reazione ha pagato: hai ripreso posizioni.','Il tentativo di reazione ti è costato altro terreno.',{ag:1}),
+         kmO('Recupera con costanza','Giri puliti, aspetti gli errori degli altri.',.55,1.2,.8,.01,['g','equilibrio'],['n','rischio basso'],'Con giri puliti hai recuperato qualcosa.','Gli altri non hanno sbagliato e il distacco è rimasto.'),
+         c.p<=pz+2
+           ?kmO('Salva i punti','Niente rischi: porti a casa quello che c\'è.',.65,.5,.3,0,['g','sicuro'],['n','resa bassa'],'Hai portato a casa ciò che c\'era, senza rischiare.','Hai perso ancora qualcosa nel finale.',{ty:1})
+           :kmO('Porta la macchina al traguardo','Niente rischi: chiudi la gara e impari dal weekend.',.65,.5,.3,0,['g','sicuro'],['n','resa bassa'],'Hai portato la macchina al traguardo senza altri danni.','Hai perso ancora qualcosa nel finale.',{ty:1})],
+      cx:c.p<=pz+2?[1,2]:[0,1],df:2};
+  }},
+ /* 15 · corri da solo: nessuno a portata, davanti o dietro */
+ {id:'m_gl',t:'Il ritmo da tenere',th:['fgap','flead','fuel','x_cala_ritmo','n_pole'],fr:.88,
+  ok:c=>(c.a==null||c.a>5)&&(c.b==null||c.b>5)&&kmU('gl')<.55,
+  wt:c=>.45,
+  mk:c=>{
+    const L=kmL(c,.88),lead=c.p===1;
+    const nb=c.bn?esc(c.bn):'',na=c.an?esc(c.an):'';
+    const x=lead
+      ?`Sei in testa${c.b!=null&&nb?' con '+sec(c.b)+' su '+nb:''} e nessuno è a portata. ${kmMk(L)}: il box ti lascia scegliere il ritmo.`
+      :`${c.a!=null&&na?na+' è a '+sec(c.a)+' davanti':'Davanti non c\'è nessuno'}${c.b!=null&&nb?', '+nb+' a '+sec(c.b)+' dietro':''}: corri da solo. ${kmMk(L)} e il box ti lascia scegliere il ritmo.`;
+    return{
+      t:lead?'La gara in testa':'Una gara in solitaria',x,
+      o:[kmO('Alza il ritmo','Più resa fino alla bandiera, un po\' più di rischio.',.5,1.1,.9,.02,['g','resa alta'],['r','gomme sotto stress'],'Hai alzato il ritmo e guadagnato qualcosa.','Hai alzato il ritmo, ma le gomme hanno sofferto.',{ag:1}),
+         kmO('Gestisci le gomme','Ritmo costante e gomme integre fino alla fine.',.65,.6,.4,0,['g','sicuro'],['n','resa bassa'],'Hai gestito le gomme e portato la macchina al traguardo.','Hai gestito troppo e hai lasciato qualcosa per strada.',{ty:1}),
+         kmMur('Il muretto ci aveva visto giusto.','Il consiglio del muretto stavolta non ha pagato.')],
+      cx:(c.ratio!=null&&c.ratio>=.75)?[1,2]:[0,1],df:1};
+  }},
+ /* 13 · contatto sotto investigazione (conseguenza dei tuoi attacchi) */
+ {id:'m_pn',t:'Sotto investigazione',th:['pen5','x_penalita_riv','cont','rduel','ch_riv'],fr:.88,
+  ok:c=>c.tier>=1&&c.ag>=2&&c.p<c.N,
+  wt:c=>.8+.4*(c.ag-2),
+  mk:c=>({
+    x:'Dopo gli attacchi al limite dei giri scorsi, i commissari hanno messo sotto investigazione una tua manovra. Il muretto ti chiede se vuoi restituire la posizione per evitare la penalità.',
+    o:[kmO('Restituisci la posizione','Cedi un posto subito: niente penalità.',.5,.3,.7,0,['g','niente penalità'],['r','perdi una posizione'],'Hai restituito la posizione e il verdetto non ti ha toccato.','Hai ceduto il posto e ti sei ritrovato nel traffico.',{ty:1}),
+       kmO('Continui e speri','Se i commissari ti danno ragione tieni tutto; altrimenti sono cinque secondi.',.5,1.6,1.9,.02,['g','tieni tutto'],['r','rischio penalità'],'I commissari non hanno preso provvedimenti.','Sono arrivati i cinque secondi di penalità.'),
+       kmMur('Il muretto ci aveva visto giusto.','Il consiglio del muretto stavolta non ha pagato.')],
+    cx:c.ag>=3?[0,2]:[1,2],df:0})}
+];
+const KM2B={};KM2.forEach(e=>{KM2B[e.id]=e});
+
+/* ---------- i segnaposto in ACTS: il resto del gioco guarda ACTS[rc.ev] ---------- */
+const KMPH=[0,1,2].map(()=>({t:'',d:'',mod:0,risk:0,tg:[],up:0,dn:0,p:.5}));
+KM2.forEach(d=>{
+  ACTS[d.id]={id:d.id,t:d.t,a:[],km:1,fr:d.fr,x:()=>{const k=S&&S.rc&&S.rc.ko;return k&&k.id===d.id?k.x:''},
+    get o(){const k=S&&S.rc&&S.rc.ko;return k&&k.id===d.id?k.o:KMPH},
+    ctx:()=>{const k=S&&S.rc&&S.rc.ko;return k&&k.id===d.id?k.cx:null}};
+});
+
+/* ---------- quale momento, e se c'è ---------- */
+function kmMake(d,c){
+  const M=d.mk(c);
+  /* il valore atteso di chi sceglie a caso è zero: chi legge bene la situazione guadagna, chi sbaglia perde */
+  const E=M.o.map((o,i)=>{const dp=i===M.cx[0]?.15:i===M.cx[1]?0:-.1;const p=o.mur?.55:clamp(o.p+dp,.15,.85);return p*o.up-(1-p)*o.dn-KB});
+  const sh=clamp((E[0]+E[1]+E[2])/3,-.5,.5);
+  return{id:d.id,t:M.t||d.t,x:M.x,fr:d.fr,o:M.o,cx:M.cx,df:M.df==null?2:M.df,sh:Math.round(sh*1000)/1000};
+}
+function kmPickEv(){
+  const rc=S.rc,w=S.wk;if(!rc||!w)return null;
+  const forced=kmForce();
+  let c;
+  try{c=kmCx()}catch(e){kmE('cx',e);return null}
+  if(!c)return null;
+  /* c'è un momento chiave in questa gara? circa 2 su 3, più spesso quando si scalda */
+  let heat=0;
+  if((c.a!=null&&c.a<=1.6)||(c.b!=null&&c.b<=1.2))heat+=.14;
+  if(c.rA||c.rB)heat+=.08;
+  if(c.ti)heat+=.08+(c.ti.rem<=3?.08:0);
+  if(c.wet||c.mix)heat+=.08;
+  if(c.sc)heat+=.06;
+  let pm=clamp(.88+heat,.65,.98);
+  const hist=S.kmS||'';
+  if(hist.slice(-2)==='11')pm*=.6;
+  else if(hist.slice(-2)==='00')pm=Math.max(pm,.92);
+  const roll=rnd();
+  const want=forced||roll<pm;
+  const seen=(S.rcH||[]).slice(-3),H=S.kmH||[];
+  const ws=KM2.map(d=>{
+    let v=0;
+    try{if(d.ok(c))v=d.wt(c)}catch(e){kmE('ok '+d.id,e)}
+    if(d.hx&&d.hx.some(x=>seen.includes(x)))v=0;
+    else if(d.th&&d.th.some(x=>seen.includes(x)))v*=.2;
+    const j=H.lastIndexOf(d.id);
+    if(j>=0){const back=H.length-j;v*=back<=2?0:back===3?.4:.8}
+    return Math.max(0,v);
+  });
+  const tot=ws.reduce((a,b)=>a+b,0);
+  const rec=r=>{S.kmS=((S.kmS||'')+(r?'1':'0')).slice(-4)};
+  if(!want||tot<=0){rec(0);return null}
+  let r=rnd()*tot,k=0;for(;k<KM2.length;k++){r-=ws[k];if(r<=0)break}
+  const d=KM2[Math.min(k,KM2.length-1)];
+  let K;
+  try{K=kmMake(d,c)}catch(e){kmE('mk '+d.id,e);rec(0);return null}
+  K.lap=Math.max(2,Math.round(c.T*d.fr))+'/'+c.T;
+  rc.ko=K;
+  rec(1);
+  return ACTS[d.id];
+}
+
+/* ---------- la scelta ---------- */
+function kmPick(i){
+  const rc=S.rc,w=S.wk,e=rc&&ACTS[rc.ev];
+  if(!rc||!rc.km||!e)return;
+  const K=rc.ko&&rc.ko.id===rc.ev?rc.ko:null;
+  const o=K?K.o[i]:e.o[i];if(!o)return;
+  const r=K?K.cx:(e.ctx?e.ctx(w):null);let dp=0,g=0;
+  if(r){if(i===r[0]){dp=.15;g=1}else if(i===r[1]){dp=0}else{dp=-.1;g=-1}}
+  let p;
+  if(o.mur){p=clamp(typeof muP==='function'?muP():.55,.3,.9);g=0}
+  else p=clamp(o.p+dp,.15,.85);
+  const good=rnd()<p;
+  const v=(good?o.up:-o.dn)-KB-(K&&K.sh?K.sh:0);
+  rc.mod+=v;rc.tr+=v;rc.risk+=(o.risk||0)*RK*.5;
+  if(o.ag){rc.ag++;dstInc('a')}
+  if(o.ty){rc.ty++;dstInc('t')}
+  if(g>0){rc.g++;dstInc('c')}
+  if(g<0)rc.b+=1;
+  if(o.rv&&S.riv&&S.hh&&rivHere())S.hh[S.riv.n]=clamp((S.hh[S.riv.n]||0)+o.rv,0,100);
+  if(o.fx)Object.keys(o.fx).forEach(k=>{rc.fx[k]=(rc.fx[k]||0)+o.fx[k]});
+  rc.lg.push({a:3,e:K?K.t:e.t,t:o.t,g:good?1:-1,s:good?o.okT:o.koT});
+  S.kmH=(S.kmH||[]).concat(rc.ev).slice(-4);
+  rc.km=0;rc.h=null;
+  _kmAE();
+}
+
+/* ---------- la schermata (identica a prima; i vecchi momenti si leggono come sempre) ---------- */
+function kmView(){
+  const w=S.wk,rc=S.rc,e=ACTS[rc.ev],K=rc.ko&&rc.ko.id===rc.ev?rc.ko:null;
+  const x=K?K.x:(typeof e.x==='function'?e.x(w):e.x),title=K?K.t:e.t;
+  let sit='',wl='';
+  rc.n=2;try{sit=actSit();wl=wkLine()}catch(err){}rc.n=3;
+  sit=sit.replace(/Ultimo atto:[^<]*/,'');wl=wl.replace(/Ultimo atto:[^<]*/,'');
+  let lap='';
+  if(K&&K.lap)lap='giro '+K.lap;
+  else try{const s=rsNow();if(s&&s.T)lap='giro '+Math.max(2,Math.round(s.T*(e.fr||.7)))+' di '+s.T}catch(err){}
+  const past=rc.lg.length?`<div class="chips">${rc.lg.map(l=>`<span class="chip ${l.g>0?'up':l.g<0?'down':''}">${ACTN[l.a]}: ${esc(l.t)}</span>`).join('')}</div>`:'';
+  const tm=kmOn()?`<div class="kmtm"><div class="kmbar"><i style="width:100%"></i></div><b class="kmt">${kmSecs}″</b></div>`:'';
+  const O=K?K.o:e.o;
+  const opts=O.map((o,i)=>`<button type="button" class="ch kmo" data-cmp="1" data-act="km" data-i="${i}"><span class="lt">${LT[i]}</span><span class="cb"><span class="ot">${o.t}${rc.h===i?' <small class="kfa">★ consiglio del muretto</small>':''}</span><span class="omt kft">${o.tg.map(t=>`<span class="qb ${t[0]}">${t[1]}</span>`).join('')}</span><span class="kmd">${o.d}</span></span></button>`).join('');
+  const hint=(((K&&K.cx)||(e.ctx&&e.ctx(w)))&&rc.h==null&&w.tk>0)?`<div class="btns"><button class="ghost" data-act="achint">${ico('radio','fl')} Consulta il muretto · ${w.tk} ${w.tk===1?'gettone':'gettoni'} · ${muLbl()}</button></div>`:'';
+  return `<div class="ph evh k-neu kmh"><div class="kick">Weekend ${S.round+1} di ${S.total} · Momento chiave${lap?' · '+lap.replace(' di ','/'):''}</div><h1>${title}</h1><p>${x}</p>${tm}</div>
+  ${sit}${wl}${past}
+  <div class="opts">${opts}</div><p class="sub kmn">${kmOn()?'Una sola chiamata decisiva per gara. Se il tempo scade, sceglie il muretto per te.':'Una sola chiamata decisiva per gara.'}</p>${hint}`;
+}
+
+/* ---------- il conto alla rovescia: a tempo scaduto sceglie il muretto (la via prudente di ogni situazione) ---------- */
+function kmStart(){
+  kmStop();
+  if(typeof document==='undefined'||typeof document.querySelector!=='function')return;
+  if(!(S&&S.phase==='act'&&S.rc&&S.rc.km&&kmOn()))return;
+  const bar=document.querySelector('.kmbar i'),tx=document.querySelector('.kmt');
+  if(!bar||!tx)return;
+  const t0=Date.now(),T=kmSecs*1000,key=S.year+'|'+S.round;
+  kmTm=setInterval(()=>{
+    const live=document.querySelector('.kmbar i');
+    if(!live||!(S&&S.phase==='act'&&S.rc&&S.rc.km&&key===S.year+'|'+S.round)){kmStop();return}
+    if(document.hidden){return}
+    const el=Date.now()-t0,left=Math.max(0,T-el);
+    live.style.width=(left/T*100)+'%';
+    const t=document.querySelector('.kmt');if(t)t.textContent=Math.ceil(left/1000)+'″';
+    if(left<=0){
+      kmStop();
+      const K=S.rc.ko&&S.rc.ko.id===S.rc.ev?S.rc.ko:null;
+      act('km',K&&K.df!=null?K.df:2);
+    }
+  },100);
+}
+
+/* ---------- l'interruttore nelle impostazioni: il testo dice la verità ---------- */
+{const _ks=kmSetPost;kmSetPost=function(){
+  _ks.apply(this,arguments);
+  try{document.querySelectorAll('.card .sub').forEach(p=>{if(/^Una scelta decisiva per gara con un conto alla rovescia/.test(p.textContent))p.textContent='Una scelta decisiva nelle gare più calde, con un conto alla rovescia di '+kmSecs+' secondi. Spegnilo per decidere senza fretta.'})}catch(e){}
 }}
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
