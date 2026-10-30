@@ -1766,6 +1766,9 @@ input{-webkit-user-select:text;user-select:text;font-size:16px!important}
 :root{--topgap:30px}
 @media (display-mode:standalone){.hud{padding-top:calc(env(safe-area-inset-top,0px) + 6px + var(--topgap))}}
 @media (display-mode:standalone){.wrap:not(:has(.hud)){padding-top:calc(env(safe-area-inset-top,0px) + var(--topgap) + 26px)}}
+/* la pulizia dell'interfaccia azzerava l'imbottitura della testata: si rimette lo spazio sotto la barra di stato (specificita' piu' alta di quella del mod) */
+:root:root:root:root body .hud{padding-top:calc(env(safe-area-inset-top,0px) + 8px)}
+@media (display-mode:standalone) and (max-width:999px){:root:root:root:root body .hud{padding-top:calc(env(safe-area-inset-top,0px) + 8px + var(--topgap))}}
 </style>
 
 <div class="wrap" id="app"></div>
