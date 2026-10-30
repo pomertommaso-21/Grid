@@ -4578,7 +4578,7 @@ function homeView(){
    <button class="link" data-act="new"><span class="pos">P1</span><span><b>Nuova carriera</b><small>${sl.length>=3?'Hai 3 carriere: eliminane una':'Parti dalla Formula 4'}</small></span><i>›</i></button>
    ${sl.map((x,k)=>`<div class="slotr"><button class="link" data-act="resume" data-i="${x.n}"><span class="pos">P${k+2}</span><span><b>${esc(x.d.name)}</b><small>${x.d.year} · ${TIERS[x.d.tier].k} · ${x.d.hist?x.d.hist.length:0} stagioni · ${x.d.career?x.d.career.titles:0} titoli</small></span><i>›</i></button><button class="slotx" data-act="delslot" data-i="${x.n}" aria-label="Elimina carriera">${ico('x')}</button></div>`).join('')}
   ${hofLink()}${bkLink()}${thLink()}</div>
-  <p class="foot">Versione 30/10 · 12:20</p></div>`;
+  <p class="foot">Versione 30/10 · 16:51</p></div>`;
 }
 
 function identityView(){
@@ -16669,6 +16669,283 @@ try{if(typeof document!=='undefined'&&document.addEventListener&&!window.__u4cli
     const gt=sr.parentElement,k='gt.'+uxTxt(sr.querySelector('.lb'));
     const o=gt.classList.toggle('uxo');window.__uxo=window.__uxo||{};window.__uxo[k]=o?1:0;
   },false)}}catch(e){}
+/* e8d · anteprima 5: interfaccia più snella */
+(function(){try{if(typeof document==='undefined'||typeof document.createElement!=='function'||document.getElementById('uxa5'))return;const s=document.createElement('style');s.id='uxa5';s.textContent="/* ===== e8d · anteprima 5: interfaccia più snella (solo presentazione) ===== */\n@media(max-width:999px){\n/* A · le righe di servizio non sono più riquadri: solo le scelte sembrano pulsanti */\nbody.cpt.cpt.v5 .pane>.uxd,body.cpt.cpt.v5 .pane>.uxd[open]{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:none;margin-top:0}\nbody.cpt.cpt.v5 .pane>.uxd[open]{border-bottom:1px solid var(--line)}\nbody.cpt.cpt.v5 .pane>.uxd>summary{min-height:44px;padding-left:2px;padding-right:2px}\nbody.cpt.cpt.v5 .pane>.uxd[open]>summary{border-bottom:0}\nbody.cpt.cpt.v5 .pane>.uxd+.uxd{margin-top:0;border-radius:0}\nbody.cpt.cpt.v5 .pane>.uxd:has(+.uxd){border-radius:0}\nbody.cpt.cpt.v5 .pane>section.card:has(>.pfs.pfc2:only-child){background:transparent;box-shadow:none;border-radius:0;border-top:1px solid var(--line);padding:0}\nbody.cpt.cpt.v5 .pane>.grp .mur{background:transparent;box-shadow:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:8px 2px}\nbody.cpt.cpt.v5 .pane>.grp .mur .mi{width:28px;height:28px;border-radius:9px}\nbody.cpt.cpt.v5 .pane>.grp .mur .mt b{font:650 13.5px var(--body)}\nbody.cpt.cpt.v5 .pane>.grp .mur .mt small{font-size:12px}\n/* A · gara: la situazione è una riga senza tessere */\nbody.cpt.cpt.v5 .sitc{padding-top:8px;padding-bottom:6px}\nbody.cpt.cpt.v5 .sitc .sgr .sc{background:none;border-radius:0;padding:2px 10px}\nbody.cpt.cpt.v5 .sitc .sgr .sc+.sc{border-left:1px solid var(--line)}\nbody.cpt.cpt.v5 .sitc .sgr{gap:0}\n/* A · risultato: sessioni senza tessere */\nbody.cpt.cpt.v5 .uxses{gap:0}\nbody.cpt.cpt.v5 .uxses .ses{background:none;border-radius:0;padding:6px 2px}\nbody.cpt.cpt.v5 .uxses .ses+.ses{border-left:1px solid var(--line)}\nbody.cpt.cpt.v5 .uxses.uxsesw .ses:nth-child(3n+1){border-left:0}\n/* A · gara: la spinta sta nella stessa scheda della situazione */\nbody.cpt.cpt.v5 .sitc .spc{background:transparent;box-shadow:none;border-radius:0;margin:8px 0 0;padding:8px 10px 2px;border-top:1px solid var(--line)}\n/* A · mercato: un solo elenco, la barra della vettura sparisce */\nbody.cpt.cpt.v5 .p-offers .stack{background:var(--panel);border-radius:var(--r2);box-shadow:var(--shadow);gap:0;padding:0;overflow:hidden}\nbody.cpt.cpt.v5 .p-offers .offer{background:transparent;box-shadow:none;border-radius:0;border-top:1px solid var(--line)}\nbody.cpt.cpt.v5 .p-offers .offer:first-child{border-top:0}\nbody.cpt.cpt.v5 .p-offers .offer .cr .bar{display:none}\nbody.cpt.cpt.v5 .p-offers .offer{row-gap:4px}\nbody.cpt.cpt.v5 .p-offers .offer{padding-top:11px;padding-bottom:11px}\n}\n/* variante c · riga «dove siamo» più corta, contesto senza etichetta */\n@media(max-width:999px){\nbody.cpt.cpt.v5c .ph .kick .uxk5{display:none}\nbody.cpt.cpt.v5c .pane>.uxctx>summary .uxt{display:none}\nbody.cpt.cpt.v5c .pane>.uxctx>summary .uxs{font:600 13px var(--body);color:var(--fg)}\n}\n/* variante b (non applicata): un solo numero in alto, barra con sole icone */\n@media(max-width:999px){\nbody.cpt.cpt.v5b .hud .ovr.age{display:none}\nbody.cpt.cpt.v5b .nav .nv:not(.on){font-size:0}\nbody.cpt.cpt.v5b .nav .nv span{padding:4px 16px}\nbody.cpt.cpt.v5b .nav .nv:not(.on) span{padding:4px 12px}\n}\n";(document.body||document.documentElement).appendChild(s)}catch(e){}})();
+/* ---- e8d · logica (anteprima 5): solo presentazione ---- */
+const UXV5='c';
+function uxPost5(){
+  try{
+    if(typeof document==='undefined'||!document.body||!document.body.classList)return;
+    document.body.classList.add('v5');
+    if(UXV5==='b')document.body.classList.add('v5b');
+    if(UXV5!=='a')document.body.classList.add('v5c');
+    const app=document.getElementById('app');
+    if(!app||typeof app.querySelector!=='function'||typeof S==='undefined'||!S||!uxOn())return;
+    const pane=app.querySelector('.pane');if(!pane)return;
+    /* risultato: un solo riquadro «Dettagli» */
+    const w=pane.querySelector('.uxd.uxw'),e=pane.querySelector('.uxd.uxe');
+    if(uxMob()&&w&&e&&!w.dataset.u5){
+      w.dataset.u5='1';
+      const wb=w.querySelector(':scope>.uxb'),eb=e.querySelector(':scope>.uxb');
+      if(wb&&eb){
+        const sep=document.createElement('div');sep.className='uxsep5';
+        wb.appendChild(sep);[...eb.childNodes].forEach(n=>wb.appendChild(n));
+        e.style.display='none';
+        const t=w.querySelector(':scope>summary .uxt'),s=w.querySelector(':scope>summary .uxs');
+        if(t)t.textContent='Dettagli';
+        if(s)s.textContent='perché è andata così';
+      }
+    }
+    /* gara (telefono): spinta dentro la scheda della situazione */
+    if(uxMob()){const sc=pane.querySelector('.sitc'),sp=pane.querySelector(':scope>.spc');if(sc&&sp&&!sp.dataset.u5){sp.dataset.u5='1';sc.appendChild(sp)}}
+    if(UXV5!=='a'){
+      /* riga «dove siamo»: solo il circuito (il numero del weekend è nella barra) */
+      pane.querySelectorAll(':scope>.ph>.kick').forEach(k=>{
+        if(k.dataset.u5)return;k.dataset.u5='1';
+        const m=(k.textContent||'').match(/^(.*?Weekend\s+\d+\s+di\s+\d+\s*·\s*)(.+)$/);
+        if(m)k.innerHTML='<span class="uxk5">'+esc(m[1])+'</span>'+esc(m[2]);
+      });
+      /* scelte: un solo dato in vista, il resto nel «i» */
+      pane.querySelectorAll('.ch.cmpc .cb>.omt').forEach(omt=>{
+        if(omt.dataset.u5)return;omt.dataset.u5='1';
+        const cb=omt.parentElement;
+        const vis=[...omt.children].filter(k=>!k.classList.contains('uxx')&&!k.classList.contains('ost')).sort((a,b)=>(+a.style.order||0)-(+b.style.order||0));
+        const hid=vis.slice(1);if(!hid.length)return;
+        hid.forEach(k=>k.classList.add('uxx'));
+        const od=cb.querySelector(':scope>.od');
+        const txt=hid.map(k=>uxTxt(k)).filter(Boolean).join(' · ');
+        if(od&&txt){const s=document.createElement('small');s.className='uxmore';s.textContent=txt;od.appendChild(s)}
+      });
+    }
+  }catch(err){try{console.warn('uxPost5',err)}catch(_){}}
+}
+{const _r5=render;render=function(){const r=_r5.apply(this,arguments);uxPost5();return r}}
+/* =====================================================================
+   e8e · Ritmo di gioco: Completo · Snello · Express
+   · Completo: tutto come prima (nessuna regola cambia).
+   · Snello  : meno schermate di passaggio e meno scelte superflue
+       - la qualifica a eliminazione va avanti da sola fra Q1, Q2 e Q3
+         (il riepilogo della sessione sta sopra la scelta successiva)
+       - l'esito di un evento compare in cima alla schermata dopo, senza «Continua»
+       - gli aggiornamenti tecnici li decide il team, salvo che tu sia il Pilota 1
+       - «Come spingi?» non si sceglie più: il piano del giro resta Equilibrato
+   · Express : come Snello, ma qualifica e strategia le gestisce il muretto
+       e gli aggiornamenti li decide sempre il team.
+   Le regole del gioco non cambiano: le scelte automatiche usano le stesse
+   funzioni di prima (nessuna nuova probabilità). L'impostazione sta nel
+   dispositivo (gdp_pace), non nel salvataggio.
+   ===================================================================== */
+let PACEV=null,PA_BUSY=0,PA_AUTO=0,PA_DEPTH=0,PCN_DONE=0;
+function paceGet(){
+  if(PACEV)return PACEV;
+  try{const v=localStorage.getItem('gdp_pace');if(v==='full'||v==='ess'||v==='exp')return v}catch(e){}
+  /* senza browser (simulazioni) o con un browser automatico: comportamento di sempre */
+  try{if(typeof location==='undefined'||(typeof navigator!=='undefined'&&navigator.webdriver))return 'full'}catch(e){return 'full'}
+  return 'ess';
+}
+function paceSet(v){
+  if(v!=='full'&&v!=='ess'&&v!=='exp')return;
+  PACEV=v;
+  try{localStorage.setItem('gdp_pace',v)}catch(e){}
+}
+const paceKey=()=>S.phase+'|'+S.step+'|'+S.round+'|'+S.year+'|'+(S.rc&&S.phase==='act'?S.rc.n+':'+(S.rc.km?1:0):'');
+/* aggiornamenti tecnici: chi decide */
+function paceDevOn(){const p=paceGet();return p==='exp'||(p==='ess'&&stS()!==1)}
+/* il team sceglie l'opzione col miglior valore atteso, con le stesse probabilità di devResolve */
+function paceDevPick(e){
+  const s=stS(),dfm=[[1.25,.8],[1,1],[.8,1.25]][S.diff==null?1:S.diff];
+  let bi=0,bv=-1e9;
+  e.o.forEach((o,i)=>{
+    if(o.p==null)return;
+    const pb=clamp(o.p+(S.st.tecnica-50)/220+[0,.08,-.08][s]+(S.team-50)/400+devCtx(o),.12,.78);
+    const ev=pb*o.up*dfm[0]-Math.max(0,1-pb-.2)*o.dn*dfm[1];
+    if(ev>bv+1e-9){bv=ev;bi=i}
+  });
+  return bi;
+}
+/* il testo dell'esito, quando l'aggiornamento l'ha deciso il team */
+function paceDevTxt(){
+  const ev=S.ev;if(!ev||!ev.out)return;
+  let o=String(ev.out);
+  o=o.replace(/^Hai spinto per/,'Il team ha puntato su').replace(/^Hai indicato/,'Il team ha indicato');
+  if(o.charAt(0)==='«')o='Il team ha scelto '+o;
+  o=o.replace(/ (Il team ha valutato il tuo parere come quello degli altri\.|Da Pilota 1 la tua scelta ha avuto più peso\.|Da Pilota 2 la tua scelta ha pesato meno\.)$/,'');
+  const s=stS();
+  ev.out=o+' '+(paceGet()==='exp'?'Ritmo Express: ha deciso il team.':s===2?'Sei il Pilota 2: ha deciso il team.':'Siete alla pari: ha deciso il team.');
+}
+function paceEvnPush(o){
+  S.evn=(S.evn&&!S.evn.k)?S.evn:{l:[]};
+  S.evn.l.push(o);
+  if(S.evn.l.length>3)S.evn.l.shift();
+}
+/* riga sul piano scelto dal muretto */
+function pacePlanTxt(){
+  try{
+    const w=S.wk,s=S.sw,cs=s&&s.cfg&&s.cfg.c;
+    if(!cs||!cs.length)return '';
+    const n=cs.length-1,nm=x=>(typeof TYN!=='undefined'&&TYN[x])?TYN[x]:x;
+    return (n===0?'nessuna sosta':n===1?'1 sosta':n+' soste')+' · '+cs.map(nm).join(' → ');
+  }catch(e){return ''}
+}
+/* il pilota automatico del ritmo: avanza da solo quando non c'è una vera scelta */
+function paceAuto(){
+  if(PA_BUSY||typeof S==='undefined'||!S||!S.phase)return false;
+  const p=paceGet();if(p==='full')return false;
+  if(S.tab&&S.tab!=='decide')return false;   /* chi sta cambiando le impostazioni non viene portato altrove */
+  let n=0,did=false;
+  PA_BUSY=1;
+  try{
+    while(n++<12){
+      const ph=S.phase,key0=paceKey()+'|'+(S.cur||'');
+      let step=false;
+      if(ph==='event'&&S.cur){
+        const e0=EVENTS.find(x=>x.id===S.cur);
+        if(e0&&e0.dev&&paceDevOn()){
+          const e=evOf(),i=paceDevPick(e);
+          PA_AUTO=1;
+          try{act('ev',i)}finally{PA_AUTO=0}
+          if(S.phase==='evres'){paceDevTxt();S.ev.pa=1}
+          step=true;
+        }
+      }else if(ph==='evres'){
+        if(S.ev&&S.cur!=='fin_vigilia'&&String(S.cur).slice(0,3)!=='rs_'&&EVENTS.some(x=>x.id===S.cur)){
+          const e=evOf()||{};
+          paceEvnPush({t:e.t||'',o:S.ev.out||'',i:S.ev.imp?1:0,f:S.ev.fx||{},s:S.ev.sm||null,a:S.ev.pa?1:0});
+          act('next');step=true;
+        }
+      }else if(ph==='qlive'){
+        const w=S.wk;
+        if(w&&w.ql&&w.ql.t==='st'&&!w.ql.fin){act('exn');step=true}
+      }else if(p==='exp'&&ph==='quali'&&S.wk&&!S.wk.grid&&!(!S.wk.pm&&typeof puCard==='function'&&puCard(S.wk))){
+        /* se c'è da decidere sul motore (power unit) il gioco si ferma: è una scelta vera, con penalità */
+        const w=S.wk;
+        act('qauto');
+        if(S.phase!=='quali'){
+          step=true;
+          paceEvnPush({t:'Il muretto ha gestito la qualifica',o:'Partirai da <b>P'+w.gp+'</b>'+(w.pn?' (con '+w.pn+' posizioni di penalità)':'')+'.',i:0,f:{},s:null,a:1,q:1});
+        }
+      }else if(p==='exp'&&ph==='strat'&&S.wk){
+        act('badv');act('bok');
+        if(S.phase!=='strat'){
+          step=true;
+          const t=pacePlanTxt();
+          if(S.evn&&S.evn.l&&S.evn.l.length&&S.evn.l[S.evn.l.length-1].q&&t){
+            const q=S.evn.l[S.evn.l.length-1];q.t='Il muretto ha gestito qualifica e strategia';q.o+=' Piano di gara: '+t+'.';
+          }else if(t){
+            paceEvnPush({t:'Il muretto ha scelto la strategia',o:'Piano di gara: '+t+'.',i:0,f:{},s:null,a:1,q:1});
+          }
+        }
+      }
+      if(!step)break;
+      did=true;
+      if(S.phase===ph&&paceKey()+'|'+(S.cur||'')===key0)break;   /* nessun progresso: ci si ferma */
+    }
+    if(did&&S.evn&&!S.evn.k)S.evn.k=paceKey();
+    if(did)save();
+  }finally{PA_BUSY=0}
+  return did;
+}
+/* il team ha già deciso: nessuna traccia nelle abitudini del pilota */
+{const _i=indFromEv;indFromEv=function(i){if(PA_AUTO)return;return _i.apply(this,arguments)}}
+/* qualifica a eliminazione: il riepilogo della sessione precedente sta sopra la scelta successiva */
+function paceRecap(w){
+  try{
+    if(paceGet()==='full')return '';
+    const ex=w.ex,r=ex&&ex.res&&ex.res[ex.res.length-1];
+    if(!r||r.s>=2||r.s!==ex.s-1)return '';
+    const mi=r.rows.find(x=>x.me);if(!mi)return '';
+    const m=mi.g===r.keep?' per un soffio':'';
+    return `<div class="qsl pcrc"><b style="color:var(--green-t,var(--green))">Q${r.s+1} superata</b>${m} · P${mi.g}, il taglio era alla posizione ${r.keep}.</div><details class="card pcrd"><summary>Classifica Q${r.s+1}</summary>${qlBoard(r.rows,null,r.keep)}</details>`;
+  }catch(e){return ''}
+}
+{const _ev=exView;exView=function(){
+  const h=_ev.apply(this,arguments);
+  try{
+    const rc=typeof h==='string'?paceRecap(S.wk):'';
+    if(rc){const k=h.indexOf('</p></div>');if(k>0)return h.slice(0,k+10)+rc+h.slice(k+10)}
+  }catch(e){}
+  return h;
+}}
+/* scheda in Pilota → Partita */
+function paceCard(){
+  const p=paceGet();
+  const b=(v,t)=>`<button class="ghost${p===v?' on':''}" data-act="pace" data-v="${v}">${t}</button>`;
+  const d={
+    full:'Tutte le schermate e tutte le scelte, come sempre.',
+    ess:'Meno passaggi: l\'esito di un evento compare nella schermata dopo, la qualifica a eliminazione va avanti da sola fra una sessione e l\'altra e il piano del giro resta Equilibrato. Se non sei il Pilota 1, gli aggiornamenti li decide il team.',
+    exp:'Come Snello, ma qualifica e strategia le gestisce il muretto e gli aggiornamenti li decide sempre il team. Restano gli eventi, le scelte di gara e gli ordini di scuderia.'}[p];
+  return `<section class="card pcc"><div class="sech">Ritmo di gioco</div><div class="btns">${b('full','Completo')}${b('ess','Snello')}${b('exp','Express')}</div><p class="sub">${d}</p></section>`;
+}
+{const _pv=panelView;panelView=function(){
+  let h=_pv.apply(this,arguments);
+  try{
+    if(typeof h==='string'){
+      const k='<section class="card"><div class="sech">Interfaccia</div>',i=h.indexOf(k);
+      if(i>=0)h=h.slice(0,i)+paceCard()+h.slice(i);
+    }
+  }catch(e){}
+  return h;
+}}
+/* azioni: cambio ritmo e avviso iniziale */
+{const _a=act;act=function(a,i,v){
+  if(a==='pace'){paceSet(v);KP=true;render();return}
+  if(a==='pcn'){try{localStorage.setItem('gdp_pace_note','1')}catch(e){}PCN_DONE=1;KP=true;render();return}
+  return _a.apply(this,arguments);
+}}
+/* ciò che è appena successo, in cima alla schermata successiva */
+function paceBannerPost(){
+  if(typeof document==='undefined'||typeof document.getElementById!=='function')return;
+  const app=document.getElementById('app');
+  if(!app||typeof app.querySelector!=='function')return;
+  try{document.body.classList.toggle('pc-ess',paceGet()==='ess');document.body.classList.toggle('pc-exp',paceGet()==='exp')}catch(e){}
+  app.querySelectorAll('.pcev,.pcn').forEach(x=>x.remove());
+  if(!S||!S.phase)return;
+  let html='';
+  if(S.evn&&S.evn.l&&S.evn.l.length&&S.phase!=='evres'){
+    html+=S.evn.l.map(x=>`<div class="pcev"><div class="pct">${x.a?(x.q?'':'Il team ha deciso · '):''}${x.t}</div><p>${x.o}</p>${x.f&&Object.keys(x.f).length?chips(x.f):''}${x.s&&x.s.left?`<p class="sub">Effetto in corso: ${x.s.mod>0?'+':''}${x.s.mod} al passo per ${x.s.left} weekend.</p>`:''}</div>`).join('');
+  }
+  if(paceGet()==='ess'&&!PCN_DONE&&['event','fp','quali','strat','act'].includes(S.phase)){
+    let seen=false;try{seen=localStorage.getItem('gdp_pace_note')==='1'}catch(e){seen=true}
+    if(!seen)html+=`<div class="pcn"><span><b>Nuovo: ritmo di gioco.</b> Il gioco è più snello. Per rivedere tutte le schermate: Pilota → Partita → Completo.</span><button class="ghost" data-act="pcn">Ho capito</button></div>`;
+  }
+  if(!html)return;
+  const ph=app.querySelector('.ph');
+  if(ph&&ph.parentNode)ph.insertAdjacentHTML('beforebegin',html);
+  else{const pn=app.querySelector('.pane')||app;pn.insertAdjacentHTML('afterbegin',html)}
+}
+{const _r=render;render=function(){
+  if(PA_BUSY)return;
+  try{paceAuto()}catch(e){PA_BUSY=0;try{console.error('pace',e)}catch(_){}}
+  /* l'esito resta in vista solo finché la schermata è quella: alla prima azione sparisce */
+  try{if(S&&S.evn&&S.evn.k&&S.evn.k!==paceKey())delete S.evn}catch(e){}
+  const r=_r.apply(this,arguments);
+  try{paceBannerPost()}catch(e){}
+  return r;
+}}
+(function(){
+  try{
+    if(typeof document==='undefined'||typeof document.createElement!=='function'||document.getElementById('uxe8e'))return;
+    const s=document.createElement('style');s.id='uxe8e';
+    s.textContent=`
+body.pc-ess .qdc,body.pc-exp .qdc,body.pc-ess .qdw,body.pc-exp .qdw{display:none!important}
+.pcev{background:var(--panel);border-radius:var(--r2);box-shadow:var(--shadow);padding:11px 14px;margin:0 0 12px;border-left:3px solid var(--yellow)}
+.pcev+.pcev{margin-top:-4px}
+.pcev .pct{font:650 12.5px var(--body);color:var(--mut);margin:0 0 2px}
+.pcev p{margin:0 0 4px;font-size:14px;line-height:1.42}
+.pcev .chips{margin:4px 0 0}
+.pcev .chips:empty{display:none}
+.pcn{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--soft);border-radius:var(--r3);padding:9px 12px;margin:0 0 10px;font-size:13px;line-height:1.38;color:var(--fg)}
+.pcn .ghost{flex:none;min-height:36px;padding:0 12px}
+.pane.dec>.pcev,.pane.dec>.pcn{order:1}
+.pane.dec>.pcrc{order:4}
+.pane.dec>.pcrd{order:5}
+.pcrc{margin:0 0 8px}
+.pcrd{margin:0 0 10px}
+.pcrd>summary{cursor:pointer;font:650 14px var(--body);min-height:40px;display:flex;align-items:center}
+`;
+    (document.body||document.documentElement).appendChild(s);
+  }catch(e){}
+})();
 render();
 document.addEventListener('click',e=>{if(VIBON&&e.target.closest('[data-act],.nv')&&navigator.vibrate)try{navigator.vibrate(8)}catch(_){}} ,true);
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
